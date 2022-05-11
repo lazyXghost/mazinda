@@ -54,7 +54,7 @@ app.use(
 );
 
 // set template view engine
-app.set("views", "./templates");
+app.set("views", "./routes");
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/static"));
@@ -116,12 +116,9 @@ app.get("/profile", authCheck, async (req, res) => {
     });
 });
 
-// app.get("/team", (req, res) => {
-//     res.render("team", {
-//         user: req.session.user,
-//         authenticated: req.isAuthenticated(),
-//     });
-// });
+app.get("/admin", (req, res) => {
+    res.render("/admin/home");
+});
 
 // app.get("/events", async (req, res) => {
 //     var eventTable = require("./models/Events");

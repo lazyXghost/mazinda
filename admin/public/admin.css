@@ -1,0 +1,86 @@
+*, html, body, h1, h2, h3, h4, h5, h6, p{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    height: 50px;
+    background-color: rgb(43, 10, 75);
+}
+
+.navcover{
+    display: flex;
+    flex: row;
+    justify-content: space-between;
+    margin: auto;
+    padding-top: 10px;
+    font-size: 24px;
+    color: white;
+}
+#overlay{
+    background-color: rgb(43, 10, 75);
+    position: absolute;
+    width: 100vw;
+    top: 51px;
+    display: none;
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
+
+.cover{
+    width: 80%;
+    margin: auto;
+}
+.main-box .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.container i{
+    font-size: 62px;
+    display: block;
+    text-align: center;
+    padding: 10px;
+
+}
+
+.main-box .container div{
+    width: 40%;
+    min-width: 200px;
+    background-color: rgb(5, 20, 53);
+    margin: 10px 0px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.main-box .container h3{
+    text-align: center;
+}
+
+.main-box .container .number{
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+    width: 100%;
+    padding: 0px;
+    padding-top: 20px;
+    color: wheat;
+}
+.main-box{
+    margin: auto;
+}
+#overlay li{
+    color: white;
+    font-size: 22px;
+    margin-top: 10px;
+}
