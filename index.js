@@ -1,5 +1,5 @@
 const express = require("express");
-const port = process.env.PORT || 8000;
+const port = 8000;
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -107,6 +107,21 @@ app.get("/", (req, res) => {
     });
 });
 
+// app.get("/adminLogin",(req,res) => {
+//     if(req.session.user == null){
+//         user = {
+//             status:0,
+//         };
+//         req.session.user = user;
+
+//         // adminloginPage
+//         res.render("adminpage", {
+//             authenticated: req.isAuthenticated(),
+//             user: req.session.user,
+//         });
+//     }
+// });
+
 app.get("/profile", authCheck, async (req, res) => {
     const context = await allEventDetails(req);
     res.render("profile", {
@@ -169,7 +184,6 @@ app.post("/adminauth", (req, res) => {
         res.redirect("/adminlogin");
     }
 });
-
                                             
 app.listen(port, (err) => {
     if (err) throw err;
