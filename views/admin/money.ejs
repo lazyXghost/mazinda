@@ -1,0 +1,81 @@
+<%- include('partials/header') %>
+
+    <header class="">
+        <div class="cover header">
+            Orders Info
+        </div>
+        <div class="cover header">
+            <form action="">
+                <label for="type">Type:</label>
+                <select name="type" id="type">
+                  <option value="Accepted">Accepted</option>
+                  <option value="Rejected">Returned</option>
+                </select>
+            </form>
+        </div>
+    </header>
+
+
+    <div class="list">
+        <div class="cover">
+            <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th >Serial Number</th>
+                          <th >Product Name</th>
+                          <th >Category</th>
+                          <th >Seller</th>
+                          <th >Sold To</th>
+                          <th>Price</th>
+                          <th >Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th >1</th>
+                          <td>Amul Suddh Desi Ghee</td>
+                          <td>Groceries</td>
+                          <td>Ram Kirana Stores</td>
+                          <td>Sandeep</td>
+                          <td>70</td>
+                          <td>
+                            <button type="button" class="green"><i class="fas fa-check"></i></button>
+                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                            <th >1</th>
+                            <td>Kacchi Ghani Badam Oil</td>
+                            <td>Groceries</td>
+                            <td>Ram Kirana Stores</td>\
+                            <td>Pawan Singh</td>
+                            <td>298</td>
+                            <td>
+                              <button type="button" class="green"><i class="fas fa-check"></i></button>
+                            <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                            </td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+
+    <header class="">
+        <div class="cover header" style="display: flex; justify-content: space-between;">
+            <div>
+                Total Amount: 83737
+            </div>
+            <div>
+                Total Paid: 78933
+            </div>
+        </div>
+    </header>
+
+<%- include('partials/footer') %>

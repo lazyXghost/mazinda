@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+
+<header>
+    <div class="cover header">
+        <h3>Add New Coupon</h3>
+    </div>
+</header>
+
+<form action="" class="cover">
+    <div class="container">
+        <input type="text" placeholder="Enter Coupon String">
+        <input type="text" placeholder="Enter Discount Info">
+        <br><br>
+        Applied On:<br>
+        <input type="checkbox"> Electronics<br>
+        <input type="checkbox"> Groceries<br>
+        <input type="checkbox"> Clothes<br>
+        <br><br>
+        <button>Submit</button>
+    </div>
+</form>
+
+<header>
+    <div class="cover header">
+        <h3>Coupon History</h3>
+    </div>
+</header>
+<div class="list">
+    <div class="cover">
+        <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th >Serial Number</th>
+                      <th >Coupon Code</th>
+                      <th >Discount</th>
+                      <th>Manage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th >1</th>
+                      <td>Cristina</td>
+                      <td>2.846</td>
+                      <td>
+                        <button type="button" class="green"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th >2</th>
+                      <td>Cristina</td>
+                      <td>3.417</td>
+                      <td>
+                        <button type="button" class="green"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th >3</th>
+                      <td>Cristina</td>
+                      <td>1.234</td>
+                      <td>
+                        <button type="button" class="green"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+
+<%- include('partials/footer') %>
