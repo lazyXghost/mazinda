@@ -54,7 +54,7 @@ app.use(
 );
 
 // set template view engine
-app.set("views", "./routes");
+app.set("views", "./views");
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/static"));
@@ -130,11 +130,62 @@ app.get("/profile", authCheck, async (req, res) => {
         ...context,
     });
 });
-
 app.get("/admin", (req, res) => {
-    res.render("/admin/home");
+    res.render("admin/home");
 });
 
+app.get("/admin/store", (req, res) => {
+    console.log("working");
+    res.render("admin/store");
+});
+
+app.get("/admin/coupon", (req, res) => {
+    res.render("admin/coupon");
+})
+app.get("/admin/category", (req, res)=>{
+    res.render("admin/category");
+})
+app.get("/admin/products", (req, res)=>{
+    res.render("admin/products");
+})
+
+app.get("/admin/money", (req, res)=>{
+   
+    res.render("admin/money");
+})
+
+app.get("/admin/addstore", (req, res)=>{
+    console.log("working");
+    res.render("admin/addstore");
+})
+app.get("/store", (req, res) => {
+    console.log("working");
+    res.render("store/login");
+});
+app.get("/store/dashboard", (req, res) => {
+    console.log("working");
+    res.render("store/dashboard");
+});
+app.get("/store/register", (req, res) => {
+    console.log("working");
+    res.render("store/register");
+});
+app.get("/store/contact", (req, res) => {
+    console.log("working");
+    res.render("store/contact");
+});
+app.get("/store/products", (req, res) => {
+    console.log("working");
+    res.render("store/products");
+});
+app.get("/store/faqs", (req, res) => {
+    console.log("working");
+    res.render("store/faq");
+});
+app.get("/store/profile", (req, res) => {
+    console.log("working");
+    res.render("store/profile");
+});
 // app.get("/events", async (req, res) => {
 //     var eventTable = require("./models/Events");
 //     const allEvents = await eventTable.find({}).lean();
