@@ -35,7 +35,15 @@ const ItemSchema = new mongoose.Schema({
     },
     salePrice: {
         type:Number
+    },
+    quantity: {
+        type:Number,
+        required:true,
+    },
+    description: {
+        type:String,
+        required: true,
     }
 });
 
-module.exports = mongoose.model("UserDetails", UserSchema);
+module.exports = mongoose.model("ItemDetails", ItemSchema);
