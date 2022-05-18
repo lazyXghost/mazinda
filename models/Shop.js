@@ -9,16 +9,15 @@ const ShopSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    sellerID: {
-        type:string,
-        unique:true,
-        required:true
+    email: {
+        type:String,
+        required: true,
+    },
+    password: {
+        type:String,
+        required: true,
     },
     sellerName:{
-        type:String,
-        required:true
-    },
-    password:{
         type:String,
         required:true
     },
@@ -26,9 +25,9 @@ const ShopSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    email: {
-        type:String,
-        required:true
+    whatsappNumber: {
+        type:Number,
+        required:true,
     },
     address: {
         House:{
@@ -44,10 +43,22 @@ const ShopSchema = new mongoose.Schema({
         required: true
         }
     },
+    pincode: {
+        type:Number,
+        required:true
+    },
     city: {
         type:String,
         required:true
+    },
+    state: {
+        type:String,
+        required:true
+    },
+    category: {
+        type:String,
+        required:true,
     }
 });
 
-module.exports = mongoose.model("UserDetails", UserSchema);
+module.exports = mongoose.model("ShopDetails", ShopSchema);

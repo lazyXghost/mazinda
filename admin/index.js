@@ -1,5 +1,5 @@
 const express = require("express");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const app=express()
 
 // set template view engine
@@ -13,6 +13,7 @@ app.get("/admin", (req, res) => {
 });
 
 app.get("/admin/store", (req, res) => {
+    console.log("working");
     res.render("admin/store");
 });
 
@@ -27,13 +28,18 @@ app.get("/admin/products", (req, res)=>{
 })
 
 app.get("/admin/money", (req, res)=>{
+   
     res.render("admin/money");
 })
 
 app.get("/admin/addstore", (req, res)=>{
+    console.log("working");
     res.render("admin/addstore");
 })
-
+app.get("/store", (req, res) => {
+    console.log("working");
+    res.render("store/login");
+});
 
 app.listen(port, (err) => {
     if (err) throw err;
