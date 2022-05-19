@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
 const LocationSchema = new mongoose.Schema({
-    // googleId: {
-    //     type: String,
-    //     required: true,
-    // },
-    place: {
+    city: {
         type: String,
         required: true,
     },
@@ -19,4 +15,4 @@ const LocationSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("LocationDetails", LocationSchema);
+module.exports = mongoose.model("Locations", LocationSchema);
