@@ -9,9 +9,12 @@
             <form action="">
                 <label for="city">City:</label>
                 <select name="city" id="city">
-                  <option value="Indore">Indore</option>
+                  <% for(var i=0; i < cities.length; i++) {%>
+                    <option value="<%= cities[i] %>"><%= cities[i] %></option>
+                  <% } %>
+                  <!-- <option value="Indore">Indore</option>
                   <option value="Delhi">Delhi</option>
-                  <option value="Mumbai">Mumbai</option>
+                  <option value="Mumbai">Mumbai</option> -->
                 </select>
             </form>
         </div>
@@ -26,23 +29,25 @@
                       <thead>
                         <tr>
                           <th >Serial Number</th>
-                          <th >Article Name</th>
-                          <th >Author</th>
-                          <th >Shares</th>
+                          <th >Shop Name</th>
+                          <th >Owner Name</th>
+                          <th >Pincode</th>
                           <th >Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th >1</th>
-                          <td>Bootstrap 4 CDN and Starter Template</td>
-                          <td>Cristina</td>
-                          <td>2.846</td>
-                          <td>
-                            <button type="button" class="green"><i class="fas fa-check"></i></button>
-                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
+                        <% for(var i=0;i< products.length;i++) {%>
+                          <tr>
+                            <th > <%=(i+1) %> </th>
+                            <td><%= products[i].name %></td>
+                            <td><%= products[i].ownerName %></td>
+                            <td><%= products[i].pincode %></td>
+                            <td>
+                              <button type="button" class="green"><i class="fas fa-check"></i></button>
+                            <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                            </td>
+                          </tr>
+                          <% }%>
                         <tr>
                           <th >2</th>
                           <td>Bootstrap Grid 4 Tutorial and Examples</td>
@@ -96,18 +101,21 @@
                       <thead>
                         <tr>
                           <th >Serial Number</th>
-                          <th >Article Name</th>
-                          <th >Author</th>
-                          <th >Shares</th>
+                          <th >Shop Name</th>
+                          <th >Owner Name</th>
+                          <th >Pincode</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th >1</th>
-                          <td>Bootstrap 4 CDN and Starter Template</td>
-                          <td>Cristina</td>
-                          <td>2.846</td>
-                        </tr>
+                        <% for(let i=0;i < rejected.length;i++) { %>
+                          <tr>
+                            <th><%= (i+1) %></th>
+                            <td><%= rejected[i].name %></td>
+                            <td><%= rejected[i].ownerName %></td>
+                            <td><%= rejected[i].pincode %></td>
+                          </tr>
+                        <% } %>
+                        
                         <tr>
                           <th >2</th>
                           <td>Bootstrap Grid 4 Tutorial and Examples</td>

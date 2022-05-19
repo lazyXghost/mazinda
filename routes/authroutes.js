@@ -1,10 +1,90 @@
 const router = require("express").Router();
 const passport = require("passport");
+const {authCheck,userLoggedIn} = require("../middleware/auth");
+const {register} = require("../utils");
 
 // auth login
-router.get("/login", (req, res) => {
-    res.render("login", { authenticated: req.isAuthenticated(), user: req.session.user });
+router.get("/login",userLoggedIn, (req, res) => {
+    res.render("user/login");
 });
+
+router.get("/" , (req, res) => {
+    res.render("user/home",{
+        authenticated: req.isAuthenticated(),
+        user: req.user,
+    });
+});
+
+// requests for register and login
+router.get("/register",userLoggedIn,(req,res) => {
+    res.render("user/register");
+});
+
+router.post("/register",register);
+
+router.get("/login",userLoggedIn,(req,res)=>{
+    res.render("user/login");
+});
+
+router.post("/login",passport.authenticate('local',{
+    successRedirect: "/user/home",
+    failureRedirect: "/user/login",
+}));
+
+router.get("/home",(req,res)=> {
+    res.render("user/home",{
+        authenticated:req.isAuthenticated(),
+        user:req.user
+    });
+});
+
+router.get("/contact", (req, res) => {
+    res.render("store/contact");
+});
+
+router.get("/products",authCheck , (req, res) => {
+    res.render("store/products",{
+        authenticated: req.isAuthenticated(),
+        user: req.user,
+    });
+});
+
+router.get("/faqs", (req, res) => {
+    res.render("user/faq");
+});
+
+router.get("/profile",authCheck, (req, res) => {
+    res.render("user/profile",{
+        authenticated: req.isAuthenticated(),
+        user: req.user,
+        token:req.body.token
+    });
+});
+
+router.delete("/logout",(req,res) => {
+    req.logOut();
+    req.session.user = null;
+    res.redirect("/login");
+    console.log("User has been successfully logged out");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // auth logout
 router.get("/logout", (req, res) => {
@@ -14,30 +94,6 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
 });
 
-// auth with google+
-// router.get(
-//     "/google",
-//     passport.authenticate("google", { scope: ["profile", "email"] })
-// );
 
-// // callback route for google to redirect to
-// // hand control to passport to use code to grab profile info
-// router.get(
-//     "/google/callback",
-//     passport.authenticate("google", { failureRedirect: "/error" }),
-//     function (req, res) {
-//         // console.log('req.user') // user info
-//         // Successful authentication, redirect success.
-//         if (process.env.NODE_ENV == "development") {
-//             // console.log("dev = ", req.headers.host);
-//             // console.log("dev url = ", req.url);
-//             res.redirect("/profile");
-//         } else if (process.env.NODE_ENV == "production") {
-//             res.redirect(`https://${req.headers.host}/profile`);
-//         } else {
-//             res.redirect("/profile");
-//         }
-//     }
-// );
 
 module.exports = router;

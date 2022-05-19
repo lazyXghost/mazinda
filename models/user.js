@@ -1,27 +1,20 @@
 const mongoose = require("mongoose");
+const { stringify } = require("nodemon/lib/utils");
 
-const OrderSchema = new mongoose.Schema({
-    userID:{
+const UserSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
     },
-    orderTime: {
-        type:Date,
-        default:Date.now(),
+    email: {
+        type: String,
+        required: true,
     },
-    productsID: [
-        {
-            productID: {
-                type: String,
-                unique: true,
-            },
-        },
-    ],
-    orderNumber: {
+    phoneNumber: {
         type: Number,
         required: true,
     },
-    shippingAddress: {
+    address: {
         house:{
             type: String,
             required: true
@@ -34,12 +27,12 @@ const OrderSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        pincode: {
-            type:Number,
-            required:true
-        },
         city: {
             type:String,
+            required:true
+        },
+        pincode: {
+            type:Number,
             required:true
         },
         state: {
@@ -47,7 +40,6 @@ const OrderSchema = new mongoose.Schema({
             required:true
         }
     },
-    // every quantity has a name , quantity and price associated with it.
 });
 
-module.exports = mongoose.model("Orders", OrderSchema);
+module.exports = mongoose.model("Users", UserSchema);
