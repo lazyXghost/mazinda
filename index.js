@@ -11,7 +11,7 @@ const adminRoutes = require("./routes/adminroutes");
 const storeRoutes = require("./routes/storeroutes");
 
 const {authCheck} = require("./middleware/auth");
-const {login} = require("./utils")
+const {userLogin,adminLogin,shopLogin} = require("./utils")
 const connectDB = require("./config/db");
 
 // ------------- ENV FILE, DATABASE CONNECTION -----------
@@ -52,19 +52,16 @@ app.use(
         store: MongoStore.create({ mongoUrl: process.env.MONGO_DATABASE_URI }),
     })
 );
-
-// Passport middleware
 app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new localStrategy ({usernameField:"email",passwordField:"password"},login));
-
+app.use(passport.session()); // req.session.passport -> undefined.
+passport.use('user-local', new localStrategy ({usernameField:"phoneno",passwordField:"password"},userLogin));
+passport.use('shop-local', new localStrategy ({usernameField:"email",passwordField:"password"},shopLogin));
+passport.use('admin-local', new localStrategy ({usernameField:"username",passwordField:"password"},adminLogin));
 passport.serializeUser( (userObj,done) => {
     done(null,userObj);
 });
-
 passport.deserializeUser( (userObj,done) => {
-    done(null,userObj);
+    done(null,userObj); 
 })
 
 // --------------------  ROUTES SETUP -----------------------
@@ -103,9 +100,12 @@ app.get("/error", (req, res) =>
     })
 );
 
-app.delete("/logout",(req,res) => {
+app.get("/logout",(req,res) => {
+    console.log("Logout ka chutiyapa");
+    console.log(req.user);
+    console.log(req.session);
     req.logOut();
-    req.session.userr = null;
+    req.session.user = false;
     res.redirect("/");
 });
 

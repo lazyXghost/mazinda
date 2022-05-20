@@ -9,9 +9,9 @@
             <form action="">
                 <label for="city">City:</label>
                 <select name="city" id="city">
-                  <option value="Indore">Indore</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Mumbai">Mumbai</option>
+                  <% for(let i=0;i < cities.length;i++) { %>
+                    <option value="<%= cities[i] %>"><%= cities[i] %></option>
+                  <% } %>
                 </select>
             </form>
         </div>
@@ -29,11 +29,21 @@
                           <th >Product Name</th>
                           <th >Category</th>
                           <th >Seller</th>
+                          <th>MRP</th>
+                          <th>CostPrice</th>
                           <th >Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <% for(let i=-2;i < products.length;i++) { %>
+                          <tr>
+                          <th ><%= (i+1) %></th>
+                          <td><%= products[i].name %></td>
+                          <td><%= categoryDict[products[i].categoryID] %></td>
+                          <td><%= shopDict[products[i].shopID] %></td>
+                          <td><%= products[i].mrp %></td>
+                          <td><%= products[i].salePrice %></td>
+                          <td>
                           <th >1</th>
                           <td>Amul Suddh Desi Ghee</td>
                           <td>Groceries</td>
@@ -43,6 +53,7 @@
                           <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
                           </td>
                         </tr>
+                        <% } %>
                         <tr>
                             <th >1</th>
                             <td>Kacchi Ghani Badam Oil</td>

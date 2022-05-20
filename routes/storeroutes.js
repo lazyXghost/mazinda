@@ -16,7 +16,7 @@ router.get("/login", shopLoggedIn, (req, res) => {
 
 router.post(
   "/login",
-  passport.authenticate("local", {
+  passport.authenticate("shop-local", {
     successRedirect: "/store/dashboard",
     failureRedirect: "/store/login",
   })
@@ -32,6 +32,9 @@ router.get("/", shopCheck, (req, res) => {
 });
 
 router.get("/dashboard", shopCheck, (req, res) => {
+  console.log("Dashboard ka chutiyapa");
+  console.log(req.user);
+  console.log(req.session);
   res.render("store/dashboard");
 });
 
@@ -63,7 +66,6 @@ router.get("/faqs", (req, res) => {
 router.delete("/logout", (req, res) => {
   req.logOut();
   res.redirect("/login");
-  console.log("User has been successfully logged out");
 });
 
 module.exports = router;

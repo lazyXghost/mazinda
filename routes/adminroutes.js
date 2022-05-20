@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { adminCheck,adminLoggedIn } = require("../middleware/auth");
+const { getLocations,getProducts } = require("../utils");
 
 // app.get("/adminLogin",(req,res) => {
 //     if(req.session.user == null){
@@ -23,7 +24,7 @@ router.get("/", adminCheck, async (req, res) => {
     });
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", adminLoggedIn,(req, res) => {
     req.session.admin == "0";
     res.render("admin/login");
 });
@@ -78,24 +79,23 @@ router.get("/category",adminCheck , (req, res)=>{
         user: req.user,
         authenticated: req.isAuthenticated(),
     });
-})
-router.get("/products", adminCheck, (req, res)=>{
-    res.render("admin/products", {
+});
+
+router.get("/addCategory",adminCheck , (req, res)=>{
+    res.render("admin/category", {
         user: req.user,
         authenticated: req.isAuthenticated(),
     });
-})
+});
+
+router.get("/products", adminCheck, getProducts);
+
 router.get("/money", adminCheck,(req, res)=>{ 
     res.render("admin/money", {
         user: req.user,
         authenticated: req.isAuthenticated(),
     });
 })
-router.get("/addstore", adminCheck, (req, res)=>{
-    res.render("admin/addstore", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
-})
+router.get("/addstore", adminCheck, getLocations);  
 
 module.exports = router;
