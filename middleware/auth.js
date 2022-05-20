@@ -19,6 +19,9 @@ module.exports = {
   },
 
   shopCheck: function (req, res, next) {
+    console.log("Shop check ka chutiyapa");
+    console.log(req.user);
+    console.log(req.session);
     if (!req.user) {
       res.redirect("/store/login");
     } else {
@@ -27,15 +30,16 @@ module.exports = {
     }
   },
 
-  shopLoggedIn:(req,res,next) => {
+  shopLoggedIn: function(req,res,next){
     if(req.user) {
         req.session.user = req.user;
         return res.redirect("/store/dashboard");
     }
-    next();
+    return next();
   },
 
   adminCheck: function (req, res, next) {
+    return next();
     if (!req.user) {
       res.redirect("/admin/login");
     } else {
@@ -46,8 +50,9 @@ module.exports = {
 
   adminLoggedIn:(req,res,next) => {
     if(req.user) {
+        console.log(req.user);
         req.session.user = req.user;
-        return res.redirect("/admin/dashboard");
+        return res.redirect("/admin/home");
     }
     next();
   },
