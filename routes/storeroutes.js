@@ -32,9 +32,9 @@ router.get("/", shopCheck, (req, res) => {
 });
 
 router.get("/dashboard", shopCheck, (req, res) => {
-  console.log("Dashboard ka chutiyapa");
-  console.log(req.user);
-  console.log(req.session);
+  // console.log("Dashboard ka chutiyapa");
+  // console.log(req.user);
+  // console.log(req.session);
   res.render("store/dashboard");
 });
 

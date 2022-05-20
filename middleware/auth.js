@@ -2,7 +2,9 @@ const shopTable = require("../models/shop")
 
 module.exports = {
   authCheck: function (req, res, next) {
-    if (!req.user) {
+    // console.log("auth check ka chutiyapa");
+    // console.log(req.user);
+    if (!req.user || req.user.status != 'user') {
       res.redirect("/auth/login");
     } else {
       req.session.user = req.user;
@@ -11,7 +13,7 @@ module.exports = {
   },
 
   userLoggedIn:(req,res,next) => {
-    if(req.user) {
+    if(req.user && req.user.status == 'user') {
         req.session.user = req.user;
         return res.redirect("/store/dashboard");
     }
@@ -19,10 +21,10 @@ module.exports = {
   },
 
   shopCheck: function (req, res, next) {
-    console.log("Shop check ka chutiyapa");
-    console.log(req.user);
-    console.log(req.session);
-    if (!req.user) {
+    // console.log("Shop check ka chutiyapa");
+    // console.log(req.user);
+    // console.log(req.session);
+    if (!req.user || req.user.status != 'shop') {
       res.redirect("/store/login");
     } else {
       req.session.user = req.user;
@@ -31,7 +33,7 @@ module.exports = {
   },
 
   shopLoggedIn: function(req,res,next){
-    if(req.user) {
+    if(req.user && req.user.status == 'shop') {
         req.session.user = req.user;
         return res.redirect("/store/dashboard");
     }
@@ -39,8 +41,8 @@ module.exports = {
   },
 
   adminCheck: function (req, res, next) {
-    return next();
-    if (!req.user) {
+    // return next();
+    if (!req.user || req.user.status != 'admin') {
       res.redirect("/admin/login");
     } else {
       req.session.user = req.user;
@@ -49,10 +51,10 @@ module.exports = {
   },
 
   adminLoggedIn:(req,res,next) => {
-    if(req.user) {
-        console.log(req.user);
+    if(req.user && req.user.status == 'admin') {
+        // console.log(req.user);
         req.session.user = req.user;
-        return res.redirect("/admin/home");
+        return res.redirect("/admin/dashboard");
     }
     next();
   },
