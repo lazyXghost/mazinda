@@ -1,41 +1,18 @@
-const shopTable = require("./models/shop");
+const storeTable = require("./models/store");
 const locationTable = require("./models/location");
 const categoriesTable = require("./models/category");
-const adminTable = require("./models/admin");
 const productTable = require("./models/product");
 const bcrypt = require("bcryptjs");
-const req = require("express/lib/request");
+const passport = require("passport");
 
 module.exports = {
-  shopLogin: async function (email, password, done) {
-    const shop = await shopTable.findOne({ email });
-
-    if (shop && (await bcrypt.compare(password, shop.password))) {
-      return done(null, shop);
-    }
-    return done(null, false);
-  },
-
-  userLogin: async function(phoneNumber,password,done) {
-    const user = await userTable.findOne({phoneNumber:phoneNumber});
-    if(user && (await bcrypt.compare(password,user.compare))) {
-      return done(null,user);
-    }
-    return done(null,false);
-  },
-
-  adminLogin: async function(username,password,done) {
-    // later
-    const admin = await adminTable.findOne({userName:username});
-    if(admin && (await bcrypt.compare(password,admin.password))) {
-      return done(null,admin);
-    }
-    return done(null,false);
-  },
-
-  register: async function (req, res) {
+  storeLogIn: passport.authenticate("store-local", {
+    successRedirect: "/store/dashboard",
+    failureRedirect: "/store/login",
+  }),
+  storeRegister: async function (req, res) {
     const {
-      shopName,
+      storeName,
       email,
       password,
       sellerName,
@@ -48,26 +25,26 @@ module.exports = {
     if (password.length < 8) {
       return res.redirect("/store/register");
     }
-    const oldShop = await shopTable.findOne({ phoneNumber });
+    const oldStore = await storeTable.findOne({ phoneNumber });
 
-    if (oldShop) {
+    if (oldStore) {
       // console.log("User already exists");
       return res.redirect("/store/login");
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    // adding a new shop.
+    // adding a new store.
     const fulladdress = {
       pincode: pincode,
       state: state,
       city: city,
-      shop: "gibberish",
+      store: "gibberish",
       street: "gibberish",
       colony: "gibberish",
     };
-    const shop = await shopTable.create({
-      shopName: shopName,
+    const store = await storeTable.create({
+      storeName: storeName,
       email: email.toLowerCase(),
       password: encryptedPassword,
       sellerName: sellerName,
@@ -75,13 +52,13 @@ module.exports = {
       whatsappNumber: whatsappNumber,
       address: fulladdress,
     });
-    // console.log("created a new shop");
+    // console.log("created a new store");
     res.render("store/login");
   },
 
   addstore:async function(req,res) {
     const {
-      shopName,
+      storeName,
       email,
       password,
       sellerName,
@@ -94,26 +71,26 @@ module.exports = {
     if (password.length < 8) {
       return res.redirect("/admin/addstore");
     }
-    const oldShop = await shopTable.findOne({ phoneNumber });
+    const oldStore = await storeTable.findOne({ phoneNumber });
 
-    if (oldShop) {
+    if (oldStore) {
       // console.log("User already exists");
       return res.redirect("/admin/addstore");
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    // adding a new shop.
+    // adding a new store.
     const fulladdress = {
       pincode: pincode,
       state: state,
       city: city,
-      shop: "gibberish",
+      store: "gibberish",
       street: "gibberish",
       colony: "gibberish",
     };
-    const shop = await shopTable.create({
-      shopName: shopName,
+    const store = await storeTable.create({
+      storeName: storeName,
       email: email.toLowerCase(),
       password: encryptedPassword,
       sellerName: sellerName,
@@ -122,8 +99,8 @@ module.exports = {
       address: fulladdress,
     });
     e.preventdefault();
-    alert("created a new shop successfully");
-    // console.log("created a new shop");
+    alert("created a new store successfully");
+    // console.log("created a new store");
     return;
   },
 
@@ -163,15 +140,15 @@ module.exports = {
 
   getProducts: async function (req,res) {
     const locations = await locationTable.find();
-    const shops = await shopTable.find({city:"IIT Mandi"});
+    const stores = await storeTable.find({city:"IIT Mandi"});
     const categories = await categoriesTable.find();
-    const shopId = Array(shops.length);
-    for(let i=0;i<shops.length;i++){
-      shopId[i] = shops[i]._id;
+    const storeId = Array(stores.length);
+    for(let i=0;i<stores.length;i++){
+      storeId[i] = stores[i]._id;
     }
 
-    const products = await productTable.find({shopID:{"$in":shopId}});
-    const categoryDict = {},shopDict ={};
+    const products = await productTable.find({storeID:{"$in":storeId}});
+    const categoryDict = {},storeDict ={};
     const cities = Array(locations.length); 
     
     // console.log(locations.length);
@@ -182,13 +159,13 @@ module.exports = {
       categoryDict[categories[i]._id] = categories[i].categoryName
     }
 
-    for(let i=0;i < shops.length;i++){
-      shopDict[shops[i]._id] = shops[i].shopName;
+    for(let i=0;i < stores.length;i++){
+      storeDict[stores[i]._id] = stores[i].storeName;
     }
 
     const context = {
       "products":products,
-      "shopDict":shopDict,
+      "storeDict":storeDict,
       "categoryDict":categoryDict,
       "cities":cities
     };
@@ -210,10 +187,8 @@ module.exports = {
       categoryName:categoryName,
     });
     e.preventdefault();
-    alert("created a new shop successfully");
-    // console.log("created a new shop");
+    alert("created a new store successfully");
+    // console.log("created a new store");
     return;
   }
-
-
 };

@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const { adminCheck,adminLoggedIn } = require("../middleware/auth");
 const { getLocations,getProducts } = require("../utils");
-
-// app.get("/adminLogin",(req,res) => {
+const storeTable = require("../models/store");// app.get("/adminLogin",(req,res) => {
 //     if(req.session.user == null){
 //         user = {
 //             status:0,
@@ -41,25 +40,22 @@ router.get("/login", adminLoggedIn,(req, res) => {
 //     }
 // });
 
-router.get("/store", adminCheck, (req, res) => {
+router.get("/store", adminCheck, async (req, res) => {
+    const query = {verified : true};
+    const stores = await storeTable.find(query);
+    console.log(stores) ;
     const context = {
         "cities": ["indore", "IIT mandi","Chandigarh"],
-        "products":[
-            {
-                "name":"Aniket's Shop",
-                "ownerName":"Aniket",
-                "pincode":"175005",
-            }
-        ],
+        "products": stores,
         "rejected":[
             {
-                "name":"Aniket's Shop",
+                "name":"Aniket's Store",
                 "ownerName":"Aniket",
                 "pincode":"175005",
             }
         ],
     }
-
+    
     res.render("admin/store",{
         user :req.user,
         authenticated: req.isAuthenticated(),

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const {authCheck,userLoggedIn} = require("../middleware/auth");
-const {register} = require("../utils");
+const {storeRegister} = require("../utils");
 
 // auth login
 router.get("/login",userLoggedIn, (req, res) => {
@@ -20,7 +20,7 @@ router.get("/register",userLoggedIn,(req,res) => {
     res.render("user/register");
 });
 
-router.post("/register",register);
+router.post("/register",storeRegister);
 
 router.get("/login",userLoggedIn,(req,res)=>{
     res.render("user/login");

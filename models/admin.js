@@ -1,6 +1,4 @@
-const req = require("express/lib/request");
 const mongoose = require("mongoose");
-const { stringify } = require("nodemon/lib/utils");
 
 const AdminSchema = new mongoose.Schema({
     userName: {
@@ -26,5 +24,4 @@ const AdminSchema = new mongoose.Schema({
     }
 });
 
-const Admin =  mongoose.model("Admins", AdminSchema);
-module.exports = Admin;
+module.exports = mongoose.model("Admins", AdminSchema);

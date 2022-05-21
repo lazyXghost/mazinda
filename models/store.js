@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const ShopSchema = new mongoose.Schema({
-    shopName: {
+const StoreSchema = new mongoose.Schema({
+    storeName: {
         type: String,
         required: true,
     },
@@ -26,7 +26,7 @@ const ShopSchema = new mongoose.Schema({
         required:true,
     },
     address: {
-        shop:{
+        store:{
             type: String,
             required: true
         },
@@ -54,9 +54,8 @@ const ShopSchema = new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        default:'shop',
+        default:'store',
     }
 });
 
-const Shop = mongoose.model("Shops", ShopSchema);
-module.exports = Shop
+module.exports = mongoose.model("Stores", StoreSchema);

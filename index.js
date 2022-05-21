@@ -3,7 +3,6 @@ const port = process.env.PORT||8000;
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const localStrategy = require("passport-local").Strategy;
 const MongoStore = require("connect-mongo");
 
 const authRoutes = require("./routes/authroutes");
@@ -11,7 +10,6 @@ const adminRoutes = require("./routes/adminroutes");
 const storeRoutes = require("./routes/storeroutes");
 
 const {authCheck} = require("./middleware/auth");
-const {userLogin,adminLogin,shopLogin} = require("./utils")
 const connectDB = require("./config/db");
 
 // ------------- ENV FILE, DATABASE CONNECTION -----------
@@ -52,17 +50,9 @@ app.use(
         store: MongoStore.create({ mongoUrl: process.env.MONGO_DATABASE_URI }),
     })
 );
+require("./config/passport")(passport);
 app.use(passport.initialize());
-app.use(passport.session()); // req.session.passport -> undefined.
-passport.use('user-local', new localStrategy ({usernameField:"phoneno",passwordField:"password"},userLogin));
-passport.use('shop-local', new localStrategy ({usernameField:"email",passwordField:"password"},shopLogin));
-passport.use('admin-local', new localStrategy ({usernameField:"username",passwordField:"password"},adminLogin));
-passport.serializeUser( (userObj,done) => {
-    done(null,userObj);
-});
-passport.deserializeUser( (userObj,done) => {
-    done(null,userObj); 
-})
+app.use(passport.session());
 
 // --------------------  ROUTES SETUP -----------------------
 app.use("/auth", authRoutes);
@@ -94,18 +84,14 @@ app.get("/error", (req, res) =>
 );
 
 app.get("/logout",(req,res) => {
-    console.log("Logout ka chutiyapa");
-    console.log(req.user);
-    console.log(req.session);
     req.logOut();
-    req.session.user = false;
     res.redirect("/");
 });
 
 app.get("*", function (req, res) {
 	res.status(404).send("<h1>404 NOT FOUND!</h1>");
 });
-   
+
 //  -------------------- PORT SETUP -----------------------------
 app.listen(port, (err) => {
     if (err) throw err;

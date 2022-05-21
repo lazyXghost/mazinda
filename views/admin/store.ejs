@@ -39,35 +39,15 @@
                         <% for(var i=0;i< products.length;i++) {%>
                           <tr>
                             <th > <%=(i+1) %> </th>
-                            <td><%= products[i].name %></td>
-                            <td><%= products[i].ownerName %></td>
-                            <td><%= products[i].pincode %></td>
+                            <td><%= products[i].shopName %></td>
+                            <td><%= products[i].sellerName %></td>
+                            <td><%= products[i].address.pincode %></td>
                             <td>
                               <button type="button" class="green"><i class="fas fa-check"></i></button>
                             <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
                             </td>
                           </tr>
                           <% }%>
-                        <tr>
-                          <th >2</th>
-                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>3.417</td>
-                          <td>
-                            <button type="button" class="green"><i class="fas fa-check"></i></button>
-                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th >3</th>
-                          <td>Bootstrap Flexbox Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>1.234</td>
-                          <td>
-                            <button type="button" class="green"><i class="fas fa-check"></i></button>
-                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
                   </div>
