@@ -1,27 +1,36 @@
 const shopTable = require("./models/shop");
 const locationTable = require("./models/location");
 const categoriesTable = require("./models/category");
+const adminTable = require("./models/admin");
 const productTable = require("./models/product");
 const bcrypt = require("bcryptjs");
+const req = require("express/lib/request");
 
 module.exports = {
   shopLogin: async function (email, password, done) {
     const shop = await shopTable.findOne({ email });
 
     if (shop && (await bcrypt.compare(password, shop.password))) {
-      return done(null, true);
+      return done(null, shop);
     }
     return done(null, false);
   },
 
   userLogin: async function(phoneNumber,password,done) {
-    // later
-    return done(null,true);
+    const user = await userTable.findOne({phoneNumber:phoneNumber});
+    if(user && (await bcrypt.compare(password,user.compare))) {
+      return done(null,user);
+    }
+    return done(null,false);
   },
 
   adminLogin: async function(username,password,done) {
     // later
-    return done(null,true);
+    const admin = await adminTable.findOne({userName:username});
+    if(admin && (await bcrypt.compare(password,admin.password))) {
+      return done(null,admin);
+    }
+    return done(null,false);
   },
 
   register: async function (req, res) {
@@ -42,7 +51,7 @@ module.exports = {
     const oldShop = await shopTable.findOne({ phoneNumber });
 
     if (oldShop) {
-      console.log("User already exists");
+      // console.log("User already exists");
       return res.redirect("/store/login");
     }
 
@@ -66,7 +75,7 @@ module.exports = {
       whatsappNumber: whatsappNumber,
       address: fulladdress,
     });
-    console.log("created a new shop");
+    // console.log("created a new shop");
     res.render("store/login");
   },
 
@@ -88,7 +97,7 @@ module.exports = {
     const oldShop = await shopTable.findOne({ phoneNumber });
 
     if (oldShop) {
-      console.log("User already exists");
+      // console.log("User already exists");
       return res.redirect("/admin/addstore");
     }
 
@@ -114,14 +123,14 @@ module.exports = {
     });
     e.preventdefault();
     alert("created a new shop successfully");
-    console.log("created a new shop");
+    // console.log("created a new shop");
     return;
   },
 
   getLocations: async function(req,res) {
     const locations = await locationTable.find();
     const cities = Array(locations.length),states = Array(locations.length); 
-    console.log(locations.length);
+    // console.log(locations.length);
     for(let i=0;i < locations.length;i++){
       cities[i] = dbObjects[i].city;
       states[i] = dbObjects[i].state;
@@ -130,7 +139,7 @@ module.exports = {
       "cities":cities,
       "states":states,
     }
-    console.log(context);
+    // console.log(context);
     res.render("admin/addstore",{
       user: req.user,
       authenticated: req.isAuthenticated(),
@@ -165,7 +174,7 @@ module.exports = {
     const categoryDict = {},shopDict ={};
     const cities = Array(locations.length); 
     
-    console.log(locations.length);
+    // console.log(locations.length);
     for(let i=0;i < locations.length;i++){
       cities[i] = locations[i].city;
     }
@@ -202,7 +211,7 @@ module.exports = {
     });
     e.preventdefault();
     alert("created a new shop successfully");
-    console.log("created a new shop");
+    // console.log("created a new shop");
     return;
   }
 

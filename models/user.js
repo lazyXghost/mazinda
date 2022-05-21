@@ -40,6 +40,11 @@ const UserSchema = new mongoose.Schema({
             required:true
         }
     },
+    status:{
+        type:String,
+        required:true,
+        default:'user',
+    }
 });
 
 module.exports = mongoose.model("Users", UserSchema);

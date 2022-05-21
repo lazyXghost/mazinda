@@ -71,13 +71,6 @@ app.use("/store", storeRoutes);
 
 
 app.get("/", (req, res) => {
-    if (req.session.user == null) {
-        user = {
-            status: 0,
-        };
-        req.session.user = user;
-    }
-
     res.render("index", {
         authenticated: req.isAuthenticated(),
         user: req.session.user,
