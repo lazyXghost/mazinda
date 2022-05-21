@@ -29,19 +29,19 @@
                       <thead>
                         <tr>
                           <th >Serial Number</th>
-                          <th >Shop Name</th>
+                          <th >Store Name</th>
                           <th >Owner Name</th>
                           <th >Pincode</th>
                           <th >Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% for(var i=0;i< products.length;i++) {%>
+                        <% for(var i=0;i< stores.length;i++) {%>
                           <tr>
                             <th > <%=(i+1) %> </th>
-                            <td><%= products[i].shopName %></td>
-                            <td><%= products[i].sellerName %></td>
-                            <td><%= products[i].address.pincode %></td>
+                            <td><%= stores[i].storeName %></td>
+                            <td><%= stores[i].sellerName %></td>
+                            <td><%= stores[i].address.pincode %></td>
                             <td>
                               <button type="button" class="green"><i class="fas fa-check"></i></button>
                             <button type="button" class="red"><i class="far fa-trash-alt"></i></button>

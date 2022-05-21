@@ -1,20 +1,15 @@
 const router = require("express").Router();
 const { adminCheck,adminLoggedIn } = require("../middleware/auth");
-const { getLocations,getProducts } = require("../utils");
-const storeTable = require("../models/store");// app.get("/adminLogin",(req,res) => {
-//     if(req.session.user == null){
-//         user = {
-//             status:0,
-//         };
-//         req.session.user = user;
+const { adminLogIn, getLocations,getProducts } = require("../utils");
+const storeTable = require("../models/store");
 
-//         // adminloginPage
-//         res.render("adminpage", {
-//             authenticated: req.isAuthenticated(),
-//             user: req.session.user,
-//         });
-//     }
-// });
+// ----- Authentication for Admin -----
+router.get("/login", adminLoggedIn, (req, res) => {
+    res.render("admin/login");
+});
+router.post("/login", adminLogIn);
+
+// ----------- APP ROUTES ---------------
 
 router.get("/", adminCheck, async (req, res) => {
     res.render("admin/home", {
@@ -23,30 +18,13 @@ router.get("/", adminCheck, async (req, res) => {
     });
 });
 
-router.get("/login", adminLoggedIn,(req, res) => {
-    req.session.admin == "0";
-    res.render("admin/login");
-});
-
-// router.post("/auth", (req, res) => {
-//     if (
-//         req.body.email == process.env.ADMINEMAIL &&
-//         req.body.password == process.env.ADMINPASSWORD
-//     ) {
-//         req.session.admin = "1";
-//         res.render("admin/adminoption.ejs");
-//     } else {
-//         res.redirect("/adminlogin");
-//     }
-// });
-
 router.get("/store", adminCheck, async (req, res) => {
     const query = {verified : true};
     const stores = await storeTable.find(query);
     console.log(stores) ;
     const context = {
         "cities": ["indore", "IIT mandi","Chandigarh"],
-        "products": stores,
+        "stores": stores,
         "rejected":[
             {
                 "name":"Aniket's Store",

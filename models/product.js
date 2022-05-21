@@ -40,10 +40,10 @@ const ProductSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    approved: {
-        type: Boolean,
+    status: {
+        type: String,
         required: true,
-        default:false,
+        default:'pending',
     }
 });
 

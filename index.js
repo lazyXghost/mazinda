@@ -5,11 +5,10 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-const authRoutes = require("./routes/authroutes");
+const userRoutes = require("./routes/userroutes");
 const adminRoutes = require("./routes/adminroutes");
 const storeRoutes = require("./routes/storeroutes");
 
-const {authCheck} = require("./middleware/auth");
 const connectDB = require("./config/db");
 
 // ------------- ENV FILE, DATABASE CONNECTION -----------
@@ -55,38 +54,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // --------------------  ROUTES SETUP -----------------------
-app.use("/auth", authRoutes);
+app.use("/", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/store", storeRoutes);
-
-
-app.get("/", (req, res) => {
-    res.render("index", {
-        authenticated: req.isAuthenticated(),
-        user: req.session.user,
-    });
-});
-
-app.get("/profile", authCheck, async (req, res) => {
-    const context = await allEventDetails(req);
-    res.render("profile", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-        ...context,
-    });
-});
-
-app.get("/error", (req, res) =>
-    res.send("error logging in", {
-        authenticated: req.isAuthenticated(),
-        user: req.user,
-    })
-);
-
-app.get("/logout",(req,res) => {
-    req.logOut();
-    res.redirect("/");
-});
 
 app.get("*", function (req, res) {
 	res.status(404).send("<h1>404 NOT FOUND!</h1>");

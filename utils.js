@@ -10,6 +10,10 @@ module.exports = {
     successRedirect: "/store/dashboard",
     failureRedirect: "/store/login",
   }),
+  adminLogIn: passport.authenticate("admin-local", {
+    successRedirect: "/admin/",
+    failureRedirect: "/admin/login",
+  }),
   storeRegister: async function (req, res) {
     const {
       storeName,
@@ -25,10 +29,9 @@ module.exports = {
     if (password.length < 8) {
       return res.redirect("/store/register");
     }
-    const oldStore = await storeTable.findOne({ phoneNumber });
 
+    const oldStore = await storeTable.findOne({ phoneNumber });
     if (oldStore) {
-      // console.log("User already exists");
       return res.redirect("/store/login");
     }
 
@@ -52,7 +55,6 @@ module.exports = {
       whatsappNumber: whatsappNumber,
       address: fulladdress,
     });
-    // console.log("created a new store");
     res.render("store/login");
   },
 

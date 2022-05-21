@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
             required:true
         }
     },
-    status:{
+    userType:{
         type:String,
         required:true,
         default:'user',

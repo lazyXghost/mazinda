@@ -51,10 +51,15 @@ const StoreSchema = new mongoose.Schema({
             required:true
         },
     },
-    status:{
+    userType:{
         type:String,
         required:true,
         default:'store',
+    },
+    status: {
+        type: String,
+        required: true,
+        default: 'pending',
     }
 });
 

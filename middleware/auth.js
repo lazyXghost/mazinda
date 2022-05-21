@@ -1,47 +1,37 @@
 const storeTable = require("../models/store")
 
 module.exports = {
-  authCheck: function (req, res, next) {
-    if (!req.user) {
-      res.redirect("/auth/login");
-    }
-    return next();
-  },
-
   userCheck: function (req, res, next) {
-    if (!req.user || req.user.status != 'user') {
-      return res.redirect("/auth/login");
-    }
-    return next();
+    if(req.user && req.user.userType == 'user')
+      return next();
+    return res.redirect("/login");
   },
   storeCheck: function (req, res, next) {
-    if (!req.user || req.user.status != 'store') {
-      return res.redirect("/store/login");
-    }
-    return next();
+    if(req.user && req.user.userType == 'store' && req.user.status == 'accepted')
+      return next();
+    return res.redirect("/store/login");
   },
   adminCheck: function (req, res, next) {
-    if (!req.user || req.user.status != 'admin') {
-      return res.redirect("/admin/login");
-    }
-    return next();
+    if(req.user && req.user.userType == 'admin')
+      return next();
+    return res.redirect("/admin/login");
   },
 
   userLoggedIn:(req,res,next) => {
-    if(req.user && req.user.status == 'user') {
-      return res.redirect("/store/dashboard");
+    if(req.user && req.user.userType == 'user') {
+      return res.redirect("/");
     }
     next();
   },
   storeLoggedIn: function(req,res,next){
-    if(req.user && req.user.status == 'store') {
+    if(req.user && req.user.userType == 'store' && req.user.approved == 'accepted') {
       return res.redirect("/store/dashboard");
     }
     return next();
   },
   adminLoggedIn:(req,res,next) => {
-    if(req.user && req.user.status == 'admin') {
-      return res.redirect("/admin/dashboard");
+    if(req.user && req.user.userType == 'admin') {
+      return res.redirect("/admin/");
     }
     return next();
   },
