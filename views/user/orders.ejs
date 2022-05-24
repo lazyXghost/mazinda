@@ -1,0 +1,56 @@
+<%- include('partials/header') %> 
+        <div class="container">
+            <link rel="stylesheet" href="/user_UI/css/orders.css">
+            <article class="card">
+                <header class="card-header"> My Orders / Tracking </header>
+                <div class="card-body">
+                    <% for(var i=0;i<orders.length;i++) { %>
+                        <h2><u>ORDER #<%= i+1 %></u></h2>
+                        <h6>Order ID: <%= orders[i]._id %>
+                        </h6>
+                        <h6>Order Number: <%= orders[i].orderNumber %>
+                        </h6>
+                        <h6>Order Time: <%= orders[i].orderTime %>
+                        </h6>
+                        <h6>Order Shipping Address: <%= orders[i].shippingAddress %>
+                        </h6>
+                        <!-- <article class="card">
+                            <div class="card-body row">
+                                <div class="col"> <strong>Estimated Delivery time:</strong> <br>29 nov 2019 </div>
+                                <div class="col"> <strong>Shipping BY:</strong> <br> BLUEDART, | <i class="fa fa-phone"></i> +1598675986 </div>
+                                <div class="col"> <strong>Status:</strong> <br> Picked by the courier </div>
+                                <div class="col"> <strong>Tracking #:</strong> <br> BD045903594059 </div>
+                            </div>
+                        </article> -->
+                        <!-- <div class="track">
+                            <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                            <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                            <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                            <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+                        </div> -->
+                        <hr>
+                        <ul class="row">
+                            <% for(var j=0;j<orders[i].products.length;j++) { %>
+                                <li class="col-md-4">
+                                    <figure class="itemside mb-3">
+                                        <div class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
+                                        <figcaption class="info align-self-center">
+                                            <p class="title">
+                                                Product Id: <%= orders[i].products[j].productID %>
+                                            </p> 
+                                            <span class="text-muted">
+                                                Quantity: <%= orders[i].products[j].quantity %>
+                                            </span>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <% } %>
+                        </ul>
+                        <hr>
+                        <hr>
+                    <% } %>
+                    <a href="/" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to home</a>
+                </div>
+            </article>
+        </div>
+<%- include('partials/footer') %>

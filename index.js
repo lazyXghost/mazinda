@@ -4,6 +4,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const multer = require("multer");
 
 const userRoutes = require("./routes/userroutes");
 const adminRoutes = require("./routes/adminroutes");
@@ -57,7 +58,10 @@ app.use(passport.session());
 app.use("/", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/store", storeRoutes);
-
+app.get("/logout",(req,res) => {
+    req.logOut();
+    res.redirect("/");
+});
 app.get("*", function (req, res) {
 	res.status(404).send("<h1>404 NOT FOUND!</h1>");
 });

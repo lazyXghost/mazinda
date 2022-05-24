@@ -2,16 +2,18 @@
 
 <div class="cover">
     <div class="container">
-        <form action="" id="addStoreByAdmin" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+        <form action="/admin/addStore" method="POST" id="addStoreByAdmin" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <div class="inputs" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <input type="text" placeholder="Shop Name" required>
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <input type="text" placeholder="Owner Name" required>
-            <input type="Number" placeholder="Owner's Phone Number" required>
-            <input type="Number" placeholder="Owner's Whatsapp Number" required>
-            <!-- <input type="text" placeholder="Address"> -->
-            <input type="Number" placeholder="Pin Code" required>
+                <input type="text" placeholder="Store Name" name="storeName" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="text" placeholder="Owner Name" name="sellerName" required>
+                <input type="Number" placeholder="Owner's Phone Number" name="phoneNumber" required>
+                <input type="Number" placeholder="Owner's Whatsapp Number" name="whatsappNumber" required>
+                <input type="Number" placeholder="Pin Code" name="pincode" required>
+                <input type="text" placeholder="apartment or Building" name="building" required>
+                <input type="text" placeholder="street" name="street" required>
+                <input type="text" placeholder="locality" name="locality" required>
             <div>
                 <label for="city">City:</label>
                 <select name="city" id="city">
@@ -36,7 +38,7 @@
 </div>
 <%- include('partials/footer') %>
 
-<script src="">
+<!-- <script src="">
     const formElement = document.getElementById("addStoreByAdmin");
     formElement.addEventListener()
-</script>
+</script> -->

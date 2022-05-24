@@ -2,10 +2,17 @@ const localStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
 module.exports = function(passport) {
+<<<<<<< HEAD
     passport.use('user-local', new localStrategy({ usernameField: "phoneno", passwordField: "password" }, async function (phoneNumber, password, done) {
         const userTable = require("../models/user");
         const user = await userTable.findOne({ phoneNumber: phoneNumber });
         if (user && (await bcrypt.compare(password, user.compare))) {
+=======
+    passport.use('user-local', new localStrategy({ usernameField: "phoneNumber", passwordField: "password" }, async function (phoneNumber, password, done) {
+        const userTable = require("../models/user");
+        const user = await userTable.findOne({ phoneNumber: phoneNumber });
+        if (user && (await bcrypt.compare(password, user.password))) {
+>>>>>>> added functionalties of admin as well as store page
             return done(null, user);
         }
         return done(null, false);

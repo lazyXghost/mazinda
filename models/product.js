@@ -5,11 +5,11 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    shopID: {
+    store_id: {
         type: String,
         required: true,
     },
-    categoryID:{
+    category_id:{
         type:String,
         required:true
     },
@@ -32,7 +32,7 @@ const ProductSchema = new mongoose.Schema({
     salePrice: {
         type:Number
     },
-    quantity: {
+    availableQuantity: {
         type:Number,
         required:true,
     },
@@ -42,9 +42,13 @@ const ProductSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: true,
         default:'pending',
+    },
+    image: {
+        data: Buffer,
+        contentType: String,
     }
 });
 
-module.exports = mongoose.model("Products", ProductSchema);
+const Product = mongoose.model("Products", ProductSchema);
+module.exports = Product;
