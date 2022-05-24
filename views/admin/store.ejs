@@ -20,64 +20,50 @@
         </div>
     </header>
 
-    <div class="list">
+    <% if (pending.length > 0) {%>
+      <div class="list">
         <div class="cover">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Shop Name</th>
-                          <th >Owner Name</th>
-                          <th >Pincode</th>
-                          <th >Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% for(var i=0;i< products.length;i++) {%>
-                          <tr>
-                            <th > <%=(i+1) %> </th>
-                            <td><%= products[i].name %></td>
-                            <td><%= products[i].ownerName %></td>
-                            <td><%= products[i].pincode %></td>
-                            <td>
-                              <button type="button" class="green"><i class="fas fa-check"></i></button>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th >Serial Number</th>
+                      <th >Store Name</th>
+                      <th >Owner Name</th>
+                      <th >Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0;i< pending.length;i++) {%>
+                      <tr>
+                        <th > <%=(i+1) %> </th>
+                        <td><%= pending[i].storeName %></td>
+                        <td><%= pending[i].sellerName %></td>
+                        <td>
+                          <a href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=accept">
+                            <button type="button" class="green"><i class="fas fa-check"></i></button>
+                          </a>
+                          <a href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=reject">
                             <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                            </td>
-                          </tr>
-                          <% }%>
-                        <tr>
-                          <th >2</th>
-                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>3.417</td>
-                          <td>
-                            <button type="button" class="green"><i class="fas fa-check"></i></button>
-                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th >3</th>
-                          <td>Bootstrap Flexbox Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>1.234</td>
-                          <td>
-                            <button type="button" class="green"><i class="fas fa-check"></i></button>
-                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                          </a>
+                        </td>
+                      </tr>
+                    <% }%>
+                  </tbody>
+                </table>
               </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+    <% }else{ %>
+      <br>
+    <% }%>
     <div class="cover" style="padding-bottom: 30px;">
       <div class="container">
-        OR <a href="/admin/addstore">Add Store Manually</a>
+        <a href="/admin/addstore">Add Store Manually</a>
       </div>
     </div>
     <header class="">
@@ -91,7 +77,7 @@
             </form>
         </div>
     </header>
-
+    
     <div class="list">
         <div class="cover">
             <div class="container">
@@ -103,31 +89,35 @@
                           <th >Serial Number</th>
                           <th >Shop Name</th>
                           <th >Owner Name</th>
-                          <th >Pincode</th>
+                          <th >Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% for(let i=0;i < rejected.length;i++) { %>
                           <tr>
                             <th><%= (i+1) %></th>
-                            <td><%= rejected[i].name %></td>
-                            <td><%= rejected[i].ownerName %></td>
-                            <td><%= rejected[i].pincode %></td>
+                            <td><%= rejected[i].storeName %></td>
+                            <td><%= rejected[i].sellerName %></td>
+                            <td>
+                              <a href="/admin/storeStatusChange?ID=<%=rejected[i]._id%>&task=accept">
+                                <button type="button" class="green"><i class="fas fa-check"></i></button>
+                              </a>
+                            </td>
                           </tr>
                         <% } %>
-                        
-                        <tr>
-                          <th >2</th>
-                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>3.417</td>
-                        </tr>
-                        <tr>
-                          <th >3</th>
-                          <td>Bootstrap Flexbox Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>1.234</td>
-                        </tr>
+                          
+                        <% for(let i=0;i < accepted.length;i++) { %>
+                          <tr>
+                            <th><%= (i+1) %></th>
+                            <td><%= accepted[i].storeName %></td>
+                            <td><%= accepted[i].sellerName %></td>
+                            <td>
+                              <a href="/admin/storeStatusChange?ID=<%=accepted[i]._id%>&task=reject">
+                                <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                              </a>
+                            </td>
+                          </tr>
+                        <% } %>
                       </tbody>
                     </table>
                   </div>

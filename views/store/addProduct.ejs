@@ -1,0 +1,125 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Add Product</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/store">Store</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div>
+
+
+    <div class="container">
+
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+  
+                <div class="d-flex justify-content-center py-4">
+                  <a href="index.html" class="logo d-flex align-items-center w-auto">
+                    <img src="/store_UI/img/logo.png" alt="">
+                    <span class="d-none d-lg-block">Mazinda</span>
+                  </a>
+                </div><!-- End Logo -->
+  
+                <div class="card mb-3">
+  
+                  <div class="card-body">
+  
+                    <div class="pt-4 pb-2">
+                      <h5 class="card-title text-center pb-0 fs-4">Product Form</h5>
+                      <p class="text-center small">Enter the details of the product.</p>
+                    </div>
+  
+                    <form action="/store/addProduct" enctype="multipart/form-data" class="row g-3 needs-validation" method="POST">
+                      
+                      <div class="col-12">
+                        <label for="name" class="form-label">Product Name</label>
+                        <input type="text" name="name" class="form-control" id="name" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="storeName" class="form-label">Store Name</label>
+                        <input type="text" name="storeName" class="form-control" id="storeName" required>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="category" class="form-label">Category</label>
+                        <input type="text" name="category" class="form-control" id="category" required>
+                        <div class="invalid-feedback">Please enter your password!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="costPrice" class="form-label">Cost Price</label>
+                        <input type="number" name="costPrice" class="form-control" id="costPrice" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="mrp" class="form-label">MRP</label>
+                        <input type="number" name="mrp" class="form-control" id="mrp" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="yourName" class="form-label">Quantity</label>
+                        <input type="number" name="availableQuantity" class="form-control" id="availableQuantity" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="yourName" class="form-label">Description</label>
+                        <input type="text" name="description" class="form-control" id="description" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
+                      </div>
+  
+                      <div class="col-12">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" name="image" class="form-control" id="image" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
+                      </div>
+  
+                      <!-- <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                          <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                          <div class="invalid-feedback">You must agree before submitting.</div>
+                        </div>
+                      </div> -->
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit">Add Product</button>
+                      </div>
+                      <!-- <div class="col-12">
+                        <p class="small mb-0">Already have an account? <a href="/store/login">Log in</a></p>
+                      </div> -->
+                    </form>
+  
+                  </div>
+                </div>
+  
+                <div class="credits">
+                  <!-- All the links in the footer should remain intact. -->
+                  <!-- You can delete the links only if you purchased the pro version. -->
+                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                  <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                  <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+        </section>
+  
+      </div>
+</main>
+
+<%- include('partials/footer') %>

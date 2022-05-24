@@ -1,17 +1,20 @@
 const router = require("express").Router();
 const passport = require("passport");
-const {authCheck,userLoggedIn} = require("../middleware/auth");
-const {register} = require("../utils");
+const {userCheck,userLoggedIn} = require("../middleware/auth");
+const {userRegister,addAddress} = require("../utils");
+const productTable = require("../models/product");
 
 // auth login
 router.get("/login",userLoggedIn, (req, res) => {
     res.render("user/login");
 });
 
-router.get("/" , (req, res) => {
-    res.render("user/home",{
-        authenticated: req.isAuthenticated(),
-        user: req.user,
+router.get("/" , async (req, res) => {
+    const products = await productTable.find();
+    res.render("user/index",{
+        authenticated:req.isAuthenticated(),
+        user:req.user,
+        products,
     });
 });
 
@@ -20,21 +23,23 @@ router.get("/register",userLoggedIn,(req,res) => {
     res.render("user/register");
 });
 
-router.post("/register",register);
+router.post("/register",userRegister);
 
 router.get("/login",userLoggedIn,(req,res)=>{
     res.render("user/login");
 });
 
 router.post("/login",passport.authenticate('local',{
-    successRedirect: "/user/home",
+    successRedirect: "/user/index",
     failureRedirect: "/user/login",
 }));
 
-router.get("/home",(req,res)=> {
-    res.render("user/home",{
+router.get("/index",async (req,res)=> {
+    const products = await productTable.find({status:'accepted'});
+    res.render("user/index",{
         authenticated:req.isAuthenticated(),
-        user:req.user
+        user:req.user,
+        products,
     });
 });
 
@@ -42,7 +47,7 @@ router.get("/contact", (req, res) => {
     res.render("store/contact");
 });
 
-router.get("/products",authCheck , (req, res) => {
+router.get("/products", userCheck , (req, res) => {
     res.render("store/products",{
         authenticated: req.isAuthenticated(),
         user: req.user,
@@ -53,7 +58,7 @@ router.get("/faqs", (req, res) => {
     res.render("user/faq");
 });
 
-router.get("/profile",authCheck, (req, res) => {
+router.get("/profile",userCheck, (req, res) => {
     res.render("user/profile",{
         authenticated: req.isAuthenticated(),
         user: req.user,
@@ -61,11 +66,9 @@ router.get("/profile",authCheck, (req, res) => {
     });
 });
 
-router.delete("/logout",(req,res) => {
+router.get("/logout",(req,res) => {
     req.logOut();
-    req.session.user = null;
     res.redirect("/login");
-    console.log("User has been successfully logged out");
 });
 
 

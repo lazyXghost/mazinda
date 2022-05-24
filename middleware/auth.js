@@ -1,61 +1,36 @@
-const shopTable = require("../models/shop")
-
 module.exports = {
-  authCheck: function (req, res, next) {
-    // console.log("auth check ka chutiyapa");
-    // console.log(req.user);
-    if (!req.user || req.user.status != 'user') {
-      res.redirect("/auth/login");
-    } else {
-      req.session.user = req.user;
+  userCheck: function (req, res, next) {
+    if(req.user && req.user.userType == 'user')
       return next();
-    }
+    return res.redirect("/login");
+  },
+  storeCheck: function (req, res, next) {
+    if(req.user && req.user.userType == 'store' && req.user.status == 'accepted')
+      return next();
+    return res.redirect("/store/login");
+  },
+  adminCheck: function (req, res, next) {
+    if(req.user && req.user.userType == 'admin')
+      return next();
+    return res.redirect("/admin/login");
   },
 
   userLoggedIn:(req,res,next) => {
-    if(req.user && req.user.status == 'user') {
-        req.session.user = req.user;
-        return res.redirect("/store/dashboard");
+    if(req.user && req.user.userType == 'user') {
+      return res.redirect("/");
     }
     next();
   },
-
-  shopCheck: function (req, res, next) {
-    // console.log("Shop check ka chutiyapa");
-    // console.log(req.user);
-    // console.log(req.session);
-    if (!req.user || req.user.status != 'shop') {
-      res.redirect("/store/login");
-    } else {
-      req.session.user = req.user;
-      return next();
-    }
-  },
-
-  shopLoggedIn: function(req,res,next){
-    if(req.user && req.user.status == 'shop') {
-        req.session.user = req.user;
-        return res.redirect("/store/dashboard");
+  storeLoggedIn: function(req,res,next){
+    if(req.user && req.user.userType == 'store' && req.user.approved == 'accepted') {
+      return res.redirect("/store/");
     }
     return next();
   },
-
-  adminCheck: function (req, res, next) {
-    // return next();
-    if (!req.user || req.user.status != 'admin') {
-      res.redirect("/admin/login");
-    } else {
-      req.session.user = req.user;
-      return next();
-    }
-  },
-
   adminLoggedIn:(req,res,next) => {
-    if(req.user && req.user.status == 'admin') {
-        // console.log(req.user);
-        req.session.user = req.user;
-        return res.redirect("/admin/dashboard");
+    if(req.user && req.user.userType == 'admin') {
+      return res.redirect("/admin/");
     }
-    next();
+    return next();
   },
 };

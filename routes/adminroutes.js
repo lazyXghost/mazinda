@@ -1,101 +1,113 @@
 const router = require("express").Router();
-const { adminCheck,adminLoggedIn } = require("../middleware/auth");
-const { getLocations,getProducts } = require("../utils");
+const res = require("express/lib/response");
+const { adminCheck, adminLoggedIn } = require("../middleware/auth");
+const {
+  getLocations,
+  localAdminLogin,
+  storeRegister,
+  getHomePageData,
+  getStorePageData,
+  changeStatus,
+  getProductPageData,
+} = require("../utils");
 
-// app.get("/adminLogin",(req,res) => {
-//     if(req.session.user == null){
-//         user = {
-//             status:0,
-//         };
-//         req.session.user = user;
+// ----- Authentication for Admin -----
+router.get("/login", adminLoggedIn, (req, res) => {
+  res.render("admin/login");
+});
+router.post("/login", localAdminLogin);
 
-//         // adminloginPage
-//         res.render("adminpage", {
-//             authenticated: req.isAuthenticated(),
-//             user: req.session.user,
-//         });
-//     }
-// });
+// ----------- APP ROUTES ---------------
 
 router.get("/", adminCheck, async (req, res) => {
-    res.render("admin/home", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
+  const context = await getHomePageData();
+  res.render("admin/home", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
 });
 
-router.get("/login", adminLoggedIn,(req, res) => {
-    req.session.admin == "0";
-    res.render("admin/login");
+router.get("/store", adminCheck, async (req, res) => {
+  const context = await getStorePageData();
+  res.render("admin/store", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
 });
 
-// router.post("/auth", (req, res) => {
-//     if (
-//         req.body.email == process.env.ADMINEMAIL &&
-//         req.body.password == process.env.ADMINPASSWORD
-//     ) {
-//         req.session.admin = "1";
-//         res.render("admin/adminoption.ejs");
-//     } else {
-//         res.redirect("/adminlogin");
-//     }
+router.get("/storeStatusChange", adminCheck, async (req, res) => {
+  await changeStatus(req);
+  return res.redirect("/admin/store");
+});
+
+router.get("/addStore", adminCheck, async (req, res) => {
+  const message = "";
+  const { cities, states } = await getLocations();
+
+  const context = {
+    cities: cities,
+    states: states,
+    message: message,
+  };
+  res.render("admin/addStore", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
+});
+
+router.post("/addStore", adminCheck, async (req, res) => {
+  const message = await storeRegister(req, res);
+  res.redirect("/admin/addStore");
+});
+
+router.get("/products", adminCheck, async (req, res) => {
+  const context = await getProductPageData("IIT Mandi");
+  res.render("admin/products", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
+});
+
+// router.get("/coupon", adminCheck, (req, res) => {
+//     res.render("admin/coupon", {
+//         user: req.user,
+//         authenticated: req.isAuthenticated(),
+//     });
+
+// })
+// router.get("/category",adminCheck , (req, res)=>{
+//     res.render("admin/category", {
+//         user: req.user,
+//         authenticated: req.isAuthenticated(),
+//     });
 // });
 
-router.get("/store", adminCheck, (req, res) => {
-    const context = {
-        "cities": ["indore", "IIT mandi","Chandigarh"],
-        "products":[
-            {
-                "name":"Aniket's Shop",
-                "ownerName":"Aniket",
-                "pincode":"175005",
-            }
-        ],
-        "rejected":[
-            {
-                "name":"Aniket's Shop",
-                "ownerName":"Aniket",
-                "pincode":"175005",
-            }
-        ],
-    }
+// router.get("/addCategory",adminCheck , (req, res)=>{
+//     res.render("admin/category", {
+//         user: req.user,
+//         authenticated: req.isAuthenticated(),
+//     });
+// });
+// allows filtering of the products according to the admin's choice.
+// router.post("/products", adminCheck, async (req,res) => {
+//     const {city} = req.body;
+//     const context =await  getProductPageData(city);
+//     res.render("admin/products",{
+//         user:req.user,
+//         authenticated:req.isAuthenticated(),
+//         ...context,
+//     });
+// });
 
-    res.render("admin/store",{
-        user :req.user,
-        authenticated: req.isAuthenticated(),
-        ... context,
-    });    
-});
-
-router.get("/coupon", adminCheck, (req, res) => {
-    res.render("admin/coupon", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
-    
-})
-router.get("/category",adminCheck , (req, res)=>{
-    res.render("admin/category", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
-});
-
-router.get("/addCategory",adminCheck , (req, res)=>{
-    res.render("admin/category", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
-});
-
-router.get("/products", adminCheck, getProducts);
-
-router.get("/money", adminCheck,(req, res)=>{ 
-    res.render("admin/money", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
-})
-router.get("/addstore", adminCheck, getLocations);  
+// router.get("/money", adminCheck,(req, res)=>{
+//     res.render("admin/money", {
+//         user: req.user,
+//         authenticated: req.isAuthenticated(),
+//     });
+// });
 
 module.exports = router;
