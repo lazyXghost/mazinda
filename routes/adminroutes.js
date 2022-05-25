@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const req = require("express/lib/request");
 const res = require("express/lib/response");
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const {
@@ -29,7 +30,20 @@ router.get("/", adminCheck, async (req, res) => {
 });
 
 router.get("/store", adminCheck, async (req, res) => {
-  const context = await getStorePageData();
+  let [status,currentCity] = ['accepted','Mandi'];
+  const context = await getStorePageData(currentCity,status);
+  res.render("admin/store", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
+});
+
+router.post("/store", adminCheck, async (req, res) => {
+  let [status,currentCity] = ['accepted','Mandi'];
+  if(req.body.status) status = req.body.status;
+  if(req.body.currentCity) currentCity = req.body.currentCity;
+  const context = await getStorePageData(currentCity,status);
   res.render("admin/store", {
     user: req.user,
     authenticated: req.isAuthenticated(),
@@ -41,6 +55,14 @@ router.get("/storeStatusChange", adminCheck, async (req, res) => {
   await changeStatus(req);
   return res.redirect("/admin/store");
 });
+
+// router.post("/cityFilter",adminCheck,async (req,res) => {
+
+// });
+
+// router.post("/statusFilter",adminCheck,async (req,res) => {
+
+// });
 
 router.get("/addStore", adminCheck, async (req, res) => {
   const message = "";
@@ -64,7 +86,7 @@ router.post("/addStore", adminCheck, async (req, res) => {
 });
 
 router.get("/products", adminCheck, async (req, res) => {
-  const context = await getProductPageData("IIT Mandi");
+  const context = await getProductPageData("Mandi");
   res.render("admin/products", {
     user: req.user,
     authenticated: req.isAuthenticated(),

@@ -53,7 +53,12 @@
   
                       <div class="col-12">
                         <label for="category" class="form-label">Category</label>
-                        <input type="text" name="category" class="form-control" id="category" required>
+                        <select name="category" class="form-control" id="category" required>
+                          <option class="form-control" value="">select Category</option>
+                          <% for(let i=0;i< category.length;i++) {%>
+                            <option class="form-control" value="<%=category[i].categoryName%>"><%=category[i].categoryName%></option>
+                            <% } %>
+                            <input type="text" name="storeName" class="form-control" id="storeName" required>
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
   

@@ -256,24 +256,49 @@ module.exports = {
     return context;
   },
 
-  getStorePageData: async function () {
-    const pendingStores = await storeTable.find({ status: "pending" });
-    const rejectedStores = await storeTable.find({ status: "rejected" });
-    const acceptedStores = await storeTable.find({ status: "accepted" });
+  getStorePageData: async function (currentCity,status) {
+    const address = await addressTable.find({city:currentCity});
+    const store_id = Array(address.length);
+    
+    for(let i=0;i<address.length;i++){
+      store_id[i] = address.store_id;
+    }
+    const stores = await storeTable.find({
+      status:status,
+      store_id: {$in: store_id},
+    });
+    const pendingStores = await storeTable.find({
+      status:"pending",
+      store_id: {$in: store_id},
+    })
     const locations = await module.exports.getLocations();
     const context = {
       cities: locations.cities,
       pending: pendingStores,
-      rejected: rejectedStores,
-      accepted: acceptedStores,
+      stores: stores,
+      status:status,
+      currentCity:currentCity,
     };
     return context;
   },
-
+// I have to get the city jedhe stores use kr reha mai.
   getProductPageData: async function (city) {
     const categories = await categoriesTable.find();
-    const stores = await storeTable.find({ status: "accepted" });
-    const store_id = Array(stores.length);
+    const address = await addressTable.find({city:city});
+    const store_id = Array(address.length);
+    
+    for(let i=0;i<address.length;i++){
+      store_id[i] = address.store_id;
+    }
+
+    const stores = await storeTable.find({
+      status:"accepted",
+      store_id: {$in: store_id}
+    });
+
+    const acceptedStore_id = Array(stores.length);
+
+    // const store_id2 = Array(stores.length);
     const locations = await module.exports.getLocations();
     const categoryDict = {},storeDict = {};
 
@@ -286,21 +311,21 @@ module.exports = {
     }
 
     for (let i = 0; i < stores.length; i++) {
-      store_id[i] = stores[i]._id;
+      acceptedStore_id[i] = stores[i]._id;
     }
 
     // console.log(store_id);
     const pendingproducts = await productTable.find({
       status: "pending",
-      store_id: { $in: store_id },
+      store_id: { $in: acceptedStore_id },
     });
     const rejectedproducts = await productTable.find({
       status: "rejected",
-      store_id: { $in: store_id },
+      store_id: { $in: acceptedStore_id },
     });
     const acceptedproducts = await productTable.find({
       status: "accepted",
-      store_id: { $in: store_id },
+      store_id: { $in: acceptedStore_id },
     });
     // const products = await productTable.find({ store_id: { $in: store_id } });
     const context = {

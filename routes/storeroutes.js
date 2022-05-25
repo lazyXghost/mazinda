@@ -3,6 +3,7 @@ const passport = require("passport");
 const fs = require('fs');
 const addressTable = require("../models/address");
 const productTable = require("../models/product");
+const categoryTable = require("../models/category");
 const multer = require('multer')
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
 const { storeRegister,localStoreLogin, addProduct} = require("../utils");
@@ -67,9 +68,11 @@ router.get("/products", storeCheck, async (req, res) => {
 });
 
 router.get("/addProduct", storeCheck, async (req, res) => {
+  const category = await categoryTable.find();
   res.render("store/addProduct", {
     authenticated: req.isAuthenticated(),
     user: req.user,
+    category:category,
   });
 });
 
