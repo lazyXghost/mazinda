@@ -1,9 +1,10 @@
 const storeTable = require("./models/store");
 const locationTable = require("./models/location");
-const categoriesTable = require("./models/category");
+const categoryTable = require("./models/category");
 const productTable = require("./models/product");
 const orderTable = require("./models/order");
 const userTable = require("./models/user");
+const moneyDetailTable = require("./models/moneyDetail");
 const addressTable = require("./models/address");
 const bcrypt = require("bcryptjs");
 const req = require("express/lib/request");
@@ -26,7 +27,7 @@ module.exports = {
   }),
 
   // admin controls this functionality.
-  storeRegister: async function (req) {
+  storeRegister: async function (req,res) {
     console.log(req.body);
     const {
       storeName,
@@ -117,8 +118,8 @@ module.exports = {
   },
 
   getCategories: async function (req, res) {
-    const categories = await categoriesTable.find();
-    const names = Array(categoriesTable.length);
+    const categories = await categoryTable.find();
+    const names = Array(categoryTable.length);
     for (let i = 0; i < categories.length; i++) {
       names[i] = categories[i].categoryName;
     }
@@ -130,18 +131,34 @@ module.exports = {
   },
 
   // function on admin page to accept or reject stores.
-  changeStatus: async function (req) {
-    var params = url.parse(req.url, true).query;
-    var store_id = params.ID;
-    var status = params.task + "ed";
+  storeStatusChange: async function (req) {
+    const params = url.parse(req.url, true).query;
+    const store_id = params.ID;
+    const status = params.task;
     await storeTable.findOneAndUpdate({ _id: store_id }, { status: status });
+    return;
+  },
+
+  moneyDetailStatusChange: async function(req) {
+    const params = url.parse(req.url,true).query;
+    const moneyDetail_id = params.ID;
+    const status = params.task;
+    await moneyDetailTable.findOneAndUpdate({_id:moneyDetail_id},{status:status});
+    return;
+  },
+
+  productStatusChange: async function (req){
+    const params = url.parse(req.url,true).query;
+    const product_id = params.ID;
+    const status = params.task;
+    await productTable.findOneAndUpdate({_id:product_id},{status:status});
     return;
   },
 
   getProducts: async function (req, res) {
     const locations = await locationTable.find();
     const stores = await storeTable.find({ city: "IIT Mandi" });
-    const categories = await categoriesTable.find();
+    const categories = await categoryTable.find();
     const store_id = Array(stores.length);
     for (let i = 0; i < stores.length; i++) {
       store_id[i] = stores[i]._id;
@@ -178,6 +195,14 @@ module.exports = {
     });
   },
 
+  // seller should be able to see the product quantity and price.
+  updateQuantity: async function(req,res) {
+    const product_id = url.parse(req.url, true).query.ID;
+    const availableQuantity = req.body.availableQuantity;
+    await productTable.findOneAndUpdate({ _id: product_id }, { availableQuantity: availableQuantity });
+    return;
+  },
+
   addProduct: async function (formData, status) {
     const {
       name,
@@ -188,7 +213,13 @@ module.exports = {
       availableQuantity,
       description,
       image,
+      categoryName
     } = formData;
+
+    const repeated = await productTable.find({name:name,store_id:store_id});
+    
+    if(repeated) console.log("Product already added to the list");
+
     await productTable.create({
       name: name,
       store_id: store_id,
@@ -200,17 +231,63 @@ module.exports = {
       description: description,
       image: image,
     });
-    console.log("product added successfully.");
+    console.log("quantity updated and product added sucessfully");
+  },
+
+
+  getPaymentDetails: function(payments){
+    let amount = 0
+    for(let i=0;i<payments.length;i++){
+      amount += (payments[i].costPrice * payments[i].quantity);
+    }
+    return amount;
+  },
+  // we need to create one more schema of the money page data.
+  // refer to the below function when you are going to place the order.
+  getMoneyPageData:async function (status) {
+    const pendingMoneyDetails = moneyDetailTable.find({status:"pending"});
+    const MoneyDetails = moneyDetailTable.find({status:status});
+    const paidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
+    const totalAmount = module.exports.getPaymentDetails(MoneyDetails) + paidAmount;
+    const context = {
+      MoneyDetails:MoneyDetails,
+      pendingMoneyDetails:pendingMoneyDetails,
+      paidAmount:paidAmount,
+      totalAmount:totalAmount,
+    }
+    // const orders = await orderTable.find();
+    // let products=[];
+    // for(let i=0;i<orders.length;i++){
+    //   const user = await userTable.find({_id:orders[i].user_id});
+    //   for(let j=0;j<orders[i].products.length;j++){
+    //     const product = await productTable.findOne({_id:orders[i].products[j].product_id});
+    //     const store = await storeTable.findOne({_id:product.store_id});
+    //     await moneyDetailTable.create( {
+    //       productName:product.name,
+    //       sellerName:store.sellerName,
+    //       quantity:orders[i].products[j].quantity,
+    //       costprice:product.costPrice,
+    //       mrp:product.mrp,
+    //       saleprice:product.salePrice,
+    //       userName:user.name
+    //     });
+    //   }
+    // }
+    return context;
   },
 
   addCategory: async function (req, res) {
     const { categoryName } = req.body;
-    const category = await categoriesTable.create({
+    const category = await categoryTable.create({
       categoryName: categoryName,
     });
-    e.preventdefault();
-    alert("created a new store successfully");
-    // console.log("created a new store");
+    // console.log("added a new category");
+    return;
+  },
+
+  deleteCategory: async function(req,res) {
+    const category_id= req.body.category;
+    await categoryTable.deleteOne({_id:category_id});
     return;
   },
 
@@ -283,7 +360,8 @@ module.exports = {
   },
 // I have to get the city jedhe stores use kr reha mai.
   getProductPageData: async function (city) {
-    const categories = await categoriesTable.find();
+    const categories = await categoryTable.find();
+    console.log(categories);
     const address = await addressTable.find({city:city});
     const store_id = Array(address.length);
     
@@ -335,6 +413,7 @@ module.exports = {
       pending: pendingproducts,
       rejected: rejectedproducts,
       accepted: acceptedproducts,
+      currentCity:city,
     };
     return context;
   },

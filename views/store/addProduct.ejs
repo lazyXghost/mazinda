@@ -13,7 +13,6 @@
       </nav>
     </div>
 
-
     <div class="container">
 
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -52,13 +51,13 @@
                       </div>
   
                       <div class="col-12">
-                        <label for="category" class="form-label">Category</label>
-                        <select name="category" class="form-control" id="category" required>
+                        <label for="categoryName" class="form-label">Category</label>
+                        <select name="categoryName" class="form-control" id="categoryName" required>
                           <option class="form-control" value="">select Category</option>
                           <% for(let i=0;i< category.length;i++) {%>
                             <option class="form-control" value="<%=category[i].categoryName%>"><%=category[i].categoryName%></option>
                             <% } %>
-                            <input type="text" name="storeName" class="form-control" id="storeName" required>
+                            <input type="text" name="" class="form-control" id="" >
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
   

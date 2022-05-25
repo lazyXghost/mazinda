@@ -25,32 +25,6 @@ const StoreSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    address: {
-        store:{
-            type: String,
-            required: true
-        },
-        street:{
-            type: String,
-            required: true
-        },
-        colony:{
-            type: String,
-            required: true
-        },
-        city: {
-            type:String,
-            required:true
-        },
-        pincode: {
-            type:Number,
-            required:true
-        },
-        state: {
-            type:String,
-            required:true
-        },
-    },
     userType:{
         type:String,
         required:true,

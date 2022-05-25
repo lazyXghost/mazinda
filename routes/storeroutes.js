@@ -7,6 +7,7 @@ const categoryTable = require("../models/category");
 const multer = require('multer')
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
 const { storeRegister,localStoreLogin, addProduct} = require("../utils");
+const { findOne, findOneAndUpdate } = require("../models/category");
 const upload = multer({ 
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -24,7 +25,7 @@ router.get("/register", storeLoggedIn, (req, res) => {
 });
 
 router.post("/register", async (req,res) => {
-  const message = await storeRegister(req);
+  const message = await storeRegister(req,res);
   if(message == "Password is too Short"){   
     res.render("store/register", {message});
   } else {
@@ -81,11 +82,18 @@ router.post("/addProduct", upload.single('image'), storeCheck, async (req, res) 
     data: fs.readFileSync('uploads/' + req.file.filename),
     contentType: 'image/png'
   }
+  const element = await categoryTable.findOne({categoryName:req.body.categoryName});
   req.body.store_id = req.user._id;
-  req.body.category_id = "fake_id";
+  req.body.category_id = element._id;
   await addProduct(req.body, "pending");
+  await element.update({quantity:element.quantity+1});
   res.redirect("/store/products");
 });
+
+router.get("/updateQuantity",storeCheck,async (req,res) => {
+  await updateQuantity({_id:req.body._id},{availableQuantity:req.body.quantity});
+  return; 
+})
 
 router.get("/deleteProduct", storeCheck, async (req, res) => {
   var product_id = url.parse(req.url, true).query.ID;

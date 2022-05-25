@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const req = require("express/lib/request");
 const res = require("express/lib/response");
+const categoryTable = require("../models/category");
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const {
   getLocations,
@@ -8,8 +9,12 @@ const {
   storeRegister,
   getHomePageData,
   getStorePageData,
-  changeStatus,
+  storeStatusChange,
+  productStatusChange,
   getProductPageData,
+  getMoneyPageData,
+  deleteCategory,
+  addCategory,
 } = require("../utils");
 
 // ----- Authentication for Admin -----
@@ -20,6 +25,7 @@ router.post("/login", localAdminLogin);
 
 // ----------- APP ROUTES ---------------
 
+// home page done.
 router.get("/", adminCheck, async (req, res) => {
   const context = await getHomePageData();
   res.render("admin/home", {
@@ -29,21 +35,14 @@ router.get("/", adminCheck, async (req, res) => {
   });
 });
 
-router.get("/store", adminCheck, async (req, res) => {
-  let [status,currentCity] = ['accepted','Mandi'];
-  const context = await getStorePageData(currentCity,status);
-  res.render("admin/store", {
-    user: req.user,
-    authenticated: req.isAuthenticated(),
-    ...context,
-  });
-});
+/////////////////////////////////////////////////////////////
+// store page all functions along with filters
+/////////////////////////////////////////////////////////////
 
-router.post("/store", adminCheck, async (req, res) => {
-  let [status,currentCity] = ['accepted','Mandi'];
-  if(req.body.status) status = req.body.status;
-  if(req.body.currentCity) currentCity = req.body.currentCity;
-  const context = await getStorePageData(currentCity,status);
+router.get("/store", adminCheck, async (req, res) => {
+  const status = req.body.status ?? "accepted";
+  const currentCity = req.body.currentCity ?? "Mandi";
+  const context = await getStorePageData(currentCity, status);
   res.render("admin/store", {
     user: req.user,
     authenticated: req.isAuthenticated(),
@@ -52,17 +51,9 @@ router.post("/store", adminCheck, async (req, res) => {
 });
 
 router.get("/storeStatusChange", adminCheck, async (req, res) => {
-  await changeStatus(req);
+  await storeStatusChange(req);
   return res.redirect("/admin/store");
 });
-
-// router.post("/cityFilter",adminCheck,async (req,res) => {
-
-// });
-
-// router.post("/statusFilter",adminCheck,async (req,res) => {
-
-// });
 
 router.get("/addStore", adminCheck, async (req, res) => {
   const message = "";
@@ -85,8 +76,13 @@ router.post("/addStore", adminCheck, async (req, res) => {
   res.redirect("/admin/addStore");
 });
 
+////////////////////////////////////////////////////////////
+// Product Page functions
+///////////////////////////////////////////////////////////
+
 router.get("/products", adminCheck, async (req, res) => {
-  const context = await getProductPageData("Mandi");
+  const currentCity = req.body.currentCity ?? "Mandi";
+  const context = await getProductPageData(currentCity);
   res.render("admin/products", {
     user: req.user,
     authenticated: req.isAuthenticated(),
@@ -94,6 +90,55 @@ router.get("/products", adminCheck, async (req, res) => {
   });
 });
 
+router.get("/productStatusChange", adminCheck, async (req, res) => {
+  await productStatusChange(req);
+  return res.redirect("/admin/products");
+});
+
+/////////////////////////////////////////////////////////////////
+// Category Page functions
+/////////////////////////////////////////////////////////////////
+
+router.get("/category", adminCheck, async (req, res) => {
+  const category = await categoryTable.find();
+  res.render("admin/category", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    category:category,
+  });
+});
+
+router.post("/addCategory", adminCheck, async (req, res) => {
+  await addCategory(req, res);
+  res.redirect("/admin/category");
+});
+
+router.post("/deleteCategory",adminCheck,async (req,res) => {
+  await deleteCategory(req,res);
+  res.redirect("/admin/category");
+})
+
+/////////////////////////////////////////////////////////////
+// Money Management functions
+/////////////////////////////////////////////////////////////
+
+router.get("/money", adminCheck,async (req, res)=>{
+  const context = await getMoneyPageData(req.body.status ?? 'accepted');
+    res.render("admin/money", {
+        user: req.user,
+        authenticated: req.isAuthenticated(),
+        ...context,
+    });
+});
+
+router.get("/moneyDetailStatusChange", adminCheck,async(req,res) => {
+  await moneyDetailStatusChange(req);
+  res.redirect("/admin/money");
+});
+
+//////////////////////////////////////////////////////////////
+// Coupon Page functions
+/////////////////////////////////////////////////////////////
 // router.get("/coupon", adminCheck, (req, res) => {
 //     res.render("admin/coupon", {
 //         user: req.user,
@@ -101,29 +146,7 @@ router.get("/products", adminCheck, async (req, res) => {
 //     });
 
 // })
-// router.get("/category",adminCheck , (req, res)=>{
-//     res.render("admin/category", {
-//         user: req.user,
-//         authenticated: req.isAuthenticated(),
-//     });
-// });
-
-// router.get("/addCategory",adminCheck , (req, res)=>{
-//     res.render("admin/category", {
-//         user: req.user,
-//         authenticated: req.isAuthenticated(),
-//     });
-// });
 // allows filtering of the products according to the admin's choice.
-// router.post("/products", adminCheck, async (req,res) => {
-//     const {city} = req.body;
-//     const context =await  getProductPageData(city);
-//     res.render("admin/products",{
-//         user:req.user,
-//         authenticated:req.isAuthenticated(),
-//         ...context,
-//     });
-// });
 
 // router.get("/money", adminCheck,(req, res)=>{
 //     res.render("admin/money", {

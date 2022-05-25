@@ -12,7 +12,7 @@
       <i class="fa-search fas"></i>
     </div>
 
-    <form action="/admin/store" method="POST">
+    <form action="/admin/store">
       <label for="currentCity">City:</label>
       <select name="currentCity" id="currentCity">
         <option value="<%= currentCity %>"><%= currentCity %></option>
@@ -49,14 +49,14 @@
                 <td><%= pending[i].sellerName %></td>
                 <td>
                   <a
-                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=accept"
+                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=accepted"
                   >
                     <button type="button" class="green">
                       <i class="fas fa-check"></i>
                     </button>
                   </a>
                   <a
-                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=reject"
+                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=rejected"
                   >
                     <button type="button" class="red">
                       <i class="far fa-trash-alt"></i>
@@ -82,7 +82,7 @@
 </div>
 <header class="">
   <div class="cover header">
-    <form action="/admin/store" method="POST">
+    <form action="/admin/store">
       <label for="status">Status:</label>
       <select name="status" id="status">
         <% if(status == 'accepted') {%>
@@ -121,7 +121,7 @@
                 <td><%= stores[i].sellerName %></td>
                 <td>
                   <a
-                    href="/admin/storeStatusChange?ID=<%=stores[i]._id%>&task=accept"
+                    href="/admin/storeStatusChange?ID=<%=stores[i]._id%>&task=accepted"
                   >
                     <button type="button" class="green">
                       <i class="fas fa-check"></i>
@@ -136,7 +136,7 @@
                 <td><%= stores[i].sellerName %></td>
                 <td>
                   <a
-                    href="/admin/storeStatusChange?ID=<%=stores[i]._id%>&task=reject"
+                    href="/admin/storeStatusChange?ID=<%=stores[i]._id%>&task=rejected"
                   >
                     <button type="button" class="red">
                       <i class="far fa-trash-alt"></i>

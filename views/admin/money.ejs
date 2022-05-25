@@ -1,81 +1,140 @@
 <%- include('partials/header') %>
 
-    <header class="">
-        <div class="cover header">
-            Orders Info
-        </div>
-        <div class="cover header">
-            <form action="">
-                <label for="type">Type:</label>
-                <select name="type" id="type">
-                  <option value="Accepted">Accepted</option>
-                  <option value="Rejected">Returned</option>
-                </select>
-            </form>
-        </div>
-    </header>
+<header class="">
+  <div class="cover header">Orders Info</div>
+</header>
 
-
-    <div class="list">
-        <div class="cover">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Product Name</th>
-                          <th >Category</th>
-                          <th >Seller</th>
-                          <th >Sold To</th>
-                          <th>Price</th>
-                          <th >Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th >1</th>
-                          <td>Amul Suddh Desi Ghee</td>
-                          <td>Groceries</td>
-                          <td>Ram Kirana Stores</td>
-                          <td>Sandeep</td>
-                          <td>70</td>
-                          <td>
-                            <button type="button" class="green"><i class="fas fa-check"></i></button>
-                          <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                            <th >1</th>
-                            <td>Kacchi Ghani Badam Oil</td>
-                            <td>Groceries</td>
-                            <td>Ram Kirana Stores</td>\
-                            <td>Pawan Singh</td>
-                            <td>298</td>
-                            <td>
-                              <button type="button" class="green"><i class="fas fa-check"></i></button>
-                            <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                            </td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Product Name</th>
+                <th>Seller</th>
+                <th>Sold To</th>
+                <th>Cost Price</th>
+                <th>Sale Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=0;i< pendingMoneyDetails.length;i++) {%>
+              <tr>
+                <th><%= i+1 %></th>
+                <td><%= pendingMoneyDetails[i].productName %></td>
+                <td><%= pendingMoneyDetails[i].sellerName %></td>
+                <td><%= pendingMoneyDetails[i].userName %></td>
+                <td><%= pendingMoneyDetails[i].CostPrice %></td>
+                <td><%= pendingMoneyDetails[i].SalePrice %></td>
+                <td>
+                  <form action="/moneyDetailStatusChange"></form>
+                  <button
+                    type="submit"
+                    name="status"
+                    value="accepted"
+                    class="green"
+                  >
+                    <i class="fas fa-check"></i>
+                  </button>
+                  <button
+                    type="sumbit"
+                    name="status"
+                    value="returned"
+                    class="red"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 
+<header class="">
+  <div class="cover header">
+    <form action="/admin/money">
+      <label for="status">Type:</label>
+      <select name="status" id="status">
+        <option value="accepted">Accepted</option>
+        <option value="returned">Returned</option>
+      </select>
+      <button type="Submit">Submit</button>
+    </form>
+  </div>
+</header>
 
-    <header class="">
-        <div class="cover header" style="display: flex; justify-content: space-between;">
-            <div>
-                Total Amount: 83737
-            </div>
-            <div>
-                Total Paid: 78933
-            </div>
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Product Name</th>
+                <th>Seller</th>
+                <th>Sold To</th>
+                <th>Cost Price</th>
+                <th>Sale Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=0;i< MoneyDetails.length;i++) {%>
+              <tr>
+                <th><%= i+1 %></th>
+                <td><%= MoneyDetails[i].productName %></td>
+                <td><%= MoneyDetails[i].sellerName %></td>
+                <td><%= MoneyDetails[i].userName %></td>
+                <td><%= MoneyDetails[i].CostPrice %></td>
+                <td><%= MoneyDetails[i].SalePrice %></td>
+                <td>
+                  <form action="/moneyDetailStatusChange"></form>
+                  <button
+                    type="submit"
+                    name="status"
+                    value="accepted"
+                    class="green"
+                  >
+                    <i class="fas fa-check"></i>
+                  </button>
+                  <button
+                    type="sumbit"
+                    name="status"
+                    value="returned"
+                    class="red"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
         </div>
-    </header>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="">
+  <div
+    class="cover header"
+    style="display: flex; justify-content: space-between"
+  >
+    <div>Total Amount: <%= totalAmount%></div>
+    <div>Total Paid: <%= paidAmount %></div>
+  </div>
+</header>
 
 <%- include('partials/footer') %>

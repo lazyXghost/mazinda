@@ -1,152 +1,173 @@
 <%- include('partials/header') %>
-    <header>
-        <div class="cover header">
-            <div class="search">
-                <input class="search-input" type="search" name="" id="" placeholder="Search">
-                <i class="fa-search fas"></i>
-            </div>
-
-            <form action="">
-                <label for="city">City:</label>
-                <select name="city" id="city">
-                  <% for(let i=0;i < cities.length;i++) { %>
-                    <option value="<%= cities[i] %>"><%= cities[i] %></option>
-                  <% } %>
-                </select>
-            </form>
-        </div>
-    </header>
-
-    <div class="list">
-        <div class="cover">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    Pending Products
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Product Name</th>
-                          <th >Category</th>
-                          <th >Seller</th>
-                          <th>MRP</th>
-                          <th>SalePrice</th>
-                          <th>CostPrice</th>
-                          <th >Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% for(let i=0;i < pending.length;i++) { %>
-                          <tr>
-                            <th ><%= (i+1) %></th>
-                            <td><%= pending[i].name %></td>
-                            <td><%= categoryDict[pending[i].category_id] %></td>
-                            <td><%= storeDict[pending[i].store_id] %></td>
-                            <td><%= pending[i].mrp %></td>
-                            <td><%= pending[i].salePrice %></td>
-                            <td><%= pending[i].costPrice %></td>
-                            <td>
-                              <a href="/admin/productStatusChange?ID=<%=pending[i]._id%>">
-                                <button type="button" class="green"><i class="fas fa-check"></i></button>
-                              </a>
-                              <a href="/admin/productStatusChange?ID=<%=pending[i]._id%>">
-                                <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                              </a>
-                            </td>
-                          </tr>
-                        <% } %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-        </div>
+<header>
+  <div class="cover header">
+    <div class="search">
+      <input
+        class="search-input"
+        type="search"
+        name=""
+        id=""
+        placeholder="Search"
+      />
+      <i class="fa-search fas"></i>
     </div>
 
-    <header class="">
-        <div class="cover header">
-            Products Info
-        </div>
-    </header>
+    <form action="/admin/products">
+      <label for="currentCity">City:</label>
+      <select name="currentCity" id="currentCity">
+        <option value="<%= currentCity %>"><%= currentCity %></option>
+        <% for(let i=0;i < cities.length;i++) { %> <% if(cities[i] !=
+        currentCity) {%>
+        <option value="<%= cities[i] %>"><%= cities[i] %></option>
+        <% } %> <% } %>
+      </select>
+    </form>
+  </div>
+</header>
 
-
-    <div class="list">
-        <div class="cover">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    Accepted Products
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Product Name</th>
-                          <th >Category</th>
-                          <th >Seller Name</th>
-                          <th >MRP</th>
-                          <th >SalePrice</th>
-                          <th >CostPrice</th>
-                          <th >Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% for(let i=0;i < accepted.length;i++) { %>
-                          <tr>
-                            <th ><%= (i+1) %></th>
-                            <td><%= accepted[i].name %></td>
-                            <td><%= categoryDict[accepted[i].category_id] %></td>
-                            <td><%= storeDict[accepted[i].store_id] %></td>
-                            <td><%= accepted[i].mrp %></td>
-                            <td><%= accepted[i].salePrice %></td>
-                            <td><%= accepted[i].costPrice %></td>
-                            <td>
-                              <a href="/admin/productStatusChange?ID=<%=accepted[i]._id%>">
-                                <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                              </a>
-                            </td>
-                          </tr>
-                        <% } %>
-                      </tbody>
-                    </table>
-                    <br>
-                    Rejected Products
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Product Name</th>
-                          <th >Category</th>
-                          <th >Seller Name</th>
-                          <th >MRP</th>
-                          <th >SalePrice</th>
-                          <th >CostPrice</th>
-                          <th >Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% for(let i=0;i < rejected.length;i++) { %>
-                          <tr>
-                            <th ><%= (i+1) %></th>
-                            <td><%= rejected[i].name %></td>
-                            <td><%= categoryDict[rejected[i].category_id] %></td>
-                            <td><%= storeDict[rejected[i].store_id] %></td>
-                            <td><%= rejected[i].mrp %></td>
-                            <td><%= rejected[i].salePrice %></td>
-                            <td><%= rejected[i].costPrice %></td>
-                            <td>
-                              <a href="/admin/productStatusChange?ID=<%=rejected[i]._id%>">
-                                <button type="button" class="green"><i class="fas fa-check"></i></button>
-                              </a>
-                            </td>
-                          </tr>
-                        <% } %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          Pending Products
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Seller</th>
+                <th>MRP</th>
+                <th>SalePrice</th>
+                <th>CostPrice</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=0;i < pending.length;i++) { %>
+              <tr>
+                <th><%= (i+1) %></th>
+                <td><%= pending[i].name %></td>
+                <td><%= categoryDict[pending[i].category_id] %></td>
+                <td><%= storeDict[pending[i].store_id] %></td>
+                <td><%= pending[i].mrp %></td>
+                <td><%= pending[i].salePrice %></td>
+                <td><%= pending[i].costPrice %></td>
+                <td>
+                  <a
+                    href="/admin/productStatusChange?ID=<%=pending[i]._id%>&task=accepted"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <a
+                    href="/admin/productStatusChange?ID=<%=pending[i]._id%>&task=rejected"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<header class="">
+  <div class="cover header">Products Info</div>
+</header>
+
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          Accepted Products
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Seller Name</th>
+                <th>MRP</th>
+                <th>SalePrice</th>
+                <th>CostPrice</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=0;i < accepted.length;i++) { %>
+              <tr>
+                <th><%= (i+1) %></th>
+                <td><%= accepted[i].name %></td>
+                <td><%= categoryDict[accepted[i].category_id] %></td>
+                <td><%= storeDict[accepted[i].store_id] %></td>
+                <td><%= accepted[i].mrp %></td>
+                <td><%= accepted[i].salePrice %></td>
+                <td><%= accepted[i].costPrice %></td>
+                <td>
+                  <a
+                    href="/admin/productStatusChange?ID=<%=accepted[i]._id%>&task=rejected"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+          <br />
+          Rejected Products
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Seller Name</th>
+                <th>MRP</th>
+                <th>SalePrice</th>
+                <th>CostPrice</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=0;i < rejected.length;i++) { %>
+              <tr>
+                <th><%= (i+1) %></th>
+                <td><%= rejected[i].name %></td>
+                <td><%= categoryDict[rejected[i].category_id] %></td>
+                <td><%= storeDict[rejected[i].store_id] %></td>
+                <td><%= rejected[i].mrp %></td>
+                <td><%= rejected[i].salePrice %></td>
+                <td><%= rejected[i].costPrice %></td>
+                <td>
+                  <a
+                    href="/admin/productStatusChange?ID=<%=rejected[i]._id%>&task=accepted"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%- include('partials/footer') %>
