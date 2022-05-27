@@ -1,21 +1,22 @@
 const router = require("express").Router();
-const req = require("express/lib/request");
-const res = require("express/lib/response");
-const categoryTable = require("../models/category");
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const {
-  getLocations,
   localAdminLogin,
   storeRegister,
+  getLocations,
+  getCategories,
+} = require("../utils");
+const {
   getHomePageData,
   getStorePageData,
-  storeStatusChange,
-  productStatusChange,
-  getProductPageData,
   getMoneyPageData,
-  deleteCategory,
+  getProductPageData,
+  productStatusChange,
+  storeStatusChange,
+  moneyDetailStatusChange,
   addCategory,
-} = require("../utils");
+  deleteCategory,
+} = require("../utils/adminUtils");
 
 // ----- Authentication for Admin -----
 router.get("/login", adminLoggedIn, (req, res) => {
@@ -25,7 +26,8 @@ router.post("/login", localAdminLogin);
 
 // ----------- APP ROUTES ---------------
 
-// home page done.
+/////////////////////////////////////////////////////////////
+
 router.get("/", adminCheck, async (req, res) => {
   const context = await getHomePageData();
   res.render("admin/home", {
@@ -100,11 +102,11 @@ router.get("/productStatusChange", adminCheck, async (req, res) => {
 /////////////////////////////////////////////////////////////////
 
 router.get("/category", adminCheck, async (req, res) => {
-  const category = await categoryTable.find();
+  const category = await getCategories();
   res.render("admin/category", {
     user: req.user,
     authenticated: req.isAuthenticated(),
-    category:category,
+    category: category,
   });
 });
 
@@ -113,25 +115,25 @@ router.post("/addCategory", adminCheck, async (req, res) => {
   res.redirect("/admin/category");
 });
 
-router.post("/deleteCategory",adminCheck,async (req,res) => {
-  await deleteCategory(req,res);
+router.post("/deleteCategory", adminCheck, async (req, res) => {
+  await deleteCategory(req, res);
   res.redirect("/admin/category");
-})
+});
 
 /////////////////////////////////////////////////////////////
 // Money Management functions
 /////////////////////////////////////////////////////////////
 
-router.get("/money", adminCheck,async (req, res)=>{
-  const context = await getMoneyPageData(req.body.status ?? 'accepted');
-    res.render("admin/money", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-        ...context,
-    });
+router.get("/money", adminCheck, async (req, res) => {
+  const context = await getMoneyPageData(req.body.status ?? "accepted");
+  res.render("admin/money", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
 });
 
-router.get("/moneyDetailStatusChange", adminCheck,async(req,res) => {
+router.get("/moneyDetailStatusChange", adminCheck, async (req, res) => {
   await moneyDetailStatusChange(req);
   res.redirect("/admin/money");
 });
@@ -139,20 +141,12 @@ router.get("/moneyDetailStatusChange", adminCheck,async(req,res) => {
 //////////////////////////////////////////////////////////////
 // Coupon Page functions
 /////////////////////////////////////////////////////////////
-// router.get("/coupon", adminCheck, (req, res) => {
-//     res.render("admin/coupon", {
-//         user: req.user,
-//         authenticated: req.isAuthenticated(),
-//     });
+router.get("/coupon", adminCheck, (req, res) => {
+    res.render("admin/coupon", {
+        user: req.user,
+        authenticated: req.isAuthenticated(),
+    });
 
-// })
-// allows filtering of the products according to the admin's choice.
-
-// router.get("/money", adminCheck,(req, res)=>{
-//     res.render("admin/money", {
-//         user: req.user,
-//         authenticated: req.isAuthenticated(),
-//     });
-// });
+})
 
 module.exports = router;

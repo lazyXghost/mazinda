@@ -42,7 +42,6 @@
                       <td><%= category[i].quantity %></td>
                       <td>
                         <form action="/admin/deleteCategory" method="POST">
-                        <button type="submit" name="category" value="update"  class="green"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button type="submit" name="category" value="<%=category[i]._id %>"  class="red"><i class="far fa-trash-alt"></i></button>
                         </form>
                       </td>
