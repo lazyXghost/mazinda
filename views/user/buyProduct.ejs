@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="/user_UI/css/buyProduct.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <div class="navigation">
+                    <div class="logo">
+                        <i class="icon icon-basket"></i>
+                        Store: <%= store.storeName %>
+                    </div>
+                    <!-- <div class="secure">
+                        <i class="icon icon-shield"></i>
+                        <span>Secure Checkout</span>
+                    </div> -->
+                </div>
+                <div class="notification">
+                    Complete Your Purchase
+                </div>
+            </div>
+        </header>
+        <form action="/buyProduct" method="post">
+            <section class="content">
+                <div class="details shadow">
+                    <div class="details__item">
+                        <div class="item__image">
+                            <img class="iphone" src="data:image/image/png;base64,<%=product.image.data.toString('base64')%>" alt="">
+                        </div>
+                        <div class="item__details">
+                            <div class="item__title">
+                                <%= product.name %>
+                            </div>
+                            <div class="item__price">
+                                Rs <%= product.mrp %> x Quantity
+                            </div>
+                            <div class="item__quantity">
+                                Quantity: <input type="number" name="quantity" id="quantity" style="width: 35px;height: 30px;font-size: 18px;" value="1">
+                            </div>
+                            <br>
+                            <div class="item__description">
+                                <%= product.description%>
+                                    </li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="payment">
+                        <div class="payment__title">
+                            Payment Method
+                        </div>
+                        <div class="payment__types">
+                            <div class="payment__type payment__type--cc active">
+                                <i class="icon icon-credit-card"></i>Cash On Delievery
+                            </div>
+                            <div class="payment__type payment__type--paypal">
+                                <i class="icon icon-paypal"></i>Paypal
+                            </div>
+                            <div class="payment__type payment__type--paypal">
+                                <i class="icon icon-wallet"></i>SEPA
+                            </div>
+                            <div class="payment__type payment__type--paypal">
+                                <i class="icon icon-note"></i>Invoice
+                            </div>
+                        </div>
+                        <div class="payment__info">
+                            <div class="row">
+                                <div class="col-50">
+                                    <h3>Billing Address</h3>
+                                    <div>
+                                        <label for="fname" style="padding-right: 70px;"><i class="fa fa-user"></i> Full Name</label>
+                                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="email" style="padding-right: 103px;"><i class="fa fa-envelope"></i> Email</label>
+                                        <input type="text" id="email" name="email" placeholder="john@example.com" required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="house" style="padding-right: 95px;"><i class="fa fa-house-card-o"></i> House</label>
+                                        <input type="text" id="house" name="house" placeholder="H. No. 143" required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="colony" style="padding-right: 90px;"><i class="fa fa-colony-card-o"></i> Colony </label>
+                                        <input type="text" id="colony" name="colony" placeholder="542 W." required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="street" style="padding-right: 95px;"><i class="fa fa-street-card-o"></i> Street </label>
+                                        <input type="text" id="street" name="street" placeholder="15th street" required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="city" style="padding-right: 110px;"><i class="fa fa-institution"></i> City</label>
+                                        <input type="text" id="city" name="city" placeholder="New York" required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="state" style="padding-right: 100px;">State</label>
+                                        <input type="text" id="state" name="state" placeholder="NY" required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="pincode" style="padding-right: 70px;">Pin Code</label>
+                                        <input type="text" id="pincode" name="pincode" placeholder="10001" required  style="text-align: end;">
+                                    </div>
+                                    <br>
+                                    <div style="display: none;">
+                                        <label for="productID">Product</label>
+                                        <input type="text" id="productID" name="productID" placeholder="productID" value="<%= product._id %>" required >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="actions">
+                        <button class="btn action__submit">Place your Order
+                            <i class="icon icon-arrow-right-circle"></i>
+                        </button>
+                        <a href="/" class="backBtn">Go Back to All products</a>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </body>
+
+</html>

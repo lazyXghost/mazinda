@@ -1,118 +1,155 @@
 <%- include('partials/header') %>
-    <header>
-        <div class="cover header">
-            <div class="search">
-                <input class="search-input" type="search" name="" id="" placeholder="Search">
-                <i class="fa-search fas"></i>
-            </div>
-
-            <form action="">
-                <label for="city">City:</label>
-                <select name="city" id="city">
-                  <% for(var i=0; i < cities.length; i++) {%>
-                    <option value="<%= cities[i] %>"><%= cities[i] %></option>
-                  <% } %>
-                  <!-- <option value="Indore">Indore</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Mumbai">Mumbai</option> -->
-                </select>
-            </form>
-        </div>
-    </header>
-
-    <div class="list">
-        <div class="cover">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Store Name</th>
-                          <th >Owner Name</th>
-                          <th >Pincode</th>
-                          <th >Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% for(var i=0;i< stores.length;i++) {%>
-                          <tr>
-                            <th > <%=(i+1) %> </th>
-                            <td><%= stores[i].storeName %></td>
-                            <td><%= stores[i].sellerName %></td>
-                            <td><%= stores[i].address.pincode %></td>
-                            <td>
-                              <button type="button" class="green"><i class="fas fa-check"></i></button>
-                            <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                            </td>
-                          </tr>
-                          <% }%>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-        </div>
+<header>
+  <div class="cover header">
+    <div class="search">
+      <input
+        class="search-input"
+        type="search"
+        name=""
+        id=""
+        placeholder="Search"
+      />
+      <i class="fa-search fas"></i>
     </div>
-    <div class="cover" style="padding-bottom: 30px;">
-      <div class="container">
-        OR <a href="/admin/addstore">Add Store Manually</a>
+
+    <form action="/admin/store">
+      <label for="currentCity">City:</label>
+      <select name="currentCity" id="currentCity">
+        <option value="<%= currentCity %>"><%= currentCity %></option>
+        <% for(var i=0; i < cities.length; i++) {%> <% if(cities[i] !=
+        currentCity) {%>
+        <option value="<%= cities[i] %>"><%= cities[i] %></option>
+        <% } %> <% } %>
+      </select>
+      <button type="Submit">Submit</button>
+    </form>
+  </div>
+</header>
+
+<% if (pending.length > 0) {%>
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Store Name</th>
+                <th>Owner Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var i=0;i< pending.length;i++) {%>
+              <tr>
+                <th><%=(i+1) %></th>
+                <td><%= pending[i].storeName %></td>
+                <td><%= pending[i].sellerName %></td>
+                <td>
+                  <a
+                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=accepted"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <a
+                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=rejected"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              <% }%>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <header class="">
-        <div class="cover header">
-            <form action="">
-                <label for="type">Type:</label>
-                <select name="type" id="type">
-                  <option value="Accepted">Accepted</option>
-                  <option value="Rejected">Rejected</option>
-                </select>
-            </form>
-        </div>
-    </header>
+  </div>
+</div>
+<% }else{ %>
+<br />
+<% }%>
+<div class="cover" style="padding-bottom: 30px">
+  <div class="container">
+    <a href="/admin/addstore">Add Store Manually</a>
+  </div>
+</div>
+<header class="">
+  <div class="cover header">
+    <form action="/admin/store">
+      <label for="status">Status:</label>
+      <select name="status" id="status">
+        <% if(status == 'accepted') {%>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+        <% } else {%>
+        <option value="rejected">Rejected</option>
+        <option value="accepted">Accepted</option>
+        <% } %>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</header>
 
-    <div class="list">
-        <div class="cover">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th >Serial Number</th>
-                          <th >Shop Name</th>
-                          <th >Owner Name</th>
-                          <th >Pincode</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% for(let i=0;i < rejected.length;i++) { %>
-                          <tr>
-                            <th><%= (i+1) %></th>
-                            <td><%= rejected[i].name %></td>
-                            <td><%= rejected[i].ownerName %></td>
-                            <td><%= rejected[i].pincode %></td>
-                          </tr>
-                        <% } %>
-                        
-                        <tr>
-                          <th >2</th>
-                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>3.417</td>
-                        </tr>
-                        <tr>
-                          <th >3</th>
-                          <td>Bootstrap Flexbox Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>1.234</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>Shop Name</th>
+                <th>Owner Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(status=='rejected') { %> <% for(let i=0;i <
+              stores.length;i++) { %>
+              <tr>
+                <th><%= (i+1) %></th>
+                <td><%= stores[i].storeName %></td>
+                <td><%= stores[i].sellerName %></td>
+                <td>
+                  <a
+                    href="/admin/storeStatusChange?ID=<%=stores[i]._id%>&task=accepted"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              <% } %> <% } else { %> <% for(let i=0;i < stores.length;i++) { %>
+              <tr>
+                <th><%= (i+1) %></th>
+                <td><%= stores[i].storeName %></td>
+                <td><%= stores[i].sellerName %></td>
+                <td>
+                  <a
+                    href="/admin/storeStatusChange?ID=<%=stores[i]._id%>&task=rejected"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              <% } %> <% } %>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 <%- include('partials/footer') %>

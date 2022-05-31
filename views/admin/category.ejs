@@ -6,10 +6,10 @@
     </div>
 </header>
 
-<form action="/admin/addCategory" class="cover">
+<form action="/admin/addCategory" class="cover" method="POST">
     <div class="container">
         <input type="text" name="categoryName" placeholder="Enter Catagory">
-        <button>Add Category</button>
+        <button type="Submit">Add Category</button>
     </div>
 </form>
 
@@ -35,33 +35,18 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <% for(let i=0;i < category.length;i++) {%>
                     <tr>
-                      <th >1</th>
-                      <td>Catagory Name</td>
-                      <td>28</td>
+                      <th ><%= (i+1) %></th>
+                      <td><%= category[i].categoryName %></td>
+                      <td><%= category[i].quantity %></td>
                       <td>
-                        <button type="button" class="green"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
+                        <form action="/admin/deleteCategory" method="POST">
+                        <button type="submit" name="category" value="<%=category[i]._id %>"  class="red"><i class="far fa-trash-alt"></i></button>
+                        </form>
                       </td>
                     </tr>
-                    <tr>
-                      <th >2</th>
-                      <td>Catagory Name</td>
-                      <td>34</td>
-                      <td>
-                        <button type="button" class="green"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th >3</th>
-                      <td>Catagory Name</td>
-                      <td>1</td>
-                      <td>
-                        <button type="button" class="green"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button type="button" class="red"><i class="far fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    <% } %>
                   </tbody>
                 </table>
               </div>
@@ -69,7 +54,20 @@
           </div>
     </div>
 </div>
-
+<!--
+<script>
+  const editCategory = document.getElementsByClassName("green");
+  const deleteCategory = document.getElementsByClassName("red");
+  editCategory.forEach(addEventListener('click',(e)=> {
+    const value = e.target.value ?? e.target.parentNode.value;
+    alert(`The selected category will be ${value}d` ,"Refresh to prevent press ok to Continue!!!");
+  }));
+  deleteCategory.forEach(addEventListener('click',(e)=> {
+    const value = e.target.value ?? e.target.parentNode.value;
+    alert(`The selected category will be ${value}d` ,"Refresh to prevent press ok to Continue!!!");
+  }));
+</script>
+-->
 
 
 <%- include('partials/footer') %>

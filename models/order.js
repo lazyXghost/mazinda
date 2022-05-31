@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-    userID:{
+    user_id:{
         type: String,
         required: true,
     },
@@ -9,45 +9,36 @@ const OrderSchema = new mongoose.Schema({
         type:Date,
         default:Date.now(),
     },
-    productsID: [
+    products: [
         {
-            productID: {
+            product_id: {
                 type: String,
-                unique: true,
+                required: true
             },
+            quantity: {
+                type: Number,
+                required: true,
+            }
         },
     ],
     orderNumber: {
         type: Number,
         required: true,
     },
-    shippingAddress: {
-        house:{
-            type: String,
-            required: true
-        },
-        street:{
-            type: String,
-            required: true
-        },
-        colony:{
-            type: String,
-            required: true
-        },
-        pincode: {
-            type:Number,
-            required:true
-        },
-        city: {
-            type:String,
-            required:true
-        },
-        state: {
-            type:String,
-            required:true
-        }
+    address_id:{
+        type:String,
+        required:true
     },
+    status: {
+        type: String,
+        default: "pending"
+    },
+    amount: {
+        type:Number,
+        required:true,
+    }
     // every quantity has a name , quantity and price associated with it.
 });
 
-module.exports = mongoose.model("Orders", OrderSchema);
+const Order = mongoose.model("Orders", OrderSchema);
+module.exports = Order;

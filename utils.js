@@ -1,20 +1,33 @@
 const storeTable = require("./models/store");
 const locationTable = require("./models/location");
-const categoriesTable = require("./models/category");
+const categoryTable = require("./models/category");
 const productTable = require("./models/product");
+const userTable = require("./models/user");
+const addressTable = require("./models/address");
+const walletTable = require("./models/wallet");
 const bcrypt = require("bcryptjs");
+const req = require("express/lib/request");
 const passport = require("passport");
+const url = require("url");
+var shortid = require("shortid");
 
 module.exports = {
-  storeLogIn: passport.authenticate("store-local", {
-    successRedirect: "/store/dashboard",
+
+  localUserLogin: passport.authenticate("user-local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  }),
+  localStoreLogin: passport.authenticate("store-local", {
+    successRedirect: "/store",
     failureRedirect: "/store/login",
   }),
-  adminLogIn: passport.authenticate("admin-local", {
-    successRedirect: "/admin/",
+  localAdminLogin: passport.authenticate("admin-local", {
+    successRedirect: "/admin",
     failureRedirect: "/admin/login",
   }),
+
   storeRegister: async function (req, res) {
+    console.log(req.body);
     const {
       storeName,
       email,
@@ -22,175 +35,161 @@ module.exports = {
       sellerName,
       phoneNumber,
       whatsappNumber,
-      pincode,
-      city,
-      state,
     } = req.body;
     if (password.length < 8) {
-      return res.redirect("/store/register");
+      console.log("password is too short");
+      return "Password is too Short";
     }
+    const oldstore = await storeTable.findOne({ phoneNumber });
 
-    const oldStore = await storeTable.findOne({ phoneNumber });
-    if (oldStore) {
-      return res.redirect("/store/login");
+    if (oldstore) {
+      console.log("store already exists");
+      return "Store already Exists";
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    // adding a new store.
-    const fulladdress = {
-      pincode: pincode,
-      state: state,
-      city: city,
-      store: "gibberish",
-      street: "gibberish",
-      colony: "gibberish",
-    };
-    const store = await storeTable.create({
+    await storeTable.create({
       storeName: storeName,
       email: email.toLowerCase(),
       password: encryptedPassword,
       sellerName: sellerName,
       phoneNumber: phoneNumber,
       whatsappNumber: whatsappNumber,
-      address: fulladdress,
     });
-    res.render("store/login");
+    const returnValue = module.exports.addAddress(req);
+    return `store and ${returnValue}`;
   },
 
-  addstore:async function(req,res) {
-    const {
-      storeName,
-      email,
-      password,
-      sellerName,
-      phoneNumber,
-      whatsappNumber,
-      pincode,
-      city,
-      state,
-    } = req.body;
+  userRegister: async function () {
+    const { phoneNumber, name, email, password,referralCode } = req.body;
     if (password.length < 8) {
-      return res.redirect("/admin/addstore");
+      const message = "Password is too Short";
+      console.log(message);
+      return message;
     }
-    const oldStore = await storeTable.findOne({ phoneNumber });
+    const oldUser = await userTable.findOne({ phoneNumber });
 
-    if (oldStore) {
-      // console.log("User already exists");
-      return res.redirect("/admin/addstore");
+    if (oldUser) {
+      const message = "user already Exists";
+      console.log(message);
+      return message;
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    // adding a new store.
-    const fulladdress = {
+    if(referralCode) {
+      const wallet = await walletTable.findOne({referralCode:referralCode});
+      if(wallet){
+        const currentDate = new Date();
+        if((currentDate - wallet.createdOn)/86400000 <= 10){
+          wallet.update({coins:wallet.coins+10});
+        }
+      } else {
+        const message = "Invalid Referral Code";
+        console.log(message);
+        return message;
+      }
+    }
+
+    const user = userTable.create({
+      name: name,
+      email: email,
+      password: encryptedPassword,
+      phoneNumber: phoneNumber,
+    });
+
+    await walletTable.create({
+      user_id:user._id,
+      createdOn:new Date(),
+      coins:0,
+      referralCode:shortid.generate(),
+    });
+
+   
+    const message = "user Created Successfully"; 
+    console.log(message);
+    return message;
+  },
+
+  addAddress: async function (req) {
+    const { user_id } = req.user._id;
+    const { building, street, locality, city, pincode, state } = req.body;
+    await addressTable.create({
+      user_id: user_id,
+      building: building,
+      street: street,
+      city: city,
       pincode: pincode,
       state: state,
-      city: city,
-      store: "gibberish",
-      street: "gibberish",
-      colony: "gibberish",
-    };
-    const store = await storeTable.create({
-      storeName: storeName,
-      email: email.toLowerCase(),
-      password: encryptedPassword,
-      sellerName: sellerName,
-      phoneNumber: phoneNumber,
-      whatsappNumber: whatsappNumber,
-      address: fulladdress,
+      locality: locality,
     });
-    e.preventdefault();
-    alert("created a new store successfully");
-    // console.log("created a new store");
-    return;
+    const message = "address added successfully";
+    console.log(message);
+    return message;
   },
 
-  getLocations: async function(req,res) {
+  getCategories: async function () {
+    const categories = await categoryTable.find();
+    return categories;
+  },
+
+  getLocations: async function () {
     const locations = await locationTable.find();
-    const cities = Array(locations.length),states = Array(locations.length); 
-    // console.log(locations.length);
-    for(let i=0;i < locations.length;i++){
-      cities[i] = dbObjects[i].city;
-      states[i] = dbObjects[i].state;
-    }
-    const context = {
-      "cities":cities,
-      "states":states,
-    }
-    // console.log(context);
-    res.render("admin/addstore",{
-      user: req.user,
-      authenticated: req.isAuthenticated(),
-      ...context,
-    });
-    return;
-  },
-
-  getCategories: async function(req,res) {
-    const categories = await categoriesTable.find();
-    const names= Array(categoriesTable.length);
-    for(let i=0;i< categories.length;i++){
-      names[i] = categories[i].categoryName;
-    }
-    res.render("admin/products",{
-      user: req.user,
-      authenticated: req.isAuthenticated(),
-      names
-    });
-  },
-
-  getProducts: async function (req,res) {
-    const locations = await locationTable.find();
-    const stores = await storeTable.find({city:"IIT Mandi"});
-    const categories = await categoriesTable.find();
-    const storeId = Array(stores.length);
-    for(let i=0;i<stores.length;i++){
-      storeId[i] = stores[i]._id;
-    }
-
-    const products = await productTable.find({storeID:{"$in":storeId}});
-    const categoryDict = {},storeDict ={};
-    const cities = Array(locations.length); 
-    
-    // console.log(locations.length);
-    for(let i=0;i < locations.length;i++){
+    let cities = Array(locations.length);
+    let states = Array(locations.length);
+    for (let i = 0; i < locations.length; i++) {
       cities[i] = locations[i].city;
+      states[i] = locations[i].state;
     }
-    for(let i=0;i<categories.length;i++){
-      categoryDict[categories[i]._id] = categories[i].categoryName
-    }
-
-    for(let i=0;i < stores.length;i++){
-      storeDict[stores[i]._id] = stores[i].storeName;
-    }
-
     const context = {
-      "products":products,
-      "storeDict":storeDict,
-      "categoryDict":categoryDict,
-      "cities":cities
+      cities: cities,
+      states: states,
     };
-
-    res.render("admin/products",{
-      user: req.user,
-      authenticated: req.isAuthenticated(),
-      ...context,
-    });
+    return context;
   },
 
-  addProducts: async function(req,res){
-    // do something here.
+  addProduct: async function (formData, status) {
+    const {
+      name,
+      store_id,
+      category_id,
+      costPrice,
+      mrp,
+      availableQuantity,
+      description,
+      image,
+      categoryName,
+    } = formData;
+
+    const repeated = await productTable.find({
+      name: name,
+      store_id: store_id,
+    });
+
+    if (repeated) return "product already added";
+
+    await productTable.create({
+      name: name,
+      store_id: store_id,
+      category_id: category_id,
+      costPrice: costPrice,
+      mrp: mrp,
+      salePrice: mrp,
+      availableQuantity: availableQuantity,
+      description: description,
+      image: image,
+    });
+    return "Product Added Successfully";
   },
 
-  addCategory: async function(req,res) {
-    const {categoryName} = req.body;
-    const category = await categoriesTable.create({
-      categoryName:categoryName,
-    });
-    e.preventdefault();
-    alert("created a new store successfully");
-    // console.log("created a new store");
-    return;
-  }
+  updateQuantity: async function (req, res) {
+    const product_id = url.parse(req.url, true).query.ID;
+    const availableQuantity = req.body.availableQuantity;
+    await productTable.findOneAndUpdate(
+      { _id: product_id },
+      { availableQuantity: availableQuantity }
+    );
+    return "Quantity Updated Successfully";
+  },
 };
