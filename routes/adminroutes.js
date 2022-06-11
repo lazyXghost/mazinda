@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
+const url = require("url");
 const {
   localAdminLogin,
   storeRegister,
@@ -42,8 +43,8 @@ router.get("/", adminCheck, async (req, res) => {
 /////////////////////////////////////////////////////////////
 
 router.get("/store", adminCheck, async (req, res) => {
-  const status = req.body.status ?? "accepted";
-  const currentCity = req.body.currentCity ?? "Mandi";
+  const status = url.parse(req.url, true).query.status ?? "accepted";
+  const currentCity = url.parse(req.url, true).query.currentCity ?? "Mandi";
   const context = await getStorePageData(currentCity, status);
   res.render("admin/store", {
     user: req.user,
@@ -83,7 +84,7 @@ router.post("/addStore", adminCheck, async (req, res) => {
 ///////////////////////////////////////////////////////////
 
 router.get("/products", adminCheck, async (req, res) => {
-  const currentCity = req.body.currentCity ?? "Mandi";
+  const currentCity = url.parse(req.url,true).query.currentCity ?? "Mandi";
   const context = await getProductPageData(currentCity);
   res.render("admin/products", {
     user: req.user,
@@ -125,7 +126,8 @@ router.post("/deleteCategory", adminCheck, async (req, res) => {
 /////////////////////////////////////////////////////////////
 
 router.get("/money", adminCheck, async (req, res) => {
-  const context = await getMoneyPageData(req.body.status ?? "accepted");
+  const status = url.parse(req.url, true).query.status ?? "accepted";
+  const context = await getMoneyPageData(status);
   res.render("admin/money", {
     user: req.user,
     authenticated: req.isAuthenticated(),

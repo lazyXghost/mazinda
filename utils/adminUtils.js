@@ -6,6 +6,7 @@ const userTable = require("../models/user");
 const moneyDetailTable = require("../models/moneyDetail");
 const addressTable = require("../models/address");
 const url = require("url");
+const {getLocations} = require("../utils");
 
 module.exports = {
   getRevenue: async function (orders) {
@@ -102,7 +103,7 @@ module.exports = {
       status: "pending",
       store_id: { $in: store_id },
     });
-    const locations = await module.exports.getLocations();
+    const locations = await getLocations();
     const context = {
       cities: locations.cities,
       pending: pendingStores,
@@ -133,7 +134,7 @@ module.exports = {
     const acceptedStore_id = Array(stores.length);
 
     // const store_id2 = Array(stores.length);
-    const locations = await module.exports.getLocations();
+    const locations = await getLocations();
     const categoryDict = {},
       storeDict = {};
 
@@ -186,6 +187,7 @@ module.exports = {
       pendingMoneyDetails: pendingMoneyDetails,
       paidAmount: paidAmount,
       totalAmount: totalAmount,
+      status:status,
     };
     // const orders = await orderTable.find();
     // let products=[];
