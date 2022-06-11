@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const passport = require("passport");
 const fs = require('fs');
 const addressTable = require("../models/address");
 const productTable = require("../models/product");
 const categoryTable = require("../models/category");
 const multer = require('multer')
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
-const { storeRegister,localStoreLogin, addProduct} = require("../utils");
+const { storeRegister,localStoreLogin} = require("../utils");
+const {addProduct,updateQuantity} = require("../utils/storeUtils");
 const { findOne, findOneAndUpdate } = require("../models/category");
 const upload = multer({ 
   storage: multer.diskStorage({

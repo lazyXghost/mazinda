@@ -61,58 +61,8 @@ module.exports = {
     return `store and ${returnValue}`;
   },
 
-  userRegister: async function () {
-    const { phoneNumber, name, email, password,referralCode } = req.body;
-    if (password.length < 8) {
-      const message = "Password is too Short";
-      console.log(message);
-      return message;
-    }
-    const oldUser = await userTable.findOne({ phoneNumber });
-
-    if (oldUser) {
-      const message = "user already Exists";
-      console.log(message);
-      return message;
-    }
-
-    const encryptedPassword = await bcrypt.hash(password, 10);
-
-    if(referralCode) {
-      const wallet = await walletTable.findOne({referralCode:referralCode});
-      if(wallet){
-        const currentDate = new Date();
-        if((currentDate - wallet.createdOn)/86400000 <= 10){
-          wallet.update({coins:wallet.coins+10});
-        }
-      } else {
-        const message = "Invalid Referral Code";
-        console.log(message);
-        return message;
-      }
-    }
-
-    const user = userTable.create({
-      name: name,
-      email: email,
-      password: encryptedPassword,
-      phoneNumber: phoneNumber,
-    });
-
-    await walletTable.create({
-      user_id:user._id,
-      createdOn:new Date(),
-      coins:0,
-      referralCode:shortid.generate(),
-    });
-
-   
-    const message = "user Created Successfully"; 
-    console.log(message);
-    return message;
-  },
-
-  addAddress: async function (req, user_id) {
+  addAddress: async function (req) {
+    const { user_id } = req.user._id;
     const { building, street, locality, city, pincode, state } = req.body;
     const address = await addressTable.create({
       user_id: user_id,
@@ -147,48 +97,5 @@ module.exports = {
       states: states,
     };
     return context;
-  },
-
-  addProduct: async function (formData) {
-    const {
-      name,
-      store_id,
-      costPrice,
-      mrp,
-      availableQuantity,
-      description,
-      image,
-      categoryName,
-    } = formData;
-    const element = await categoryTable.findOne({categoryName:categoryName});
-    category_id = element._id;
-
-    const repeated = await productTable.find({
-      name: name,
-      store_id: store_id,
-    });
-    if (repeated.length > 0) return "product already added";
-    await productTable.create({
-      name: name,
-      store_id: store_id,
-      category_id: category_id,
-      costPrice: costPrice,
-      mrp: mrp,
-      salePrice: mrp,
-      availableQuantity: availableQuantity,
-      description: description,
-      image: image,
-    });
-    return "Product Added Successfully";
-  },
-
-  updateQuantity: async function (req, res) {
-    const product_id = url.parse(req.url, true).query.ID;
-    const availableQuantity = req.body.availableQuantity;
-    await productTable.findOneAndUpdate(
-      { _id: product_id },
-      { availableQuantity: availableQuantity }
-    );
-    return "Quantity Updated Successfully";
   },
 };
