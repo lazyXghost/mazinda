@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const WalletSchema = new mongoose.Schema({
     user_id:{
         type:String,
-        required: true
+        required: true,
+        unique:true
     },
     referralCode:{
         type:String,
