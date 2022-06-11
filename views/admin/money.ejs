@@ -64,8 +64,13 @@
     <form action="/admin/money">
       <label for="status">Type:</label>
       <select name="status" id="status">
-        <option value="accepted">Accepted</option>
-        <option value="returned">Returned</option>
+        <% if(status=="accepted") {%>
+          <option value="accepted">Accepted</option>
+          <option value="returned">Returned</option>
+        <%} else {%>
+          <option value="returned">Returned</option>
+          <option value="accepted">Accepted</option>
+        <% } %>
       </select>
       <button type="Submit">Submit</button>
     </form>
@@ -132,7 +137,7 @@
     class="cover header"
     style="display: flex; justify-content: space-between"
   >
-    <div>Total Amount: <%= totalAmount%></div>
+    <div>Total Amount: <%= totalAmount %></div>
     <div>Total Paid: <%= paidAmount %></div>
   </div>
 </header>
