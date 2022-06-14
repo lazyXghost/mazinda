@@ -57,7 +57,7 @@ module.exports = {
       phoneNumber: phoneNumber,
       whatsappNumber: whatsappNumber,
     });
-    const returnValue = module.exports.addAddress(req);
+    const returnValue = await module.exports.addAddress(req);
     return `store and ${returnValue}`;
   },
 
@@ -113,7 +113,7 @@ module.exports = {
   },
 
   addAddress: async function (req) {
-    const { user_id } = req.user._id;
+    const user_id  = req.user._id;
     const { building, street, locality, city, pincode, state } = req.body;
     await addressTable.create({
       user_id: user_id,
@@ -149,11 +149,10 @@ module.exports = {
     return context;
   },
 
-  addProduct: async function (formData, status) {
+  addProduct: async function (formData) {
     const {
       name,
       store_id,
-      category_id,
       costPrice,
       mrp,
       availableQuantity,
@@ -161,14 +160,14 @@ module.exports = {
       image,
       categoryName,
     } = formData;
+    const element = await categoryTable.findOne({categoryName:categoryName});
+    category_id = element._id;
 
     const repeated = await productTable.find({
       name: name,
       store_id: store_id,
     });
-
-    if (repeated) return "product already added";
-
+    if (repeated.length > 0) return "product already added";
     await productTable.create({
       name: name,
       store_id: store_id,

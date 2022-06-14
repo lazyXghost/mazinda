@@ -18,6 +18,8 @@ const upload = multer({
     }
   }) 
 });
+const url = require("url");
+const { resetWatchers } = require("nodemon/lib/monitor/watch");
 
 // <----Registration and authentication for stores----->
 router.get("/register", storeLoggedIn, (req, res) => {
@@ -60,7 +62,7 @@ router.get("/products", storeCheck, async (req, res) => {
   const context = {
     "products" : products
   };
-  console.log(req.user);
+  // console.log(products);
   res.render("store/products", {
     authenticated: req.isAuthenticated(),
     user: req.user,
@@ -84,11 +86,17 @@ router.post("/addProduct", upload.single('image'), storeCheck, async (req, res) 
   }
   const element = await categoryTable.findOne({categoryName:req.body.categoryName});
   req.body.store_id = req.user._id;
-  req.body.category_id = element._id;
-  await addProduct(req.body, "pending");
-  await element.update({quantity:element.quantity+1});
+  const message = await addProduct(req.body);
+  console.log(message);
+  await categoryTable.updateOne({categoryName:req.body.categoryName},{quantity:element.quantity+1});
   res.redirect("/store/products");
 });
+
+router.get("/updateProduct", storeCheck, async(req, res) => {
+  const {product_id, newQuantity} = url.parse(req.url, true).query;
+  await productTable.updateOne({_id: product_id},{availableQuantity: newQuantity});
+  res.send("Updated successfully");
+})
 
 router.get("/updateQuantity",storeCheck,async (req,res) => {
   await updateQuantity({_id:req.body._id},{availableQuantity:req.body.quantity});
