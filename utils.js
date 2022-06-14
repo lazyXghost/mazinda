@@ -49,7 +49,7 @@ module.exports = {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    await storeTable.create({
+    const store = await storeTable.create({
       storeName: storeName,
       email: email.toLowerCase(),
       password: encryptedPassword,
@@ -57,7 +57,7 @@ module.exports = {
       phoneNumber: phoneNumber,
       whatsappNumber: whatsappNumber,
     });
-    const returnValue = await module.exports.addAddress(req);
+    const returnValue = await module.exports.addAddress(req, store._id);
     return `store and ${returnValue}`;
   },
 
@@ -112,10 +112,9 @@ module.exports = {
     return message;
   },
 
-  addAddress: async function (req) {
-    const user_id  = req.user._id;
+  addAddress: async function (req, user_id) {
     const { building, street, locality, city, pincode, state } = req.body;
-    await addressTable.create({
+    const address = await addressTable.create({
       user_id: user_id,
       building: building,
       street: street,
@@ -124,6 +123,7 @@ module.exports = {
       state: state,
       locality: locality,
     });
+    console.log(address);
     const message = "address added successfully";
     console.log(message);
     return message;

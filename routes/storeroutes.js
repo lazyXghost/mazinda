@@ -110,6 +110,7 @@ router.get("/deleteProduct", storeCheck, async (req, res) => {
 });
 
 router.get("/profile", storeCheck, async (req, res) => {
+  console.log(req.user._id);
   const address = await addressTable.findOne({user_id:req.user._id});
   console.log(address);
   res.render("store/profile", {
