@@ -16,23 +16,7 @@
 
     <section class="section">
       <div class="row align-items-top">
-<<<<<<< HEAD
-        <% for(var i = 0;i<products.length;i++){ %>
-          <div class="col-lg-3">
-            <div class="card">
-              <img src="data:image/image/png;base64,<%=products[i].image.data.toString('base64')%>" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"> <%= products[i].name %> </h5>
-                <h6>  
-                  <label for="Quantity">Quantity: </label>
-                  <input class="w-25" type="number" name="Quantity" id="Quantity" value="<%= products[i].availableQuantity %>"  onchange="changeQuantity('<%= products[i]._id %>', this)">
-                </h6>
-                <br>
-                <p class="card-text"> <%= products[i].description %> </p>
-              </div>
-            </div>
-          </div>
-=======
+
         <% for(let i=0;i < products.length;i++) {%>
         <div class="col-lg-3">
           <div class="card">
@@ -46,7 +30,7 @@
             </div>
           </div>
         </div>
->>>>>>> updated store dashboard
+
         <% } %>
       </div>
     </section>
