@@ -25,13 +25,14 @@ module.exports = {
       categoryName,
     } = formData;
 
-    const repeated = await productTable.find({
+    const repeated = await productTable.findOne({
       name: name,
       store_id: store_id,
     });
-
+    console.log("here");
+    console.log(repeated);
     if (repeated) return "product already added";
-
+    console.log("this also works");
     await productTable.create({
       name: name,
       store_id: store_id,
@@ -43,6 +44,7 @@ module.exports = {
       description: description,
       image: image,
     });
+    console.log("now here");
     return "Product Added Successfully";
   },
 
@@ -59,14 +61,45 @@ module.exports = {
     } else return "passwords do not match";
   },
 
+  getRevenue: async function (moneyDetails,salesTime,revenueTime) {
+    let sales = 0;
+    let totalRevenue = 0;
+    const tableDetails =[]
+    const date = Date.now();
+    for (let i = 0; i < moneyDetails.length; i++) {
+      let order = moneyDetails[i];
+      if( order.orderTime.getMonth() == date.getMonth() && order.status=="accepted"){
+        if(revenueTime=="Month" || order.orderTime.getDate() == date.getDate())
+          totalRevenue += order.costPrice * order.quantity;
+        if(salesTime=="Month" || order.orderTime.getDate() == date.getDate())
+          sales +=1;
+      }
+      if(order.orderTime.getMonth() == date.getMonth() && (tableTime=="Month" || order.orderTime.getDate() == date.getDate())){
+        tableDetails.push(order);
+      }
+    }
+    const context = {
+      revenue:totalRevenue,
+      sales:sales,
+      tableDetails:tableDetails,
+    };
+    return context;
+  },
+
+
   deleteProduct: async function (req, res) {
     const product_id = url.parse(req.url, true).query.ID;
     const product = await productTable.findOne({
       _id: product_id,
     });
+    console.log("this work has been done");
+    console.log(product.category_id);
     const element = await categoryTable.findOne({_id:product.category_id});
+    console.log("this work has also been done");
+    console.log(element);
     await element.update({quantity:element.quantity-1});
     await product.delete();
+    console.log("this work is left yet");
     return "product deleted Successfully.";
   },
 

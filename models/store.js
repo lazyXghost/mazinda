@@ -34,6 +34,11 @@ const StoreSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'pending',
+    },
+    description: {
+        type:String,
+        required:false,
+        default:'No description Provided',
     }
 });
 

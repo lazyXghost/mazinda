@@ -7,7 +7,7 @@
       <h1>Products</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/store/dashboard">Store</a></li>
+          <li class="breadcrumb-item"><a href="/store">Store</a></li>
           <li class="breadcrumb-item">Products</li>
           <!-- <li class="breadcrumb-item active">Cards</li> -->
         </ol>
@@ -16,6 +16,7 @@
 
     <section class="section">
       <div class="row align-items-top">
+<<<<<<< HEAD
         <% for(var i = 0;i<products.length;i++){ %>
           <div class="col-lg-3">
             <div class="card">
@@ -31,6 +32,21 @@
               </div>
             </div>
           </div>
+=======
+        <% for(let i=0;i < products.length;i++) {%>
+        <div class="col-lg-3">
+          <div class="card">
+            <img src="data:image/image/png;base64,<%=products[i].image.data.toString('base64')%>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%= products[i].name %></h5>
+              <p class="card-text"><%= products[i].description %></p>
+              <a href="/store/editProduct?ID=<%=products[i]._id%>"><button type="button" class="btn btn-success btn-lg btn-round">Edit</button></a>
+              <a href="/store/deleteProduct?ID=<%=products[i]._id%>"><button type="button" class="btn btn-danger btn-lg btn-round">Delete</button></a>
+          
+            </div>
+          </div>
+        </div>
+>>>>>>> updated store dashboard
         <% } %>
       </div>
     </section>

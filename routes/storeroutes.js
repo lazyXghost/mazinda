@@ -2,7 +2,10 @@ const router = require("express").Router();
 const fs = require("fs");
 const addressTable = require("../models/address");
 const productTable = require("../models/product");
+const storeTable = require("../models/store");
+const moneyDetailsTable = require("../models/moneyDetail");
 const categoryTable = require("../models/category");
+const url = require("url")
 const multer = require("multer");
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
 const { storeRegister, localStoreLogin } = require("../utils");
@@ -11,6 +14,7 @@ const {
   updateQuantity,
   deleteProduct,
   changePassword,
+  getRevenue,
 } = require("../utils/storeUtils");
 const { findOne, findOneAndUpdate } = require("../models/category");
 const upload = multer({
@@ -48,31 +52,53 @@ router.post("/login", localStoreLogin);
 
 // ----------- APP ROUTES ---------------
 
-router.get("/", storeCheck, (req, res) => {
-  res.render("store/dashboard", {
+router.get("/", storeCheck, async (req, res) => {
+  const moneyDetails = await moneyDetailsTable.find({store_id:req.user._id});
+  const salesTime = url.parse(req.url,true).query.salesTime || "Month";
+  const revenueTime = url.parse(req.url,true).query.revenueTime || "Month";
+  const tableTime = url.parse(req.url,true).query.tableTime || "Month";
+  const {revenue,sales,tableDetails} = await getRevenue(moneyDetails,salesTime,revenueTime,tableTime);
+  const context = {
     authenticated: req.isAuthenticated(),
     user: req.user,
-  });
+    revenue:revenue,
+    sales:sales,
+    salesTime:salesTime,
+    revenueTime:revenueTime,
+    tableTime:tableTime,
+    tableDetails:tableDetails,
+  }
+  res.render("store/dashboard", {...context});
 });
 
-router.get("/dashboard", storeCheck, (req, res) => {
-  res.render("store/dashboard", {
+router.get("/dashboard", storeCheck, async (req, res) => {
+  const moneyDetails = await moneyDetailsTable.find({store_id:req.user._id});
+  const salesTime = url.parse(req.url,true).query.salesTime || "Month";
+  const revenueTime = url.parse(req.url,true).query.revenueTime || "Month";
+  const tableTime = url.parse(req.url,true).query.tableTime || "Month";
+  const {revenue,sales,tableDetails} = await getRevenue(moneyDetails,salesTime,revenueTime,tableTime);
+  const context = {
     authenticated: req.isAuthenticated(),
     user: req.user,
-  });
+    revenue:revenue,
+    sales:sales,
+    salesTime:salesTime,
+    revenueTime:revenueTime,
+    tableTime:tableTime,
+    tableDetails:tableDetails,
+  }
+  res.render("store/dashboard", {...context});
 });
 
 router.get("/products", storeCheck, async (req, res) => {
   const products = await productTable.find({ store_id: req.user._id });
   const context = {
     products: products,
-  };
-  // console.log(products);
-  res.render("store/products", {
-    authenticated: req.isAuthenticated(),
     user: req.user,
-    ...context,
-  });
+    authenticated: req.isAuthenticated(),
+  };
+  console.log(req.user);
+  res.render("store/products", { ...context });
 });
 
 router.get("/addProduct", storeCheck, async (req, res) => {
@@ -110,7 +136,7 @@ router.get("/updateQuantity", storeCheck, async (req, res) => {
 });
 
 router.get("/deleteProduct", storeCheck, async (req, res) => {
-  await deleteProduct(req.res);
+  await deleteProduct(req,res);
   res.redirect("/store/products");
 });
 
