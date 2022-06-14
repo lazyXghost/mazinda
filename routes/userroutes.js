@@ -1,10 +1,12 @@
 const router = require("express").Router();
 const passport = require("passport");
 const { userCheck, userLoggedIn } = require("../middleware/auth");
-const { userRegister, addAddress, localUserLogin } = require("../utils");
+const {addAddress, localUserLogin } = require("../utils");
+const {userRegister} = require("../utils/userUtils");
 const productTable = require("../models/product");
 const walletTable = require("../models/wallet");
 const userTable = require("../models/user");
+const url = require("url");
 
 // <----Registration and authentication for stores----->
 router.get("/register", userLoggedIn, (req, res) => {
@@ -54,12 +56,24 @@ router.get("/contact", (req, res) => {
   res.render("store/contact");
 });
 
-router.get("/products", userCheck, (req, res) => {
-  res.render("store/products", {
+router.get("/products", (req, res) => {
+  res.render("user/buyProduct", {
     authenticated: req.isAuthenticated(),
     user: req.user,
   });
 });
+
+router.get("/productDetail",async (req,res) => {
+  const product_id = url.parse(req.url,true).query.ID;
+  const product = await productTable.findOne({_id:product_id});
+  const context = {
+    authenticated:req.isAuthenticated(),
+    user:req.user,
+    product:product,
+  };
+  if(product) res.render("user/mobile_product",{...context});
+  else res.status(404).send("<h1>404 NOT FOUND!</h1>");
+})
 
 router.get("/faqs", (req, res) => {
   res.render("user/faq");

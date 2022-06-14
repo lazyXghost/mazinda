@@ -6,11 +6,11 @@
                 <div>
                     <% for(var i=0; i< products.length; i++) { %>
                         <div class="rounded-2xl shadow-xl shadow-slate-300/60" data-v-8bd4d122>
-                            <div class="img-wrapper rounded-t-2xl" data-v-8bd4d122><a href="/Vuemmerce/product_detail/1" data-v-8bd4d122><img src="data:image/image/png;base64,<%=products[i].image.data.toString('base64')%>" alt="Placeholder image" class="rounded-t-2xl" data-v-8bd4d122></a>
+                            <div class="img-wrapper rounded-t-2xl" data-v-8bd4d122><a href="/productDetail?ID=<%= products[i]._id %>" data-v-8bd4d122><img src="data:image/image/png;base64,<%=products[i].image.data.toString('base64')%>" alt="Placeholder image" class="rounded-t-2xl" data-v-8bd4d122></a>
                             </div>
                             <div class="text-wrapper p-4" data-v-8bd4d122>
                                 <div class="flex items-center justify-between mb-3" data-v-8bd4d122>
-                                    <div class="media-content" data-v-8bd4d122><a href="/Vuemmerce/product_detail/1" data-v-8bd4d122><span class="text-lg" data-v-8bd4d122>
+                                    <div class="media-content" data-v-8bd4d122><a href="productDetail?ID=<%= products[i]._id %>"" data-v-8bd4d122><span class="text-lg" data-v-8bd4d122>
                                                 <%= products[i].name %>
                                             </span></a>
                                     </div>

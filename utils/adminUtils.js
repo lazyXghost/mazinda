@@ -163,6 +163,9 @@ module.exports = {
       status: "accepted",
       store_id: { $in: acceptedStore_id },
     });
+    console.log(acceptedproducts.length);
+    console.log(pendingproducts.length);
+    console.log(rejectedproducts.length);
     // const products = await productTable.find({ store_id: { $in: store_id } });
     const context = {
       cities: locations.cities,
