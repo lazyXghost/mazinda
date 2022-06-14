@@ -5,6 +5,14 @@ const MoneyDetailSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    store_id: {
+        type:String,
+        required:true,
+    },
+    orderTime: {
+        type:String,
+        required:true,
+    },
     sellerName: {
         type:String,
         required:true,

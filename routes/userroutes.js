@@ -4,6 +4,7 @@ const { userCheck, userLoggedIn } = require("../middleware/auth");
 const { userRegister, addAddress, localUserLogin } = require("../utils");
 const productTable = require("../models/product");
 const walletTable = require("../models/wallet");
+const userTable = require("../models/user");
 
 // <----Registration and authentication for stores----->
 router.get("/register", userLoggedIn, (req, res) => {
@@ -66,12 +67,16 @@ router.get("/faqs", (req, res) => {
 // profile contains the name,phonenumber,email,walletBalance,
 
 router.get("/profile", userCheck, async (req, res) => {
+    const wallets = await walletTable.find();
+    console.log(wallets);
+    const user = await userTable.findOne({_id:wallets[0].user_id});
+    console.log(user);
     const wallet = await walletTable.findOne({user_id:req.user._id});
     const context = {
         user:req.user,
         wallet:wallet,
     }
-    console.log(wallet);
+    console.log(wallet,"is  null");
     console.log(req.user);
   res.render("user/profile", {
     authenticated: req.isAuthenticated(),
