@@ -1,0 +1,146 @@
+<%- include('partials/header') %>
+    <link href="/user_UI/css/style.css" rel="stylesheet">
+    <div class="row">
+        <div class="m-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                    <% for(var i=0; i< products.length; i++) { %>
+                        <div class="rounded-2xl shadow-xl shadow-slate-300/60" data-v-8bd4d122>
+                            <div class="img-wrapper rounded-t-2xl" data-v-8bd4d122><a href="/productDetail?ID=<%= products[i]._id %>" data-v-8bd4d122><img src="data:image/image/png;base64,<%=products[i].image.data.toString('base64')%>" alt="Placeholder image" class="rounded-t-2xl" data-v-8bd4d122></a>
+                            </div>
+                            <div class="text-wrapper p-4" data-v-8bd4d122>
+                                <div class="flex items-center justify-between mb-3" data-v-8bd4d122>
+                                    <div class="media-content" data-v-8bd4d122><a href="productDetail?ID=<%= products[i]._id %>"" data-v-8bd4d122><span class="text-lg" data-v-8bd4d122>
+                                                <%= products[i].name %>
+                                            </span></a>
+                                    </div>
+                                    <!-- <button title="Remove from favourite" class="button text-lg"
+                                                        style="display:none" data-v-8bd4d122><span class="icon"
+                                                            data-v-8bd4d122><i class="fas fa-heart"
+                                                                data-v-8bd4d122></i></span></button> <button
+                                                        title="Add to favourite" class="button text-lg"
+                                                        data-v-8bd4d122><span class="icon" data-v-8bd4d122><i
+                                                                class="far fa-heart"
+                                                                data-v-8bd4d122></i></span></button> -->
+                                </div>
+                                <div class="content is-clearfix" data-v-8bd4d122>
+                                    <p class="text-base" data-v-8bd4d122>
+                                        <%= products[i].description %>
+                                    </p>
+                                    <div class="flex justify-between" data-v-8bd4d122>
+                                        <!-- <div class="flex items-center" data-v-8bd4d122> -->
+                                        <!---->
+                                        <!---->
+                                        <!-- <i class="fa fa-star" data-v-8bd4d122></i> <i -->
+                                        <!-- class="fa fa-star" data-v-8bd4d122></i> <i -->
+                                        <!-- class="fa fa-star" data-v-8bd4d122></i> -->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!-- <p class="ml-2 text-lg" data-v-8bd4d122>5 Reviews</p> -->
+                                        <!-- </div> -->
+                                        <p class="text-3xl font-medium" data-v-8bd4d122><strong data-v-8bd4d122>
+                                                <%= products[i].mrp %>
+                                            </strong></p>
+                                    </div>
+                                    <div class="flex justify-between mt-5 items-center" data-v-8bd4d122>
+                                        <!-- <select class="p-2 border-2 rounded-2xl"
+                                                            data-v-8bd4d122></select> -->
+                                        <button class="rounded-xl p-3 bg-blue text-white" data-v-8bd4d122> <a href="/buyProduct?ID=<%= products[i]._id %>"> Buy Now</a></button>
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div>
+                    <div class="hidden modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-wrapper">
+                            <div class="bg-grey_light flex items-center justify-between rounded-t-2xl p-5">
+                                <p class="text-xl">Log in</p>
+                                <!----> <button aria-label="close" class="delete">X</button>
+                            </div>
+                            <form action="#" method="post">
+                                <section class="p-5 rounded-b-2xl">
+                                    <div>
+                                        <div class="m-4"><input type="email" placeholder="youremail@email.com" name="emailName" class="input">
+                                            <!---->
+                                        </div>
+                                        <div class="m-4"><input type="password" placeholder="********" name="passwordName" class="input">
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <!---->
+                                    <div class="m-4"><button type="submit" class="rounded-xl p-3 bg-blue text-white w-full">Log
+                                            in</button>
+                                        <!---->
+                                    </div>
+                                </section>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="hidden modal" data-v-3d4deb5c>
+                        <div class="modal-background" data-v-3d4deb5c></div>
+                        <div class="modal-wrapper" data-v-3d4deb5c>
+                            <div class="bg-grey_light flex items-center justify-between rounded-t-2xl p-5" data-v-3d4deb5c>
+                                <p class="text-xl" data-v-3d4deb5c>Sign up</p>
+                                <!----> <button aria-label="close" class="delete" data-v-3d4deb5c>X</button>
+                            </div>
+                            <form action="#" method="post" data-v-3d4deb5c>
+                                <section class="p-5 rounded-b-2xl" data-v-3d4deb5c>
+                                    <div data-v-3d4deb5c>
+                                        <div class="m-4" data-v-3d4deb5c><input placeholder="Your Name" class="input" data-v-3d4deb5c>
+                                            <!---->
+                                        </div>
+                                        <div class="m-4" data-v-3d4deb5c><input type="email" placeholder="youremail@email.com" name="emailName" class="input" data-v-3d4deb5c>
+                                            <!---->
+                                        </div>
+                                        <div class="m-4" data-v-3d4deb5c><input type="password" placeholder="********" class="input" data-v-3d4deb5c>
+                                            <!---->
+                                        </div>
+                                        <div class="m-4" data-v-3d4deb5c><input type="password" placeholder="********" class="input" data-v-3d4deb5c>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <!---->
+                                </section>
+                                <div class="m-4" data-v-3d4deb5c><button class="rounded-xl p-3 bg-blue text-white w-full" data-v-3d4deb5c>Sign
+                                        up</button>
+                                    <!---->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="hidden modal" data-v-4a2b29eb>
+                        <div class="modal-background" data-v-4a2b29eb></div>
+                        <div class="modal-wrapper" data-v-4a2b29eb>
+                            <div class="bg-grey_light flex items-center justify-between rounded-t-2xl p-5" data-v-4a2b29eb>
+                                <p class="text-xl" data-v-4a2b29eb>Checkout</p> <button aria-label="close" class="delete" data-v-4a2b29eb>X</button>
+                            </div>
+                            <section class="p-5 rounded-b-2xl" data-v-4a2b29eb>
+                                <div data-v-4a2b29eb>
+                                    <div data-v-4a2b29eb>
+                                        <p data-v-4a2b29eb>Your cart is empty</p>
+                                    </div>
+                                </div>
+                                <!---->
+                            </section>
+                            <div class="m-4" data-v-4a2b29eb><button class="rounded-xl p-3 bg-blue text-white w-full" style="display:none" data-v-4a2b29eb>Buy 0 product at
+                                    0€</button>
+                                <!---->
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer')%>

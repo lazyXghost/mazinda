@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const multer = require("multer");
-
+const useragent = require('express-useragent');
 const userRoutes = require("./routes/userroutes");
 const adminRoutes = require("./routes/adminroutes");
 const storeRoutes = require("./routes/storeroutes");
@@ -18,6 +18,7 @@ connectDB();
 
 // ------- EXPRESS, BODYPARSER, EJS VIEW ENGINE SETUP --------
 const app = express();
+app.use(useragent.express());
 app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({

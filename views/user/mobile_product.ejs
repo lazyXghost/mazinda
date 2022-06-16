@@ -135,7 +135,7 @@
       <p class="lead">
         <span class="text-muted text-decoration-line-through fs-4"><%= product.mrp %></span>
         <span class="ms-2 fs-1 fw-bolder"><%= product.salePrice %></span>
-        <span class="ms-2 fs-6 text-success"><%= ((product.mrp-product.salePrice)/product.mrp * 100)%> %off</span>
+        <span class="ms-2 fs-6 text-success"><%= (Number.parseInt((product.mrp-product.salePrice)/product.mrp * 100))%> %off</span>
       </p>
       <p class="fs-5">
         <button type="button" class="btn btn-success rating-btn">4.2 ⭐</button>
@@ -175,11 +175,11 @@
     <!-- Rating Container Ends -->
     <div class="btn-group w-100" role="group" aria-label="Basic example">
       <% if(user) {%>
-      <a href="/addToCart"><button type="button" class="btn btn-light">Add to Cart</button></a>
-      <a href="/placeOrder"><button type="button" class="btn btn-success">Buy Now</button></a>
+      <a href="/addToCart" type="button" class="btn btn-light">Add to Cart</a>
+      <a href="/placeOrder" type="button" class="btn btn-success">Buy Now</a>
       <%} else {%>
-      <a href="/login"><button type="button" class="btn btn-light">Add to Cart</button></a>
-      <a href="/login"><button type="button" class="btn btn-success">Buy Now</button></a>
+      <a href="/login" type="button" class="btn btn-light">Add to Cart</a>
+      <a href="/login" type="button" class="btn btn-success">Buy Now</a>
       <% } %>
     </div>
     <script
