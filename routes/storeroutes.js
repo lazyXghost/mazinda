@@ -9,6 +9,7 @@ const url = require("url")
 const multer = require("multer");
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
 const { storeRegister, localStoreLogin } = require("../utils");
+const { resetWatchers } = require("nodemon/lib/monitor/watch");
 const {
   addProduct,
   updateQuantity,
@@ -27,8 +28,6 @@ const upload = multer({
     },
   }),
 });
-const url = require("url");
-const { resetWatchers } = require("nodemon/lib/monitor/watch");
 
 // <----Registration and authentication for stores----->
 router.get("/register", storeLoggedIn, (req, res) => {

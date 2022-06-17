@@ -4,15 +4,15 @@
             <article class="card">
                 <header class="card-header"> My Orders / Tracking </header>
                 <div class="card-body">
-                    <% for(var i=0;i<orders.length;i++) { %>
+                    <% for(var i=0;i < completedOrders.length;i++) { %>
                         <h2><u>ORDER #<%= i+1 %></u></h2>
-                        <h6>Order ID: <%= orders[i]._id %>
+                        <h6>Order ID: <%= completedOrders[i]._id %>
                         </h6>
-                        <h6>Order Number: <%= orders[i].orderNumber %>
+                        <h6>Order Number: <%= completedOrders[i].orderNumber %>
                         </h6>
-                        <h6>Order Time: <%= orders[i].orderTime %>
+                        <h6>Order Time: <%= completedOrders[i].orderTime %>
                         </h6>
-                        <h6>Order Shipping Address: <%= orders[i].shippingAddress %>
+                        <h6>Order Shipping Address: <%= completedOrders[i].address_id %>
                         </h6>
                         <!-- <article class="card">
                             <div class="card-body row">
@@ -30,13 +30,13 @@
                         </div> -->
                         <hr>
                         <ul class="row">
-                            <% for(var j=0;j<orders[i].products.length;j++) { %>
+                            <% for(var j=0;j< completedOrders[i].products.length;j++) { %>
                                 <li class="col-md-4">
                                     <figure class="itemside mb-3">
                                         <div class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
                                         <figcaption class="info align-self-center">
                                             <p class="title">
-                                                Product Id: <%= orders[i].products[j].productID %>
+                                                Product Id: <%= completedOrders[i].products[j].product_id %>
                                             </p> 
                                             <span class="text-muted">
                                                 Quantity: <%= orders[i].products[j].quantity %>
