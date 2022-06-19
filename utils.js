@@ -73,7 +73,6 @@ module.exports = {
       state: state,
       locality: locality,
     });
-    console.log(address);
     const message = "address added successfully";
     console.log(message);
     return message;
