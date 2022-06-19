@@ -39,6 +39,7 @@
       }
 
       body {
+        margin: 0px;
         font-size: 14px;
         color: #212121;
         line-height: 1.4;
@@ -617,48 +618,6 @@
               </div>
             </div>
             <% } %>
-
-            <div class="products_tab">
-              <div class="product_info">
-                <a href="http://">
-                  <!-- Product Page Linked by Image -->
-                  <div class="product_img-div">
-                    <img
-                      src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
-                      alt=""
-                      class="product_img"
-                    />
-                  </div>
-                </a>
-                <div class="product_description">
-                  <div class="p_title-div">
-                    <a href="http://">
-                      <!-- Product Page Linked by Title -->
-                      <div class="p_title">Product Title</div>
-                    </a>
-                  </div>
-                  <div class="p_qty">
-                    Qty: 1
-                    <!-- Need to be designed to add/delete -->
-                  </div>
-                  <div class="p_seller">
-                    <span>Seller: ABC Ltd.</span>
-                    <span class="ms-2">
-                      <!-- Mazinda Assured Logo -->
-                    </span>
-                  </div>
-                  <div class="p_price">
-                    <span class="original">₹7500</span>
-                    <span class="mazinda">₹6000</span>
-                    <span class="discount">20% Off</span>
-                  </div>
-                  <div class="p_actions">
-                    <div class="p_save">Save for later</div>
-                    <div class="p_remove">Remove</div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -670,7 +629,7 @@
               <div class="section_title">
                 Price (<%=products.length%> items)
               </div>
-              <span> ₹<%= amount %></span>
+              <span> ₹<%= amount+discount %></span>
             </div>
             <div class="price_section">
               <div class="section_title">Discount</div>
@@ -692,9 +651,9 @@
           </div>
           <div class="place">
             <% if(addresses.length == 0) {%>
-            <button class="btn buy_btn" disabled>Proceed to Checkout</button>
+              <button class="btn buy_btn" disabled>Proceed to Checkout</button>
             <% } else {%>
-            <button class="btn buy_btn">Proceed to Checkout</button>
+              <button class="btn buy_btn">Proceed to Checkout</button>
             <% } %>
           </div>
         </div>

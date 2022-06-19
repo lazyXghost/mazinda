@@ -39,6 +39,7 @@
       }
 
       body {
+        margin: 0px;
         font-size: 14px;
         color: #212121;
         line-height: 1.4;
@@ -509,13 +510,19 @@
 
     <div class="deliver_to">
       <div class="deliver_container">
+        <% if(addresses.length == 0) {%>
+            <div class="change_container">
+                <button class="btn change_btn">Add Address</button>
+              </div>
+              <% } else { %>
         <div class="div_text">
           <span class="deliver_text1">Deliver to : </span>
-          <span class="user_location">Mandi (175005)</span>
+          <span class="user_location"><%=addresses[0].city%>(<%=addresses[0].pincode%>)</span>
         </div>
         <div class="change_container">
           <button class="btn change_btn">Change</button>
         </div>
+        <% } %>
       </div>
     </div>
 
@@ -525,17 +532,23 @@
           <div class="price_section">
             <div class="section_title">
               Subtotal
-              <span class="ms-1 fw-bolder fs-4"> ₹12040</span>
+              <span class="ms-1 fw-bolder fs-4"> ₹<%= amount%></span>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="place">
+    <% if(addresses.length == 0) {%>
+      <button class="btn buy_btn" disabled>Proceed to Checkout</button>
+    <% } else {%>
       <button class="btn buy_btn">Proceed to Checkout</button>
+    <% } %>
     </div>
 
+
     <div class="products">
+      <% for(let i=0;i < products.length;i++) {%>
       <div class="products_tab">
         <div class="product_info">
           <a href="http://">
@@ -556,14 +569,14 @@
               </a>
             </div>
             <div class="p_price">
-              <span class="mazinda">₹6000</span>
+              <span class="mazinda">₹<%=products[i].salePrice%></span>
             </div>
             <div class="p_available-div">
               <div class="p_available">In Stock</div>
             </div>
             <div class="p_seller-div">
               <div class="p_seller">
-                <span>Sold by ABC Ltd.</span>
+                <span>products[i].name</span>
               </div>
             </div>
             <div class="p-assured-div">
@@ -575,62 +588,19 @@
         </div>
         <div class="product-actions"></div>
       </div>
-      <div class="products_tab">
-        <div class="product_info">
-          <a href="http://">
-            <!-- Product Page Linked by Image -->
-            <div class="product_img-div">
-              <img
-                src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
-                alt=""
-                class="product_img"
-              />
-            </div>
-          </a>
-          <div class="product_description">
-            <div class="p_title-div">
-              <a href="http://">
-                <!-- Product Page Linked by Title -->
-                <div class="p_title">Product Title</div>
-              </a>
-            </div>
-            <div class="p_price">
-              <span class="mazinda">₹6000</span>
-            </div>
-            <div class="p_available-div">
-              <div class="p_available">In Stock</div>
-            </div>
-            <div class="p_seller-div">
-              <div class="p_seller">
-                <span>Sold by ABC Ltd.</span>
-              </div>
-            </div>
-            <div class="p-assured-div">
-              <div class="p-assured">
-                <!-- Mazinda assured logo -->
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="product-actions"></div>
-      </div>
-    </div>
+      <% } %>
 
     <div class="value">
       <div class="value_container">
         <span class="price">Price Details</span>
         <div class="price_breakup">
           <div class="price_section">
-            <div class="section_title">Price (2 items)</div>
-            <span> ₹15000</span>
+            <div class="section_title">Price (<%=products.length %> items)</div>
+            <span> ₹<%=amount+discount%></span>
           </div>
           <div class="price_section">
             <div class="section_title">Discount</div>
-            <span class="color-2">- ₹3000</span>
-          </div>
-          <div class="price_section">
-            <div class="section_title">Service Charges</div>
-            <span> ₹40</span>
+            <span class="color-2">- ₹<%= discount %></span>
           </div>
           <div class="price_section">
             <div class="section_title">Delivery Charges</div>
@@ -639,10 +609,10 @@
           <div class="price_total">
             <div class="price_section">
               <div class="section_title">Total Amount</div>
-              <span> ₹12040</span>
+              <span> <%= amount %></span>
             </div>
           </div>
-          <div class="value_final">You will save ₹3000 on this order</div>
+          <div class="value_final">You will save ₹<%=discount%> on this order</div>
         </div>
       </div>
     </div>

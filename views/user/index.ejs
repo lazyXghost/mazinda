@@ -316,7 +316,7 @@
                 <% for(let i=0;i < trendings.length;i++) { %>
                 <div class="product-box">
                     <div class="img product-img-box">
-                        <img src="data:image/image/png;base64,<%=trendings[i].image.data.toString('base64')%>" alt="no image available">
+                        <img src="data:image/image/png;base64,<%=trendings[i].images[0].data.toString('base64')%>" alt="no image available">
                     </div>
                     <p><%= trendings[i].name %></p>
                     <h5 class="font-bold">$<%= trendings[i].salePrice %></h5>
@@ -437,7 +437,7 @@
                  <% for(let i=0;i < topDeals.length;i++) {%>
                 <div class="product-box">
                     <div class="img product-img-box">
-                        <a href="/productDetail?ID=<%=topDeals[i]._id%>"><img src="data:image/image/png;base64,<%=topDeals[i].image.data.toString('base64')%>" alt="no image available"></a>
+                        <a href="/productDetail?ID=<%=topDeals[i]._id%>"><img src="data:images[0]/image/png;base64,<%=topDeals[i].images[0].data.toString('base64')%>" alt="no image available"></a>
                     </div>
                     <p>RedMe 9 Pro Max</p>
                     <h5 class="font-bold">$50</h5>

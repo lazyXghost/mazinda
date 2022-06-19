@@ -1,0 +1,7 @@
+1) Create a way of uploading multiple images through multer.
+2) create a frontend page for adding the address field of user.
+3) update the frontend of the desktop as well as mobile view to allow to change address.
+4) Add the money Management page for the store.
+5) update the money management for the store as well as the admin.
+5) create the order page frontend for the admin.
+6) do the backend part of the order page.

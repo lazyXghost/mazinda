@@ -110,14 +110,18 @@ router.get("/addProduct", storeCheck, async (req, res) => {
 
 router.post(
   "/addProduct",
-  upload.single("image"),
+  upload.array("productImage",4),
   storeCheck,
   async (req, res) => {
-    req.body.image = {
-      data: fs.readFileSync(req.file.filename),
-      contentType: "image/png",
-    };
-    fs.unlinkSync(req.file.filename);
+    req.body.images = [];
+    for(let i=0;i<req.files.length;i++){
+      const image = {
+        data:fs.readFileSync(req.files[i].filename),
+        contentType:"image/png",
+      }
+      fs.unlinkSync(req.files[i].filename);
+      req.body.images.push(image);
+    }
     const element = await categoryTable.findOne({
       categoryName: req.body.categoryName,
     });

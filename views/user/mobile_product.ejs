@@ -71,71 +71,49 @@
         data-bs-ride=""
       >
         <div class="carousel-indicators">
+          <%for(let i=0;i < images.length; i++) {%> <% if(i == 0) {%>
           <button
             type="button"
             data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="0"
+            data-bs-slide-to="<%= i %>"
             class="active"
             aria-current="true"
-            aria-label="Slide 1"
+            aria-label="Slide <%= i+1 %>"
           ></button>
+          <% } else { %>
           <button
             type="button"
             data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
+            data-bs-slide-to="<%= i %>"
+            aria-label="Slide <%= i+1 %>"
           ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="3"
-            aria-label="Slide 4"
-          ></button>
+          <% } %> <% } %>
         </div>
         <div class="carousel-inner">
+          <%for(let i=0;i < images.length; i++) {%> <% if(i == 0) {%>
           <div class="carousel-item active">
-            <img
-              src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
-              class="d-block w-100"
-              alt="..."
-            />
+            <img src="data:images[i]/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
           </div>
+          <% } else { %>
           <div class="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"
-              class="d-block w-100"
-              alt="..."
-            />
+            <img src="data:images[i]/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
           </div>
-          <div class="carousel-item">
-            <img
-              src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
-              class="d-block w-100"
-              alt="..."
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
-              class="d-block w-100"
-              alt="..."
-            />
-          </div>
+          <% } %> <% } %>
         </div>
       </div>
     </div>
+
     <div class="container">
-      <h3><%=product.name%> </h3>
+      <h3><%=product.name%></h3>
       <p class="lead">
-        <span class="text-muted text-decoration-line-through fs-4"><%= product.mrp %></span>
+        <span class="text-muted text-decoration-line-through fs-4"
+          ><%= product.mrp %></span
+        >
         <span class="ms-2 fs-1 fw-bolder"><%= product.salePrice %></span>
-        <span class="ms-2 fs-6 text-success"><%= (Number.parseInt((product.mrp-product.salePrice)/product.mrp * 100))%> %off</span>
+        <span class="ms-2 fs-6 text-success"
+          ><%= (Number.parseInt((product.mrp-product.salePrice)/product.mrp *
+          100))%> %off</span
+        >
       </p>
       <p class="fs-5">
         <button type="button" class="btn btn-success rating-btn">4.2 ⭐</button>
@@ -144,9 +122,7 @@
     </div>
     <div class="container mb-1">
       <h6>Product Description</h6>
-      <p class="fs-6">
-        <%= product.description %>
-      </p>
+      <p class="fs-6"><%= product.description %></p>
     </div>
     <!-- Rating Container -->
     <!-- <div class="container mb-5">
