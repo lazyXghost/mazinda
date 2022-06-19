@@ -176,11 +176,4 @@ router.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-router.get("/logout", (req, res) => {
-  // req.session = null;
-  req.logout();
-  req.session.user = null;
-  res.redirect("/");
-});
-
 module.exports = router;

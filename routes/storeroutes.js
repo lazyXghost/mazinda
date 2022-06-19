@@ -9,7 +9,6 @@ const url = require("url")
 const multer = require("multer");
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
 const { storeRegister, localStoreLogin } = require("../utils");
-const { resetWatchers } = require("nodemon/lib/monitor/watch");
 const {
   addProduct,
   updateQuantity,
@@ -21,7 +20,7 @@ const { findOne, findOneAndUpdate } = require("../models/category");
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "uploads");
+      cb(null, "");
     },
     filename: (req, file, cb) => {
       cb(null, file.fieldname + "-" + Date.now());
@@ -115,9 +114,10 @@ router.post(
   storeCheck,
   async (req, res) => {
     req.body.image = {
-      data: fs.readFileSync("uploads/" + req.file.filename),
+      data: fs.readFileSync(req.file.filename),
       contentType: "image/png",
     };
+    fs.unlinkSync(req.file.filename);
     const element = await categoryTable.findOne({
       categoryName: req.body.categoryName,
     });
