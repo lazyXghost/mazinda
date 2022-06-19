@@ -21,7 +21,7 @@ module.exports = {
       mrp,
       availableQuantity,
       description,
-      image,
+      images,
       categoryName,
     } = formData;
 
@@ -42,7 +42,7 @@ module.exports = {
       salePrice: mrp,
       availableQuantity: availableQuantity,
       description: description,
-      image: image,
+      images: images,
     });
     console.log("now here");
     return "Product Added Successfully";

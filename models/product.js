@@ -44,10 +44,10 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         default:'pending',
     },
-    image: {
+    images: [{
         data: Buffer,
         contentType: String,
-    }
+    }],
 });
 
 const Product = mongoose.model("Products", ProductSchema);

@@ -24,9 +24,9 @@ router.post("/register", async (req, res) => {
     message == "Invalid Referral Code" ||
     message == "user already Exists"
   ) {
-    res.render("store/register", { message });
+    res.render("user/register", { message });
   } else {
-    res.redirect("/store/login");
+    res.redirect("/login");
   }
 });
 

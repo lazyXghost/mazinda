@@ -48,7 +48,7 @@ module.exports = {
         return message;
       }
     }
-
+   
     const user = await userTable.create({
       name: name,
       email: email,
@@ -56,16 +56,22 @@ module.exports = {
       phoneNumber: phoneNumber,
     });
 
-    await walletTable.create({
+    const wallet = await walletTable.create({
       user_id: user._id,
       createdOn: new Date(),
       coins: 0,
       referralCode: shortid.generate(),
     });
 
+    const cart = await cartTable.create({
+      user_id:user._id,
+      products:[],
+    });
+
     const message = "user Created Successfully";
     console.log(message);
     return message;
+    
   },
 
   getIndexPageData: async function (req, res) {
@@ -105,7 +111,7 @@ module.exports = {
     const context = {
       products: products,
       categories: categories,
-      cartItems: cart?.products.length ?? 0,
+      cartItems: cart?.products?.length ?? 0,
     };
     return context;
   },
