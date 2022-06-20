@@ -1,7 +1,30 @@
 <%- include('partials/header') %>
 
-<header class="">
-  <div class="cover header">Orders Info</div>
+<header>
+  <div class="cover header">
+    <div class="search">
+      <input
+        class="search-input"
+        type="search"
+        name=""
+        id=""
+        placeholder="Search"
+      />
+      <i class="fa-search fas"></i>
+    </div>
+
+    <form action="/admin/money">
+      <label for="currentCity">City:</label>
+      <select name="currentCity" id="currentCity">
+        <option value="<%= currentCity %>"><%= currentCity %></option>
+        <% for(var i=0; i < cities.length; i++) {%> <% if(cities[i] !=
+        currentCity) {%>
+        <option value="<%= cities[i] %>"><%= cities[i] %></option>
+        <% } %> <% } %>
+      </select>
+      <button type="Submit">Submit</button>
+    </form>
+  </div>
 </header>
 
 <div class="list">
@@ -14,6 +37,7 @@
               <tr>
                 <th>Serial Number</th>
                 <th>Product Name</th>
+                <th>Category</th>
                 <th>Seller</th>
                 <th>Sold To</th>
                 <th>Cost Price</th>
@@ -26,29 +50,13 @@
               <tr>
                 <th><%= i+1 %></th>
                 <td><%= pendingMoneyDetails[i].productName %></td>
+                <td><%= pendingMoneyDetails[i].category %></td>
                 <td><%= pendingMoneyDetails[i].sellerName %></td>
                 <td><%= pendingMoneyDetails[i].userName %></td>
                 <td><%= pendingMoneyDetails[i].CostPrice %></td>
                 <td><%= pendingMoneyDetails[i].SalePrice %></td>
-                <td>
-                  <form action="/moneyDetailStatusChange"></form>
-                  <button
-                    type="submit"
-                    name="status"
-                    value="accepted"
-                    class="green"
-                  >
-                    <i class="fas fa-check"></i>
-                  </button>
-                  <button
-                    type="sumbit"
-                    name="status"
-                    value="returned"
-                    class="red"
-                  >
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                </td>
+                <!-- Todo : write code for moneyDetailStatusChange -->
+                <td><button class="btn btn-large">Upload Photo</button></td>
               </tr>
               <% } %>
             </tbody>
@@ -63,6 +71,7 @@
   <div class="cover header">
     <form action="/admin/money">
       <label for="status">Type:</label>
+      <input type="hidden" name="currentCity" value="<%=currentCity%>">
       <select name="status" id="status">
         <% if(status=="accepted") {%>
           <option value="accepted">Accepted</option>
@@ -87,6 +96,7 @@
               <tr>
                 <th>Serial Number</th>
                 <th>Product Name</th>
+                <th>Category</th>
                 <th>Seller</th>
                 <th>Sold To</th>
                 <th>Cost Price</th>
@@ -99,28 +109,13 @@
               <tr>
                 <th><%= i+1 %></th>
                 <td><%= MoneyDetails[i].productName %></td>
+                <td><%= MoneyDetails[i].category %></td>
                 <td><%= MoneyDetails[i].sellerName %></td>
                 <td><%= MoneyDetails[i].userName %></td>
                 <td><%= MoneyDetails[i].CostPrice %></td>
                 <td><%= MoneyDetails[i].SalePrice %></td>
-                <td>
-                  <form action="/moneyDetailStatusChange"></form>
-                  <button
-                    type="submit"
-                    name="status"
-                    value="accepted"
-                    class="green"
-                  >
-                    <i class="fas fa-check"></i>
-                  </button>
-                  <button
-                    type="sumbit"
-                    name="status"
-                    value="returned"
-                    class="red"
-                  >
-                    <i class="far fa-trash-alt"></i>
-                  </button>
+                <!-- Todo : write code for moneyDetailStatusChange -->
+                <form action="/moneyDetailStatusChange"></form>
                 </td>
               </tr>
               <% } %>

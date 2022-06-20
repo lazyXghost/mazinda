@@ -92,11 +92,11 @@
         <div class="carousel-inner">
           <%for(let i=0;i < images.length; i++) {%> <% if(i == 0) {%>
           <div class="carousel-item active">
-            <img src="data:images[i]/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
+            <img src="data:images/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
           </div>
           <% } else { %>
           <div class="carousel-item">
-            <img src="data:images[i]/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
+            <img src="data:images/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
           </div>
           <% } %> <% } %>
         </div>

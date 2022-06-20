@@ -61,8 +61,7 @@ module.exports = {
     return `store and ${returnValue}`;
   },
 
-  addAddress: async function (req) {
-    const { user_id } = req.user._id;
+  addAddress: async function (req,user_id) {
     const { building, street, locality, city, pincode, state } = req.body;
     const address = await addressTable.create({
       user_id: user_id,

@@ -93,15 +93,17 @@ module.exports = {
     const store_id = Array(address.length);
 
     for (let i = 0; i < address.length; i++) {
-      store_id[i] = address.store_id;
+      store_id[i] = address[i].user_id;
+      console.log(address[i]);
     }
+    console.log(store_id);
     const stores = await storeTable.find({
       status: status,
-      store_id: { $in: store_id },
+      _id: { $in: [...store_id] },
     });
     const pendingStores = await storeTable.find({
       status: "pending",
-      store_id: { $in: store_id },
+      _id: { $in: [...store_id] },
     });
     const locations = await getLocations();
     const context = {
@@ -179,18 +181,25 @@ module.exports = {
     return context;
   },
 
-  getMoneyPageData: async function (status) {
-    const pendingMoneyDetails = moneyDetailTable.find({ status: "pending" });
-    const MoneyDetails = moneyDetailTable.find({ status: status });
+  getMoneyPageData: async function (status,currentCity) {
+    const stores = await  storeTable.find({city:currentCity});
+    const store_id = Array(stores.length);
+    for(let i=0;i<stores.length;i++){
+      store_id[i] = stores[i]._id;
+    }
+    const pendingMoneyDetails = await moneyDetailTable.find({ status: "pending",store_id: {$in:store_id} });
+    const MoneyDetails = await moneyDetailTable.find({ status: status,store_id:{$in:store_id} });
     const paidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
-    const totalAmount =
-      module.exports.getPaymentDetails(MoneyDetails) + paidAmount;
+    const totalAmount = module.exports.getPaymentDetails(MoneyDetails) + paidAmount;
+    const locations = await getLocations();
     const context = {
       MoneyDetails: MoneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
       paidAmount: paidAmount,
       totalAmount: totalAmount,
       status:status,
+      currentCity:currentCity,
+      cities:locations.cities,
     };
     // const orders = await orderTable.find();
     // let products=[];
