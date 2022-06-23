@@ -49,15 +49,6 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.get("/index", async (req, res) => {
-  const context = await getIndexPageData(req,res);
-  res.render("user/index", {
-    authenticated: req.isAuthenticated(),
-    user: req.user,
-    ...context,
-  });
-});
-
 /////////////////////////////////////////////////////////////
 // products page all functions along with filters
 /////////////////////////////////////////////////////////////
@@ -128,7 +119,7 @@ router.get("/addToCart",async (req,res) => {
 // Order page all functions along with filters
 /////////////////////////////////////////////////////////////
 
-router.get("/viewOrders",async (req,res) => {
+router.get("/orders",async (req,res) => {
   const context = await getOrderPageData(req,res);
   res.render("user/orders",{
     authenticated:req.isAuthenticated(),

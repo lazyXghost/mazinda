@@ -20,7 +20,9 @@
         <% for(let i=0;i < products.length;i++) {%>
         <div class="col-lg-3">
           <div class="card">
-            <img src="data:image/image/png;base64,<%=products[i].image.data.toString('base64')%>" class="card-img-top" alt="...">
+            <% for(let j=0;j<products[i].images.length;j++) {%>
+              <img src="data:image/image/png;base64,<%=products[i].images[j].data.toString('base64')%>" class="card-img-top" alt="...">
+            <% } %>
             <div class="card-body">
               <h5 class="card-title"><%= products[i].name %></h5>
               <p class="card-text"><%= products[i].description %></p>

@@ -87,12 +87,13 @@ module.exports = {
       if (products[i].trending == true) trendings.push_back(products[i]);
       if (products[i].topDeal == true) topDeals.push_bacK(products[i]);
     }
-    console.log(trendings.length);
+    const offers = [];
 
     const context = {
       topDeals: topDeals,
       trendings: trendings,
       categories: categories,
+      offers: offers,
       cartItems: cart?.products?.length ?? 0,
     };
     return context;
