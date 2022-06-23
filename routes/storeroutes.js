@@ -158,8 +158,9 @@ router.post("/changePassword", storeCheck, async (req, res) => {
     //   user: req.user,
     //   message: message,
     // });
+  } else {
+    res.redirect("/store/dashboard");
   }
-  res.redirect("/store/dashboard");
 });
 
 router.get("/profile", storeCheck, async (req, res) => {

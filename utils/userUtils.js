@@ -245,6 +245,7 @@ module.exports = {
       const store = await storeTable.findOne({ _id: product.store_id });
       await moneyDetailTable.create({
         productName: product.name,
+        category:product.category,
         sellerName: store.sellerName,
         quantity: order.products[i].quantity,
         costprice: product.costPrice,

@@ -5,13 +5,17 @@ const MoneyDetailSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    category: {
+        type:String,
+        required:true,
+    },
     store_id: {
         type:String,
         required:true,
     },
     orderTime: {
-        type:String,
-        required:true,
+        type:Date,
+        default:Date.now(),
     },
     sellerName: {
         type:String,
@@ -40,6 +44,10 @@ const MoneyDetailSchema = new mongoose.Schema({
     status:{
         type:String,
         default:"pending",
+    },
+    paymentProof:{
+        type:Buffer,
+        required:false,
     }
 });
 

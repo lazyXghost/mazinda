@@ -71,11 +71,11 @@
 
     <div id="overlay" style="background-color: orange; height: 100%; width: 300px; max-width: 100%; z-index: 1000; position: fixed; top:53px; border-top: white 2px solid;">
         <ul class="cover list-none">
-            <a href="./index.html"><li>Home</li></a>
-            <a href="./products.html"><li>Products</li></a>
-            <a href=""><li>Your Orders</li></a>
-            <a href=""><li>Settings</li></a>
-            <a href=""><li>Contact Us</li></a>
+            <a href="/index"><li>Home</li></a>
+            <a href="/products"><li>Products</li></a>
+            <a href="/viewOrders"><li>Your Orders</li></a>
+            <a href="/settings"><li>Settings</li></a>
+            <a href="/contact"><li>Contact Us</li></a>
         </ul>
         <div id="register2" class="flex d-none pb-2 w-full pt-5 px-3 content-center justify-between ml-1 ">
             <% if(user && user.userType=="user") {%>
@@ -98,7 +98,7 @@
                             <div class="inline-block px-3 category">
                             <a href="/products?ID=<%=categories[i]._id%>" style="color:black; text-decoration:none;">
                                 <div style="border-radius: 100%; height: 70px; width: 70px;" class="img">
-                                    <img style="border-radius: 100%;  object-fit: cover; height: 100%; width: 100%;"  src="/user_UI/img/categories/<%=categories[i].categoryName %>" alt="image not present">
+                                    <img style="border-radius: 100%;  object-fit: cover; height: 100%; width: 100%;"  src="/user_UI/img/categories/<%=categories[i].categoryName %>.png" alt="image not present">
                                 </div>
                                 <p class="text-center" style="width: 70px; font-size: 14px;"><%= categories[i].categoryName%></p>
                                 </div>
@@ -191,7 +191,7 @@
                  <% for(let i=0;i < products.length;i++) {%>
                 <div class="product-box">
                     <div class="img product-img-box">
-                        <a href="/productDetail?ID=<%=products[i]._id%>"><img src="data:images[0]/image/png;base64,<%=products[i].images[0].data.toString('base64')%>" alt="no image available"></a>
+                        <a href="/productDetail?ID=<%=products[i]._id%>"><img src="data:images/image/png;base64,<%=products[i].images[0].data.toString('base64')%>" alt="no image available"></a>
                     </div>
                     <p><%= products[i].name%></p>
                     <h5 class="font-bold">$<%=products[i].salePrice%></h5>

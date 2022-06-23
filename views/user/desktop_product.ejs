@@ -144,11 +144,19 @@
           <div class="carousel-inner">
             <%for(let i=0;i < images.length; i++) {%> <% if(i == 0) {%>
             <div class="carousel-item active">
-              <img src="data:images[i]/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block" alt="..." />
+              <img
+                src="data:images/image/png;base64,<%=images[i].data.toString('base64')%>"
+                class="d-block"
+                alt="..."
+              />
             </div>
             <% } else { %>
             <div class="carousel-item">
-              <img src="data:images[0]/image/png;base64,<%=images[i].data.toString('base64')%>" class="d-block" alt="..." />
+              <img
+                src="data:images/image/png;base64,<%=images[i].data.toString('base64')%>"
+                class="d-block"
+                alt="..."
+              />
             </div>
             <% } %> <% } %>
           </div>
@@ -175,6 +183,19 @@
           </button>
           <span class="text-muted text-sm fs-6">25,100 ratings</span>
         </p>
+        <div class="btn-group w-100" role="group" aria-label="Basic example">
+          <% if(user) {%>
+          <a href="/addToCart" type="button" class="btn btn-light"
+            >Add to Cart</a
+          >
+          <a href="/placeOrder" type="button" class="btn btn-success"
+            >Buy Now</a
+          >
+          <%} else {%>
+          <a href="/login" type="button" class="btn btn-light">Add to Cart</a>
+          <a href="/login" type="button" class="btn btn-success">Buy Now</a>
+          <% } %>
+        </div>
       </div>
     </div>
 

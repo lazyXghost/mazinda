@@ -54,7 +54,8 @@ module.exports = {
       const store = await storeTable.findOne({ _id: req.user._id });
       const newEncryptedPassword = await bcrypt.hash(newPassword, 10);
       if (newPassword.length < 8) return "password is too Short.";
-      if(bcrypt.compare(password,store.password)) {
+      const checker = await bcrypt.compare(password,store.password);
+      if(checker) {
         await store.updateOne({ password: newEncryptedPassword });
         return "Password changed Successfully.";
       } else return "invalid password";

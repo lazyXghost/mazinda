@@ -158,8 +158,8 @@ router.get("/contact", async (req, res) => {
   res.render("store/contact");
 });
 
-router.get("/faqs", (req, res) => {
-  res.render("user/faq");
+router.get("/settings", (req, res) => {
+  res.render("user/settings");
 });
 
 router.get("/logout", (req, res) => {

@@ -3,5 +3,10 @@
 3) update the frontend of the desktop as well as mobile view to allow to change address.
 4) Add the money Management page for the store.
 5) update the money management for the store as well as the admin.
-5) create the order page frontend for the admin.
-6) do the backend part of the order page.
+6) create the order page frontend for the admin.
+7) do the backend part of the order page.
+
+8) visit the localhost:8000/profile --> go to address.
+Change the fields of profile image and everything. Addresses of the User should be displayed
+below a button of add Address should be present.
+(check all the address fields from the model.)

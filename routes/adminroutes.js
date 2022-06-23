@@ -127,7 +127,8 @@ router.post("/deleteCategory", adminCheck, async (req, res) => {
 
 router.get("/money", adminCheck, async (req, res) => {
   const status = url.parse(req.url, true).query.status ?? "accepted";
-  const context = await getMoneyPageData(status);
+  const currentCity = url.parse(req.url,true).query.currentCity ?? "Mandi";
+  const context = await getMoneyPageData(status,currentCity);
   res.render("admin/money", {
     user: req.user,
     authenticated: req.isAuthenticated(),
