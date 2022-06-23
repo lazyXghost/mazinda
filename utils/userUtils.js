@@ -84,8 +84,8 @@ module.exports = {
       topDeals = [];
 
     for (let i = 0; i < products.length; i++) {
-      if (products[i].trending == true) trendings.push_back(products[i]);
-      if (products[i].topDeal == true) topDeals.push_bacK(products[i]);
+      if (products[i].trending == true) trendings.push(products[i]);
+      if (products[i].topDeal == true) topDeals.push(products[i]);
     }
     const offers = [];
 
