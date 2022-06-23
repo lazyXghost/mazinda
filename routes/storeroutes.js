@@ -5,7 +5,8 @@ const productTable = require("../models/product");
 const storeTable = require("../models/store");
 const moneyDetailsTable = require("../models/moneyDetail");
 const categoryTable = require("../models/category");
-const url = require("url")
+const url = require("url");
+const path = require("path");
 const multer = require("multer");
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
 const { storeRegister, localStoreLogin } = require("../utils");
@@ -23,7 +24,7 @@ const upload = multer({
       cb(null, "");
     },
     filename: (req, file, cb) => {
-      cb(null, file.fieldname + "-" + Date.now());
+      cb(null, file.fieldname + "-" + Date.now() + "-" + path.extname(file.originalname));
     },
   }),
 });
@@ -110,7 +111,7 @@ router.get("/addProduct", storeCheck, async (req, res) => {
 
 router.post(
   "/addProduct",
-  upload.array("productImage",4),
+  upload.array("productImages"),
   storeCheck,
   async (req, res) => {
     req.body.images = [];

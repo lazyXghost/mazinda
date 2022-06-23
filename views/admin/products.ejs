@@ -41,6 +41,7 @@
                 <th>MRP</th>
                 <th>SalePrice</th>
                 <th>CostPrice</th>
+                <th>TopDeal/Trending</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -55,15 +56,51 @@
                 <td><%= pending[i].salePrice %></td>
                 <td><%= pending[i].costPrice %></td>
                 <td>
+                  <% if(pending[i].topDeal == false ) {%>
                   <a
-                    href="/admin/productStatusChange?ID=<%=pending[i]._id%>&task=accepted"
+                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=topDeal&newValue=true"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <% }else{ %>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=topDeal&newValue=false"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                  <% } %>
+                  <% if(pending[i].trending == false ) {%>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=trending&newValue=true"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <% }else{ %>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=trending&newValue=false"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                  <% } %>
+                </td>
+                <td>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=status&newValue=accepted"
                   >
                     <button type="button" class="green">
                       <i class="fas fa-check"></i>
                     </button>
                   </a>
                   <a
-                    href="/admin/productStatusChange?ID=<%=pending[i]._id%>&task=rejected"
+                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=status&newValue=rejected"
                   >
                     <button type="button" class="red">
                       <i class="far fa-trash-alt"></i>
@@ -100,6 +137,7 @@
                 <th>MRP</th>
                 <th>SalePrice</th>
                 <th>CostPrice</th>
+                <th>TopDeal/Trending</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -114,8 +152,44 @@
                 <td><%= accepted[i].salePrice %></td>
                 <td><%= accepted[i].costPrice %></td>
                 <td>
+                  <% if(accepted[i].topDeal == false ) {%>
                   <a
-                    href="/admin/productStatusChange?ID=<%=accepted[i]._id%>&task=rejected"
+                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=topDeal&newValue=true"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <% }else{ %>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=topDeal&newValue=false"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                  <% } %>
+                  <% if(accepted[i].trending == false ) {%>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=trending&newValue=true"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <% }else{ %>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=trending&newValue=false"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                  <% } %>
+                </td>
+                <td>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=status&newValue=rejected"
                   >
                     <button type="button" class="red">
                       <i class="far fa-trash-alt"></i>
@@ -138,6 +212,7 @@
                 <th>MRP</th>
                 <th>SalePrice</th>
                 <th>CostPrice</th>
+                <th>TopDeal/Trending</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -152,8 +227,44 @@
                 <td><%= rejected[i].salePrice %></td>
                 <td><%= rejected[i].costPrice %></td>
                 <td>
+                  <% if(rejected[i].topDeal == false ) {%>
                   <a
-                    href="/admin/productStatusChange?ID=<%=rejected[i]._id%>&task=accepted"
+                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=topDeal&newValue=true"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <% }else{ %>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=topDeal&newValue=false"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                  <% } %>
+                  <% if(rejected[i].trending == false ) {%>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=trending&newValue=true"
+                  >
+                    <button type="button" class="green">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </a>
+                  <% }else{ %>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=trending&newValue=false"
+                  >
+                    <button type="button" class="red">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+                  <% } %>
+                </td>
+                <td>
+                  <a
+                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=status&newValue=accepted"
                   >
                     <button type="button" class="green">
                       <i class="fas fa-check"></i>

@@ -12,7 +12,7 @@ const {
   getStorePageData,
   getMoneyPageData,
   getProductPageData,
-  productStatusChange,
+  productDetailsChange,
   storeStatusChange,
   moneyDetailStatusChange,
   addCategory,
@@ -93,8 +93,8 @@ router.get("/products", adminCheck, async (req, res) => {
   });
 });
 
-router.get("/productStatusChange", adminCheck, async (req, res) => {
-  await productStatusChange(req);
+router.get("/productDetailsChange", adminCheck, async (req, res) => {
+  await productDetailsChange(req);
   return res.redirect("/admin/products");
 });
 

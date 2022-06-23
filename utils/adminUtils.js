@@ -45,13 +45,24 @@ module.exports = {
     return;
   },
 
-  productStatusChange: async function (req) {
+  productDetailsChange: async function (req) {
     const params = url.parse(req.url, true).query;
     const product_id = params.ID;
-    const status = params.task;
+    const task = params.task;
+    var updation = {};
+    if(task == 'status'){
+      updation = { status: params.newValue };
+    }
+    else if(task == 'topDeal'){
+      updation = { topDeal: params.newValue };
+    }
+    else if(task == 'trending'){
+      updation = { trending: params.newValue };
+    }
+
     await productTable.findOneAndUpdate(
       { _id: product_id },
-      { status: status }
+      updation
     );
     return;
   },
