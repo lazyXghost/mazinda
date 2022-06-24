@@ -111,7 +111,7 @@ router.get("/addProduct", storeCheck, async (req, res) => {
 
 router.post(
   "/addProduct",
-  upload.array("productImages"),
+  upload.array("images"),
   storeCheck,
   async (req, res) => {
     req.body.images = [];
