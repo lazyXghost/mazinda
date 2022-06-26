@@ -173,10 +173,11 @@ module.exports = {
   },
 
   getCartValue: async function (products) {
+    console.log(products);
     let amount = 0,gross=0;
     for (let i = 0; i < products.length; i++) {
-      amount += products[i].quantity * products[i].salePrice;
-      gross += products[i].quantity * products[i].mrp;
+      amount += products[i].availableQuantity * products[i].salePrice;
+      gross += products[i].availableQuantity * products[i].mrp;
     }
     return [amount,gross-amount];
   },
@@ -184,16 +185,14 @@ module.exports = {
   getCartPageData: async function (req, res) {
     const addresses = await addressTable.find({user_id:req.user._id});
     const cart = await cartTable.findOne({ user_id: req.user._id });
-    console.log(cart);
     const length = cart?.products?.length ?? 0;
     const products = Array(length);
     for (let i = 0; i < length; i++) {
-      var product = await productTable.findOne({
+      const product = await productTable.findOne({
         _id: cart.products[i].product_id,
       });
       product.availableQuantity = cart.products[i].quantity;
       products[i] = product;
-      // products[i].quantity = cart.products[i].quantity;
     }
     const [amount,discount] = await module.exports.getCartValue(products);
     const context = {
@@ -205,6 +204,7 @@ module.exports = {
     };
     console.log(context);
     return context;
+
   },
 
   getProfilePageData: async function (req, res) {
@@ -214,12 +214,24 @@ module.exports = {
     };
     return context;
   },
+  getOrderNumber:async function() {
+    const Day = new Date();
+    let month,day,year;
+    year = Day.getFullYear().toString();
+    month = (Day.getMonth() < 10)? '0' + Day.getMonth().toString():Day.getMonth().toString();
+    day = (Day.getDate() < 10)? '0' + Day.getDate().toString():Day.getDate().toString();
+    let number = await orderTable.countDocuments(); 
+    number +=1; 
+    number = (number < 10)?"000" + number.toString():(number<100)?"00"+number.toString():(number<1000)?"0"+number.toString():number.toString();
+    console.log(year + month + day+number);
+    return year+month+day+number;
+  },
 
   placeOrder: async function (req, res) {
     const { orderType, address_id, amount } = req.body;
     const user_id = req.user._id;
     let products;
-    const orderNUmber = 123; // TODO:generate a random number.
+    const orderNumber = await module.exports.getOrderNumber(); // TODO:generate a random number.
     if (orderType == "cart") {
       const cart = await cartTable.findOne({ user_id: user_id });
       products = cart.products;
@@ -235,8 +247,9 @@ module.exports = {
     const order = await orderTable.create({
       user_id: user_id,
       orderTime: Date.now(),
+      orderNumber: orderNumber,
       products: products,
-      orderNUmber: orderNUmber,
+      orderNUmber: orderNumber,
       address_id: address_id,
       amount: amount,
     });

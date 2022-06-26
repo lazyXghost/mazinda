@@ -113,7 +113,7 @@
                                 <a href="/products?ID=<%=categories[i]._id%>" style="color:black; text-decoration:none">
                                     <div style="border-radius: 100%; height: 70px; width: 70px;" class="img">
                                         <!-- ADD CATEGORY IMAGES LOGIC HERE -->
-                                        <img style="border-radius: 100%;  object-fit: cover; height: 100%; width: 100%;" src="/user_UI/img/categories/<%=categories[i].categoryName %>" alt="image not present">
+                                        <img style="border-radius: 100%;  object-fit: cover; height: 100%; width: 100%;" src="/user_UI/img/categories/<%=categories[i].categoryName %>.png" alt="<%=categories[i].categoryName %>">
                                     </div>
                                     <p class="text-center" style="width: 70px; font-size: 14px;">
                                         <%= categories[i].categoryName%>
@@ -206,8 +206,13 @@
                             <h5 class="font-bold">$<%= trendings[i].salePrice %>
                             </h5>
                             <div class="buttons flex flex-col px-5">
-                                <button class="btn btn-warning mb-2" onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
-                                <button class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</button>
+                                <% if(user && user.userType=='user') {%>
+                                    <button class="btn btn-warning mb-2" onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
+                                    <a  href="" type="button" class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                                <% } else {%>
+                                    <a href="/login" type="button" class="btn btn-warning mb-2" onclick=""><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a>
+                                    <a href="/login" type="button" class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                                    <% } %>
                             </div>
                         </div>
                         <% } %>
@@ -229,8 +234,14 @@
                                 <%= topDeals[i].price %>
                             </h5>
                             <div class="buttons flex flex-col px-5">
-                                <button class="btn btn-warning mb-2" onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
-                                <button class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</button>
+                                <% if(user && user.userType =='user') {%>
+                                    <button class="btn btn-warning mb-2" onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
+                                    <a  href="" type="button" class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                                    <% } else {%>
+                                    <a href="/login" type="button" class="btn btn-warning mb-2" onclick=""><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a>
+                                    <a href="/login" type="button" class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                                <% } %>
+
                             </div>
                         </div>
                         <% } %>

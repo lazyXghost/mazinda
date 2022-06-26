@@ -19,6 +19,7 @@ module.exports = {
   },
 
   getPaymentDetails: function (payments) {
+    if(payments.length && payments[0].status == "returned") return 0;
     let amount = 0;
     for (let i = 0; i < payments.length; i++) {
       amount += payments[i].costPrice * payments[i].quantity;
@@ -200,13 +201,13 @@ module.exports = {
     }
     const pendingMoneyDetails = await moneyDetailTable.find({ status: "pending",store_id: {$in:store_id} });
     const MoneyDetails = await moneyDetailTable.find({ status: status,store_id:{$in:store_id} });
-    const paidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
-    const totalAmount = module.exports.getPaymentDetails(MoneyDetails) + paidAmount;
+    const unPaidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
+    const totalAmount = module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
     const locations = await getLocations();
     const context = {
       MoneyDetails: MoneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
-      paidAmount: paidAmount,
+      unPaidAmount: unPaidAmount,
       totalAmount: totalAmount,
       status:status,
       currentCity:currentCity,

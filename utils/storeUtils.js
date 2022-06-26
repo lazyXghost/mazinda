@@ -2,6 +2,7 @@ const storeTable = require("../models/store");
 const locationTable = require("../models/location");
 const categoryTable = require("../models/category");
 const productTable = require("../models/product");
+const moneyDetailTable = require("../models/moneyDetail");
 const userTable = require("../models/user");
 const addressTable = require("../models/address");
 const walletTable = require("../models/wallet");
@@ -112,5 +113,27 @@ module.exports = {
       { availableQuantity: availableQuantity }
     );
     return "Quantity Updated Successfully";
+  },
+
+  getPaymentDetails:async function(payments) {
+    let amount = 0;
+    for (let i = 0; i < payments.length; i++) {
+      amount += (payments[i].status=='accepted')? payments[i].costPrice * payments[i].quantity:0;
+    }
+    return amount;
+  },
+  getMoneyPageData: async function(req) {
+    const store = await storeTable.findOne({_id:req.user._id});
+    const pendingMoneyDetails = await moneyDetailTable.find({status:"pending",store_id:store._id});
+    const unPaidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
+    const moneyDetails = await moneyDetailTable.find({status:{$ne:"pending"},store_id:store._id});
+    const totalAmount = module.exports.getPaymentDetails(moneyDetails) + unPaidAmount;
+    const context = {
+      MoneyDetails:moneyDetails,
+      pendingMoneyDetails:pendingMoneyDetails,
+      unPaidAmount:unPaidAmount,
+      totalAmount:totalAmount,
+    };
+    return context;
   },
 };

@@ -464,6 +464,12 @@
         stroke-dashoffset: -115px;
         stroke-dasharray: 1px 220px;
     }
+
+    #invalid-feedback{
+      display: none;
+      color: red;
+      font-size: 20px;
+    }
     </style>
 
     <script
@@ -554,7 +560,9 @@
               <div class="deliver_container">
                 <% if(addresses.length == 0) {%>
                 <div class="change_container">
-                  <button class="btn change_btn">Add Address</button>
+                  <a href="/addAddress" type="button" class="btn change_btn">Add Address</a> 
+                  
+                  <div id="invalid-feedback">Please, Add an address to place order!</div>
                 </div>
                 <%} else {%>
                 <div class="div_text">
@@ -588,7 +596,7 @@
                   <div class="p_title-div">
                     <a href="http://">
                       <!-- Product Page Linked by Title -->
-                      <div class="p_title">Product Title</div>
+                      <div class="p_title"><%= products[i].name %></div>
                     </a>
                   </div>
                   <div class="p_qty">
@@ -596,7 +604,7 @@
                     <!-- Need to be designed to add/delete -->
                   </div>
                   <div class="p_seller">
-                    <span>Seller: <%= products[i].name %></span>
+                    <span>Seller: <%= products[i].store_id %></span>
                     <span class="ms-2">
                       <!-- Mazinda Assured Logo -->
                     </span>
@@ -651,9 +659,15 @@
           </div>
           <div class="place">
             <% if(addresses.length == 0) {%>
-              <button class="btn buy_btn" disabled>Proceed to Checkout</button>
+              <button id="noAddress" class="btn buy_btn">Proceed to Checkout</button>
+              <div id="invalid-feedback">Please Enter Address to place Order</div>
             <% } else {%>
-              <button class="btn buy_btn">Proceed to Checkout</button>
+              <form action="/placeOrder" method="post">
+                <input type="hidden" value="cart" name="orderType">
+                <input type="hidden" value="<%= amount %>" name="amount">
+                <input type="hidden" value="<%= addresses[0]._id %>" name="address_id"a>
+                <button type="submit" class="btn buy_btn">Proceed to Checkout</button>
+              </form>
             <% } %>
           </div>
         </div>
@@ -668,6 +682,13 @@
         div.addEventListener('click', () => {
             div.classList.toggle('cross')
         });
+        const addressButton = document.getElementById("noAddress");
+        if(addressButton){
+          addressButton.addEventListener('click',()=>{
+            const feedback = document.getElementById("invalid-feedback");
+            feedback.style.display = 'block';
+          });
+        }
     </script>
 
     <script

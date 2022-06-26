@@ -106,6 +106,7 @@ router.get("/addToCart", async (req,res) => {
       return `product quantity increased to ${cart.products[i].quantity}`;
     }
   }
+
   if(checker == false){
     const product = {
       product_id:product_id,
@@ -156,8 +157,23 @@ router.get("/profile", userCheck, async (req, res) => {
 });
 
 /////////////////////////////////////////////////////////////
+// Address functions
+/////////////////////////////////////////////////////////////
+
+router.get("/addAddress",async (req,res)=>{
+  res.render("user/address");
+});
+
+router.post("/addAddress",async (req,res)=>{
+  const message = addAddress(req, req.user._id);
+  res.redirect("/viewCart");
+});
+
+
+/////////////////////////////////////////////////////////////
 // Contacts,FAQ and logout functions
 /////////////////////////////////////////////////////////////
+
 
 router.get("/contact", async (req, res) => {
   res.render("store/contact");
