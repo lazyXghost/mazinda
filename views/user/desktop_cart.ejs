@@ -464,6 +464,12 @@
         stroke-dashoffset: -115px;
         stroke-dasharray: 1px 220px;
     }
+
+    #invalid-feedback{
+      display: none;
+      color: red;
+      font-size: 20px;
+    }
     </style>
 
     <script
@@ -555,6 +561,7 @@
                 <% if(addresses.length == 0) {%>
                 <div class="change_container">
                   <button class="btn change_btn">Add Address</button>
+                  <div id="invalid-feedback">Please, Add an address to place order!</div>
                 </div>
                 <%} else {%>
                 <div class="div_text">
@@ -651,9 +658,11 @@
           </div>
           <div class="place">
             <% if(addresses.length == 0) {%>
-              <button class="btn buy_btn" disabled>Proceed to Checkout</button>
+              <button id="noAddress" class="btn buy_btn">Proceed to Checkout</button>
             <% } else {%>
-              <button class="btn buy_btn">Proceed to Checkout</button>
+              <form action="/placeOrder" method="post">
+                <button type="submit" class="btn buy_btn">Proceed to Checkout</button>
+              </form>
             <% } %>
           </div>
         </div>
@@ -668,6 +677,13 @@
         div.addEventListener('click', () => {
             div.classList.toggle('cross')
         });
+        const addressButton = document.getElementById("noAddress");
+        if(addressButton){
+          addressButton.addEventListener('click',()=>{
+            const feedback = document.getElementById("invalid-feedback");
+            feedback.style.display = 'block';
+          })
+        }
     </script>
 
     <script

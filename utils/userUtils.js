@@ -261,4 +261,6 @@ module.exports = {
     }
     return "order has been placed successfully";
   },
+
+  addAddress:asy
 };

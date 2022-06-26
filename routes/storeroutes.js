@@ -16,6 +16,7 @@ const {
   deleteProduct,
   changePassword,
   getRevenue,
+  getMoneyPageData,
 } = require("../utils/storeUtils");
 const { findOne, findOneAndUpdate } = require("../models/category");
 const upload = multer({
@@ -186,6 +187,15 @@ router.get("/faqs", (req, res) => {
     authenticated: req.isAuthenticated(),
   });
 });
+
+router.get("money",storeCheck,async (req,res) =>{
+  const context = await getMoneyPageData();
+  res.render("store/money",{
+    user:req.user,
+    authenticated:req.isAuthenticated(),
+      ...context,
+  });
+})
 
 // Logging Out
 router.get("/logout", storeCheck, (req, res) => {
