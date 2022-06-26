@@ -188,8 +188,8 @@ router.get("/faqs", (req, res) => {
   });
 });
 
-router.get("money",storeCheck,async (req,res) =>{
-  const context = await getMoneyPageData();
+router.get("/money",storeCheck,async (req,res) =>{
+  const context = await getMoneyPageData(req);
   res.render("store/money",{
     user:req.user,
     authenticated:req.isAuthenticated(),

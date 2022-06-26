@@ -126,8 +126,8 @@ module.exports = {
     const store = await storeTable.findOne({_id:req.user._id});
     const pendingMoneyDetails = await moneyDetailTable.find({status:"pending",store_id:store._id});
     const unPaidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
+    const moneyDetails = await moneyDetailTable.find({status:{$ne:"pending"},store_id:store._id});
     const totalAmount = module.exports.getPaymentDetails(moneyDetails) + unPaidAmount;
-    const moneyDetails = await moneyDetailTable.find({status:{$not:"pending"},store_id:store._id});
     const context = {
       MoneyDetails:moneyDetails,
       pendingMoneyDetails:pendingMoneyDetails,
