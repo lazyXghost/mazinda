@@ -80,7 +80,7 @@ router.get("/productDetail",async (req,res) => {
 // Cart page all functions along with filters
 /////////////////////////////////////////////////////////////
 
-router.get("/viewCart", userLoggedIn, async (req,res) => {
+router.get("/viewCart", userCheck, async (req,res) => {
   const context = await getCartPageData(req,res);
   const cartPage = (req.useragent.isMobile)?"mobile_cart":"desktop_cart";
   res.render(`user/${cartPage}`,{
