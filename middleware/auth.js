@@ -16,10 +16,9 @@ module.exports = {
   },
 
   userLoggedIn:(req,res,next) => {
-    if(req.user && req.user.userType == 'user') {
+    if(req.user && req.user.userType == 'user') 
       return res.redirect("/");
-    }
-    next();
+    return next();
   },
   storeLoggedIn: function(req,res,next){
     if(req.user && req.user.userType == 'store' && req.user.approved == 'accepted') {

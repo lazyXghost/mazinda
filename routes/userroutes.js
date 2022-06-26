@@ -9,6 +9,7 @@ const orderTable = require("../models/order");
 const storeTable = require("../models/store");
 const walletTable = require("../models/wallet");
 const userTable = require("../models/user");
+const cartTable = require("../models/cart");
 const url = require("url");
 
 
@@ -79,7 +80,7 @@ router.get("/productDetail",async (req,res) => {
 // Cart page all functions along with filters
 /////////////////////////////////////////////////////////////
 
-router.get("/viewCart",async (req,res) => {
+router.get("/viewCart", userCheck, async (req,res) => {
   const context = await getCartPageData(req,res);
   const cartPage = (req.useragent.isMobile)?"mobile_cart":"desktop_cart";
   res.render(`user/${cartPage}`,{
@@ -89,24 +90,28 @@ router.get("/viewCart",async (req,res) => {
   });
 });
 
-router.get("/addToCart",async (req,res) => {
-  const temp = url.parse(req.url,true).query.ID;
+router.get("/addToCart", async (req,res) => {
+  const params = url.parse(req.url,true).query;
+  const product_id = params.product_id;
+  const user_id = params.user_id;
+
   let checker=false;
-  const cart = await cartTable.find({user_id:req.user._id});
+  const cart = await cartTable.findOne({user_id:user_id});
+  
   for(let i=0;i<cart.products.length;i++){
-    if(temp == cart.products[i].product_id){
+    if(product_id == cart.products[i].product_id){
       cart.products[i].quantity +=1;
       cart.save();
       checker=true;
       return `product quantity increased to ${cart.products[i].quantity}`;
     }
-  } 
+  }
   if(checker == false){
     const product = {
-      product_id:temp,
+      product_id:product_id,
       quantity:1,
     }
-    cart.update({$push:{products:product}});
+    await cart.update({$push:{products:product}});
     return "product added to the cart";
   }
 });
