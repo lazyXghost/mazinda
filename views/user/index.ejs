@@ -206,7 +206,7 @@
                             <h5 class="font-bold">$<%= trendings[i].salePrice %>
                             </h5>
                             <div class="buttons flex flex-col px-5">
-                                <button class="btn btn-warning mb-2"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
+                                <button class="btn btn-warning mb-2" onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
                                 <button class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</button>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
                                 <%= topDeals[i].price %>
                             </h5>
                             <div class="buttons flex flex-col px-5">
-                                <button class="btn btn-warning mb-2"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
+                                <button class="btn btn-warning mb-2" onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
                                 <button class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</button>
                             </div>
                         </div>

@@ -46,3 +46,15 @@ showHide.addEventListener('click', ()=>{
         // main.style.display="block";
     }
 })
+
+function AddToCart(product_id, user_id){
+    var xhr = new XMLHttpRequest();
+    var url = `/addToCart/?product_id=${product_id}&user_id=${user_id}`;
+    xhr.open("GET", url);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }
+    }
+    xhr.send();
+}
