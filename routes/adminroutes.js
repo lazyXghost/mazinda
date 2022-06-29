@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const url = require("url");
+const multer = require("multer");
+const path = require("path");
+const path = require("path");
+const fs = require("fs");
 const {
   localAdminLogin,
   storeRegister,
@@ -18,6 +22,17 @@ const {
   addCategory,
   deleteCategory,
 } = require("../utils/adminUtils");
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "../static/user_UI/img/categories");
+    },
+    filename: (req, file, cb) => {
+      cb(null,path.extname(file.originalname) + ".png"); // TODO : may have to be improved.
+    },
+  }),
+});
 
 // ----- Authentication for Admin -----
 router.get("/login", adminLoggedIn, (req, res) => {

@@ -13,6 +13,10 @@ const req = require("express/lib/request");
 const passport = require("passport");
 const url = require("url");
 var shortid = require("shortid");
+const path = require("path");
+const fs = require("fs");
+const ejs = require("ejs");
+const htmlPdf = require("html-pdf");
 const { getLocations, getCategories, addAddress } = require("../utils");
 
 module.exports = {
@@ -48,7 +52,7 @@ module.exports = {
         return message;
       }
     }
-   
+
     const user = await userTable.create({
       name: name,
       email: email,
@@ -64,14 +68,13 @@ module.exports = {
     });
 
     const cart = await cartTable.create({
-      user_id:user._id,
-      products:[],
+      user_id: user._id,
+      products: [],
     });
 
     const message = "user Created Successfully";
     console.log(message);
     return message;
-    
   },
 
   getIndexPageData: async function (req, res) {
@@ -174,16 +177,17 @@ module.exports = {
 
   getCartValue: async function (products) {
     console.log(products);
-    let amount = 0,gross=0;
+    let amount = 0,
+      gross = 0;
     for (let i = 0; i < products.length; i++) {
       amount += products[i].availableQuantity * products[i].salePrice;
       gross += products[i].availableQuantity * products[i].mrp;
     }
-    return [amount,gross-amount];
+    return [amount, gross - amount];
   },
 
   getCartPageData: async function (req, res) {
-    const addresses = await addressTable.find({user_id:req.user._id});
+    const addresses = await addressTable.find({ user_id: req.user._id });
     const cart = await cartTable.findOne({ user_id: req.user._id });
     const length = cart?.products?.length ?? 0;
     const products = Array(length);
@@ -194,17 +198,16 @@ module.exports = {
       product.availableQuantity = cart.products[i].quantity;
       products[i] = product;
     }
-    const [amount,discount] = await module.exports.getCartValue(products);
+    const [amount, discount] = await module.exports.getCartValue(products);
     const context = {
       products: products,
       amount: amount,
-      discount:discount,
-      length:length,
-      addresses:addresses,
+      discount: discount,
+      length: length,
+      addresses: addresses,
     };
     console.log(context);
     return context;
-
   },
 
   getProfilePageData: async function (req, res) {
@@ -214,22 +217,79 @@ module.exports = {
     };
     return context;
   },
-  getOrderNumber:async function() {
+  getOrderNumber: async function () {
     const Day = new Date();
-    let month,day,year;
-    year = Day.getFullYear().toString();
-    month = (Day.getMonth() < 10)? '0' + Day.getMonth().toString():Day.getMonth().toString();
-    day = (Day.getDate() < 10)? '0' + Day.getDate().toString():Day.getDate().toString();
-    let number = await orderTable.countDocuments(); 
-    number +=1; 
-    number = (number < 10)?"000" + number.toString():(number<100)?"00"+number.toString():(number<1000)?"0"+number.toString():number.toString();
-    console.log(year + month + day+number);
-    return year+month+day+number;
+    let month, day, year;
+    year = ((Day.getFullYear() + 5) % 100).toString();
+    month =
+      Day.getMonth() + 5 < 10
+        ? "0" + (Day.getMonth() + 5).toString()
+        : (Day.getMonth() + 5).toString();
+    day =
+      Day.getDate() + 5 < 10
+        ? "0" + (Day.getDate() + 5).toString()
+        : (Day.getDate() + 5).toString();
+    let number = await orderTable.countDocuments();
+    number += 1;
+    number =
+      number < 10
+        ? "000" + number.toString()
+        : number < 100
+        ? "00" + number.toString()
+        : number < 1000
+        ? "0" + number.toString()
+        : number.toString();
+    console.log(year + month + day + number);
+    return year + month + day + number;
+  },
+
+  generateBill: async function (req, res) {
+    (async function () {
+      const pdfTemplate = await ejs.renderFile(
+        "../static/user_UI/pdfInvoice.ejs",
+        {
+          orderNumber: await getOrderNumber(),
+          date: new Date().toLocaleDateString(),
+          payments: [
+            {
+              description: "oke",
+              durationPerHours: 20,
+              rentPerHours: 10,
+              amount: 2000,
+            },
+          ],
+          grossAmount: "RM " + 5000,
+          discount: "RM " + 1000,
+          netAmount: 1,
+          fullName: "john doe",
+          phoneNumber: "+6287887242891",
+        },
+        {
+          beautify: true,
+          async: true,
+        }
+      );
+
+      htmlPdf
+        .create(pdfTemplate, {
+          format: "A4",
+          httpHeaders: { "content-type": "application/pdf" },
+          quality: "100",
+          orientation: "portrait",
+          type: "pdf",
+        })
+        .toFile(path.join(__dirname, "index.pdf"), (err, res) => {
+          if (!err) {
+            console.log(res.filename);
+          }
+        });
+    })();
   },
 
   placeOrder: async function (req, res) {
     const { orderType, address_id, amount } = req.body;
     const user_id = req.user._id;
+    const user = await userTable.findOne({ _id: user_id });
     let products;
     const orderNumber = await module.exports.getOrderNumber(); // TODO:generate a random number.
     if (orderType == "cart") {
@@ -249,19 +309,21 @@ module.exports = {
       orderTime: Date.now(),
       orderNumber: orderNumber,
       products: products,
-      orderNUmber: orderNumber,
+      orderNumber: orderNumber,
       address_id: address_id,
       amount: amount,
     });
+    const productDetails = [];
 
     for (let i = 0; i < order.products.length; i++) {
       const product = await productTable.findOne({
         _id: order.products[i].product_id,
       });
+      productDetails.push(product);
       const store = await storeTable.findOne({ _id: product.store_id });
       await moneyDetailTable.create({
         productName: product.name,
-        category:product.category,
+        category: product.category,
         sellerName: store.sellerName,
         quantity: order.products[i].quantity,
         costprice: product.costPrice,
@@ -270,6 +332,37 @@ module.exports = {
         userName: user.name,
       });
     }
+
+    const pdfTemplate = await ejs.renderFile(
+      "../static/user_UI/pdfInvoice.ejs",
+      {
+        orderNumber: orderNumber,
+        orderTime: new Date().toLocaleDateString(),
+        productDetails: productDetails,
+        products: products,
+        amount: amount,
+        userName: user.name,
+        phoneNumber: user.phoneNumber,
+      },
+      {
+        beautify: true,
+        async: true,
+      }
+    );
+
+    htmlPdf
+      .create(pdfTemplate, {
+        format: "A4",
+        httpHeaders: { "content-type": "application/pdf" },
+        quality: "100",
+        orientation: "portrait",
+        type: "pdf",
+      })
+      .toFile(`../static/user_UI/orderBills/${orderNumber}`, (err, res) => {
+        if (!err) {
+          console.log(res.filename);
+        }
+      });
 
     if (orderType == "cart") {
       cart.products = [];
