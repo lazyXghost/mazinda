@@ -6,14 +6,14 @@
     </div>
 </header>
 
-<form action="/admin/addCategory" class="cover" method="POST">
+<form action="/admin/addCategory" enctype="multipart/form-data" class="cover" method="POST">
     <div class="container">
         <input type="text" name="categoryName" placeholder="Enter Catagory">
         <div class="col-12">
 
-          <label for="image" class="form-label">Image</label>
-          <input type="file" name="image" class="form-control" id="image" accept="image/png, image/jpeg, image/jpg" required>
-          <div class="invalid-feedback">Please, upload an Image!</div>
+          <!-- <label for="image" class="form-label">Image</label> -->
+          <input type="file" name="image" class="form-control" id="image"  placeholder="choose image" accept="image/png, image/jpeg, image/jpg" required>
+          <!-- <div class="invalid-feedback">Please, upload an Image!</div> -->
 
         </div>
         <button type="Submit">Add Category</button>
