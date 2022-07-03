@@ -10,3 +10,5 @@
 Change the fields of profile image and everything. Addresses of the User should be displayed
 below a button of add Address should be present.
 (check all the address fields from the model.)
+
+// All images are linked with name after the functioning is complete replace names with id.
