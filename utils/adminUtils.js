@@ -6,7 +6,10 @@ const userTable = require("../models/user");
 const moneyDetailTable = require("../models/moneyDetail");
 const addressTable = require("../models/address");
 const url = require("url");
+const fs = require("fs");
 const {getLocations} = require("../utils");
+const multer = require("multer");
+
 
 module.exports = {
   getRevenue: async function (orders) {
@@ -80,7 +83,11 @@ module.exports = {
 
   deleteCategory: async function (req, res) {
     const category_id = req.body.category;
-    await categoryTable.deleteOne({ _id: category_id });
+    const category = await categoryTable.findOne({_id:category_id})
+    const dir=`static/user_UI/img/categories/${category.categoryName}.png`;
+    console.log(dir);
+    fs.unlinkSync(dir);
+    category.delete();
     return "Category Deleted Successfully";
   },
 

@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const url = require("url");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const {
   localAdminLogin,
   storeRegister,
@@ -19,6 +22,27 @@ const {
   deleteCategory,
 } = require("../utils/adminUtils");
 
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "static/user_UI/img/categories");
+    },
+    filename: (req, file, cb) => {
+      console.log(req.body.categoryName);
+      cb(null,req.body.categoryName + ".png"); // TODO : may have to be improved.
+    },
+  }),
+});
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, "");
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, file.fieldname + "-" + Date.now() + "-" + path.extname(file.originalname));
+//     },
+//   }),
+// });
 // ----- Authentication for Admin -----
 router.get("/login", adminLoggedIn, (req, res) => {
   res.render("admin/login");
@@ -111,7 +135,7 @@ router.get("/category", adminCheck, async (req, res) => {
   });
 });
 
-router.post("/addCategory", adminCheck, async (req, res) => {
+router.post("/addCategory", upload.single('image'), async (req, res) => {
   await addCategory(req, res);
   res.redirect("/admin/category");
 });

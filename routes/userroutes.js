@@ -63,6 +63,15 @@ router.get("/products", async (req, res) => {
   });
 });
 
+router.post("/products", async (req, res) => {
+  const context = await getProductPageData(req,res);
+  res.render("user/products", {
+    authenticated: req.isAuthenticated(),
+    user: req.user,
+    ...context,
+  });
+});
+
 router.get("/productDetail",async (req,res) => {
   const product_id = url.parse(req.url,true).query.ID;
   const product = await productTable.findOne({_id:product_id});
@@ -125,7 +134,7 @@ router.get("/addToCart", async (req,res) => {
 // Order page all functions along with filters
 /////////////////////////////////////////////////////////////
 
-router.get("/orders",async (req,res) => {
+router.get("/viewOrders",userCheck,async (req,res) => {
   const context = await getOrderPageData(req,res);
   res.render("user/orders",{
     authenticated:req.isAuthenticated(),
@@ -134,7 +143,7 @@ router.get("/orders",async (req,res) => {
   });
 });
 
-router.post("/placeOrder",async (req,res) => {
+router.post("/placeOrder",userCheck,async (req,res) => {
   const message = await placeOrder(req,res);
   res.render("user/orderPlaced",{
     authenticated:req.isAuthenticated(),
@@ -160,15 +169,14 @@ router.get("/profile", userCheck, async (req, res) => {
 // Address functions
 /////////////////////////////////////////////////////////////
 
-router.get("/addAddress",async (req,res)=>{
+router.get("/addAddress",userCheck,async (req,res)=>{
   res.render("user/address");
 });
 
-router.post("/addAddress",async (req,res)=>{
+router.post("/addAddress",userCheck,async (req,res)=>{
   const message = addAddress(req, req.user._id);
   res.redirect("/viewCart");
 });
-
 
 /////////////////////////////////////////////////////////////
 // Contacts,FAQ and logout functions
@@ -179,7 +187,7 @@ router.get("/contact", async (req, res) => {
   res.render("store/contact");
 });
 
-router.get("/settings", (req, res) => {
+router.get("/settings",userCheck, (req, res) => {
   res.render("user/settings");
 });
 

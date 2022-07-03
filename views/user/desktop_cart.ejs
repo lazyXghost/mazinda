@@ -586,7 +586,7 @@
                   <!-- Product Page Linked by Image -->
                   <div class="product_img-div">
                     <img
-                      src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
+                      src="data:images/image/png;base64,<%=products[i].images[0].data.toString('base64')%>"
                       alt=""
                       class="product_img"
                     />
@@ -594,7 +594,7 @@
                 </a>
                 <div class="product_description">
                   <div class="p_title-div">
-                    <a href="http://">
+                    <a href="">
                       <!-- Product Page Linked by Title -->
                       <div class="p_title"><%= products[i].name %></div>
                     </a>
