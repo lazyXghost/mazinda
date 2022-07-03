@@ -81,7 +81,7 @@ module.exports = {
     const products = await productTable.find({ status: "accepted" });
     const categories = await categoryTable.find();
     const cart = req.user
-      ? await cartTable.find({ user_id: req.user._id })
+      ? await cartTable.findOne({ user_id: req.user._id })
       : null;
     const trendings = [],
       topDeals = [];
@@ -103,19 +103,23 @@ module.exports = {
   },
 
   getProductPageData: async function (req, res) {
+    const {search} = req.body;
+    console.log(search);
     const category_id = url.parse(req.url, true).query.ID;
     const categories = await categoryTable.find();
     const cart = req.user
-      ? await cartTable.find({ user_id: req.user._id })
+      ? await cartTable.findOne({ user_id: req.user._id })
       : null;
     const products = category_id
       ? await productTable.find({ category_id: category_id })
       : await productTable.find();
 
+    
     const context = {
       products: products,
       categories: categories,
       cartItems: cart?.products?.length ?? 0,
+      search:search
     };
     return context;
   },

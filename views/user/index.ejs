@@ -103,7 +103,7 @@
                     <div id="register" class="d-flex pb-2 content-center justify-center ml-1 mr-1">
                         <% if(user && user.userType=="user" ) {%>
                             <!-- <a href="/profile" class="btn btn-primary ">Hello <%=user.name%></a>
-                                <a href="/orders" class="btn btn-primary ">Orders</a>
+                                <a href="/viewOrders" class="btn btn-primary ">Orders</a>
                                 <a href="/logout" class="btn btn-primary ">Logout</a> -->
                                 <a href="/profile" class="btn btn-primary">
                                     <span><i class="fas fa-user-check"></i></span>
@@ -119,9 +119,10 @@
             <div class="divider w-100"></div>
             <div class="flex items-center justify-center mx-1 px-1 text-white mb-1">
                 <span class="relative w-full mx-1">
-                    <input aria-label="search" type="search" id="search" placeholder="Search for Products"
+                    <form action="/products" method="POST">
+                    <input aria-label="search" type="search" id="search" name="search" placeholder="Search for Products"
                         class="w-full bg-gray-900 text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-1.5 pl-10 appearance-none leading-normal">
-                    <div class="absolute search-icon" style="top: 0.7rem; left: .8rem;">
+                    <div  type="submit" class="absolute search-icon" style="top: 0.7rem; left: .8rem;">
                         <svg class="fill-current pointer-events-none text-white w-4 h-4"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path
@@ -129,6 +130,7 @@
                             </path>
                         </svg>
                     </div>
+                </form>
                 </span>
             </div>
         </nav>
@@ -142,7 +144,7 @@
             <a href="/products">
                 <li>Products</li>
             </a>
-            <a href="/orders">
+            <a href="/viewOrders">
                 <li>Your Orders</li>
             </a>
             <a href="/settings">

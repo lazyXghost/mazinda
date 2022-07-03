@@ -551,11 +551,11 @@
       <% for(let i=0;i < products.length;i++) {%>
       <div class="products_tab">
         <div class="product_info">
-          <a href="http://">
+          <a href="">
             <!-- Product Page Linked by Image -->
             <div class="product_img-div">
               <img
-                src="https://bashooka.com/wp-content/uploads/2019/09/codepen-ecommerce-demo-30.jpg"
+                src="data:images/image/png;base64,<%=products[i].images[0].data.toString('base64')%>"
                 alt=""
                 class="product_img"
               />
@@ -563,7 +563,7 @@
           </a>
           <div class="product_description">
             <div class="p_title-div">
-              <a href="http://">
+              <a href="">
                 <!-- Product Page Linked by Title -->
                 <div class="p_title">Product Title</div>
               </a>
@@ -571,12 +571,16 @@
             <div class="p_price">
               <span class="mazinda">₹<%=products[i].salePrice%></span>
             </div>
+          </div>
+          <div class="p_quantity">
+            <span class="mazinda">₹<%=products[i].quantity%></span>
+          </div>
             <div class="p_available-div">
               <div class="p_available">In Stock</div>
             </div>
             <div class="p_seller-div">
               <div class="p_seller">
-                <span>products[i].name</span>
+                <span><%=products[i].name%></span>
               </div>
             </div>
             <div class="p-assured-div">
