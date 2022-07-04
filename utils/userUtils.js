@@ -193,6 +193,7 @@ module.exports = {
   getCartPageData: async function (req, res) {
     const addresses = await addressTable.find({ user_id: req.user._id });
     const cart = await cartTable.findOne({ user_id: req.user._id });
+    const wallet = await walletTable.findOne({user_id:req.user._id});
     const length = cart?.products?.length ?? 0;
     const products = Array(length);
     for (let i = 0; i < length; i++) {
@@ -209,6 +210,7 @@ module.exports = {
       discount: discount,
       length: length,
       addresses: addresses,
+      wallet:wallet,
     };
     console.log(context);
     return context;

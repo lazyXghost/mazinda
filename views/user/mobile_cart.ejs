@@ -542,6 +542,12 @@
     <% if(addresses.length == 0) {%>
       <button class="btn buy_btn" disabled>Proceed to Checkout</button>
     <% } else {%>
+        <form action="/placeOrder" method="post">
+          <input type="hidden" value="cart" name="orderType">
+          <input id="hiddenAmount" type="hidden" value="<%= amount %>" name="amount">
+          <input type="hidden" value="<%= addresses[0]._id %>" name="address_id"a>
+          <button type="submit" class="btn buy_btn">Proceed to Checkout</button>
+      </form>
       <button class="btn buy_btn">Proceed to Checkout</button>
     <% } %>
     </div>
@@ -613,21 +619,44 @@
           <div class="price_total">
             <div class="price_section">
               <div class="section_title">Total Amount</div>
-              <span> <%= amount %></span>
+              <span id="amount"> <%= amount %></span>
             </div>
           </div>
-          <div class="value_final">You will save ₹<%=discount%> on this order</div>
+          <div class="value_final">You will save ₹<%=discount%> on this order</div>  
+          <div class="value_final">
+            <button id="wallet" class="btn buy_btn">Use <%=min(Amount,wallet.coins) Mazinda coins%></button>
+          </div>
+
         </div>
       </div>
     </div>
     <% } %>
 
     <script>
-        let div = document.querySelector(".animated-icon");
-        div.addEventListener('click', () => {
-            div.classList.toggle('cross')
+      let div = document.querySelector(".animated-icon");
+      div.addEventListener('click', () => {
+          div.classList.toggle('cross')
+      });
+      let wallet = document.getElementById("wallet");
+      let hiddenAmount = document.getElementById("hiddenAmount");
+      let amount = document.getElementById("amount");
+      let checker = false;
+      wallet.addEventListener("click",()=>{
+        if(checker) return;
+        checker = true;
+        hiddenAmount.value = hiddenAmount.value - parseInt(wallet.value/10);
+        amount.value = amount.value - parseInt(wallet.value/10);
+        wallet.value = wallet.value - 10*parseInt(wallet.value/10);
+        wallet.classList.add("nonclickable");
+      })
+      const addressButton = document.getElementById("noAddress");
+      if(addressButton){
+        addressButton.addEventListener('click',()=>{
+          const feedback = document.getElementById("invalid-feedback");
+          feedback.style.display = 'block';
         });
-    </script>
+      }
+  </script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
       integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

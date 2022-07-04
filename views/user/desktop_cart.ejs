@@ -650,21 +650,24 @@
             <div class="price_total">
               <div class="price_section">
                 <div class="section_title">Total Amount</div>
-                <span> ₹<%= amount %></span>
+                <span id="amount"> ₹<%= amount %></span>
               </div>
             </div>
             <div class="value_final">
               You will save ₹<%= discount %> on this order
             </div>
+            <div class="value_final">
+              <button id="wallet" class="btn buy_btn">Use <%=min(Amount,wallet.coins) Mazinda coins%></button>
+            </div>
           </div>
           <div class="place">
             <% if(addresses.length == 0) {%>
-              <button id="noAddress" class="btn buy_btn">Proceed to Checkout</button>
+              <button id="noAddress" class="btn buy_btn nonclickable">Proceed to Checkout</button>
               <div id="invalid-feedback">Please Enter Address to place Order</div>
             <% } else {%>
               <form action="/placeOrder" method="post">
                 <input type="hidden" value="cart" name="orderType">
-                <input type="hidden" value="<%= amount %>" name="amount">
+                <input id="hiddenAmount" type="hidden" value="<%= amount %>" name="amount">
                 <input type="hidden" value="<%= addresses[0]._id %>" name="address_id"a>
                 <button type="submit" class="btn buy_btn">Proceed to Checkout</button>
               </form>
@@ -682,6 +685,18 @@
         div.addEventListener('click', () => {
             div.classList.toggle('cross')
         });
+        let wallet = document.getElementById("wallet");
+        let hiddenAmount = document.getElementById("hiddenAmount");
+        let amount = document.getElementById("amount");
+        let checker = false;
+        wallet.addEventListener("click",()=>{
+          if(checker) return;
+          checker = true;
+          hiddenAmount.value = hiddenAmount.value - parseInt(wallet.value/10);
+          amount.value = amount.value - parseInt(wallet.value/10);
+          wallet.value = wallet.value - 10*parseInt(wallet.value/10);
+          wallet.classList.add("nonclickable");
+        })
         const addressButton = document.getElementById("noAddress");
         if(addressButton){
           addressButton.addEventListener('click',()=>{

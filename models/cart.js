@@ -17,6 +17,10 @@ const CartSchema = new mongoose.Schema({
             }
         }
     ],
+    category_id:{
+        type:String,
+        required:false,
+    }
 });
 
 const Cart = mongoose.model("Carts", CartSchema);

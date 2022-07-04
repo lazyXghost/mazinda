@@ -1,14 +1,17 @@
-1) Create a way of uploading multiple images through multer.
-2) create a frontend page for adding the address field of user.
-3) update the frontend of the desktop as well as mobile view to allow to change address.
-4) Add the money Management page for the store.
-5) update the money management for the store as well as the admin.
-6) create the order page frontend for the admin.
-7) do the backend part of the order page.
 
-8) visit the localhost:8000/profile --> go to address.
+
+1) update the frontend of the desktop as well as mobile view to allow to change address.
+2) Add the money Management page for the store.
+3) update the money management for the store as well as the admin. // done
+4) create the order page frontend for the admin. // done
+5) do the backend part of the order page // done.
+6) visit the localhost:8000/profile --> go to address.
 Change the fields of profile image and everything. Addresses of the User should be displayed
 below a button of add Address should be present.
 (check all the address fields from the model.)
 
 // All images are linked with name after the functioning is complete replace names with id.
+
+7) add the pdf for bill.
+8) update the backend according to the bill pdf.
+9) allow the user to use coins while paying the bill.
