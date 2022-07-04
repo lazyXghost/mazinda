@@ -1,5 +1,3 @@
-
-
 1) update the frontend of the desktop as well as mobile view to allow to change address.
 2) Add the money Management page for the store.
 3) update the money management for the store as well as the admin. // done
@@ -14,4 +12,4 @@ below a button of add Address should be present.
 
 7) add the pdf for bill.
 8) update the backend according to the bill pdf.
-9) allow the user to use coins while paying the bill.
+9) allow the user to use coins while paying the bill. // done
