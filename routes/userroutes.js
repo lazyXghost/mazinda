@@ -103,10 +103,10 @@ router.get("/addToCart", async (req,res) => {
   const params = url.parse(req.url,true).query;
   const product_id = params.product_id;
   const user_id = params.user_id;
-
-  let checker=false;
+  const product = await productTable.findOne({_id:product_id});
   const cart = await cartTable.findOne({user_id:user_id});
-  
+  const category_id = product.category_id;
+  let checker=false;
   for(let i=0;i<cart.products.length;i++){
     if(product_id == cart.products[i].product_id){
       cart.products[i].quantity +=1;
@@ -115,20 +115,27 @@ router.get("/addToCart", async (req,res) => {
       return `product quantity increased to ${cart.products[i].quantity}`;
     }
   }
-
-  if(checker == false){
+  
+  if(cart.products.length == 0){
+    const cartProduct = {
+      product_id:product_id,
+      quantity:1,
+    }
+    cart.category_id = category_id;
+    cart.update({$push:{products:cartProduct}});
+    cart.save();
+    return "product added to the cart";
+  }
+  if(checker == false && cart.category_id == category_id){
     const product = {
       product_id:product_id,
       quantity:1,
     }
     await cart.update({$push:{products:product}});
     return "product added to the cart";
-  }
+  } 
+  return "Your cart already contains product of different category.";
 });
-
-// router.get("cartQuantityUpdate", async (req,res) => {
-//   // I will do it with plain javascript.
-// });
 
 /////////////////////////////////////////////////////////////
 // Order page all functions along with filters
