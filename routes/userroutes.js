@@ -1,8 +1,17 @@
 const router = require("express").Router();
 const passport = require("passport");
 const { userCheck, userLoggedIn } = require("../middleware/auth");
-const {addAddress, localUserLogin } = require("../utils");
-const {userRegister,getIndexPageData,getProductPageData,getOrderPageData, getProfilePageData, getCartPageData,getCartValue, placeOrder} = require("../utils/userUtils");
+const { addAddress, localUserLogin } = require("../utils");
+const {
+  userRegister,
+  getIndexPageData,
+  getProductPageData,
+  getOrderPageData,
+  getProfilePageData,
+  getCartPageData,
+  getCartValue,
+  placeOrder,
+} = require("../utils/userUtils");
 const productTable = require("../models/product");
 const moneyDetailTable = require("../models/moneyDetail");
 const orderTable = require("../models/order");
@@ -11,7 +20,6 @@ const walletTable = require("../models/wallet");
 const userTable = require("../models/user");
 const cartTable = require("../models/cart");
 const url = require("url");
-
 
 // <----Registration and authentication for stores----->
 router.get("/register", userLoggedIn, (req, res) => {
@@ -42,7 +50,7 @@ router.post("/login", localUserLogin);
 /////////////////////////////////////////////////////////////
 
 router.get("/", async (req, res) => {
-  const context = await getIndexPageData(req,res);
+  const context = await getIndexPageData(req, res);
   res.render("user/index", {
     authenticated: req.isAuthenticated(),
     user: req.user,
@@ -55,7 +63,7 @@ router.get("/", async (req, res) => {
 /////////////////////////////////////////////////////////////
 
 router.get("/products", async (req, res) => {
-  const context = await getProductPageData(req,res);
+  const context = await getProductPageData(req, res);
   res.render("user/products", {
     authenticated: req.isAuthenticated(),
     user: req.user,
@@ -64,7 +72,7 @@ router.get("/products", async (req, res) => {
 });
 
 router.post("/products", async (req, res) => {
-  const context = await getProductPageData(req,res);
+  const context = await getProductPageData(req, res);
   res.render("user/products", {
     authenticated: req.isAuthenticated(),
     user: req.user,
@@ -72,16 +80,18 @@ router.post("/products", async (req, res) => {
   });
 });
 
-router.get("/productDetail",async (req,res) => {
-  const product_id = url.parse(req.url,true).query.ID;
-  const product = await productTable.findOne({_id:product_id});
+router.get("/productDetail", async (req, res) => {
+  const product_id = url.parse(req.url, true).query.ID;
+  const product = await productTable.findOne({ _id: product_id });
   const context = {
-    authenticated:req.isAuthenticated(),
-    user:req.user,
-    product:product,
+    authenticated: req.isAuthenticated(),
+    user: req.user,
+    product: product,
   };
-  const productPage = (req.useragent.isMobile)?"mobile_product":"desktop_product";
-  if(product) res.render(`user/${productPage}`,{...context});
+  const productPage = req.useragent.isMobile
+    ? "mobile_product"
+    : "desktop_product";
+  if (product) res.render(`user/${productPage}`, { ...context });
   else res.redirect("/products");
 });
 
@@ -89,73 +99,89 @@ router.get("/productDetail",async (req,res) => {
 // Cart page all functions along with filters
 /////////////////////////////////////////////////////////////
 
-router.get("/viewCart", userCheck, async (req,res) => {
-  const context = await getCartPageData(req,res);
-  const cartPage = (req.useragent.isMobile)?"mobile_cart":"desktop_cart";
-  res.render(`user/${cartPage}`,{
-    authenticated:req.isAuthenticated(),
-    user:req.user,
+router.get("/viewCart", userCheck, async (req, res) => {
+  console.log("this line will be logged");
+  const context = await getCartPageData(req, res);
+  const cartPage = req.useragent.isMobile ? "mobile_cart" : "desktop_cart";
+  res.render(`user/${cartPage}`, {
+    authenticated: req.isAuthenticated(),
+    user: req.user,
     ...context,
   });
 });
 
-router.get("/addToCart", async (req,res) => {
-  const params = url.parse(req.url,true).query;
+router.get("/placeOrder", userCheck, async (req, res) => {
+  console.log("this line will be logged");
+  const context = await getCartPageData(req, res);
+  const product_id = url.parse(req.url, true).query.product_id;
+  const product = await productTable.findOne({
+    _id: product_id,
+  });
+  product.availableQuantity = 1;
+  console.log(context);
+  context.products = [product];
+  console.log(context);
+  const cartPage = req.useragent.isMobile ? "mobile_cart" : "desktop_cart";
+  res.render(`user/${cartPage}`, {
+    authenticated: req.isAuthenticated(),
+    user: req.user,
+    ...context,
+  });
+});
+
+router.get("/addToCart", userCheck, async (req, res) => {
+  const params = url.parse(req.url, true).query;
+  console.log(params);
   const product_id = params.product_id;
   const user_id = params.user_id;
-  const product = await productTable.findOne({_id:product_id});
-  const cart = await cartTable.findOne({user_id:user_id});
+  const product = await productTable.findOne({ _id: product_id });
+  const cart = await cartTable.findOne({ user_id: user_id });
   const category_id = product.category_id;
-  let checker=false;
-  for(let i=0;i<cart.products.length;i++){
-    if(product_id == cart.products[i].product_id){
-      cart.products[i].quantity +=1;
+  let checker = false;
+  for (let i = 0; i < cart.products.length; i++) {
+    if (product_id == cart.products[i].product_id) {
+      cart.products[i].quantity += 1;
       cart.save();
-      checker=true;
-      return `product quantity increased to ${cart.products[i].quantity}`;
+      checker = true;
     }
   }
-  
-  if(cart.products.length == 0){
+  if (cart.products.length == 0) {
     const cartProduct = {
-      product_id:product_id,
-      quantity:1,
-    }
+      product_id: product_id,
+      quantity: 1,
+    };
     cart.category_id = category_id;
-    cart.update({$push:{products:cartProduct}});
+    await cart.update({ $push: { products: cartProduct } });
     cart.save();
-    return "product added to the cart";
-  }
-  if(checker == false && cart.category_id == category_id){
+  } else if (checker == false && cart.category_id == category_id) {
     const product = {
-      product_id:product_id,
-      quantity:1,
-    }
-    await cart.update({$push:{products:product}});
-    return "product added to the cart";
-  } 
-  return "Your cart already contains product of different category.";
+      product_id: product_id,
+      quantity: 1,
+    };
+    await cart.update({ $push: { products: product } });
+  }
+  return res.send("added product to cart");
 });
 
 /////////////////////////////////////////////////////////////
 // Order page all functions along with filters
 /////////////////////////////////////////////////////////////
 
-router.get("/viewOrders",userCheck,async (req,res) => {
-  const context = await getOrderPageData(req,res);
-  res.render("user/orders",{
-    authenticated:req.isAuthenticated(),
-    user:req.user,
+router.get("/viewOrders", userCheck, async (req, res) => {
+  const context = await getOrderPageData(req, res);
+  res.render("user/orders", {
+    authenticated: req.isAuthenticated(),
+    user: req.user,
     ...context,
   });
 });
 
-router.post("/placeOrder",userCheck,async (req,res) => {
-  const message = await placeOrder(req,res);
-  res.render("user/orderPlaced",{
-    authenticated:req.isAuthenticated(),
-    user:req.user,
-    message:message,
+router.post("/placeOrder", userCheck, async (req, res) => {
+  const message = await placeOrder(req, res);
+  res.render("user/orderPlaced", {
+    authenticated: req.isAuthenticated(),
+    user: req.user,
+    message: message,
   });
 });
 
@@ -164,10 +190,10 @@ router.post("/placeOrder",userCheck,async (req,res) => {
 /////////////////////////////////////////////////////////////
 
 router.get("/profile", userCheck, async (req, res) => {
-  const context = await getProfilePageData(req,res);
+  const context = await getProfilePageData(req, res);
   res.render("user/profile", {
     authenticated: req.isAuthenticated(),
-    user:req.user,
+    user: req.user,
     ...context,
   });
 });
@@ -176,11 +202,11 @@ router.get("/profile", userCheck, async (req, res) => {
 // Address functions
 /////////////////////////////////////////////////////////////
 
-router.get("/addAddress",userCheck,async (req,res)=>{
+router.get("/addAddress", userCheck, async (req, res) => {
   res.render("user/address");
 });
 
-router.post("/addAddress",userCheck,async (req,res)=>{
+router.post("/addAddress", userCheck, async (req, res) => {
   const message = addAddress(req, req.user._id);
   res.redirect("/viewCart");
 });
@@ -189,12 +215,11 @@ router.post("/addAddress",userCheck,async (req,res)=>{
 // Contacts,FAQ and logout functions
 /////////////////////////////////////////////////////////////
 
-
 router.get("/contact", async (req, res) => {
   res.render("store/contact");
 });
 
-router.get("/settings",userCheck, (req, res) => {
+router.get("/settings", userCheck, (req, res) => {
   res.render("user/settings");
 });
 

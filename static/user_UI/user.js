@@ -52,10 +52,12 @@ showHide.addEventListener("click", () => {
 function AddToCart(product_id, user_id) {
   var xhr = new XMLHttpRequest();
   var url = `/addToCart/?product_id=${product_id}&user_id=${user_id}`;
+  console.log(url);
   xhr.open("GET", url);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
+      window.location.reload();
     }
   };
   xhr.send();

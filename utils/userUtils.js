@@ -21,25 +21,21 @@ const { getLocations, getCategories, addAddress } = require("../utils");
 
 module.exports = {
   userRegister: async function (req) {
-    console.log(req.body);
     const { phoneNumber, name, email, password, referralCode } = req.body;
     if (password.length < 8) {
       const message = "Password is too Short";
-      console.log(message);
       return message;
     }
     const oldUser = await userTable.findOne({ phoneNumber });
 
     if (oldUser) {
       const message = "user already Exists";
-      console.log(message);
       return message;
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     if (referralCode) {
-      console.log("this is ", referralCode);
       const wallet = await walletTable.findOne({ referralCode: referralCode });
       if (wallet) {
         const currentDate = new Date();
@@ -48,7 +44,6 @@ module.exports = {
         }
       } else {
         const message = "Invalid Referral Code";
-        console.log(message);
         return message;
       }
     }
@@ -73,7 +68,6 @@ module.exports = {
     });
 
     const message = "user Created Successfully";
-    console.log(message);
     return message;
   },
 
@@ -103,8 +97,7 @@ module.exports = {
   },
 
   getProductPageData: async function (req, res) {
-    const {search} = req.body;
-    console.log(search);
+    const { search } = req.body;
     const category_id = url.parse(req.url, true).query.ID;
     const categories = await categoryTable.find();
     const cart = req.user
@@ -114,12 +107,11 @@ module.exports = {
       ? await productTable.find({ category_id: category_id })
       : await productTable.find();
 
-    
     const context = {
       products: products,
       categories: categories,
       cartItems: cart?.products?.length ?? 0,
-      search:search
+      search: search,
     };
     return context;
   },
@@ -180,7 +172,6 @@ module.exports = {
   },
 
   getCartValue: async function (products) {
-    console.log(products);
     let amount = 0,
       gross = 0;
     for (let i = 0; i < products.length; i++) {
@@ -193,7 +184,7 @@ module.exports = {
   getCartPageData: async function (req, res) {
     const addresses = await addressTable.find({ user_id: req.user._id });
     const cart = await cartTable.findOne({ user_id: req.user._id });
-    const wallet = await walletTable.findOne({user_id:req.user._id});
+    const wallet = await walletTable.findOne({ user_id: req.user._id });
     const length = cart?.products?.length ?? 0;
     const products = Array(length);
     for (let i = 0; i < length; i++) {
@@ -210,9 +201,8 @@ module.exports = {
       discount: discount,
       length: length,
       addresses: addresses,
-      wallet:wallet,
+      wallet: wallet,
     };
-    console.log(context);
     return context;
   },
 
@@ -245,7 +235,6 @@ module.exports = {
         : number < 1000
         ? "0" + number.toString()
         : number.toString();
-    console.log(year + month + day + number);
     return year + month + day + number;
   },
 
@@ -286,20 +275,20 @@ module.exports = {
         })
         .toFile(path.join(__dirname, "index.pdf"), (err, res) => {
           if (!err) {
-            console.log(res.filename);
           }
         });
     })();
   },
 
   placeOrder: async function (req, res) {
-    const { orderType, address_id, amount } = req.body;
+    const { orderType, address_id, amount, wallet } = req.body;
+
     const user_id = req.user._id;
     const user = await userTable.findOne({ _id: user_id });
     let products;
     const orderNumber = await module.exports.getOrderNumber(); // TODO:generate a random number.
+    const cart = await cartTable.findOne({ user_id: user_id });
     if (orderType == "cart") {
-      const cart = await cartTable.findOne({ user_id: user_id });
       products = cart.products;
     } else {
       const { product_id, quantity } = req.body;
@@ -310,7 +299,7 @@ module.exports = {
         },
       ];
     }
-    const order = await orderTable.create({
+    let orderDetails = {
       user_id: user_id,
       orderTime: Date.now(),
       orderNumber: orderNumber,
@@ -318,7 +307,8 @@ module.exports = {
       orderNumber: orderNumber,
       address_id: address_id,
       amount: amount,
-    });
+    };
+    const order = await orderTable.create(orderDetails);
     const productDetails = [];
 
     for (let i = 0; i < order.products.length; i++) {
@@ -329,49 +319,49 @@ module.exports = {
       const store = await storeTable.findOne({ _id: product.store_id });
       await moneyDetailTable.create({
         productName: product.name,
-        category: product.category,
-        sellerName: store.sellerName,
+        category: product.category_id,
+        store_id: store.sellerName,
         quantity: order.products[i].quantity,
-        costprice: product.costPrice,
+        costPrice: product.costPrice,
         mrp: product.mrp,
-        saleprice: product.salePrice,
+        salePrice: product.salePrice,
         userName: user.name,
       });
     }
 
-    const pdfTemplate = await ejs.renderFile(
-      "../static/user_UI/pdfInvoice.ejs",
-      {
-        orderNumber: orderNumber,
-        orderTime: new Date().toLocaleDateString(),
-        productDetails: productDetails,
-        products: products,
-        amount: amount,
-        userName: user.name,
-        phoneNumber: user.phoneNumber,
-      },
-      {
-        beautify: true,
-        async: true,
-      }
-    );
+    // const pdfTemplate = await ejs.renderFile(
+    //   "../static/user_UI/pdfInvoice.ejs",
+    //   {
+    //     orderNumber: orderNumber,
+    //     orderTime: new Date().toLocaleDateString(),
+    //     productDetails: productDetails,
+    //     products: products,
+    //     amount: amount,
+    //     userName: user.name,
+    //     phoneNumber: user.phoneNumber,
+    //   },
+    //   {
+    //     beautify: true,
+    //     async: true,
+    //   }
+    // );
 
-    htmlPdf
-      .create(pdfTemplate, {
-        format: "A4",
-        httpHeaders: { "content-type": "application/pdf" },
-        quality: "100",
-        orientation: "portrait",
-        type: "pdf",
-      })
-      .toFile(`../static/user_UI/orderBills/${orderNumber}`, (err, res) => {
-        if (!err) {
-          console.log(res.filename);
-        }
-      });
+    // htmlPdf
+    //   .create(pdfTemplate, {
+    //     format: "A4",
+    //     httpHeaders: { "content-type": "application/pdf" },
+    //     quality: "100",
+    //     orientation: "portrait",
+    //     type: "pdf",
+    //   })
+    //   .toFile(`../static/user_UI/orderBills/${orderNumber}`, (err, res) => {
+    //     if (!err) {
+    //     }
+    //   });
 
     if (orderType == "cart") {
       cart.products = [];
+      cart.category = "";
       cart.save();
     }
     return "order has been placed successfully";

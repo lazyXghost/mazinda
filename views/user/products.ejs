@@ -197,8 +197,18 @@
                     <p class="productDescription"><%=products[i].description%></p>
                     <h5 class="font-bold">$<%=products[i].salePrice%></h5>
                     <div class="buttons flex flex-col px-5">
-                        <a href="/addToCart" class="btn btn-warning mb-2"><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a>
-                        <a href="/placeOrder" class="btn btn-secondary"><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                        <% if(user && user.userType=='user' ) {%>
+                            <button class="btn btn-warning mb-2"
+                                onclick="AddToCart('<%= products[i]._id %>', '<%= user._id %>')"><i
+                                    class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
+                            <a href="/placeOrder?product_id=<%=products[i]._id%>" type="button" class="btn btn-secondary"><i
+                                    class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                            <% } else {%>
+                                <a href="/login" type="button" class="btn btn-warning mb-2" onclick=""><i
+                                        class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a>
+                                <a href="/login" type="button" class="btn btn-secondary"><i
+                                        class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
+                                <% } %>
                     </div>
                 </div>
                 <% } %>

@@ -470,6 +470,10 @@
       color: red;
       font-size: 20px;
     }
+
+    .nonclickable{
+      background-color: grey;
+    }
     </style>
 
     <script
@@ -657,7 +661,7 @@
               You will save ₹<%= discount %> on this order
             </div>
             <div class="value_final">
-              <button id="wallet" class="btn buy_btn">Use <%=min(Amount,wallet.coins) Mazinda coins%></button>
+              <button id="wallet" class="btn buy_btn">Use <%=Math.min(amount,wallet.coins)%> Mazinda coins</button>
             </div>
           </div>
           <div class="place">
@@ -669,6 +673,7 @@
                 <input type="hidden" value="cart" name="orderType">
                 <input id="hiddenAmount" type="hidden" value="<%= amount %>" name="amount">
                 <input type="hidden" value="<%= addresses[0]._id %>" name="address_id"a>
+                <input type="hidden" id="hiddenWallet" name="wallet" value="false">
                 <button type="submit" class="btn buy_btn">Proceed to Checkout</button>
               </form>
             <% } %>
@@ -688,13 +693,15 @@
         let wallet = document.getElementById("wallet");
         let hiddenAmount = document.getElementById("hiddenAmount");
         let amount = document.getElementById("amount");
+        let hiddenWallet = document.getElementById("hiddenWallet");
         let checker = false;
         wallet.addEventListener("click",()=>{
+          const walletValue = Math.min(parseInt("<%-amount%>"),parseInt("<%-wallet.coins%>"));
           if(checker) return;
           checker = true;
-          hiddenAmount.value = hiddenAmount.value - parseInt(wallet.value/10);
-          amount.value = amount.value - parseInt(wallet.value/10);
-          wallet.value = wallet.value - 10*parseInt(wallet.value/10);
+          hiddenWallet.value = "true";
+          hiddenAmount.value = String(parseInt(hiddenAmount.value) - parseInt(walletValue/10));
+          amount.innerHTML = String(parseInt(amount.innerHTML.substring(2)) - parseInt(walletValue/10));
           wallet.classList.add("nonclickable");
         })
         const addressButton = document.getElementById("noAddress");

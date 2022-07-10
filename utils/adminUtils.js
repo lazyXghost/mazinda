@@ -7,9 +7,8 @@ const moneyDetailTable = require("../models/moneyDetail");
 const addressTable = require("../models/address");
 const url = require("url");
 const fs = require("fs");
-const {getLocations} = require("../utils");
+const { getLocations } = require("../utils");
 const multer = require("multer");
-
 
 module.exports = {
   getRevenue: async function (orders) {
@@ -22,7 +21,7 @@ module.exports = {
   },
 
   getPaymentDetails: function (payments) {
-    if(payments.length && payments[0].status == "returned") return 0;
+    if (payments.length && payments[0].status == "returned") return 0;
     let amount = 0;
     for (let i = 0; i < payments.length; i++) {
       amount += payments[i].costPrice * payments[i].quantity;
@@ -54,38 +53,30 @@ module.exports = {
     const product_id = params.ID;
     const task = params.task;
     var updation = {};
-    if(task == 'status'){
+    if (task == "status") {
       updation = { status: params.newValue };
-    }
-    else if(task == 'topDeal'){
+    } else if (task == "topDeal") {
       updation = { topDeal: params.newValue };
-    }
-    else if(task == 'trending'){
+    } else if (task == "trending") {
       updation = { trending: params.newValue };
     }
 
-    await productTable.findOneAndUpdate(
-      { _id: product_id },
-      updation
-    );
+    await productTable.findOneAndUpdate({ _id: product_id }, updation);
     return;
   },
-
 
   addCategory: async function (req, res) {
     const { categoryName } = req.body;
     const category = await categoryTable.create({
       categoryName: categoryName,
     });
-    // console.log("added a new category");
     return "Category Added Successfully";
   },
 
   deleteCategory: async function (req, res) {
     const category_id = req.body.category;
-    const category = await categoryTable.findOne({_id:category_id})
-    const dir=`static/user_UI/img/categories/${category.categoryName}.png`;
-    console.log(dir);
+    const category = await categoryTable.findOne({ _id: category_id });
+    const dir = `static/user_UI/img/categories/${category.categoryName}.png`;
     fs.unlinkSync(dir);
     category.delete();
     return "Category Deleted Successfully";
@@ -113,9 +104,7 @@ module.exports = {
 
     for (let i = 0; i < address.length; i++) {
       store_id[i] = address[i].user_id;
-      console.log(address[i]);
     }
-    console.log(store_id);
     const stores = await storeTable.find({
       status: status,
       _id: { $in: [...store_id] },
@@ -139,7 +128,6 @@ module.exports = {
 
   getProductPageData: async function (city) {
     const categories = await categoryTable.find();
-    console.log(categories);
     const address = await addressTable.find({ city: city });
     const store_id = Array(address.length);
 
@@ -171,7 +159,6 @@ module.exports = {
       acceptedStore_id[i] = stores[i]._id;
     }
 
-    // console.log(store_id);
     const pendingproducts = await productTable.find({
       status: "pending",
       store_id: { $in: acceptedStore_id },
@@ -184,9 +171,6 @@ module.exports = {
       status: "accepted",
       store_id: { $in: acceptedStore_id },
     });
-    console.log(acceptedproducts.length);
-    console.log(pendingproducts.length);
-    console.log(rejectedproducts.length);
     // const products = await productTable.find({ store_id: { $in: store_id } });
     const context = {
       cities: locations.cities,
@@ -200,25 +184,32 @@ module.exports = {
     return context;
   },
 
-  getMoneyPageData: async function (status,currentCity) {
-    const stores = await  storeTable.find({city:currentCity});
+  getMoneyPageData: async function (status, currentCity) {
+    const stores = await storeTable.find({ city: currentCity });
     const store_id = Array(stores.length);
-    for(let i=0;i<stores.length;i++){
+    for (let i = 0; i < stores.length; i++) {
       store_id[i] = stores[i]._id;
     }
-    const pendingMoneyDetails = await moneyDetailTable.find({ status: "pending",store_id: {$in:store_id} });
-    const MoneyDetails = await moneyDetailTable.find({ status: status,store_id:{$in:store_id} });
+    const pendingMoneyDetails = await moneyDetailTable.find({
+      status: "pending",
+      store_id: { $in: store_id },
+    });
+    const MoneyDetails = await moneyDetailTable.find({
+      status: status,
+      store_id: { $in: store_id },
+    });
     const unPaidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
-    const totalAmount = module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
+    const totalAmount =
+      module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
     const locations = await getLocations();
     const context = {
       MoneyDetails: MoneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
       unPaidAmount: unPaidAmount,
       totalAmount: totalAmount,
-      status:status,
-      currentCity:currentCity,
-      cities:locations.cities,
+      status: status,
+      currentCity: currentCity,
+      cities: locations.cities,
     };
     // const orders = await orderTable.find();
     // let products=[];

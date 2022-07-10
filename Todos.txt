@@ -13,3 +13,11 @@ below a button of add Address should be present.
 7) add the pdf for bill.
 8) update the backend according to the bill pdf.
 9) allow the user to use coins while paying the bill. // done
+
+
+
+10) Update cart products
+11) mazinda coins
+
+12) Fix Place Order Use Ajax call to send the data instead of raw html.
+13) Fix Money Management,Revenue of admin Page.
