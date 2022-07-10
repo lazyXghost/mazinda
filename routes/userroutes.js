@@ -11,6 +11,8 @@ const {
   getCartPageData,
   getCartValue,
   placeOrder,
+  updateCartQuantity,
+  removeProduct,
 } = require("../utils/userUtils");
 const productTable = require("../models/product");
 const moneyDetailTable = require("../models/moneyDetail");
@@ -100,7 +102,6 @@ router.get("/productDetail", async (req, res) => {
 /////////////////////////////////////////////////////////////
 
 router.get("/viewCart", userCheck, async (req, res) => {
-  console.log("this line will be logged");
   const context = await getCartPageData(req, res);
   const cartPage = req.useragent.isMobile ? "mobile_cart" : "desktop_cart";
   res.render(`user/${cartPage}`, {
@@ -111,16 +112,13 @@ router.get("/viewCart", userCheck, async (req, res) => {
 });
 
 router.get("/placeOrder", userCheck, async (req, res) => {
-  console.log("this line will be logged");
   const context = await getCartPageData(req, res);
   const product_id = url.parse(req.url, true).query.product_id;
   const product = await productTable.findOne({
     _id: product_id,
   });
   product.availableQuantity = 1;
-  console.log(context);
   context.products = [product];
-  console.log(context);
   const cartPage = req.useragent.isMobile ? "mobile_cart" : "desktop_cart";
   res.render(`user/${cartPage}`, {
     authenticated: req.isAuthenticated(),
@@ -131,7 +129,6 @@ router.get("/placeOrder", userCheck, async (req, res) => {
 
 router.get("/addToCart", userCheck, async (req, res) => {
   const params = url.parse(req.url, true).query;
-  console.log(params);
   const product_id = params.product_id;
   const user_id = params.user_id;
   const product = await productTable.findOne({ _id: product_id });
@@ -161,6 +158,16 @@ router.get("/addToCart", userCheck, async (req, res) => {
     await cart.update({ $push: { products: product } });
   }
   return res.send("added product to cart");
+});
+
+router.get("/updateCartQuantity", userCheck, async (req, res) => {
+  await updateCartQuantity(req, res);
+  res.redirect("/viewCart");
+});
+
+router.get("/removeProduct", userCheck, async (req, res) => {
+  await removeProduct(req, res);
+  res.redirect("/viewCart");
 });
 
 /////////////////////////////////////////////////////////////

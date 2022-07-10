@@ -9,11 +9,6 @@ module.exports = function (passport) {
       async function (phoneNumber, password, done) {
         const userTable = require("../models/user");
         const user = await userTable.findOne({ phoneNumber: phoneNumber });
-        console.log(
-          password,
-          user.password,
-          await bcrypt.compare(password, user.password)
-        );
         if (user && (await bcrypt.compare(password, user.password))) {
           return done(null, user);
         }
@@ -28,7 +23,6 @@ module.exports = function (passport) {
       async function (email, password, done) {
         const storeTable = require("../models/store");
         const store = await storeTable.findOne({ email });
-        // console.log(store, store.password, await bcrypt.hash(password, 10));
         if (store && (await bcrypt.compare(password, store.password))) {
           return done(null, store);
         }

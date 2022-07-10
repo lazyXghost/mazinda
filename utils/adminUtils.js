@@ -15,6 +15,7 @@ module.exports = {
     let totalRevenue = 0;
     for (var i = 0; i < orders.length; i++) {
       let order = orders[i];
+      console.log(order);
       totalRevenue += order.amount;
     }
     return totalRevenue;
@@ -87,8 +88,9 @@ module.exports = {
       status: "accepted",
     });
     const orders = await orderTable.countDocuments();
+    const orderData = await orderTable.find();
     const users = await userTable.countDocuments();
-    const revenue = await module.exports.getRevenue(orders);
+    const revenue = await module.exports.getRevenue(orderData);
     const context = {
       orders: orders,
       acceptedStores: acceptedStores,
@@ -194,6 +196,7 @@ module.exports = {
       status: "pending",
       store_id: { $in: store_id },
     });
+    console.log(pendingMoneyDetails);
     const MoneyDetails = await moneyDetailTable.find({
       status: status,
       store_id: { $in: store_id },

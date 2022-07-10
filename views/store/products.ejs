@@ -25,8 +25,10 @@
             <% } %>
             <div class="card-body">
               <h5 class="card-title"><%= products[i].name %></h5>
-              <p class="card-text"><%= products[i].description %></p>
-              <a href="/store/editProduct?ID=<%=products[i]._id%>"><button type="button" class="btn btn-success btn-lg btn-round">Edit</button></a>
+              <label for="Quantity">Quantity: </label>
+              <input class="w-25" type="number" name="Quantity" id="Quantity" value="<%= products[i].availableQuantity %>"  onchange="changeQuantity('<%= products[i]._id %>', this)">
+              <p class="card-text">Description: <%= products[i].description %></p>
+              <!-- <a href="/store/editProduct?ID=<%=products[i]._id%>"><button type="button" class="btn btn-success btn-lg btn-round">Edit</button></a> -->
               <a href="/store/deleteProduct?ID=<%=products[i]._id%>"><button type="button" class="btn btn-danger btn-lg btn-round">Delete</button></a>
           
             </div>

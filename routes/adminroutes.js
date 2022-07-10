@@ -28,8 +28,7 @@ const upload = multer({
       cb(null, "static/user_UI/img/categories");
     },
     filename: (req, file, cb) => {
-      console.log(req.body.categoryName);
-      cb(null,req.body.categoryName + ".png"); // TODO : may have to be improved.
+      cb(null, req.body.categoryName + ".png"); // TODO : may have to be improved.
     },
   }),
 });
@@ -108,7 +107,7 @@ router.post("/addStore", adminCheck, async (req, res) => {
 ///////////////////////////////////////////////////////////
 
 router.get("/products", adminCheck, async (req, res) => {
-  const currentCity = url.parse(req.url,true).query.currentCity ?? "Mandi";
+  const currentCity = url.parse(req.url, true).query.currentCity ?? "Mandi";
   const context = await getProductPageData(currentCity);
   res.render("admin/products", {
     user: req.user,
@@ -135,7 +134,7 @@ router.get("/category", adminCheck, async (req, res) => {
   });
 });
 
-router.post("/addCategory", upload.single('image'), async (req, res) => {
+router.post("/addCategory", upload.single("image"), async (req, res) => {
   await addCategory(req, res);
   res.redirect("/admin/category");
 });
@@ -151,8 +150,8 @@ router.post("/deleteCategory", adminCheck, async (req, res) => {
 
 router.get("/money", adminCheck, async (req, res) => {
   const status = url.parse(req.url, true).query.status ?? "accepted";
-  const currentCity = url.parse(req.url,true).query.currentCity ?? "Mandi";
-  const context = await getMoneyPageData(status,currentCity);
+  const currentCity = url.parse(req.url, true).query.currentCity ?? "Mandi";
+  const context = await getMoneyPageData(status, currentCity);
   res.render("admin/money", {
     user: req.user,
     authenticated: req.isAuthenticated(),
@@ -169,11 +168,10 @@ router.get("/moneyDetailStatusChange", adminCheck, async (req, res) => {
 // Coupon Page functions
 /////////////////////////////////////////////////////////////
 router.get("/coupon", adminCheck, (req, res) => {
-    res.render("admin/coupon", {
-        user: req.user,
-        authenticated: req.isAuthenticated(),
-    });
-
-})
+  res.render("admin/coupon", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+  });
+});
 
 module.exports = router;

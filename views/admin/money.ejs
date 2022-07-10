@@ -51,11 +51,11 @@
                 <th><%= i+1 %></th>
                 <td><%= pendingMoneyDetails[i].productName %></td>
                 <td><%= pendingMoneyDetails[i].category %></td>
-                <td><%= pendingMoneyDetails[i].sellerName %></td>
+                <td><%= pendingMoneyDetails[i].store_id %></td>
                 <td><%= pendingMoneyDetails[i].userName %></td>
-                <td><%= pendingMoneyDetails[i].CostPrice %></td>
-                <td><%= pendingMoneyDetails[i].SalePrice %></td>
-                <!-- Todo : write code for moneyDetailStatusChange -->
+                <td><%= pendingMoneyDetails[i].costPrice %></td>
+                <td><%= pendingMoneyDetails[i].salePrice %></td>
+                <!-- TODO : write code for moneyDetailStatusChange -->
                 <td><button class="btn btn-large">Upload Photo</button></td>
               </tr>
               <% } %>
@@ -110,10 +110,10 @@
                 <th><%= i+1 %></th>
                 <td><%= MoneyDetails[i].productName %></td>
                 <td><%= MoneyDetails[i].category %></td>
-                <td><%= MoneyDetails[i].sellerName %></td>
+                <td><%= MoneyDetails[i].store_id %></td>
                 <td><%= MoneyDetails[i].userName %></td>
-                <td><%= MoneyDetails[i].CostPrice %></td>
-                <td><%= MoneyDetails[i].SalePrice %></td>
+                <td><%= MoneyDetails[i].costPrice %></td>
+                <td><%= MoneyDetails[i].salePrice %></td>
                 <!-- Todo : write code for moneyDetailStatusChange -->
                 <form action="/moneyDetailStatusChange"></form>
                 </td>

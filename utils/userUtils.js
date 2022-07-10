@@ -121,6 +121,7 @@ module.exports = {
       user_id: req.user._id,
       status: "pending",
     });
+    console.log(pendingOrders);
     const completedOrders = await orderTable.find({
       user_id: req.user._id,
       status: { $ne: "pending" },
@@ -179,6 +180,35 @@ module.exports = {
       gross += products[i].availableQuantity * products[i].mrp;
     }
     return [amount, gross - amount];
+  },
+
+  updateCartQuantity: async function (req, res) {
+    const product_id = url.parse(req.url, true).query.product_id;
+    const user_id = url.parse(req.url, true).query.user_id;
+    const quantity = url.parse(req.url, true).query.newQuantity;
+    if (quantity < 1) return "Quantity cannot be less than 1";
+    const cart = await cartTable.findOne({ user_id: user_id });
+    for (let i = 0; i < cart?.products?.length; i++) {
+      if (product_id == cart.products[i].product_id) {
+        cart.products[i].quantity = quantity;
+        cart.save();
+      }
+    }
+    return "Quantity Updated Successfully";
+  },
+
+  removeProduct: async function (req, res) {
+    const product_id = url.parse(req.url, true).query.product_id;
+    const user_id = url.parse(req.url, true).query.user_id;
+    const cart = await cartTable.findOne({ user_id: user_id });
+    console.log(cart);
+    for (let i = 0; i < cart.products.length; i++) {
+      if (product_id == cart.products[i].product_id) {
+        cart.products.splice(i, 1);
+        cart.save();
+      }
+    }
+    return "product Removed Successfully";
   },
 
   getCartPageData: async function (req, res) {
@@ -320,7 +350,7 @@ module.exports = {
       await moneyDetailTable.create({
         productName: product.name,
         category: product.category_id,
-        store_id: store.sellerName,
+        store_id: store._id,
         quantity: order.products[i].quantity,
         costPrice: product.costPrice,
         mrp: product.mrp,

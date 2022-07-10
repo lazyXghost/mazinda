@@ -25,7 +25,14 @@ const upload = multer({
       cb(null, "");
     },
     filename: (req, file, cb) => {
-      cb(null, file.fieldname + "-" + Date.now() + "-" + path.extname(file.originalname));
+      cb(
+        null,
+        file.fieldname +
+          "-" +
+          Date.now() +
+          "-" +
+          path.extname(file.originalname)
+      );
     },
   }),
 });
@@ -53,41 +60,51 @@ router.post("/login", localStoreLogin);
 // ----------- APP ROUTES ---------------
 
 router.get("/", storeCheck, async (req, res) => {
-  const moneyDetails = await moneyDetailsTable.find({store_id:req.user._id});
-  const salesTime = url.parse(req.url,true).query.salesTime || "Month";
-  const revenueTime = url.parse(req.url,true).query.revenueTime || "Month";
-  const tableTime = url.parse(req.url,true).query.tableTime || "Month";
-  const {revenue,sales,tableDetails} = await getRevenue(moneyDetails,salesTime,revenueTime,tableTime);
+  const moneyDetails = await moneyDetailsTable.find({ store_id: req.user._id });
+  const salesTime = url.parse(req.url, true).query.salesTime || "Month";
+  const revenueTime = url.parse(req.url, true).query.revenueTime || "Month";
+  const tableTime = url.parse(req.url, true).query.tableTime || "Month";
+  const { revenue, sales, tableDetails } = await getRevenue(
+    moneyDetails,
+    salesTime,
+    revenueTime,
+    tableTime
+  );
   const context = {
     authenticated: req.isAuthenticated(),
     user: req.user,
-    revenue:revenue,
-    sales:sales,
-    salesTime:salesTime,
-    revenueTime:revenueTime,
-    tableTime:tableTime,
-    tableDetails:tableDetails,
-  }
-  res.render("store/dashboard", {...context});
+    revenue: revenue,
+    sales: sales,
+    salesTime: salesTime,
+    revenueTime: revenueTime,
+    tableTime: tableTime,
+    tableDetails: tableDetails,
+  };
+  res.render("store/dashboard", { ...context });
 });
 
 router.get("/dashboard", storeCheck, async (req, res) => {
-  const moneyDetails = await moneyDetailsTable.find({store_id:req.user._id});
-  const salesTime = url.parse(req.url,true).query.salesTime || "Month";
-  const revenueTime = url.parse(req.url,true).query.revenueTime || "Month";
-  const tableTime = url.parse(req.url,true).query.tableTime || "Month";
-  const {revenue,sales,tableDetails} = await getRevenue(moneyDetails,salesTime,revenueTime,tableTime);
+  const moneyDetails = await moneyDetailsTable.find({ store_id: req.user._id });
+  const salesTime = url.parse(req.url, true).query.salesTime || "Month";
+  const revenueTime = url.parse(req.url, true).query.revenueTime || "Month";
+  const tableTime = url.parse(req.url, true).query.tableTime || "Month";
+  const { revenue, sales, tableDetails } = await getRevenue(
+    moneyDetails,
+    salesTime,
+    revenueTime,
+    tableTime
+  );
   const context = {
     authenticated: req.isAuthenticated(),
     user: req.user,
-    revenue:revenue,
-    sales:sales,
-    salesTime:salesTime,
-    revenueTime:revenueTime,
-    tableTime:tableTime,
-    tableDetails:tableDetails,
-  }
-  res.render("store/dashboard", {...context});
+    revenue: revenue,
+    sales: sales,
+    salesTime: salesTime,
+    revenueTime: revenueTime,
+    tableTime: tableTime,
+    tableDetails: tableDetails,
+  };
+  res.render("store/dashboard", { ...context });
 });
 
 router.get("/products", storeCheck, async (req, res) => {
@@ -97,7 +114,6 @@ router.get("/products", storeCheck, async (req, res) => {
     user: req.user,
     authenticated: req.isAuthenticated(),
   };
-  console.log(req.user);
   res.render("store/products", { ...context });
 });
 
@@ -116,11 +132,11 @@ router.post(
   storeCheck,
   async (req, res) => {
     req.body.images = [];
-    for(let i=0;i<req.files.length;i++){
+    for (let i = 0; i < req.files.length; i++) {
       const image = {
-        data:fs.readFileSync(req.files[i].filename),
-        contentType:"image/png",
-      }
+        data: fs.readFileSync(req.files[i].filename),
+        contentType: "image/png",
+      };
       fs.unlinkSync(req.files[i].filename);
       req.body.images.push(image);
     }
@@ -136,12 +152,12 @@ router.post(
 );
 
 router.get("/updateQuantity", storeCheck, async (req, res) => {
-  await updateQuantity(req,res);
+  await updateQuantity(req, res);
   res.redirect("/store/products");
 });
 
 router.get("/deleteProduct", storeCheck, async (req, res) => {
-  await deleteProduct(req,res);
+  await deleteProduct(req, res);
   res.redirect("/store/products");
 });
 
@@ -152,7 +168,6 @@ router.post("/changePassword", storeCheck, async (req, res) => {
     message == "invalid password" ||
     message == "passwords do not match"
   ) {
-    console.log(message);
     res.redirect("/store/dashboard");
     // res.render("store/profile", {
     //   authenticated: req.isAuthenticated(),
@@ -166,7 +181,6 @@ router.post("/changePassword", storeCheck, async (req, res) => {
 
 router.get("/profile", storeCheck, async (req, res) => {
   const address = await addressTable.findOne({ user_id: req.user._id });
-  console.log(address);
   res.render("store/profile", {
     authenticated: req.isAuthenticated(),
     user: req.user,
@@ -188,14 +202,14 @@ router.get("/faqs", (req, res) => {
   });
 });
 
-router.get("/money",storeCheck,async (req,res) =>{
+router.get("/money", storeCheck, async (req, res) => {
   const context = await getMoneyPageData(req);
-  res.render("store/money",{
-    user:req.user,
-    authenticated:req.isAuthenticated(),
-      ...context,
+  res.render("store/money", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
   });
-})
+});
 
 // Logging Out
 router.get("/logout", storeCheck, (req, res) => {

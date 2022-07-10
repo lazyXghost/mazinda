@@ -59,11 +59,11 @@ module.exports = {
     } else return "passwords do not match";
   },
 
-  getRevenue: async function (moneyDetails, salesTime, revenueTime) {
+  getRevenue: async function (moneyDetails, salesTime, revenueTime, tableTime) {
     let sales = 0;
     let totalRevenue = 0;
     const tableDetails = [];
-    const date = Date.now();
+    const date = new Date(Date.now());
     for (let i = 0; i < moneyDetails.length; i++) {
       let order = moneyDetails[i];
       if (
@@ -105,8 +105,10 @@ module.exports = {
   },
 
   updateQuantity: async function (req, res) {
-    const product_id = url.parse(req.url, true).query.ID;
-    const availableQuantity = req.body.availableQuantity;
+    const product_id = url.parse(req.url, true).query.product_id;
+    const availableQuantity = url.parse(req.url, true).query.newQuantity;
+    if (availableQuantity < 0) return "Quantity must be greater than zero";
+    console.log(product_id, availableQuantity);
     await productTable.findOneAndUpdate(
       { _id: product_id },
       { availableQuantity: availableQuantity }
