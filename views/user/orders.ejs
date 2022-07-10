@@ -1,20 +1,24 @@
-<%- include('partials/header') %> 
-        <div class="container">
-            <link rel="stylesheet" href="/user_UI/css/orders.css">
-            <article class="card">
-                <header class="card-header"> My Orders / Tracking </header>
-                <div class="card-body">
-                    <% for(var i=0;i < completedOrders.length;i++) { %>
-                        <h2><u>ORDER #<%= i+1 %></u></h2>
-                        <h6>Order ID: <%= completedOrders[i]._id %>
-                        </h6>
-                        <h6>Order Number: <%= completedOrders[i].orderNumber %>
-                        </h6>
-                        <h6>Order Time: <%= completedOrders[i].orderTime %>
-                        </h6>
-                        <h6>Order Shipping Address: <%= completedOrders[i].address_id %>
-                        </h6>
-                        <!-- <article class="card">
+<%- include('partials/header') %>
+<div class="container">
+  <link rel="stylesheet" href="/user_UI/css/orders.css" />
+  <article class="card">
+    <header class="card-header">My Orders / Tracking</header>
+    <div class="card-body">
+        <% for(var i=0;i<pendingOrders.length;i++) { %>
+            <h2><u>ORDER #<%= i+1 %></u></h2>
+            <h6>Order ID: <%= pendingOrders[i]._id %></h6>
+            <h6>Order Number: <%= pendingOrders[i].orderNumber %></h6>
+            <h6>Order Time: <%= pendingOrders[i].orderTime %></h6>
+            <h6>Order Shipping ID: <%= pendingOrders[i].address_id %></h6>
+        <% } %>
+
+      <% for(var i=0;i < completedOrders.length;i++) { %>
+      <h2><u>ORDER #<%= i+1 %></u></h2>
+      <h6>Order ID: <%= completedOrders[i]._id %></h6>
+      <h6>Order Number: <%= completedOrders[i].orderNumber %></h6>
+      <h6>Order Time: <%= completedOrders[i].orderTime %></h6>
+      <h6>Order Shipping ID: <%= completedOrders[i].address_id %></h6>
+      <!-- <article class="card">
                             <div class="card-body row">
                                 <div class="col"> <strong>Estimated Delivery time:</strong> <br>29 nov 2019 </div>
                                 <div class="col"> <strong>Shipping BY:</strong> <br> BLUEDART, | <i class="fa fa-phone"></i> +1598675986 </div>
@@ -22,35 +26,42 @@
                                 <div class="col"> <strong>Tracking #:</strong> <br> BD045903594059 </div>
                             </div>
                         </article> -->
-                        <!-- <div class="track">
+      <!-- <div class="track">
                             <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
                             <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
                             <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
                             <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
                         </div> -->
-                        <hr>
-                        <ul class="row">
-                            <% for(var j=0;j< completedOrders[i].products.length;j++) { %>
-                                <li class="col-md-4">
-                                    <figure class="itemside mb-3">
-                                        <div class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
-                                        <figcaption class="info align-self-center">
-                                            <p class="title">
-                                                Product Id: <%= completedOrders[i].products[j].product_id %>
-                                            </p> 
-                                            <span class="text-muted">
-                                                Quantity: <%= orders[i].products[j].quantity %>
-                                            </span>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <% } %>
-                        </ul>
-                        <hr>
-                        <hr>
-                    <% } %>
-                    <a href="/" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to home</a>
-                </div>
-            </article>
-        </div>
+      <hr />
+      <ul class="row">
+        <% for(var j=0;j< completedOrders[i].products.length;j++) { %>
+        <li class="col-md-4">
+          <figure class="itemside mb-3">
+            <div class="aside">
+              <img
+                src="https://i.imgur.com/iDwDQ4o.png"
+                class="img-sm border"
+              />
+            </div>
+            <figcaption class="info align-self-center">
+              <p class="title">
+                Product Id: <%= completedOrders[i].products[j].product_id %>
+              </p>
+              <span class="text-muted">
+                Quantity: <%= orders[i].products[j].quantity %>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+        <% } %>
+      </ul>
+      <hr />
+      <hr />
+      <% } %>
+      <a href="/" class="btn btn-warning" data-abc="true">
+        <i class="fa fa-chevron-left"></i> Back to home</a
+      >
+    </div>
+  </article>
+</div>
 <%- include('partials/footer') %>

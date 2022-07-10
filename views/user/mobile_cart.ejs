@@ -597,8 +597,8 @@
           </div>
         </div>
         <div class="product-actions"></div>
+        <% } %>
       </div>
-      <% } %>
 
     <div class="value">
       <div class="value_container">
@@ -624,7 +624,7 @@
           </div>
           <div class="value_final">You will save ₹<%=discount%> on this order</div>  
           <div class="value_final">
-            <button id="wallet" class="btn buy_btn">Use <%=min(Amount,wallet.coins) Mazinda coins%></button>
+            <button id="wallet" class="btn buy_btn">Use <%=Math.min(amount,wallet.coins)%> Mazinda coins</button>
           </div>
 
         </div>
@@ -638,6 +638,7 @@
           div.classList.toggle('cross')
       });
       let wallet = document.getElementById("wallet");
+      console.log(wallet);
       let hiddenAmount = document.getElementById("hiddenAmount");
       let amount = document.getElementById("amount");
       let checker = false;

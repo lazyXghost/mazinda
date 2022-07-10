@@ -29,13 +29,23 @@
                     <h6>Filter</h6>
                   </li>
 
-                  <li><a class="dropdown-item" href="/store?salesTime=Today">Today</a></li>
-                  <li><a class="dropdown-item" href="/store?salesTime=Month">Month</a></li>
+                  <li>
+                    <a class="dropdown-item" href="/store?salesTime=Today"
+                      >Today</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/store?salesTime=Month"
+                      >Month</a
+                    >
+                  </li>
                 </ul>
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Sales <span>| <%= salesTime %></span></h5>
+                <h5 class="card-title">
+                  Sales <span>| <%= salesTime %></span>
+                </h5>
 
                 <div class="d-flex align-items-center">
                   <div
@@ -66,13 +76,23 @@
                     <h6>Filter</h6>
                   </li>
 
-                  <li><a class="dropdown-item" href="/store?revenueTime=Today">Today</a></li>
-                  <li><a class="dropdown-item" href="/store?revenueTime=Month">Month</a></li>
+                  <li>
+                    <a class="dropdown-item" href="/store?revenueTime=Today"
+                      >Today</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/store?revenueTime=Month"
+                      >Month</a
+                    >
+                  </li>
                 </ul>
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Revenue <span>| <%= revenueTime %></span></h5>
+                <h5 class="card-title">
+                  Revenue <span>| <%= revenueTime %></span>
+                </h5>
 
                 <div class="d-flex align-items-center">
                   <div
@@ -235,13 +255,23 @@
                     <h6>Filter</h6>
                   </li>
 
-                  <li><a class="dropdown-item" href="/store?tableTime=Today">Today</a></li>
-                  <li><a class="dropdown-item" href="/store?tableTime=Month">Month</a></li>
+                  <li>
+                    <a class="dropdown-item" href="/store?tableTime=Today"
+                      >Today</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/store?tableTime=Month"
+                      >Month</a
+                    >
+                  </li>
                 </ul>
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Recent Sales <span>| <%= tableTime %></span></h5>
+                <h5 class="card-title">
+                  Recent Sales <span>| <%= tableTime %></span>
+                </h5>
 
                 <table class="table table-borderless datatable">
                   <thead>
@@ -260,10 +290,13 @@
                       <td><%=tableDetails[i].userName %></td>
                       <td>
                         <a href="#" class="text-primary"
-                          >tableDetails[i].productName</a
+                          ><%=tableDetails[i].productName%></a
                         >
                       </td>
-                      <td>$<%= tableDetails[i].costPrice * tableDetails[i].quantity %></td>
+                      <td>
+                        $<%= tableDetails[i].costPrice *
+                        tableDetails[i].quantity %>
+                      </td>
                       <% if(tableDetails[i].status == "pending") {%>
                       <td><span class="badge bg-warning">pending</span></td>
                       <% } else if(tableDetails[i].status == "returned") { %>
@@ -726,7 +759,7 @@
               });
             </script>
           </div>
-        </div> -->  
+        </div> -->
         <!-- End Budget Report -->
 
         <!-- Website Traffic -->

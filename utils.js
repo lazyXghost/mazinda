@@ -12,7 +12,6 @@ const url = require("url");
 var shortid = require("shortid");
 
 module.exports = {
-
   localUserLogin: passport.authenticate("user-local", {
     successRedirect: "/",
     failureRedirect: "/login",
@@ -60,7 +59,6 @@ module.exports = {
     const returnValue = await module.exports.addAddress(req, store._id);
     return `store and ${returnValue}`;
   },
-
 
   addAddress: async function (req, user_id) {
     const { building, street, locality, city, pincode, state } = req.body;

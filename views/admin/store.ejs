@@ -56,7 +56,7 @@
                     </button>
                   </a>
                   <a
-                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=rejected&"
+                    href="/admin/storeStatusChange?ID=<%=pending[i]._id%>&task=rejected"
                   >
                     <button type="button" class="red">
                       <i class="far fa-trash-alt"></i>
@@ -83,7 +83,7 @@
 <header class="">
   <div class="cover header">
     <form action="/admin/store" method="get">
-      <input type="hidden" name="currentCity" value="<%=currentCity%>">
+      <input type="hidden" name="currentCity" value="<%=currentCity%>" />
       <label for="status">Status:</label>
       <select name="status" id="status">
         <% if(status == 'accepted') {%>

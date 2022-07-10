@@ -30,10 +30,7 @@ module.exports = {
       name: name,
       store_id: store_id,
     });
-    console.log("here");
-    console.log(repeated);
     if (repeated) return "product already added";
-    console.log("this also works");
     await productTable.create({
       name: name,
       store_id: store_id,
@@ -45,69 +42,73 @@ module.exports = {
       description: description,
       images: images,
     });
-    console.log("now here");
     return "Product Added Successfully";
   },
 
   changePassword: async function (req, res) {
-    const { password, newPassword,confirmPassword } = req.body;
+    const { password, newPassword, confirmPassword } = req.body;
     if (newPassword == confirmPassword) {
       const store = await storeTable.findOne({ _id: req.user._id });
       const newEncryptedPassword = await bcrypt.hash(newPassword, 10);
       if (newPassword.length < 8) return "password is too Short.";
-      const checker = await bcrypt.compare(password,store.password);
-      if(checker) {
+      const checker = await bcrypt.compare(password, store.password);
+      if (checker) {
         await store.updateOne({ password: newEncryptedPassword });
         return "Password changed Successfully.";
       } else return "invalid password";
     } else return "passwords do not match";
   },
 
-  getRevenue: async function (moneyDetails,salesTime,revenueTime) {
+  getRevenue: async function (moneyDetails, salesTime, revenueTime, tableTime) {
     let sales = 0;
     let totalRevenue = 0;
-    const tableDetails =[]
-    const date = Date.now();
+    const tableDetails = [];
+    const date = new Date(Date.now());
     for (let i = 0; i < moneyDetails.length; i++) {
       let order = moneyDetails[i];
-      if( order.orderTime.getMonth() == date.getMonth() && order.status=="accepted"){
-        if(revenueTime=="Month" || order.orderTime.getDate() == date.getDate())
+      if (
+        order.orderTime.getMonth() == date.getMonth() &&
+        order.status == "accepted"
+      ) {
+        if (
+          revenueTime == "Month" ||
+          order.orderTime.getDate() == date.getDate()
+        )
           totalRevenue += order.costPrice * order.quantity;
-        if(salesTime=="Month" || order.orderTime.getDate() == date.getDate())
-          sales +=1;
+        if (salesTime == "Month" || order.orderTime.getDate() == date.getDate())
+          sales += 1;
       }
-      if(order.orderTime.getMonth() == date.getMonth() && (tableTime=="Month" || order.orderTime.getDate() == date.getDate())){
+      if (
+        order.orderTime.getMonth() == date.getMonth() &&
+        (tableTime == "Month" || order.orderTime.getDate() == date.getDate())
+      ) {
         tableDetails.push(order);
       }
     }
     const context = {
-      revenue:totalRevenue,
-      sales:sales,
-      tableDetails:tableDetails,
+      revenue: totalRevenue,
+      sales: sales,
+      tableDetails: tableDetails,
     };
     return context;
   },
-
 
   deleteProduct: async function (req, res) {
     const product_id = url.parse(req.url, true).query.ID;
     const product = await productTable.findOne({
       _id: product_id,
     });
-    console.log("this work has been done");
-    console.log(product.category_id);
-    const element = await categoryTable.findOne({_id:product.category_id});
-    console.log("this work has also been done");
-    console.log(element);
-    await element.update({quantity:element.quantity-1});
+    const element = await categoryTable.findOne({ _id: product.category_id });
+    await element.update({ quantity: element.quantity - 1 });
     await product.delete();
-    console.log("this work is left yet");
     return "product deleted Successfully.";
   },
 
   updateQuantity: async function (req, res) {
-    const product_id = url.parse(req.url, true).query.ID;
-    const availableQuantity = req.body.availableQuantity;
+    const product_id = url.parse(req.url, true).query.product_id;
+    const availableQuantity = url.parse(req.url, true).query.newQuantity;
+    if (availableQuantity < 0) return "Quantity must be greater than zero";
+    console.log(product_id, availableQuantity);
     await productTable.findOneAndUpdate(
       { _id: product_id },
       { availableQuantity: availableQuantity }
@@ -115,24 +116,36 @@ module.exports = {
     return "Quantity Updated Successfully";
   },
 
-  getPaymentDetails:async function(payments) {
+  getPaymentDetails: async function (payments) {
     let amount = 0;
     for (let i = 0; i < payments.length; i++) {
-      amount += (payments[i].status=='accepted')? payments[i].costPrice * payments[i].quantity:0;
+      amount +=
+        payments[i].status == "accepted"
+          ? payments[i].costPrice * payments[i].quantity
+          : 0;
     }
     return amount;
   },
-  getMoneyPageData: async function(req) {
-    const store = await storeTable.findOne({_id:req.user._id});
-    const pendingMoneyDetails = await moneyDetailTable.find({status:"pending",store_id:store._id});
-    const unPaidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
-    const moneyDetails = await moneyDetailTable.find({status:{$ne:"pending"},store_id:store._id});
-    const totalAmount = module.exports.getPaymentDetails(moneyDetails) + unPaidAmount;
+  getMoneyPageData: async function (req) {
+    const store = await storeTable.findOne({ _id: req.user._id });
+    const pendingMoneyDetails = await moneyDetailTable.find({
+      status: "pending",
+      store_id: store._id,
+    });
+    const unPaidAmount = await module.exports.getPaymentDetails(
+      pendingMoneyDetails
+    );
+    const moneyDetails = await moneyDetailTable.find({
+      status: { $ne: "pending" },
+      store_id: store._id,
+    });
+    const totalAmount =
+      (await module.exports.getPaymentDetails(moneyDetails)) + unPaidAmount;
     const context = {
-      MoneyDetails:moneyDetails,
-      pendingMoneyDetails:pendingMoneyDetails,
-      unPaidAmount:unPaidAmount,
-      totalAmount:totalAmount,
+      MoneyDetails: moneyDetails,
+      pendingMoneyDetails: pendingMoneyDetails,
+      unPaidAmount: unPaidAmount,
+      totalAmount: totalAmount,
     };
     return context;
   },
