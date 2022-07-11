@@ -3,6 +3,7 @@ const locationTable = require("../models/location");
 const categoryTable = require("../models/category");
 const productTable = require("../models/product");
 const moneyDetailTable = require("../models/moneyDetail");
+const paymentTable = require("../models/payment");
 const userTable = require("../models/user");
 const addressTable = require("../models/address");
 const walletTable = require("../models/wallet");
@@ -135,17 +136,20 @@ module.exports = {
     const unPaidAmount = await module.exports.getPaymentDetails(
       pendingMoneyDetails
     );
-    const moneyDetails = await moneyDetailTable.find({
-      status: { $ne: "pending" },
-      store_id: store._id,
-    });
-    const totalAmount =
-      (await module.exports.getPaymentDetails(moneyDetails)) + unPaidAmount;
+    const payments = await paymentTable.find({ store_id: store._id });
+    // const moneyDetails = await moneyDetailTable.find({
+    //   status: { $ne: "pending" },
+    //   store_id: store._id,
+    // });
+
+    // const totalAmount =
+    //   (await module.exports.getPaymentDetails(moneyDetails)) + unPaidAmount;
     const context = {
-      MoneyDetails: moneyDetails,
+      // MoneyDetails: moneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
       unPaidAmount: unPaidAmount,
-      totalAmount: totalAmount,
+      payments: payments,
+      // totalAmount: totalAmount,
     };
     return context;
   },

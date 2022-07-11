@@ -13,7 +13,8 @@ const {
 const {
   getHomePageData,
   getStorePageData,
-  getMoneyPageData,
+  getMoneyStorePageData,
+  getMoneyPaymentPageData,
   getProductPageData,
   productDetailsChange,
   storeStatusChange,
@@ -148,20 +149,30 @@ router.post("/deleteCategory", adminCheck, async (req, res) => {
 // Money Management functions
 /////////////////////////////////////////////////////////////
 
-router.get("/money", adminCheck, async (req, res) => {
-  const status = url.parse(req.url, true).query.status ?? "accepted";
+router.get("/moneyStore", adminCheck, async (req, res) => {
   const currentCity = url.parse(req.url, true).query.currentCity ?? "Mandi";
-  const context = await getMoneyPageData(status, currentCity);
-  res.render("admin/money", {
+  const context = await getMoneyStorePageData(currentCity);
+  res.render("admin/moneyStore", {
     user: req.user,
     authenticated: req.isAuthenticated(),
     ...context,
   });
 });
 
+router.get("/moneyPayment", adminCheck, async (req, res) => {
+  const status = url.parse(req.url, true).query.status ?? "accepted";
+  const currentStore = url.parse(req.url, true).query.currentStore ?? "";
+  const context = await getMoneyPaymentPageData(status, currentStore);
+  res.render("admin/moneyPayment", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    ...context,
+  });
+});
+// TODO: this should be done  in the admin interface.
 router.get("/moneyDetailStatusChange", adminCheck, async (req, res) => {
   await moneyDetailStatusChange(req);
-  res.redirect("/admin/money");
+  res.redirect("/admin/moneyStore");
 });
 
 //////////////////////////////////////////////////////////////

@@ -100,7 +100,10 @@
                   <th scope="col">S.No.</th>
                   <th scope="col">Product Details</th>
                   <th scope="col">Date</th>
+                  <th scope="col">MRP</th>
                   <th scope="col">C.P.</th>
+                  <th scope="col">S.P.</th>
+                  <th scope="col">quantity</th>
                 </tr>
               </thead>
               <tbody>
@@ -113,17 +116,34 @@
                     pendingMoneyDetails[i].orderTime.getMonth()+ '/'+
                     pendingMoneyDetails[i].orderTime.getFullYear()%>
                   </td>
+                  <td><%= pendingMoneyDetails[i].mrp%></td>
                   <td><%= pendingMoneyDetails[i].costPrice%></td>
+                  <td><%= pendingMoneyDetails[i].salePrice%></td>
+                  <td><%= pendingMoneyDetails[i].quantity%></td>
                 </tr>
                 <% } %>
               </tbody>
               <tfoot>
                 <tr>
                   <th scope="row" colspan="3">Total</th>
-                  <th><%= unPaidAmount %></th>
+                  <th><%=mrpTotal%></th>
+                  <th><%=unPaidAmount%></th>
+                  <th><%=totalSales%></th>
                 </tr>
               </tfoot>
             </table>
+          </div>
+          <div class="mt-4 py-1">
+            <button
+              class="btn btn-outline-primary d-inline-block"
+              data-bs-toggle="modal"
+              data-bs-target="#payModal"
+            >
+              Click Here
+            </button>
+            <span class="fs-5 d-inline-block ms-2"
+              >To complete the above payment
+            </span>
           </div>
         </div>
         <div class="completed_table d-none">
@@ -132,35 +152,92 @@
               <thead>
                 <tr>
                   <th scope="col">S.No.</th>
-                  <!-- <th scope="col">Payment No. </th> -->
+                  <th scope="col">Payment No.</th>
                   <th scope="col">Payment Date</th>
                   <th scope="col">Details</th>
                 </tr>
               </thead>
               <tbody>
-                <% for(let i=0;i < payments.length;i++) { %>
+                <% for(let i=0; i < payments.length; i++) {%>
                 <tr>
                   <th scope="row"><%=(i+1)%></th>
-                  <!-- <td>Payment 10</td> -->
+                  <td><%= payments[i].paymentNumber%></td>
                   <td>
-                    <%= payments[i].paymentTime.getDate() + '/' +
-                    payments[i].paymentTime.getMonth()+ '/'+
+                    <%=payments[i].paymentTime.getDate() + '/' +
+                    payments[i].paymentTime.getMonth() + '/' +
                     payments[i].paymentTime.getFullYear()%>
                   </td>
                   <td>
                     <a
                       href=""
                       data-bs-toggle="modal"
-                      data-number="<%=i%>"
                       data-bs-target="#viewModal"
+                      data-number="<%=i%>"
                       >View Details</a
                     >
                   </td>
                 </tr>
                 <% } %>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Payment 9</td>
+                  <td>06/06/2022</td>
+                  <td>
+                    <a
+                      href=""
+                      data-bs-toggle="modal"
+                      data-bs-target="#viewModal"
+                      >View Details</a
+                    >
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal for completing payment -->
+    <div
+      class="modal fade"
+      id="payModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="payModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete Payment</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form action="">
+            <div class="modal-body">
+              <span class="lead"
+                >Amount to pay : <span class="fw-bolder">201</span></span
+              >
+              <div class="mt-4 mb-3">
+                <label for="formFile" class="col-form-label d-inline-block"
+                  >Upload Screenshot</label
+                >
+                <input
+                  class="form-control paymentSS d-inline-block"
+                  type="file"
+                  id="formFile"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -196,23 +273,43 @@
                         <th scope="col">S.No.</th>
                         <th scope="col">Product Details</th>
                         <th scope="col">Date</th>
+                        <th scope="col">MRP</th>
                         <th scope="col">C.P.</th>
-                        <th scope="col">C.P.</th>
+                        <th scope="col">S.P.</th>
                       </tr>
                     </thead>
                     <tbody>
+                      <% if(payments.length > 0) {%>
+                      <% for(let i=0;i<payments[0].moneyDetailsData.length;i++) {%>
                       <tr>
-                        <th id="productRow" scope="row">1</th>
-                        <td id="productName">Earphones</td>
-                        <td id="productDate">02/06/2022</td>
-                        <td id="productPrice">129</td>
-                        <td id="productQuantity">2</td>
+                        <th scope="row"><%=(i+1)%></th>
+                        <td><%=payments[0].moneyDetailsData[i].productName%></td>
+                        <td>
+                          <%=payments[0].moneyDetailsData[i].paymentTime.getDate() + '/' +
+                          payments[0].moneyDetailsData[i].paymentTime.getMonth() + '/' +
+                          payments[0].moneyDetailsData[i].paymentTime.getFullYear()%>
+                        </td>
+                        <td><%=payments[0].moneyDetailsData[i].mrp%></td>
+                        <td><%=payments[0].moneyDetailsData[i].costPrice%></td>
+                        <td><%=payments[0].moneyDetailsData[i].salePrice%></td>
+                      </tr>
+                      <% } %> 
+                      <% } %>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Charger</td>
+                        <td>03/06/2022</td>
+                        <td>149</td>
+                        <td>72</td>
+                        <td>99</td>
                       </tr>
                     </tbody>
                     <tfoot>
                       <tr>
                         <th scope="row" colspan="3">Total</th>
-                        <th id="productTotal">201</th>
+                        <th>331</th>
+                        <th>201</th>
+                        <th>248</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -220,7 +317,6 @@
               </div>
               <div class="col-3">
                 <img
-                  id="paymentImage"
                   src="https://media.istockphoto.com/vectors/realistic-paper-shop-receipt-vector-cashier-bill-on-white-background-vector-id889405434"
                   alt="paymentSS"
                   class="payment_screenshot"
@@ -235,23 +331,7 @@
       const pending_text = document.querySelector(".pending_table");
       const completed_text = document.querySelector(".completed_table");
       const viewModal = document.getElementById("viewModal");
-      if (viewModal?.dataset?.number) {
-        const num = viewModal.dataset.number;
-        const productName = document.getElementById("productRow");
-        const productDate = document.getElementById("productDate");
-        const productPrice = document.getElementById("productRow");
-        const productQuantity = document.getElementById("productRow");
-        const productTotal = document.getElementById("productRow");
-        const paymentImage = document.getElementById("productRow");
-
-        productName.innerHTML = paymentDetails[num].productName;
-        productDate.innerHTML = paymentDetails[num].paymentTime;
-        productPrice.innerHTML = paymentDetails[num].costPrice;
-        productQuantity.innerHTML = paymentDetails[num].quantity;
-        productTotal.innerHTML =
-          paymentDetails[num].price * paymentDetails[num].quantity;
-        productTotal.innerHTML = paymentDetails[num];
-      }
+      // TODO: Fix the javascript to show the correct information in modal.
       const select_menu = document.querySelector("#payment_selector");
       select_menu.addEventListener("change", () => {
         pending_text.classList.toggle("d-none");

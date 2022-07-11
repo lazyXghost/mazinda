@@ -41,14 +41,6 @@ const MoneyDetailSchema = new mongoose.Schema({
     type: String,
     default: "pending",
   },
-  paymentTime: {
-    type: Date,
-    default: Date.now(),
-  },
-  paymentProof: {
-    type: Buffer,
-    required: false,
-  },
 });
 
 const MoneyDetail = mongoose.model("MoneyDetails", MoneyDetailSchema);

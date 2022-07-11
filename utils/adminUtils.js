@@ -4,6 +4,7 @@ const productTable = require("../models/product");
 const orderTable = require("../models/order");
 const userTable = require("../models/user");
 const moneyDetailTable = require("../models/moneyDetail");
+const paymentTable = require("../models/payment");
 const addressTable = require("../models/address");
 const url = require("url");
 const fs = require("fs");
@@ -23,11 +24,20 @@ module.exports = {
 
   getPaymentDetails: function (payments) {
     if (payments.length && payments[0].status == "returned") return 0;
-    let amount = 0;
+    let unPaidAmount = 0;
+    let mrpTotal = 0;
+    let totalSales = 0;
     for (let i = 0; i < payments.length; i++) {
-      amount += payments[i].costPrice * payments[i].quantity;
+      unPaidAmount += payments[i].mrp * payments[i].quantity;
+      mrpTotal += payments[i].costPrice * payments[i].quantity;
+      totalSales += payments[i].salePrice * payments[i].quantity;
     }
-    return amount;
+    const context = {
+      unPaidAmount: unPaidAmount,
+      mrpTotal: mrpTotal,
+      totalSales: totalSales,
+    };
+    return context;
   },
 
   storeStatusChange: async function (req) {
@@ -186,32 +196,50 @@ module.exports = {
     return context;
   },
 
-  getMoneyPageData: async function (status, currentCity) {
+  getMoneyStorePageData: async function (currentCity) {
     const stores = await storeTable.find({ city: currentCity });
-    const store_id = Array(stores.length);
-    for (let i = 0; i < stores.length; i++) {
-      store_id[i] = stores[i]._id;
-    }
+    const locations = await getLocations();
+    const context = {
+      stores: stores,
+      currentCity: currentCity,
+      cities: locations.cities,
+    };
+    return context;
+  },
+
+  getMoneyPaymentPageData: async function (status, currentStore) {
     const pendingMoneyDetails = await moneyDetailTable.find({
       status: "pending",
-      store_id: { $in: store_id },
+      store_id: currentStore,
     });
     console.log(pendingMoneyDetails);
     const MoneyDetails = await moneyDetailTable.find({
       status: status,
-      store_id: { $in: store_id },
+      store_id: currentStore,
     });
-    const unPaidAmount = module.exports.getPaymentDetails(pendingMoneyDetails);
-    const totalAmount =
-      module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
+    const payments = await paymentTable.find({ store_id: currentStore });
+    for (let i = 0; i < payments.length; i++) {
+      const moneyDetailsData = await moneyDetailTable.find({
+        _id: { $in: [...payments[i].moneyDetails] },
+      });
+      payments[i].moneyDetailsData = moneyDetailsData;
+    }
+    const { unPaidAmount, mrpTotal, totalSales } =
+      module.exports.getPaymentDetails(pendingMoneyDetails);
+    // const totalAmount =
+    //   module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
     const locations = await getLocations();
+    // time to get the data for modal.
+    for (let i = 0; i < MoneyDetails.length; i++) {}
     const context = {
-      MoneyDetails: MoneyDetails,
+      // MoneyDetails: MoneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
       unPaidAmount: unPaidAmount,
-      totalAmount: totalAmount,
+      payments: payments,
+      totalSales: totalSales,
+      mrpTotal: mrpTotal,
       status: status,
-      currentCity: currentCity,
+      currentStore: currentStore,
       cities: locations.cities,
     };
     // const orders = await orderTable.find();
