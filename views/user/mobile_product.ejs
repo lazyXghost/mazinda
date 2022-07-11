@@ -13,21 +13,21 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/favicon_io/apple-touch-icon.png"
+      href="user_UI/assets/favicon_io/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/favicon_io/favicon-16x16.png"
+      href="user_UI/assets/favicon_io/favicon-16x16.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/favicon_io/favicon-32x32.png"
+      href="user_UI/assets/favicon_io/favicon-32x32.png"
     />
-    <link rel="manifest" href="assets/favicon_io/site.webmanifest" />
+    <link rel="manifest" href="user_UI/assets/favicon_io/site.webmanifest" />
     <link rel="stylesheet" href="style.css" />
     <title>Product</title>
 
@@ -92,11 +92,19 @@
         <div class="carousel-inner">
           <%for(let i=0;i < product.images.length; i++) {%> <% if(i == 0) {%>
           <div class="carousel-item active">
-            <img src="data:images/image/png;base64,<%=product.images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
+            <img
+              src="data:images/image/png;base64,<%=product.images[i].data.toString('base64')%>"
+              class="d-block w-100"
+              alt="..."
+            />
           </div>
           <% } else { %>
           <div class="carousel-item">
-            <img src="data:images/image/png;base64,<%=product.images[i].data.toString('base64')%>" class="d-block w-100" alt="..." />
+            <img
+              src="data:images/image/png;base64,<%=product.images[i].data.toString('base64')%>"
+              class="d-block w-100"
+              alt="..."
+            />
           </div>
           <% } %> <% } %>
         </div>
