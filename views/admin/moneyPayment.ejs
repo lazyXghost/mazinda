@@ -170,9 +170,11 @@
                   <td>
                     <a
                       href=""
+                      class="modalButton"
                       data-bs-toggle="modal"
                       data-bs-target="#viewModal"
                       data-number="<%=i%>"
+                      data-payment="<%=paymentsJSON%>"
                       >View Details</a
                     >
                   </td>
@@ -184,9 +186,11 @@
                   <td>06/06/2022</td>
                   <td>
                     <a
+                      class="modalButton"
                       href=""
                       data-bs-toggle="modal"
                       data-bs-target="#viewModal"
+                      data-number="<%=0%>"
                       >View Details</a
                     >
                   </td>
@@ -218,19 +222,33 @@
               aria-label="Close"
             ></button>
           </div>
-          <form action="">
+          <form
+            action="/admin/moneyDetailStatusChange"
+            method="POST"
+            enctype="multipart/form-data"
+          >
             <div class="modal-body">
               <span class="lead"
-                >Amount to pay : <span class="fw-bolder">201</span></span
+                >Amount to pay :
+                <span class="fw-bolder"><%=unPaidAmount%></span></span
               >
+              <input type="hidden" name="amount" value="<%=unPaidAmount%>" />
+              <input
+                type="hidden"
+                id="hiddenMoneyDetails"
+                name="moneyDetails"
+                value="<%=pendingMoneyDetailsJSON%>"
+              />
               <div class="mt-4 mb-3">
                 <label for="formFile" class="col-form-label d-inline-block"
                   >Upload Screenshot</label
                 >
                 <input
                   class="form-control paymentSS d-inline-block"
+                  name="image"
                   type="file"
                   id="formFile"
+                  required="true"
                 />
               </div>
             </div>
@@ -276,25 +294,10 @@
                         <th scope="col">MRP</th>
                         <th scope="col">C.P.</th>
                         <th scope="col">S.P.</th>
+                        <th scope="col">Quantity</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <% if(payments.length > 0) {%>
-                      <% for(let i=0;i<payments[0].moneyDetailsData.length;i++) {%>
-                      <tr>
-                        <th scope="row"><%=(i+1)%></th>
-                        <td><%=payments[0].moneyDetailsData[i].productName%></td>
-                        <td>
-                          <%=payments[0].moneyDetailsData[i].paymentTime.getDate() + '/' +
-                          payments[0].moneyDetailsData[i].paymentTime.getMonth() + '/' +
-                          payments[0].moneyDetailsData[i].paymentTime.getFullYear()%>
-                        </td>
-                        <td><%=payments[0].moneyDetailsData[i].mrp%></td>
-                        <td><%=payments[0].moneyDetailsData[i].costPrice%></td>
-                        <td><%=payments[0].moneyDetailsData[i].salePrice%></td>
-                      </tr>
-                      <% } %> 
-                      <% } %>
+                    <tbody id="tableBody">
                       <tr>
                         <th scope="row">2</th>
                         <td>Charger</td>
@@ -302,14 +305,15 @@
                         <td>149</td>
                         <td>72</td>
                         <td>99</td>
+                        <td>2</td>
                       </tr>
                     </tbody>
                     <tfoot>
                       <tr>
                         <th scope="row" colspan="3">Total</th>
-                        <th>331</th>
-                        <th>201</th>
-                        <th>248</th>
+                        <th id="totalMRP"></th>
+                        <th id="totalCP"></th>
+                        <th id="totalSP"></th>
                       </tr>
                     </tfoot>
                   </table>
@@ -317,6 +321,7 @@
               </div>
               <div class="col-3">
                 <img
+                  id="paymentProof"
                   src="https://media.istockphoto.com/vectors/realistic-paper-shop-receipt-vector-cashier-bill-on-white-background-vector-id889405434"
                   alt="paymentSS"
                   class="payment_screenshot"
@@ -327,26 +332,98 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-      const pending_text = document.querySelector(".pending_table");
-      const completed_text = document.querySelector(".completed_table");
-      const viewModal = document.getElementById("viewModal");
-      // TODO: Fix the javascript to show the correct information in modal.
-      const select_menu = document.querySelector("#payment_selector");
-      select_menu.addEventListener("change", () => {
-        pending_text.classList.toggle("d-none");
-        completed_text.classList.toggle("d-none");
-      });
-    </script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-      crossorigin="anonymous"
-    ></script>
   </body>
+  <script type="text/javascript">
+    console.log("just for fun javascript");
+    const pending_text = document.querySelector(".pending_table");
+    const completed_text = document.querySelector(".completed_table");
+    const modalButtons = document.getElementsByClassName("modalButton");
+    const tableBody = document.getElementById("tableBody");
+    const hiddenMoneyDetails = document.getElementById("hiddenMoneyDetails");
+    if (modalButtons.length > 0) {
+      Array.prototype.forEach.call(modalButtons, async function (modalButton) {
+        modalButton.addEventListener("click", async function (e) {
+          const num = parseInt(modalButton.dataset.number);
+          console.log(num);
+          const payments = await JSON.parse(modalButton.dataset.payment);
+
+          const totalMRP = document.getElementById("totalMRP");
+          totalMRP.innerHTML = payments[num].mrp;
+          const totalCP = document.getElementById("totalMRP");
+          totalCP.innerHTML = payments[num].costPrice;
+          const totalSP = document.getElementById("totalMRP");
+          totalSP.innerHTML = payments[num].salePrice;
+          console.log(payments[num]);
+          for (let i = 0; i < payments[num].moneyDetailsData.length; i++) {
+            const tr = document.createElement("tr");
+
+            const rowNumber = document.createElement("th");
+            const rowNumberData = document.createTextNode(i + 1);
+            rowNumber.append(rowNumberData);
+            tr.append(rowNumber);
+
+            const productName = document.createElement("td");
+            const productData = document.createTextNode(
+              payments[num].moneyDetailsData[i].productName
+            );
+            productName.append(productData);
+            tr.append(productName);
+
+            const orderTime = document.createElement("td");
+            const orderTimeData = document.createTextNode(
+              payments[num].moneyDetailsData[i].orderTime
+            );
+            orderTime.append(orderTimeData);
+            tr.append(orderTime);
+
+            const mrp = document.createElement("td");
+            const mrpData = document.createTextNode(
+              payments[num].moneyDetailsData[i].mrp
+            );
+            mrp.append(mrpData);
+            tr.append(mrp);
+
+            const costPrice = document.createElement("td");
+            const costPriceData = document.createTextNode(
+              payments[num].moneyDetailsData[i].costPrice
+            );
+            costPrice.append(costPriceData);
+            tr.append(costPrice);
+
+            const salePrice = document.createElement("td");
+            const salePriceData = document.createTextNode(
+              payments[num].moneyDetailsData[i].salePrice
+            );
+            salePrice.append(salePriceData);
+            tr.append(salePrice);
+
+            const quantity = document.createElement("td");
+            const quantityData = document.createTextNode(
+              payments[num].moneyDetailsData[i].quantity
+            );
+            quantity.append(quantityData);
+            tr.append(quantity);
+
+            tableBody.append(tr);
+          }
+        });
+      });
+    }
+
+    const select_menu = document.querySelector("#payment_selector");
+    select_menu.addEventListener("change", () => {
+      pending_text.classList.toggle("d-none");
+      completed_text.classList.toggle("d-none");
+    });
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+    crossorigin="anonymous"
+  ></script>
 </html>

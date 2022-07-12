@@ -12,11 +12,53 @@ const { getLocations } = require("../utils");
 const multer = require("multer");
 
 module.exports = {
+  addPayment: async function (req) {
+    let { moneyDetails, image } = req.body;
+    moneyDetails = await JSON.parse(moneyDetails);
+    console.log(moneyDetails);
+    if (moneyDetails.length == 0) return;
+    const moneyDetailsData = [];
+    let mrp = 0,
+      costPrice = 0,
+      salePrice = 0;
+    const moneyDetails_id = Array(moneyDetails.length);
+    for (let i = 0; i < moneyDetails.length; i++) {
+      moneyDetails_id[i] = moneyDetails[i]._id;
+    }
+    const pendingMoneyDetails = await moneyDetailTable.find({
+      _id: { $in: [...moneyDetails_id] },
+    });
+    console.log(pendingMoneyDetails);
+    for (let i = 0; i < pendingMoneyDetails.length; i++) {
+      pendingMoneyDetails[i].status = "accepted";
+      mrp += pendingMoneyDetails[i].mrp * pendingMoneyDetails[i].quantity;
+      costPrice +=
+        pendingMoneyDetails[i].costPrice * pendingMoneyDetails[i].quantity;
+      salePrice +=
+        pendingMoneyDetails[i].salePrice * pendingMoneyDetails[i].quantity;
+      pendingMoneyDetails[i].save();
+    }
+    for (let i = 0; i < moneyDetails_id.length; i++) {
+      const moneyDetail = { moneyDetail_id: moneyDetails_id[i] };
+      moneyDetailsData.push(moneyDetail);
+    }
+    console.log(moneyDetailsData);
+    const paymentNumber = (await paymentTable.countDocuments()) + 1;
+    await paymentTable.create({
+      store_id: pendingMoneyDetails[0].store_id,
+      moneyDetails: moneyDetailsData,
+      paymentProof: image,
+      paymentNumber: paymentNumber,
+      mrp: mrp,
+      costPrice: costPrice,
+      salePrice: salePrice,
+    });
+    return "payment details successfully created";
+  },
   getRevenue: async function (orders) {
     let totalRevenue = 0;
     for (var i = 0; i < orders.length; i++) {
       let order = orders[i];
-      console.log(order);
       totalRevenue += order.amount;
     }
     return totalRevenue;
@@ -28,8 +70,8 @@ module.exports = {
     let mrpTotal = 0;
     let totalSales = 0;
     for (let i = 0; i < payments.length; i++) {
-      unPaidAmount += payments[i].mrp * payments[i].quantity;
-      mrpTotal += payments[i].costPrice * payments[i].quantity;
+      unPaidAmount += payments[i].costPrice * payments[i].quantity;
+      mrpTotal += payments[i].mrp * payments[i].quantity;
       totalSales += payments[i].salePrice * payments[i].quantity;
     }
     const context = {
@@ -212,17 +254,30 @@ module.exports = {
       status: "pending",
       store_id: currentStore,
     });
-    console.log(pendingMoneyDetails);
-    const MoneyDetails = await moneyDetailTable.find({
-      status: status,
-      store_id: currentStore,
-    });
+    // const MoneyDetails = await moneyDetailTable.find({
+    //   status: status,
+    //   store_id: currentStore,
+    // });
+    // const moneyDetails_id = Arry(MoneyDetails.length);
+    // for (let i = 0; i < MoneyDetails.length; i++) {
+    //   moneyDetails_id[i] = MoneyDetails[i]._id;
+    // }
     const payments = await paymentTable.find({ store_id: currentStore });
     for (let i = 0; i < payments.length; i++) {
+      console.log(payments[i].moneyDetails.length);
+      const moneyDetails_id = Array(payments[i].moneyDetails.length);
+      for (let j = 0; j < payments[i].length; j++) {
+        moneyDetails_id[j] = payments[i].moneyDetails[j].moneyDetail_id;
+        console.log(payments[i]);
+      }
       const moneyDetailsData = await moneyDetailTable.find({
-        _id: { $in: [...payments[i].moneyDetails] },
+        _id: { $in: [...moneyDetails_id] },
       });
+      console.log(moneyDetails_id);
       payments[i].moneyDetailsData = moneyDetailsData;
+      console.log(moneyDetailsData);
+      console.log(payments[i].moneyDetailsData);
+      payments[i].save();
     }
     const { unPaidAmount, mrpTotal, totalSales } =
       module.exports.getPaymentDetails(pendingMoneyDetails);
@@ -230,36 +285,20 @@ module.exports = {
     //   module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
     const locations = await getLocations();
     // time to get the data for modal.
-    for (let i = 0; i < MoneyDetails.length; i++) {}
+    // for (let i = 0; i < MoneyDetails.length; i++) {}
     const context = {
       // MoneyDetails: MoneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
+      pendingMoneyDetailsJSON: JSON.stringify(pendingMoneyDetails),
       unPaidAmount: unPaidAmount,
       payments: payments,
+      paymentsJSON: JSON.stringify(payments),
       totalSales: totalSales,
       mrpTotal: mrpTotal,
       status: status,
       currentStore: currentStore,
       cities: locations.cities,
     };
-    // const orders = await orderTable.find();
-    // let products=[];
-    // for(let i=0;i<orders.length;i++){
-    //   const user = await userTable.find({_id:orders[i].user_id});
-    //   for(let j=0;j<orders[i].products.length;j++){
-    //     const product = await productTable.findOne({_id:orders[i].products[j].product_id});
-    //     const store = await storeTable.findOne({_id:product.store_id});
-    //     await moneyDetailTable.create( {
-    //       productName:product.name,
-    //       sellerName:store.sellerName,
-    //       quantity:orders[i].products[j].quantity,
-    //       costprice:product.costPrice,
-    //       mrp:product.mrp,
-    //       saleprice:product.salePrice,
-    //       userName:user.name
-    //     });
-    //   }
-    // }
     return context;
   },
 };

@@ -109,7 +109,6 @@ module.exports = {
     const product_id = url.parse(req.url, true).query.product_id;
     const availableQuantity = url.parse(req.url, true).query.newQuantity;
     if (availableQuantity < 0) return "Quantity must be greater than zero";
-    console.log(product_id, availableQuantity);
     await productTable.findOneAndUpdate(
       { _id: product_id },
       { availableQuantity: availableQuantity }

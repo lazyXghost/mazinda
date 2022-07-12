@@ -149,6 +149,7 @@
                   </td>
                   <td>
                     <a
+                      class="modalButton"
                       href=""
                       data-bs-toggle="modal"
                       data-number="<%=i%>"
@@ -197,10 +198,10 @@
                         <th scope="col">Product Details</th>
                         <th scope="col">Date</th>
                         <th scope="col">C.P.</th>
-                        <th scope="col">C.P.</th>
+                        <th scope="col">Quantity</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                       <tr>
                         <th id="productRow" scope="row">1</th>
                         <td id="productName">Earphones</td>
@@ -212,7 +213,7 @@
                     <tfoot>
                       <tr>
                         <th scope="row" colspan="3">Total</th>
-                        <th id="productTotal">201</th>
+                        <th id="totalCP"></th>
                       </tr>
                     </tfoot>
                   </table>

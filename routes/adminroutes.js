@@ -11,6 +11,7 @@ const {
   getCategories,
 } = require("../utils");
 const {
+  addPayment,
   getHomePageData,
   getStorePageData,
   getMoneyStorePageData,
@@ -30,6 +31,17 @@ const upload = multer({
     },
     filename: (req, file, cb) => {
       cb(null, req.body.categoryName + ".png"); // TODO : may have to be improved.
+    },
+  }),
+});
+
+const upload2 = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "");
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + "-" + Date.now());
     },
   }),
 });
@@ -170,10 +182,23 @@ router.get("/moneyPayment", adminCheck, async (req, res) => {
   });
 });
 // TODO: this should be done  in the admin interface.
-router.get("/moneyDetailStatusChange", adminCheck, async (req, res) => {
-  await moneyDetailStatusChange(req);
-  res.redirect("/admin/moneyStore");
-});
+router.post(
+  "/moneyDetailStatusChange",
+  upload2.single("image"),
+  adminCheck,
+  async (req, res) => {
+    console.log(req.body);
+    const image = {
+      data: fs.readFileSync(req.file.filename),
+      contentType: "image/png",
+    };
+    fs.unlinkSync(req.file.filename);
+    req.body.image = image;
+
+    await addPayment(req);
+    res.redirect("/admin/moneyStore");
+  }
+);
 
 //////////////////////////////////////////////////////////////
 // Coupon Page functions

@@ -121,7 +121,6 @@ module.exports = {
       user_id: req.user._id,
       status: "pending",
     });
-    console.log(pendingOrders);
     const completedOrders = await orderTable.find({
       user_id: req.user._id,
       status: { $ne: "pending" },
@@ -201,7 +200,6 @@ module.exports = {
     const product_id = url.parse(req.url, true).query.product_id;
     const user_id = url.parse(req.url, true).query.user_id;
     const cart = await cartTable.findOne({ user_id: user_id });
-    console.log(cart);
     for (let i = 0; i < cart.products.length; i++) {
       if (product_id == cart.products[i].product_id) {
         cart.products.splice(i, 1);
