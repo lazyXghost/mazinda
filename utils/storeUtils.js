@@ -12,6 +12,7 @@ const req = require("express/lib/request");
 const passport = require("passport");
 const url = require("url");
 var shortid = require("shortid");
+const { getLocations } = require("../utils");
 
 module.exports = {
   addProduct: async function (formData, status) {
@@ -119,36 +120,41 @@ module.exports = {
   getPaymentDetails: async function (payments) {
     let amount = 0;
     for (let i = 0; i < payments.length; i++) {
-      amount +=
-        payments[i].status == "accepted"
-          ? payments[i].costPrice * payments[i].quantity
-          : 0;
+      amount += payments[i].costPrice * payments[i].quantity;
     }
     return amount;
   },
-  getMoneyPageData: async function (req) {
-    const store = await storeTable.findOne({ _id: req.user._id });
+  getMoneyPageData: async function (currentStore) {
     const pendingMoneyDetails = await moneyDetailTable.find({
       status: "pending",
-      store_id: store._id,
+      store_id: currentStore,
     });
+    const payments = await paymentTable.find({ store_id: currentStore });
+    const paymentDetails = [];
+    for (let i = 0; i < payments.length; i++) {
+      const moneyDetails_id = Array(payments[i].moneyDetails.length);
+      for (let j = 0; j < payments[i].moneyDetails.length; j++) {
+        moneyDetails_id[j] = payments[i].moneyDetails[j].moneyDetail_id;
+      }
+      const moneyDetailsData = await moneyDetailTable.find({
+        _id: { $in: [...moneyDetails_id] },
+      });
+      console.log(moneyDetails_id);
+      paymentDetails.push(moneyDetailsData);
+    }
     const unPaidAmount = await module.exports.getPaymentDetails(
       pendingMoneyDetails
     );
-    const payments = await paymentTable.find({ store_id: store._id });
-    // const moneyDetails = await moneyDetailTable.find({
-    //   status: { $ne: "pending" },
-    //   store_id: store._id,
-    // });
-
-    // const totalAmount =
-    //   (await module.exports.getPaymentDetails(moneyDetails)) + unPaidAmount;
+    const locations = await getLocations();
     const context = {
-      // MoneyDetails: moneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
+      pendingMoneyDetailsJSON: JSON.stringify(pendingMoneyDetails),
       unPaidAmount: unPaidAmount,
       payments: payments,
-      // totalAmount: totalAmount,
+      paymentDetails: JSON.stringify(paymentDetails),
+      paymentsJSON: JSON.stringify(payments),
+      currentStore: currentStore,
+      cities: locations.cities,
     };
     return context;
   },

@@ -249,53 +249,36 @@ module.exports = {
     return context;
   },
 
-  getMoneyPaymentPageData: async function (status, currentStore) {
+  getMoneyPaymentPageData: async function (currentStore) {
     const pendingMoneyDetails = await moneyDetailTable.find({
       status: "pending",
       store_id: currentStore,
     });
-    // const MoneyDetails = await moneyDetailTable.find({
-    //   status: status,
-    //   store_id: currentStore,
-    // });
-    // const moneyDetails_id = Arry(MoneyDetails.length);
-    // for (let i = 0; i < MoneyDetails.length; i++) {
-    //   moneyDetails_id[i] = MoneyDetails[i]._id;
-    // }
     const payments = await paymentTable.find({ store_id: currentStore });
+    const paymentDetails = [];
     for (let i = 0; i < payments.length; i++) {
-      console.log(payments[i].moneyDetails.length);
       const moneyDetails_id = Array(payments[i].moneyDetails.length);
-      for (let j = 0; j < payments[i].length; j++) {
+      for (let j = 0; j < payments[i].moneyDetails.length; j++) {
         moneyDetails_id[j] = payments[i].moneyDetails[j].moneyDetail_id;
-        console.log(payments[i]);
       }
       const moneyDetailsData = await moneyDetailTable.find({
         _id: { $in: [...moneyDetails_id] },
       });
       console.log(moneyDetails_id);
-      payments[i].moneyDetailsData = moneyDetailsData;
-      console.log(moneyDetailsData);
-      console.log(payments[i].moneyDetailsData);
-      payments[i].save();
+      paymentDetails.push(moneyDetailsData);
     }
     const { unPaidAmount, mrpTotal, totalSales } =
       module.exports.getPaymentDetails(pendingMoneyDetails);
-    // const totalAmount =
-    //   module.exports.getPaymentDetails(MoneyDetails) + unPaidAmount;
     const locations = await getLocations();
-    // time to get the data for modal.
-    // for (let i = 0; i < MoneyDetails.length; i++) {}
     const context = {
-      // MoneyDetails: MoneyDetails,
       pendingMoneyDetails: pendingMoneyDetails,
       pendingMoneyDetailsJSON: JSON.stringify(pendingMoneyDetails),
       unPaidAmount: unPaidAmount,
       payments: payments,
+      paymentDetails: JSON.stringify(paymentDetails),
       paymentsJSON: JSON.stringify(payments),
       totalSales: totalSales,
       mrpTotal: mrpTotal,
-      status: status,
       currentStore: currentStore,
       cities: locations.cities,
     };

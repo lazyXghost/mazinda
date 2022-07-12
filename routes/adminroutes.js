@@ -172,16 +172,15 @@ router.get("/moneyStore", adminCheck, async (req, res) => {
 });
 
 router.get("/moneyPayment", adminCheck, async (req, res) => {
-  const status = url.parse(req.url, true).query.status ?? "accepted";
   const currentStore = url.parse(req.url, true).query.currentStore ?? "";
-  const context = await getMoneyPaymentPageData(status, currentStore);
+  const context = await getMoneyPaymentPageData(currentStore);
   res.render("admin/moneyPayment", {
     user: req.user,
     authenticated: req.isAuthenticated(),
     ...context,
   });
 });
-// TODO: this should be done  in the admin interface.
+
 router.post(
   "/moneyDetailStatusChange",
   upload2.single("image"),

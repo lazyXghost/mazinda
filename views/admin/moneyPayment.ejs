@@ -13,21 +13,21 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/favicon_io/apple-touch-icon.png"
+      href="admin_UI/assets/favicon_io/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/favicon_io/favicon-16x16.png"
+      href="admin_UI/assets/favicon_io/favicon-16x16.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/favicon_io/favicon-32x32.png"
+      href="admin_UI/assets/favicon_io/favicon-32x32.png"
     />
-    <link rel="manifest" href="assets/favicon_io/site.webmanifest" />
+    <link rel="manifest" href="admin_UI/assets/favicon_io/site.webmanifest" />
     <link rel="stylesheet" href="style.css" />
     <title>Payment</title>
     <style>
@@ -174,27 +174,14 @@
                       data-bs-toggle="modal"
                       data-bs-target="#viewModal"
                       data-number="<%=i%>"
+                      data-image="<%=payments[i].paymentProof.data.toString('base64')%>"
                       data-payment="<%=paymentsJSON%>"
+                      data-paymentdetails="<%=paymentDetails%>"
                       >View Details</a
                     >
                   </td>
                 </tr>
                 <% } %>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Payment 9</td>
-                  <td>06/06/2022</td>
-                  <td>
-                    <a
-                      class="modalButton"
-                      href=""
-                      data-bs-toggle="modal"
-                      data-bs-target="#viewModal"
-                      data-number="<%=0%>"
-                      >View Details</a
-                    >
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -275,6 +262,7 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Details</h5>
             <button
+              id="removeElements"
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
@@ -297,17 +285,7 @@
                         <th scope="col">Quantity</th>
                       </tr>
                     </thead>
-                    <tbody id="tableBody">
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Charger</td>
-                        <td>03/06/2022</td>
-                        <td>149</td>
-                        <td>72</td>
-                        <td>99</td>
-                        <td>2</td>
-                      </tr>
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                     <tfoot>
                       <tr>
                         <th scope="row" colspan="3">Total</th>
@@ -322,7 +300,7 @@
               <div class="col-3">
                 <img
                   id="paymentProof"
-                  src="https://media.istockphoto.com/vectors/realistic-paper-shop-receipt-vector-cashier-bill-on-white-background-vector-id889405434"
+                  src=""
                   alt="paymentSS"
                   class="payment_screenshot"
                 />
@@ -334,81 +312,86 @@
     </div>
   </body>
   <script type="text/javascript">
-    console.log("just for fun javascript");
     const pending_text = document.querySelector(".pending_table");
     const completed_text = document.querySelector(".completed_table");
     const modalButtons = document.getElementsByClassName("modalButton");
     const tableBody = document.getElementById("tableBody");
-    const hiddenMoneyDetails = document.getElementById("hiddenMoneyDetails");
-    if (modalButtons.length > 0) {
-      Array.prototype.forEach.call(modalButtons, async function (modalButton) {
-        modalButton.addEventListener("click", async function (e) {
-          const num = parseInt(modalButton.dataset.number);
-          console.log(num);
-          const payments = await JSON.parse(modalButton.dataset.payment);
 
-          const totalMRP = document.getElementById("totalMRP");
-          totalMRP.innerHTML = payments[num].mrp;
-          const totalCP = document.getElementById("totalMRP");
-          totalCP.innerHTML = payments[num].costPrice;
-          const totalSP = document.getElementById("totalMRP");
-          totalSP.innerHTML = payments[num].salePrice;
-          console.log(payments[num]);
-          for (let i = 0; i < payments[num].moneyDetailsData.length; i++) {
-            const tr = document.createElement("tr");
-
-            const rowNumber = document.createElement("th");
-            const rowNumberData = document.createTextNode(i + 1);
-            rowNumber.append(rowNumberData);
-            tr.append(rowNumber);
-
-            const productName = document.createElement("td");
-            const productData = document.createTextNode(
-              payments[num].moneyDetailsData[i].productName
-            );
-            productName.append(productData);
-            tr.append(productName);
-
-            const orderTime = document.createElement("td");
-            const orderTimeData = document.createTextNode(
-              payments[num].moneyDetailsData[i].orderTime
-            );
-            orderTime.append(orderTimeData);
-            tr.append(orderTime);
-
-            const mrp = document.createElement("td");
-            const mrpData = document.createTextNode(
-              payments[num].moneyDetailsData[i].mrp
-            );
-            mrp.append(mrpData);
-            tr.append(mrp);
-
-            const costPrice = document.createElement("td");
-            const costPriceData = document.createTextNode(
-              payments[num].moneyDetailsData[i].costPrice
-            );
-            costPrice.append(costPriceData);
-            tr.append(costPrice);
-
-            const salePrice = document.createElement("td");
-            const salePriceData = document.createTextNode(
-              payments[num].moneyDetailsData[i].salePrice
-            );
-            salePrice.append(salePriceData);
-            tr.append(salePrice);
-
-            const quantity = document.createElement("td");
-            const quantityData = document.createTextNode(
-              payments[num].moneyDetailsData[i].quantity
-            );
-            quantity.append(quantityData);
-            tr.append(quantity);
-
-            tableBody.append(tr);
-          }
-        });
+    Array.prototype.forEach.call(modalButtons, async function (modalButton) {
+      const removeElements = document.getElementById("removeElements");
+      removeElements.addEventListener("click", () => {
+        tableBody.innerHTML = "";
       });
-    }
+
+      modalButton.addEventListener("click", async function (e) {
+        const num = parseInt(modalButton.dataset.number);
+        const payments = await JSON.parse(modalButton.dataset.payment);
+        const imageData = modalButton.dataset.image;
+        const paymentDetails = await JSON.parse(
+          modalButton.dataset.paymentdetails
+        );
+
+        const paymentProof = document.getElementById("paymentProof");
+        paymentProof.src = `data:image/image/png;base64,${imageData}`;
+        const totalMRP = document.getElementById("totalMRP");
+        totalMRP.innerHTML = payments[num].mrp;
+        const totalCP = document.getElementById("totalCP");
+        totalCP.innerHTML = payments[num].costPrice;
+        const totalSP = document.getElementById("totalSP");
+        totalSP.innerHTML = payments[num].salePrice;
+
+        for (let i = 0; i < paymentDetails[num].length; i++) {
+          const tr = document.createElement("tr");
+
+          const rowNumber = document.createElement("th");
+          const rowNumberData = document.createTextNode(i + 1);
+          rowNumber.append(rowNumberData);
+          tr.append(rowNumber);
+
+          const productName = document.createElement("td");
+          const productData = document.createTextNode(
+            paymentDetails[num][i].productName
+          );
+          productName.append(productData);
+          tr.append(productName);
+
+          const orderTime = document.createElement("td");
+          const orderTimeData = document.createTextNode(
+            paymentDetails[num][i].orderTime
+          );
+          orderTime.append(orderTimeData);
+          tr.append(orderTime);
+
+          const mrp = document.createElement("td");
+          const mrpData = document.createTextNode(paymentDetails[num][i].mrp);
+          mrp.append(mrpData);
+          tr.append(mrp);
+
+          const costPrice = document.createElement("td");
+          const costPriceData = document.createTextNode(
+            paymentDetails[num][i].costPrice
+          );
+          costPrice.append(costPriceData);
+          tr.append(costPrice);
+
+          const salePrice = document.createElement("td");
+          const salePriceData = document.createTextNode(
+            paymentDetails[num][i].salePrice
+          );
+          salePrice.append(salePriceData);
+          tr.append(salePrice);
+
+          const quantity = document.createElement("td");
+          const quantityData = document.createTextNode(
+            paymentDetails[num][i].quantity
+          );
+          quantity.append(quantityData);
+          tr.append(quantity);
+
+          tableBody.append(tr);
+        }
+      });
+    });
 
     const select_menu = document.querySelector("#payment_selector");
     select_menu.addEventListener("change", () => {

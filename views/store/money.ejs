@@ -13,22 +13,22 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/favicon_io/apple-touch-icon.png"
+      href="store_UI/assets/favicon_io/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/favicon_io/favicon-16x16.png"
+      href="store_UI/assets/favicon_io/favicon-16x16.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/favicon_io/favicon-32x32.png"
+      href="store_UI/assets/favicon_io/favicon-32x32.png"
     />
-    <link rel="manifest" href="assets/favicon_io/site.webmanifest" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="store_UI/assets/favicon_io/site.webmanifest" />
+    <link rel="stylesheet" href="store_UI/style.css" />
     <title>Payment</title>
     <style>
       .container {
@@ -132,7 +132,7 @@
               <thead>
                 <tr>
                   <th scope="col">S.No.</th>
-                  <!-- <th scope="col">Payment No. </th> -->
+                  <th scope="col">Payment No.</th>
                   <th scope="col">Payment Date</th>
                   <th scope="col">Details</th>
                 </tr>
@@ -141,7 +141,7 @@
                 <% for(let i=0;i < payments.length;i++) { %>
                 <tr>
                   <th scope="row"><%=(i+1)%></th>
-                  <!-- <td>Payment 10</td> -->
+                  <td><%=payments[i].paymentNumber%></td>
                   <td>
                     <%= payments[i].paymentTime.getDate() + '/' +
                     payments[i].paymentTime.getMonth()+ '/'+
@@ -149,11 +149,14 @@
                   </td>
                   <td>
                     <a
-                      class="modalButton"
                       href=""
+                      class="modalButton"
                       data-bs-toggle="modal"
-                      data-number="<%=i%>"
                       data-bs-target="#viewModal"
+                      data-number="<%=i%>"
+                      data-image="<%=payments[i].paymentProof.data.toString('base64')%>"
+                      data-payment="<%=paymentsJSON%>"
+                      data-paymentdetails="<%=paymentDetails%>"
                       >View Details</a
                     >
                   </td>
@@ -181,6 +184,7 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Details</h5>
             <button
+              id="removeElements"
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
@@ -201,15 +205,7 @@
                         <th scope="col">Quantity</th>
                       </tr>
                     </thead>
-                    <tbody id="tableBody">
-                      <tr>
-                        <th id="productRow" scope="row">1</th>
-                        <td id="productName">Earphones</td>
-                        <td id="productDate">02/06/2022</td>
-                        <td id="productPrice">129</td>
-                        <td id="productQuantity">2</td>
-                      </tr>
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                     <tfoot>
                       <tr>
                         <th scope="row" colspan="3">Total</th>
@@ -221,8 +217,8 @@
               </div>
               <div class="col-3">
                 <img
-                  id="paymentImage"
-                  src="https://media.istockphoto.com/vectors/realistic-paper-shop-receipt-vector-cashier-bill-on-white-background-vector-id889405434"
+                  id="paymentProof"
+                  src=""
                   alt="paymentSS"
                   class="payment_screenshot"
                 />
@@ -235,24 +231,69 @@
     <script type="text/javascript">
       const pending_text = document.querySelector(".pending_table");
       const completed_text = document.querySelector(".completed_table");
-      const viewModal = document.getElementById("viewModal");
-      if (viewModal?.dataset?.number) {
-        const num = viewModal.dataset.number;
-        const productName = document.getElementById("productRow");
-        const productDate = document.getElementById("productDate");
-        const productPrice = document.getElementById("productRow");
-        const productQuantity = document.getElementById("productRow");
-        const productTotal = document.getElementById("productRow");
-        const paymentImage = document.getElementById("productRow");
+      const modalButtons = document.getElementsByClassName("modalButton");
+      const tableBody = document.getElementById("tableBody");
 
-        productName.innerHTML = paymentDetails[num].productName;
-        productDate.innerHTML = paymentDetails[num].paymentTime;
-        productPrice.innerHTML = paymentDetails[num].costPrice;
-        productQuantity.innerHTML = paymentDetails[num].quantity;
-        productTotal.innerHTML =
-          paymentDetails[num].price * paymentDetails[num].quantity;
-        productTotal.innerHTML = paymentDetails[num];
-      }
+      Array.prototype.forEach.call(modalButtons, async function (modalButton) {
+        const removeElements = document.getElementById("removeElements");
+        removeElements.addEventListener("click", () => {
+          tableBody.innerHTML = "";
+        });
+
+        modalButton.addEventListener("click", async function (e) {
+          const num = parseInt(modalButton.dataset.number);
+          const payments = await JSON.parse(modalButton.dataset.payment);
+          const imageData = modalButton.dataset.image;
+          const paymentDetails = await JSON.parse(
+            modalButton.dataset.paymentdetails
+          );
+
+          const paymentProof = document.getElementById("paymentProof");
+          paymentProof.src = `data:image/image/png;base64,${imageData}`;
+          const totalCP = document.getElementById("totalCP");
+          totalCP.innerHTML = payments[num].costPrice;
+
+          for (let i = 0; i < paymentDetails[num].length; i++) {
+            const tr = document.createElement("tr");
+
+            const rowNumber = document.createElement("th");
+            const rowNumberData = document.createTextNode(i + 1);
+            rowNumber.append(rowNumberData);
+            tr.append(rowNumber);
+
+            const productName = document.createElement("td");
+            const productData = document.createTextNode(
+              paymentDetails[num][i].productName
+            );
+            productName.append(productData);
+            tr.append(productName);
+
+            const orderTime = document.createElement("td");
+            const orderTimeData = document.createTextNode(
+              paymentDetails[num][i].orderTime
+            );
+            orderTime.append(orderTimeData);
+            tr.append(orderTime);
+
+            const costPrice = document.createElement("td");
+            const costPriceData = document.createTextNode(
+              paymentDetails[num][i].costPrice
+            );
+            costPrice.append(costPriceData);
+            tr.append(costPrice);
+
+            const quantity = document.createElement("td");
+            const quantityData = document.createTextNode(
+              paymentDetails[num][i].quantity
+            );
+            quantity.append(quantityData);
+            tr.append(quantity);
+            console.log(tr);
+            tableBody.append(tr);
+          }
+        });
+      });
+
       const select_menu = document.querySelector("#payment_selector");
       select_menu.addEventListener("change", () => {
         pending_text.classList.toggle("d-none");
