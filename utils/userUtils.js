@@ -241,6 +241,21 @@ module.exports = {
     };
     return context;
   },
+
+  changePassword: async function (req, res) {
+    const { password, newPassword, confirmPassword } = req.body;
+    if (newPassword == confirmPassword) {
+      const user = await userTable.findOne({ _id: req.user._id });
+      const newEncryptedPassword = await bcrypt.hash(newPassword, 10);
+      if (newPassword.length < 8) return "password is too Short.";
+      const checker = await bcrypt.compare(password, store.password);
+      if (checker) {
+        await user.updateOne({ password: newEncryptedPassword });
+        return "Password changed Successfully.";
+      } else return "invalid password";
+    } else return "passwords do not match";
+  },
+
   getOrderNumber: async function () {
     const Day = new Date();
     let month, day, year;

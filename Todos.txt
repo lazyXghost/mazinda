@@ -1,23 +1,5 @@
-1) update the frontend of the desktop as well as mobile view to allow to change address.
-2) Add the money Management page for the store.
-3) update the money management for the store as well as the admin. // done
-4) create the order page frontend for the admin. // done
-5) do the backend part of the order page // done.
-6) visit the localhost:8000/profile --> go to address.
-Change the fields of profile image and everything. Addresses of the User should be displayed
-below a button of add Address should be present.
-(check all the address fields from the model.)
-
-// All images are linked with name after the functioning is complete replace names with id.
-
-7) add the pdf for bill.
-8) update the backend according to the bill pdf.
-9) allow the user to use coins while paying the bill. // done
-
-
-
-10) Update cart products
-11) mazinda coins
-
-12) Fix Place Order Use Ajax call to send the data instead of raw html.
-13) Fix Money Management,Revenue of admin Page.
+1) The bill pdf generation feature is pending as well as frontend layout for the bill to be generated.
+2) updates on the user Profile page has to be made.
+3) Frontend for the view orders has to be fixed.
+4) Frontend for the index page of user has to be fixed.
+5) Add Address button should be available on the modal window that opens when clicking change address.

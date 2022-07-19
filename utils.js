@@ -61,7 +61,8 @@ module.exports = {
   },
 
   addAddress: async function (req, user_id) {
-    const { building, street, locality, city, pincode, state } = req.body;
+    const { building, street, locality, city, pincode, state, phoneNumber } =
+      req.body;
     const address = await addressTable.create({
       user_id: user_id,
       building: building,
@@ -70,6 +71,7 @@ module.exports = {
       pincode: pincode,
       state: state,
       locality: locality,
+      phoneNumber: phoneNumber,
     });
     const message = "address added successfully";
     console.log(message);
