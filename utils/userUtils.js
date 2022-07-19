@@ -121,7 +121,6 @@ module.exports = {
       user_id: req.user._id,
       status: "pending",
     });
-    console.log(pendingOrders);
     const completedOrders = await orderTable.find({
       user_id: req.user._id,
       status: { $ne: "pending" },
@@ -201,7 +200,6 @@ module.exports = {
     const product_id = url.parse(req.url, true).query.product_id;
     const user_id = url.parse(req.url, true).query.user_id;
     const cart = await cartTable.findOne({ user_id: user_id });
-    console.log(cart);
     for (let i = 0; i < cart.products.length; i++) {
       if (product_id == cart.products[i].product_id) {
         cart.products.splice(i, 1);
@@ -243,6 +241,21 @@ module.exports = {
     };
     return context;
   },
+
+  changePassword: async function (req, res) {
+    const { password, newPassword, confirmPassword } = req.body;
+    if (newPassword == confirmPassword) {
+      const user = await userTable.findOne({ _id: req.user._id });
+      const newEncryptedPassword = await bcrypt.hash(newPassword, 10);
+      if (newPassword.length < 8) return "password is too Short.";
+      const checker = await bcrypt.compare(password, store.password);
+      if (checker) {
+        await user.updateOne({ password: newEncryptedPassword });
+        return "Password changed Successfully.";
+      } else return "invalid password";
+    } else return "passwords do not match";
+  },
+
   getOrderNumber: async function () {
     const Day = new Date();
     let month, day, year;

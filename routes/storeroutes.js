@@ -203,7 +203,7 @@ router.get("/faqs", (req, res) => {
 });
 
 router.get("/money", storeCheck, async (req, res) => {
-  const context = await getMoneyPageData(req);
+  const context = await getMoneyPageData(req.user._id);
   res.render("store/money", {
     user: req.user,
     authenticated: req.isAuthenticated(),

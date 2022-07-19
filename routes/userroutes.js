@@ -10,6 +10,7 @@ const {
   getProfilePageData,
   getCartPageData,
   getCartValue,
+  changePassword,
   placeOrder,
   updateCartQuantity,
   removeProduct,
@@ -203,6 +204,24 @@ router.get("/profile", userCheck, async (req, res) => {
     user: req.user,
     ...context,
   });
+});
+
+router.post("/changePassword", userCheck, async (req, res) => {
+  const message = await changePassword(req, res);
+  if (
+    message == "password is too Short." ||
+    message == "invalid password" ||
+    message == "passwords do not match"
+  ) {
+    res.redirect("/profile");
+    // res.render("store/profile", {
+    //   authenticated: req.isAuthenticated(),
+    //   user: req.user,
+    //   message: message,
+    // });
+  } else {
+    res.redirect("/");
+  }
 });
 
 /////////////////////////////////////////////////////////////

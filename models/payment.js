@@ -9,19 +9,30 @@ const PaymentSchema = new mongoose.Schema({
     {
       moneyDetail_id: {
         type: String,
-        required: true,
       },
     },
   ],
   paymentProof: {
-    type: Buffer,
-    required: true,
+    data: Buffer,
+    contentType: String,
   },
   paymentTime: {
     type: Date,
-    required: true,
+    default: new Date(),
   },
   paymentNumber: {
+    type: Number,
+    required: true,
+  },
+  mrp: {
+    type: Number,
+    required: true,
+  },
+  costPrice: {
+    type: Number,
+    required: true,
+  },
+  salePrice: {
     type: Number,
     required: true,
   },
