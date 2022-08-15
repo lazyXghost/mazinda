@@ -85,13 +85,14 @@ module.exports = {
       if (products[i].topDeal == true) topDeals.push(products[i]);
     }
     const offers = [];
-
+    const { cities } = getLocations();
     const context = {
       topDeals: topDeals,
       trendings: trendings,
       categories: categories,
       offers: offers,
       cartItems: cart?.products?.length ?? 0,
+      cities: cities,
     };
     return context;
   },

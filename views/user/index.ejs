@@ -120,6 +120,9 @@
           </div>
 
           <select class="block appearance-none bg-gray-200 border border-gray-200 text-gray-700 p-1 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+            <% for(let i=0;i<cities.length;i++) {%>
+            <option><%=cities[i]%></option>
+            <%}%>
             <option>New Mexico</option>
             <option>Missouri</option>
             <option>Texas</option>
@@ -344,7 +347,7 @@
           <div class="product-box">
             <div class="img product-img-box">
               <img
-                src="data:image/image/png;base64,<%=trendings[i].images[0].data.toString('base64')%>"
+                src="/store_UI/img/<%=trendings[i].images[0]%>"
                 alt="no image available"
               />
             </div>
@@ -395,7 +398,7 @@
             <div class="img product-img-box">
               <a href="/productDetail?ID=<%=topDeals[i]._id%>"
                 ><img
-                  src="data:images[0]/image/png;base64,<%=topDeals[i].images[0].data.toString('base64')%>"
+                  src="store_UI/img/<%=topDeals[i].images[0]%>"
                   alt="no image available"
               /></a>
             </div>

@@ -191,7 +191,7 @@
                  <% for(let i=0;i < products.length;i++) {%>
                 <div class="product-box" data-product-box>
                     <div class="img product-img-box">
-                        <a href="/productDetail?ID=<%=products[i]._id%>"><img src="data:images/image/png;base64,<%=products[i].images[0].data.toString('base64')%>" alt="no image available"></a>
+                        <a href="/productDetail?ID=<%=products[i]._id%>"><img src="store_UI/img/<%=products[i].images[0]%>" alt="no image available"></a>
                     </div>
                     <p class="productName"><%= products[i].name%></p>
                     <p class="productDescription"><%=products[i].description%></p>
@@ -216,20 +216,21 @@
                 </div> -->
 
                 <div class="row no-gutters">
+                    <% for(let i=0;i<products.length;i++) {%>
                     <div class="col-6">
                         <div class="product-box" data-product-box>
                             <div class="p-col-inner">
                                 <div class="p-data">
                                     <div class="card border-0">
-                                        <img src="https://m.media-amazon.com/images/I/817clKAKcqL._SX679_.jpg" class="card-img-top" alt="...">
+                                        <img src="store_UI/img/<%=products[i].images[0]%>" class="card-img-top" alt="...">
                                         <div class="p-body">
                                           <h6 class="p-company">Company</h6>
-                                          <h6 class="text-muted p-name">Product Name</h6>
+                                          <h6 class="text-muted p-name"><%=products[i].name%></h6>
                                           <!-- rating -->
                                           <p class="lead mb-1">
-                                            <span class="sp">₹2,500</span>
-                                            <span class="ms-2 text-muted cp">₹5,000</span>
-                                            <span class="ms-2 text-success dis">(50% off)</span>
+                                            <span class="sp">₹<%=products[i].salePrice%></span>
+                                            <span class="ms-2 text-muted cp">₹<%=products[i].mrp%></span>
+                                            <span class="ms-2 text-success dis">(<%= Math.parseInt((products[i].mrp - products[i].salePrice)/products[i].mrp * 100) %>% off)</span>
                                         </p>
                                         <!-- Mazinda tick -->
                                         </div>
@@ -238,6 +239,7 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
                     <div class="col-6">
                         <div class="product-box" data-product-box>
                             <div class="p-col-inner">
