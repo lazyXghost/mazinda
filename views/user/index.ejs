@@ -120,8 +120,10 @@
           </div>
 
           <select class="block appearance-none bg-gray-200 border border-gray-200 text-gray-700 p-1 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+            <option ><a href="/?city=<%=city%>"><%=city%></a></option>
             <% for(let i=0;i<cities.length;i++) {%>
-            <option><%=cities[i]%></option>
+              <%if(cities[i] == city) continue %> 
+            <option><a href="/?city=<%=cities[i]%>"><%=cities[i]%></a></option>
             <%}%>
             <option>New Mexico</option>
             <option>Missouri</option>

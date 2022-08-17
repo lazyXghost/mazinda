@@ -71,8 +71,18 @@ module.exports = {
     return message;
   },
 
-  getIndexPageData: async function (req, res) {
-    const products = await productTable.find({ status: "accepted" });
+  getIndexPageData: async function (currentCity) {
+    const address = await addressTable.find({ city: currentCity });
+    const store_id = Array(address.length);
+    const stores = await storeTable.find({
+      status: "accepted",
+      _id: { $in: [...store_id] },
+    });
+
+    const products = await productTable.find({
+      status: "accepted",
+      store_id: { $in: [...store_id] },
+    });
     const categories = await categoryTable.find();
     const cart = req.user
       ? await cartTable.findOne({ user_id: req.user._id })
@@ -85,7 +95,7 @@ module.exports = {
       if (products[i].topDeal == true) topDeals.push(products[i]);
     }
     const offers = [];
-    const { cities } = getLocations();
+    const { cities } = await getLocations();
     const context = {
       topDeals: topDeals,
       trendings: trendings,
@@ -93,6 +103,7 @@ module.exports = {
       offers: offers,
       cartItems: cart?.products?.length ?? 0,
       cities: cities,
+      city: currentCity,
     };
     return context;
   },
