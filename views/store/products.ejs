@@ -21,7 +21,7 @@
         <div class="col-lg-3">
           <div class="card">
             <% for(let j=0;j<products[i].images.length;j++) {%>
-              <img src="data:image/image/png;base64,<%=products[i].images[j].data.toString('base64')%>" class="card-img-top" alt="...">
+              <img src="/store_UI/img/<%=products[i].images[j]%>" class="card-img-top" alt="...">
             <% } %>
             <div class="card-body">
               <h5 class="card-title"><%= products[i].name %></h5>

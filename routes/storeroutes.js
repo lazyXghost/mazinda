@@ -133,11 +133,6 @@ router.post(
   async (req, res) => {
     req.body.images = [];
     for (let i = 0; i < req.files.length; i++) {
-      const image = {
-        data: fs.readFileSync(req.files[i].filename),
-        contentType: "image/png",
-      };
-      // fs.unlinkSync(req.files[i].filename);
       req.body.images.push(req.files[i].filename);
     }
     const element = await categoryTable.findOne({

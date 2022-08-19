@@ -76,14 +76,14 @@ router.get("/products", async (req, res) => {
   });
 });
 
-router.post("/products", async (req, res) => {
-  const context = await getProductPageData(req, res);
-  res.render("user/products", {
-    authenticated: req.isAuthenticated(),
-    user: req.user,
-    ...context,
-  });
-});
+// router.post("/products", async (req, res) => {
+//   const context = await getProductPageData(req, res);
+//   res.render("user/products", {
+//     authenticated: req.isAuthenticated(),
+//     user: req.user,
+//     ...context,
+//   });
+// });
 
 router.get("/productDetail", async (req, res) => {
   const product_id = url.parse(req.url, true).query.ID;

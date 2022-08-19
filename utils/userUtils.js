@@ -74,11 +74,7 @@ module.exports = {
   getIndexPageData: async function (currentCity) {
     const address = await addressTable.find({ city: currentCity });
     const store_id = Array(address.length);
-    const stores = await storeTable.find({
-      status: "accepted",
-      _id: { $in: [...store_id] },
-    });
-
+    for (let i = 0; i < address.length; i++) store_id[i] = address[i].user_id;
     const products = await productTable.find({
       status: "accepted",
       store_id: { $in: [...store_id] },
@@ -111,19 +107,29 @@ module.exports = {
   getProductPageData: async function (req, res) {
     const { search } = req.body;
     const category_id = url.parse(req.url, true).query.ID;
+    const currentCity = url.parse(req.url, true).query.city || "Mandi";
+    const address = await addressTable.find({ city: currentCity });
+    const store_id = Array(address.length);
+    for (let i = 0; i < address.length; i++) store_id[i] = address[i].user_id;
     const categories = await categoryTable.find();
     const cart = req.user
       ? await cartTable.findOne({ user_id: req.user._id })
       : null;
     const products = category_id
-      ? await productTable.find({ category_id: category_id })
-      : await productTable.find();
+      ? await productTable.find({
+          category_id: category_id,
+          store_id: { $in: [...store_id] },
+        })
+      : await productTable.find({ store_id: { $in: [...store_id] } });
 
+    const { cities } = await getLocations();
     const context = {
       products: products,
       categories: categories,
       cartItems: cart?.products?.length ?? 0,
       search: search,
+      cities: cities,
+      city: currentCity,
     };
     return context;
   },

@@ -69,3 +69,7 @@ main.addEventListener("click", () => {
     overlay.style.transform = "translateX(-300px)";
   }
 });
+
+const changeCity = function (ele) {
+  window.location = `/?city=${ele.value}`;
+};
