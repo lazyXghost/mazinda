@@ -453,21 +453,27 @@
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="name" placeholder="Username" />
+              <input type="text" name="name" required placeholder="Username" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" name="email" placeholder="Email" />
+              <input type="email" name="email" required placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" name="password" placeholder="Password" />
+              <input
+                type="password"
+                name="password"
+                required
+                placeholder="Password"
+              />
             </div>
             <div class="input-field">
               <i class="fas fa-phone"></i>
               <input
                 type="number"
                 name="phoneNumber"
+                required
                 placeholder="phone Number"
               />
             </div>
@@ -479,7 +485,7 @@
                 placeholder="Referral Code"
               />
             </div>
-            <input type="submit" class="btn" value="Register" />
+            <button type="submit" class="btn" value="Register">Register</button>
           </form>
           <form action="/login" class="sign-up-form" method="POST">
             <h2 class="title">Sign in</h2>
@@ -488,12 +494,18 @@
               <input
                 type="number"
                 name="phoneNumber"
+                required
                 placeholder="phone Number"
               />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" name="password" placeholder="Password" />
+              <input
+                type="password"
+                name="password"
+                required
+                placeholder="Password"
+              />
             </div>
             <input type="submit" value="Login" class="btn solid" />
           </form>

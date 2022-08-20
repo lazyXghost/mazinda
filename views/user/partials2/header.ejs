@@ -114,9 +114,9 @@
               href="#"
               data-bs-toggle="dropdown"
             >
-              <span class="img-container"><%=store.sellerName[0]%></span>
+              <span class="img-container"><%=user.name[0].toUpperCase()%></span>
               <span class="d-none d-md-block dropdown-toggle ps-2"
-                ><%= store.sellerName %></span
+                ><%= user.name %></span
               > </a
             ><!-- End Profile Iamge Icon -->
 
@@ -124,8 +124,7 @@
               class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
             >
               <li class="dropdown-header">
-                <h6><%= store.sellerName %></h6>
-                <span><%= store.storeName %></span>
+                <h6><%= user.name %></h6>
               </li>
               <li>
                 <hr class="dropdown-divider" />
@@ -134,7 +133,7 @@
               <li>
                 <a
                   class="dropdown-item d-flex align-items-center"
-                  href="/store/profile"
+                  href="/profile"
                 >
                   <i class="bi bi-person"></i>
                   <span>My Profile</span>

@@ -1,4 +1,4 @@
-<%- include('partials/header') %>
+<%- include('partials2/header') %>
 <div class="pagetitle">
   <h1>Profile</h1>
   <nav>
@@ -62,7 +62,7 @@
                 data-bs-toggle="tab"
                 data-bs-target="#profile-change-password"
               >
-                Change Password
+                Password
               </button>
             </li>
             <!-- <li class="nav-item">
@@ -299,9 +299,13 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
               </form> -->
               <div class="addresses">
                 <!-- This will include saved addresses -->
+                <% for(let i=0;i < addresses.length;i++) {%>
                 <div class="address">
                   <div class="details">
-                    Apartment 101, Enclave Royale, Sawai Mansingh Road, 4th Crossing, New Kings City, Mandi, Himachal Pradesh - 175005
+                    <%=addresses[i].building%>/<%=addresses[i].street%> ,
+                    <%=addresses[i].locality%>, <%=addresses[i].city%>,
+                    <%=addresses[i].state%> -
+                    <%=addresses[i].pincode%>,<%=addresses[i].phoneNumber%>
                   </div>
                   <div class="action-buttons">
                     <div class="editDeleteBtns">
@@ -311,35 +315,19 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                       <div class="delete">
                         <i class="fa-solid fa-trash"></i>
                       </div>
-                    </div>                    
+                    </div>
                   </div>
                 </div>
-                <div class="address">
-                  <div class="details">
-                    Apartment 101, Enclave Royale, Sawai Mansingh Road, 4th Crossing, New Kings City, Mandi, Himachal Pradesh - 175005
-                  </div>
-                  <div class="action-buttons">
-                    <div class="editDeleteBtns">
-                      <div class="edit">
-                        <i class="fa-solid fa-pen"></i>
-                      </div>
-                      <div class="delete">
-                        <i class="fa-solid fa-trash"></i>
-                      </div>
-                    </div>                    
-                  </div>
-                </div>
+                <% } %>
                 <!-- This will include link to add a new address -->
-                <div class="address">
-                  <div class="details">
-                    Add new address
-                  </div>
+                <!-- <div class="address">
+                  <div class="details">Add new address</div>
                   <div class="action-buttons">
                     <div class="add">
                       <i class="fa-solid fa-plus"></i>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -469,4 +457,4 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
     </div>
   </div>
 </section>
-<%- include('partials/footer') %>
+<%- include('partials2/footer') %>

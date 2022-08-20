@@ -22,6 +22,18 @@ const { getLocations, getCategories, addAddress } = require("../utils");
 module.exports = {
   userRegister: async function (req) {
     const { phoneNumber, name, email, password, referralCode } = req.body;
+    if (phoneNumber.length < 10) {
+      const message = "Invalid phone Number";
+      return message;
+    }
+    if (username.legnth == 0) {
+      const message = "User name cannot be empty";
+      return message;
+    }
+    if (email.includes("@") == false) {
+      const message = "Invalid email";
+      return message;
+    }
     if (password.length < 8) {
       const message = "Password is too Short";
       return message;
@@ -254,8 +266,10 @@ module.exports = {
 
   getProfilePageData: async function (req, res) {
     const wallet = await walletTable.findOne({ user_id: req.user._id });
+    const addresses = await addressTable.find({ user_id: req.user._id });
     const context = {
       wallet: wallet,
+      addresses: addresses,
     };
     return context;
   },

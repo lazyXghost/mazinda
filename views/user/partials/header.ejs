@@ -4,6 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+      <!-- Favicons -->
+      <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="user_UI/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="user_UI/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="user_UI/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
     <title>Mazinda</title>
     <meta name="author" content="name" />
     <meta name="description" content="description here" />
@@ -108,7 +128,7 @@
       >
         <div class="flex items-center pb-1 justify-center mx-1 px-1">
           <div  class="flex ml-1 flex-grow  text-white logoDiv">
-            Mazinda
+            <img src="user_UI/img/logos/mazindalong.png" width="70px" alt="">
           </div>
 
           <select class="block appearance-none bg-gray-200 border border-gray-200 text-gray-700 p-1 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" onchange="changeCity(this)">
@@ -148,7 +168,7 @@
             </a>
           </div>
           <span class="relative w-full mx-1">
-            <form action="/products?city=<%=city%>" method="GET">
+            <form action="/products" method="GET">
               
               <input
                 aria-label="search"
@@ -158,6 +178,7 @@
                 placeholder="Search for Products"
                 class="w-full bg-gray-900 text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-1.5 pl-10 appearance-none leading-normal" data-search
               />
+              <input type="hidden" name="city" value="<%=city%>">
               <button
                 type="submit"
                 class="absolute search-icon"
@@ -207,7 +228,7 @@
         <a href="/">
           <li>Home</li>
         </a>
-        <a href="/products">
+        <a href="/products?city=<%=city%>">
           <li>Products</li>
         </a>
         <a href="/viewOrders">
