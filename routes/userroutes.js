@@ -53,7 +53,8 @@ router.post("/login", localUserLogin);
 /////////////////////////////////////////////////////////////
 
 router.get("/", async (req, res) => {
-  const context = await getIndexPageData(req, res);
+  const city = url.parse(req.url, true).query.city || "Mandi";
+  const context = await getIndexPageData(city, res);
   res.render("user/index", {
     authenticated: req.isAuthenticated(),
     user: req.user,
@@ -242,7 +243,7 @@ router.post("/addAddress", userCheck, async (req, res) => {
 /////////////////////////////////////////////////////////////
 
 router.get("/contact", async (req, res) => {
-  res.render("store/contact");
+  res.render("user/contact");
 });
 
 router.get("/settings", userCheck, (req, res) => {

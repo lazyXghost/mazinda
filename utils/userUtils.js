@@ -22,6 +22,18 @@ const { getLocations, getCategories, addAddress } = require("../utils");
 module.exports = {
   userRegister: async function (req) {
     const { phoneNumber, name, email, password, referralCode } = req.body;
+    if (phoneNumber.length < 10) {
+      const message = "Invalid phone Number";
+      return message;
+    }
+    if (username.legnth == 0) {
+      const message = "User name cannot be empty";
+      return message;
+    }
+    if (email.includes("@") == false) {
+      const message = "Invalid email";
+      return message;
+    }
     if (password.length < 8) {
       const message = "Password is too Short";
       return message;
@@ -71,8 +83,14 @@ module.exports = {
     return message;
   },
 
-  getIndexPageData: async function (req, res) {
-    const products = await productTable.find({ status: "accepted" });
+  getIndexPageData: async function (currentCity) {
+    const address = await addressTable.find({ city: currentCity });
+    const store_id = Array(address.length);
+    for (let i = 0; i < address.length; i++) store_id[i] = address[i].user_id;
+    const products = await productTable.find({
+      status: "accepted",
+      store_id: { $in: [...store_id] },
+    });
     const categories = await categoryTable.find();
     const cart = req.user
       ? await cartTable.findOne({ user_id: req.user._id })
@@ -85,13 +103,15 @@ module.exports = {
       if (products[i].topDeal == true) topDeals.push(products[i]);
     }
     const offers = [];
-
+    const { cities } = await getLocations();
     const context = {
       topDeals: topDeals,
       trendings: trendings,
       categories: categories,
       offers: offers,
       cartItems: cart?.products?.length ?? 0,
+      cities: cities,
+      city: currentCity,
     };
     return context;
   },
@@ -99,19 +119,29 @@ module.exports = {
   getProductPageData: async function (req, res) {
     const { search } = req.body;
     const category_id = url.parse(req.url, true).query.ID;
+    const currentCity = url.parse(req.url, true).query.city || "Mandi";
+    const address = await addressTable.find({ city: currentCity });
+    const store_id = Array(address.length);
+    for (let i = 0; i < address.length; i++) store_id[i] = address[i].user_id;
     const categories = await categoryTable.find();
     const cart = req.user
       ? await cartTable.findOne({ user_id: req.user._id })
       : null;
     const products = category_id
-      ? await productTable.find({ category_id: category_id })
-      : await productTable.find();
+      ? await productTable.find({
+          category_id: category_id,
+          store_id: { $in: [...store_id] },
+        })
+      : await productTable.find({ store_id: { $in: [...store_id] } });
 
+    const { cities } = await getLocations();
     const context = {
       products: products,
       categories: categories,
       cartItems: cart?.products?.length ?? 0,
       search: search,
+      cities: cities,
+      city: currentCity,
     };
     return context;
   },
@@ -236,8 +266,10 @@ module.exports = {
 
   getProfilePageData: async function (req, res) {
     const wallet = await walletTable.findOne({ user_id: req.user._id });
+    const addresses = await addressTable.find({ user_id: req.user._id });
     const context = {
       wallet: wallet,
+      addresses: addresses,
     };
     return context;
   },
