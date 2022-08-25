@@ -1,3 +1,4 @@
+const locationTable = require("../models/location");
 const router = require("express").Router();
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const url = require("url");
@@ -22,6 +23,8 @@ const {
   moneyDetailStatusChange,
   addCategory,
   deleteCategory,
+  addLocation,
+  deleteLocation,
 } = require("../utils/adminUtils");
 
 const upload = multer({
@@ -155,6 +158,29 @@ router.post("/addCategory", upload.single("image"), async (req, res) => {
 router.post("/deleteCategory", adminCheck, async (req, res) => {
   await deleteCategory(req, res);
   res.redirect("/admin/category");
+});
+
+/////////////////////////////////////////////////////////////
+// Location Page functions
+/////////////////////////////////////////////////////////////
+
+router.get("/location", adminCheck, async (req, res) => {
+  const location = await locationTable.find();
+  res.render("admin/location", {
+    user: req.user,
+    authenticated: req.isAuthenticated(),
+    location: location,
+  });
+});
+
+router.post("/addLocation", async (req, res) => {
+  await addLocation(req, res);
+  res.redirect("/admin/location");
+});
+
+router.post("/deleteLocation", adminCheck, async (req, res) => {
+  await deleteLocation(req, res);
+  res.redirect("/admin/location");
 });
 
 /////////////////////////////////////////////////////////////
