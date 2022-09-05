@@ -73,3 +73,16 @@ main.addEventListener("click", () => {
 const changeCity = function (ele) {
   window.location = `/?city=${ele.value}`;
 };
+
+function changeSalePrice(product_id, field) {
+  var xhr = new XMLHttpRequest();
+  var url = `/admin/updateSalePrice/?product_id=${product_id}&newSalePrice=${field.value}`;
+  xhr.open("GET", url, (async = true));
+  document.getElementById("salePrice").setAttribute("disabled", "true");
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.location.reload();
+    }
+  };
+  xhr.send();
+}

@@ -39,7 +39,7 @@ module.exports = {
       category_id: category_id,
       costPrice: costPrice,
       mrp: mrp,
-      salePrice: mrp,
+      salePrice: -1,
       availableQuantity: availableQuantity,
       description: description,
       images: images,

@@ -101,6 +101,16 @@ module.exports = {
     return;
   },
 
+  updateSalePrice: async function (req, res) {
+    const product_id = url.parse(req.url, true).query.product_id;
+    const newSalePrice = url.parse(req.url, true).query.newSalePrice;
+    await productTable.findOneAndUpdate(
+      { _id: product_id },
+      { salePrice: newSalePrice }
+    );
+    return "Quantity Updated Successfully";
+  },
+
   productDetailsChange: async function (req) {
     const params = url.parse(req.url, true).query;
     const product_id = params.ID;
