@@ -209,7 +209,7 @@ router.get("/money", storeCheck, async (req, res) => {
 // Logging Out
 router.get("/logout", storeCheck, (req, res) => {
   req.logOut();
-  res.redirect("/login");
+  res.redirect("/store/login");
 });
 
 module.exports = router;
