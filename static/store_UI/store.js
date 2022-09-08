@@ -10,3 +10,6 @@ function changeQuantity(product_id, field) {
   };
   xhr.send();
 }
+function changeMrpMinValue(field) {
+  document.getElementById("mrp").setAttribute("min", field.value);
+}
