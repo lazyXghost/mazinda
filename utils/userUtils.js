@@ -26,7 +26,7 @@ module.exports = {
       const message = "Invalid phone Number";
       return message;
     }
-    if (username.legnth == 0) {
+    if (name.length == 0) {
       const message = "User name cannot be empty";
       return message;
     }
