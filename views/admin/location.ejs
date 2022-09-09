@@ -1,0 +1,70 @@
+<%- include('partials/header') %>
+
+<header>
+  <div class="cover header">
+    <h3>Add New Coupon</h3>
+  </div>
+</header>
+
+<form action="/admin/addLocation" class="cover" method="POST">
+  <div class="container">
+    <input type="text" name="city" placeholder="Enter city" />
+    <br />
+    <input type="Number" name="pincode" placeholder="Enter pincode" /> <br />
+    <input type="text" name="state" placeholder="Enter state" />
+    <button type="Submit">Add Location</button>
+  </div>
+</form>
+
+<br />
+<header>
+  <div class="cover header">
+    <h3>Locations Info</h3>
+  </div>
+</header>
+
+<div class="list">
+  <div class="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Serial Number</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Pincode</th>
+                <th>Manage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=0;i < location.length;i++) {%>
+              <tr>
+                <th><%= (i+1) %></th>
+                <td><%= location[i].city %></td>
+                <td><%= location[i].state %></td>
+                <td><%= location[i].pincode %></td>
+                <td>
+                  <form action="/admin/deleteLocation" method="POST">
+                    <button
+                      type="submit"
+                      name="pincode"
+                      value="<%=location[i].pincode %>"
+                      class="red"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

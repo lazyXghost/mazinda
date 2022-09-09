@@ -6,6 +6,7 @@ const userTable = require("../models/user");
 const moneyDetailTable = require("../models/moneyDetail");
 const paymentTable = require("../models/payment");
 const addressTable = require("../models/address");
+const locationTable = require("../models/location");
 const url = require("url");
 const fs = require("fs");
 const { getLocations } = require("../utils");
@@ -145,6 +146,24 @@ module.exports = {
     return "Category Deleted Successfully";
   },
 
+  addLocation: async function (req, res) {
+    console.log(req.body);
+    const { city, state, pincode } = req.body;
+    const location = await locationTable.create({
+      city: city,
+      pincode: parseInt(pincode),
+      state: state,
+    });
+    return "Location Added Successfully";
+  },
+
+  deleteLocation: async function (req, res) {
+    const pincode = req.body.pincode;
+    const location = await locationTable.findOne({ pincode: pincode });
+    location.delete();
+    return "Category Deleted Successfully";
+  },
+
   getHomePageData: async function () {
     const acceptedStores = await storeTable.countDocuments({
       status: "accepted",
@@ -185,6 +204,7 @@ module.exports = {
       status: status,
       currentCity: currentCity,
     };
+    console.log(context);
     return context;
   },
 
