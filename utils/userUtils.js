@@ -26,7 +26,7 @@ module.exports = {
       const message = "Invalid phone Number";
       return message;
     }
-    if (username.legnth == 0) {
+    if (name.length == 0) {
       const message = "User name cannot be empty";
       return message;
     }
@@ -130,9 +130,10 @@ module.exports = {
     const products = category_id
       ? await productTable.find({
           category_id: category_id,
+          status: "accepted",
           store_id: { $in: [...store_id] },
         })
-      : await productTable.find({ store_id: { $in: [...store_id] } });
+      : await productTable.find({ status: "accepted", store_id: { $in: [...store_id] } });
 
     const { cities } = await getLocations();
     const context = {

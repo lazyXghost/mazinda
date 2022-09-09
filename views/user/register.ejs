@@ -446,6 +446,16 @@
 
   <body>
     <!-- Aborting modal idea for now -->
+    <% if (message) { %>
+      <div class="mt-5 mb-3">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>
+            <%= message %>
+          </strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <% } %>
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
@@ -517,7 +527,7 @@
           <div class="content">
             <h3>One of us ?</h3>
             <p>Login to get access to your Orders, Wishlist and more.</p>
-            <button class="btn transparent" id="sign-in-btn">Sign In</button>
+            <a href="/login"><button class="btn transparent" id="sign-in-btn">Sign In</button></a>
           </div>
           <img
             src="user_UI/img/register.svg"

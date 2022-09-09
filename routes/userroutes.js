@@ -26,7 +26,7 @@ const url = require("url");
 
 // <----Registration and authentication for stores----->
 router.get("/register", userLoggedIn, (req, res) => {
-  res.render("user/register");
+  res.render("user/register", { "message": "" } );
 });
 
 router.post("/register", async (req, res) => {
@@ -34,9 +34,10 @@ router.post("/register", async (req, res) => {
   if (
     message == "Password is too Short" ||
     message == "Invalid Referral Code" ||
-    message == "user already Exists"
+    message == "user already Exists" ||
+    message == "Invalid phone Number"
   ) {
-    res.render("user/register", { message });
+    res.render("user/register", { "message": message });
   } else {
     res.redirect("/login");
   }

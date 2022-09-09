@@ -53,7 +53,9 @@
                 <td><%= categoryDict[pending[i].category_id] %></td>
                 <td><%= storeDict[pending[i].store_id] %></td>
                 <td><%= pending[i].mrp %></td>
-                <td><%= pending[i].salePrice %></td>
+                <td>
+                  <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= pending[i].salePrice %>"  onchange="changeSalePrice('<%= pending[i]._id %>', this)">
+                </td>
                 <td><%= pending[i].costPrice %></td>
                 <td>
                   <% if(pending[i].topDeal == false ) {%>
@@ -149,7 +151,9 @@
                 <td><%= categoryDict[accepted[i].category_id] %></td>
                 <td><%= storeDict[accepted[i].store_id] %></td>
                 <td><%= accepted[i].mrp %></td>
-                <td><%= accepted[i].salePrice %></td>
+                <td>
+                  <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= accepted[i].salePrice %>"  onchange="changeSalePrice('<%= accepted[i]._id %>', this)">
+                </td>
                 <td><%= accepted[i].costPrice %></td>
                 <td>
                   <% if(accepted[i].topDeal == false ) {%>
@@ -224,7 +228,9 @@
                 <td><%= categoryDict[rejected[i].category_id] %></td>
                 <td><%= storeDict[rejected[i].store_id] %></td>
                 <td><%= rejected[i].mrp %></td>
-                <td><%= rejected[i].salePrice %></td>
+                <td>
+                  <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= rejected[i].salePrice %>"  onchange="changeSalePrice('<%= rejected[i]._id %>', this)">
+                </td>
                 <td><%= rejected[i].costPrice %></td>
                 <td>
                   <% if(rejected[i].topDeal == false ) {%>

@@ -18,6 +18,7 @@ const {
   getMoneyStorePageData,
   getMoneyPaymentPageData,
   getProductPageData,
+  updateSalePrice,
   productDetailsChange,
   storeStatusChange,
   moneyDetailStatusChange,
@@ -130,6 +131,11 @@ router.get("/products", adminCheck, async (req, res) => {
     authenticated: req.isAuthenticated(),
     ...context,
   });
+});
+
+router.get("/updateSalePrice", adminCheck, async (req, res) => {
+  await updateSalePrice(req, res);
+  res.redirect("/admin/products");
 });
 
 router.get("/productDetailsChange", adminCheck, async (req, res) => {
