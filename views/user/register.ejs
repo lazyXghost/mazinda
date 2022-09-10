@@ -43,176 +43,206 @@
         padding: 0;
         box-sizing: border-box;
       }
-      body,
-      input {
-        font-family: "Poppins", sans-serif;
+      body{
+        background-color: rgba(0, 0, 0, 0.15);;
       }
-      .container {
-        position: relative;
-        width: 100%;
-        background-color: #fff;
-        min-height: 100vh;
-        overflow: hidden;
-      }
-      .forms-container {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-      }
-      .signin-signup {
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        left: 75%;
-        width: 50%;
-        transition: 1s 0.7s ease-in-out;
-        display: grid;
-        grid-template-columns: 1fr;
-        z-index: 5;
-      }
-      form {
+      /*--Nav*/
+      nav ul{
+        list-style: none;
         display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
         align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 0rem 5rem;
-        transition: all 0.2s 0.7s;
-        overflow: hidden;
-        grid-column: 1 / 2;
-        grid-row: 1 / 2;
+        padding: 0px;
       }
-      form.sign-up-form {
-        opacity: 0;
-        z-index: 1;
-      }
-      form.sign-in-form {
-        z-index: 2;
-      }
-      .title {
-        font-size: 2.2rem;
-        color: #444;
-        margin-bottom: 10px;
-      }
-      .greetings{
-        font-size:1.5rem ;
-        height: 4rem;
-        width:20rem;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      nav ul li{
+        display: inline-block;
       }
 
-      .input-field {
-        max-width: 380px;
+      nav ul li img{
+        width: 205px;
+        height: 107.02px
+;
+      }
+      nav ul li input[type=text]{
+        border: none;
+        background-color: #5598da00;
+        outline: none;
+      }
+      #search-bar{
+        border:2px solid #5597DA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius:5px;
+        max-width: 600px;
         width: 100%;
-        background-color: #f0f0f0;
-        margin: 10px 0;
-        height: 55px;
-        border-radius: 10px;
+        height: 45px;
+      }
+      #search-bar i{
+        margin: 0px 10px;
+      }
+      nav ul li input{
+        width: 600px;
+        height: 45px;
+      }
+      nav ul li a{
+        text-decoration: none;
+        font-size: 22px;
+        font-weight: 700;
+        font: SF Pro Display;
+        line-height:26.25px;
+        color: #5597DA;
+      }
+      .login_btn{
+        background-color: #F26107;
+        height: 45px;
+        width: 129px;
+        border: none;
+        color: white;
+        font: Montserrat;
+        font-weight: 600;
+        font-size: 22px;
+        border-radius: 4px;
+      }
+      .login_btn:hover{
+        background-color: #ff893f;
+        color: black;
+        transition: .4s linear;
+      }
+      /*--main--*/
+      #main{
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+      }
+      #sub-main{
+        display: flex;
+        width: 901px;
+        height: 800px;
+        background: #F1FAFF;
+        border-radius: 40px 40px 0px 0px;
+      }
+      #content{
+        padding-top: 30px ;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 901px;
+        height: 713px;
+        top: 210px;
+        background: #FFFFFF;
+        border-radius: 50px 50px 0px 0px;
+      }
+      /*--content--*/
+      #content form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .title{
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        Font:Montserrat;
+        line-height: 17.07px;
+      }
+
+      #con-span{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 15px;
+      }
+
+      #con-span span{
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        Font:Montserrat;
+      }
+
+      .input-field{
+        display: flex;
+        flex-direction: row;
+        padding: 0px 1.5px;
+        align-items: center;
+        max-width: 321px;
+        width: 100%;
+        background-color: #C2D9F0;
+        margin: 3px 0;
+        height: 41px;
+        border-radius: 4px;
         display: grid;
         grid-template-columns: 15% 85%;
-        padding: 0 0.4rem;
         position: relative;
       }
-      .input-field i {
+
+      .input-field{
         text-align: center;
-        line-height: 55px;
-        color: #acacac;
+        color: #495894;
         transition: 0.5s;
         font-size: 1.1rem;
       }
-      .input-field input {
+
+      .input-field input{
         background: none;
-        outline: none;
+        font: SF Pro Text;
+        width: 100%;
+        height: 100%;
         border: none;
-        line-height: 1;
-        font-weight: 600;
-        font-size: 1.1rem;
-        color: #333;
+        outline: none;
       }
-      .input-field input::placeholder {
-        color: #aaa;
-        font-weight: 500;
+
+      .input-field input::placeholder{
+        color: #495894;
       }
-      .social-text {
-        padding: 0.7rem 0;
-        font-size: 1rem;
-      }
-      .social-media {
+
+      #conditions{
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        margin: 35px 0px 15px 0px;
       }
-      .social-icon {
-        height: 46px;
-        width: 46px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0.45rem;
-        color: #333;
-        border-radius: 50%;
-        border: 1px solid #333;
-        text-decoration: none;
-        font-size: 1.1rem;
-        transition: 0.3s;
-      }
-      .social-icon:hover {
-        color: #4481eb;
-        border-color: #4481eb;
-      }
+       
       .btn {
-        max-width: 380px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+        max-width: 296px;
+        height: 42px;
         width:100%;
-        background-color: #5995fd;
+        background-color: #5597DA;;
         border: none;
         outline: none;
-        height: 49px;
-        border-radius: 49px;
+        border-radius: 10px;
         color: #fff;
         text-transform: uppercase;
         font-weight: 600;
-        margin: 10px 0;
+        margin: 3px 0;
         cursor: pointer;
         transition: 0.5s;
       }
-      .btn:hover {
-        background-color: #4d84e2;
+
+      .Sign{
+        background-color: #A3E0FF;
+        color: black;
       }
-      .panels-container {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+
+      .Sign:hover{
+        background-color: #5597DA;
+        color: white;
       }
-      .container:before {
-        content: "";
-        position: absolute;
-        height: 2000px;
-        width: 2000px;
-        top: -10%;
-        right: 48%;
-        transform: translateY(-50%);
-        background-image: linear-gradient(-45deg, #76b7f8 0%, #4481eb  100%);
-        transition: 1.8s ease-in-out;
-        border-radius: 50%;
-        z-index: 6;
-      }
-      .image {
-        width: 100%;
-        transition: transform 1.1s ease-in-out;
-        transition-delay: 0.4s;
-      }
+
       #login-others{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin-bottom: 10px;
       }
 
       #fonts{
@@ -224,7 +254,9 @@
       #facebook{
         display: flex;
         align-items: center;
-        height:4rem;
+        justify-content: center;
+        width: 70px;
+        height:42px;
         border-radius: 10px;
         background-color: #0032b1;
       }
@@ -238,7 +270,9 @@
       #google{
         display: flex;
         align-items: center;
-        height:4rem;
+        justify-content: center;
+        width: 70px;
+        height:42px;
         border-radius: 10px;
         background-color: #B60016;
       }
@@ -252,7 +286,9 @@
       #apple{
         display: flex;
         align-items: center;
-        height:4rem;
+        justify-content: center;
+        width: 70px;
+        height:42px;
         border-radius: 10px;
         background-color: black;
       }
@@ -271,324 +307,165 @@
 
       #fonts i{
         padding: 20px 30px;
-        font-size: 40px;
+        font-size: 20px;
+      }
+      .last_span{
+        margin-bottom: 20px;
       }
 
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: space-around;
-        text-align: center;
-        z-index: 6;
+      form span a{
+        text-decoration: none;
+        color: #5597DA;
       }
-      .left-panel {
-        pointer-events: all;
-        padding: 3rem 17% 2rem 12%;
-      }
-      .right-panel {
-        pointer-events: none;
-        padding: 3rem 12% 2rem 17%;
-      }
-      .panel .content {
-        color: #fff;
-        transition: transform 0.9s ease-in-out;
-        transition-delay: 0.6s;
-      }
-      .panel h3 {
-        font-weight: 600;
-        line-height: 1;
-        font-size: 1.5rem;
-      }
-      .panel p {
-        font-size: 0.95rem;
-        padding: 0.7rem 0;
-      }
-      .btn.transparent {
-        margin: 0;
-        background: none;
-        border: 2px solid #fff;
-        width: 130px;
-        height: 41px;
-        font-weight: 600;
-        font-size: 0.8rem;
-      }
-      .right-panel .image,
-      .right-panel .content {
-        transform: translateX(800px);
-      }
-      /* ANIMATION */
-      .container.sign-up-mode:before {
-        transform: translate(100%, -50%);
-        right: 52%;
-      }
-      .container.sign-up-mode .left-panel .image,
-      .container.sign-up-mode .left-panel .content {
-        transform: translateX(-800px);
-      }
-      .container.sign-up-mode .signin-signup {
-        left: 25%;
-      }
-      .container.sign-up-mode form.sign-up-form {
-        opacity: 1;
-        z-index: 2;
-      }
-      .container.sign-up-mode form.sign-in-form {
-        opacity: 0;
-        z-index: 1;
-      }
-      .container.sign-up-mode .right-panel .image,
-      .container.sign-up-mode .right-panel .content {
-        transform: translateX(0%);
-      }
-      .container.sign-up-mode .left-panel {
-        pointer-events: none;
-      }
-      .container.sign-up-mode .right-panel {
-        pointer-events: all;
-      }
-      @media (max-width: 870px) {
-        .container {
-          min-height: 800px;
-          height: 100vh;
+      /*--media queries--*/
+      @media screen and (min-width: 1200px) and (max-width:1286px){
+        #search-bar{
+          max-width:400px;
         }
-        .signin-signup {
-          width: 100%;
-          top: 95%;
-          transform: translate(-50%, -100%);
-          transition: 1s 0.8s ease-in-out;
-        }
-        .signin-signup,
-        .container.sign-up-mode .signin-signup {
-          left: 50%;
-        }
-        .panels-container {
-          grid-template-columns: 1fr;
-          grid-template-rows: 1fr 2fr 1fr;
-        }
-        .panel {
+
+      }
+      @media screen and (min-width: 1100px) and (max-width:1200px){
+        nav ul{
+          display:flex;
           flex-direction: row;
-          justify-content: space-around;
+          justify-content: space-evenly;
           align-items: center;
-          padding: 2.5rem 8%;
-          grid-column: 1 / 2;
         }
-        .right-panel {
-          grid-row: 3 / 4;
+        .nav-menu{
+          display:none;
         }
-        .left-panel {
-          grid-row: 1 / 2;
-        }
-        .image {
-          width: 200px;
-          transition: transform 0.9s ease-in-out;
-          transition-delay: 0.6s;
-        }
-        .panel .content {
-          padding-right: 15%;
-          transition: transform 0.9s ease-in-out;
-          transition-delay: 0.8s;
-        }
-        .panel h3 {
-          font-size: 1.2rem;
-        }
-        .panel p {
-          font-size: 0.7rem;
-          padding: 0.5rem 0;
-        }
-        .btn.transparent {
-          width: 110px;
-          height: 35px;
-          font-size: 0.7rem;
-        }
-        .container:before {
-          width: 1500px;
-          height: 1500px;
-          transform: translateX(-50%);
-          left: 30%;
-          bottom: 68%;
-          right: initial;
-          top: initial;
-          transition: 2s ease-in-out;
-        }
-        .container.sign-up-mode:before {
-          transform: translate(-50%, 100%);
-          bottom: 32%;
-          right: initial;
-        }
-        .container.sign-up-mode .left-panel .image,
-        .container.sign-up-mode .left-panel .content {
-          transform: translateY(-300px);
-        }
-        .container.sign-up-mode .right-panel .image,
-        .container.sign-up-mode .right-panel .content {
-          transform: translateY(0px);
-        }
-        .right-panel .image,
-        .right-panel .content {
-          transform: translateY(300px);
-        }
-        .container.sign-up-mode .signin-signup {
-          top: 5%;
-          transform: translate(-50%, 0);
-        }
+        
       }
-      @media (max-width: 570px) {
-        form {
-          padding: 0 1.5rem;
+
+      @media screen and (min-width: 1000px) and (max-width:1100px){
+        #search-bar{
+          max-width:550px;
         }
-        .image {
+        .nav-menu{
           display: none;
         }
-        .panel .content {
-          padding: 0.5rem 1rem;
+        #sub-main{
+          width:700px;
         }
-        .container {
-          padding: 1.5rem;
+        #content{
+          width:700px;
         }
-        .container:before {
-          bottom: 72%;
-          left: 50%;
+      }
+      @media screen and (min-width: 412px) and (max-width:1000px){
+        #search-bar{
+            display: none;
         }
-        .container.sign-up-mode:before {
-          bottom: 28%;
-          left: 50%;
+        .nav-menu{
+          display: none;
+        }
+        #sub-main{
+          width:700px;
+        }
+        #content{
+          width:700px;
+          top:250px;
+        }
+        nav ul{
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      @media screen and (max-width:718px) {
+        nav{
+          display: none;
+        }
+        #sub-main{
+          width:100%;
+          border-radius: 0px;
+        }
+        #content{
+          position:relative;
+          width:100%;
+          top:100px;
+          height:815px ;
         }
       }
     </style>
   </head>
 
   <body>
-    <!-- Aborting modal idea for now -->
-    <% if (message) { %>
-      <div class="mt-5 mb-3">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong>
-            <%= message %>
-          </strong>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      </div>
-      <% } %>
-    <div class="container">
-      <div class="forms-container">
-        <div class="signin-signup">
+    <nav>
+      <ul>
+        <li><img src="images/Resize long.png" alt="logo"></li>
+        <li>
+          <div id="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search on Mazinda" name="search">
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+        </li>
+        <li><a href="your_orders" class="nav-menu">Your orders</a></li>
+        <li><a href="Contact_Us " class="nav-menu">Contact Us</a></li>
+        <li><a href="Cart" class="nav-menu">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
+        <li><a href="login_page"><button type="button" class="login_btn">Log In</button></a></li>
+      </ul>
+    </nav>
+    <div id="main">
+      <div id="sub-main">
+        <div id="content">
           <form action="/register" method="POST" class="sign-in-form">
-            <h2 class="title greetings">HELLO! WELCOME TO MAZINDA 👋</h2>
-            <h2 class="title">Sign up</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" name="name" required placeholder="Username" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="email" name="email" required placeholder="Email" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input
-                type="password"
-                name="password"
-                required
-                placeholder="Password"
-              />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-phone"></i>
-              <input
-                type="number"
-                name="phoneNumber"
-                required
-                placeholder="phone Number"
-              />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-code"></i>
-              <input
-                type="text"
-                name="referralCode"
-                placeholder="Referral Code"
-              />
-            </div>
-            <button type="submit" class="btn" value="Register">Register</button>
-            <div id="login-others">
-              <span>or</span>
-              <span>Sign Up with</span>
-              <div id="fonts">
-                <div id="facebook">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </div>
-                <div id="google">
-                    <i class="fa-brands fa-google"></i>
-                </div>
-                <div id="apple">
-                    <i class="fa-brands fa-apple"></i>
-                </div>
-             </div>
-            </div>
-          </form>
-          <form action="/login" class="sign-up-form" method="POST">
-            <h2 class="title greetings">HELLO! WELCOME BACK 👋</h2>
-            <h2 class="title">Sign in</h2>
-            <div class="input-field">
-              <i class="fas fa-phone"></i>
-              <input
-                type="number"
-                name="phoneNumber"
-                required
-                placeholder="phone Number"
-              />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input
-                type="password"
-                name="password"
-                required
-                placeholder="Password"
-              />
-            </div>
-            <input type="submit" value="Login" class="btn solid" />
-            <input type="submit" value="Continue as guest" class="btn solid" />
-            <div id="login-others">
-              <span>or</span>
-              <span>log In with</span>
-              <div id="fonts">
-                 <div id="facebook">
-                     <i class="fa-brands fa-facebook-f"></i>
-                 </div>
-                 <div id="google">
-                     <i class="fa-brands fa-google"></i>
-                 </div>
-                 <div id="apple">
-                     <i class="fa-brands fa-apple"></i>
-                 </div>
+          <h2 class="title">Creat an account</h2>
+          <div id="con-span">
+            <span>Creat and verify an account to get connected </span>
+            <span>with us</span>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" name="name" required placeholder="First Name" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" name="name" required placeholder="Last Name" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" required placeholder="Email" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-phone"></i>
+            <input
+              type="number"
+              name="phoneNumber"
+              required
+              placeholder="Phone Number"
+            />
+          </div>
+          <div class="input-field">
+            <span>  </span>
+            <input
+              type="text"
+              name="referralCode"
+              placeholder="Enter OTP"
+            />
+          </div>
+          <div id="conditions">
+            <span>By creating an account you are aggreing to our</span>
+            <span><a href="T&C">terms and conditions</a> & <a href="pp">privacy policy</a></span>
+          </div>
+          <button type="submit" class="btn Sign" value="Sign-up">Sign Up</button>
+          <button type="submit" class="btn" value="guest">Continue as Guest</button>
+          <div id="login-others">
+            <span>or</span>
+            <span class="last_span">Sign Up with</span>
+            <div id="fonts">
+              <div id="facebook">
+                  <i class="fa-brands fa-facebook-f"></i>
+              </div>
+              <div id="google">
+                  <i class="fa-brands fa-google"></i>
+              </div>
+              <div id="apple">
+                  <i class="fa-brands fa-apple"></i>
               </div>
            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>One of us ?</h3>
-            <p>Login to get access to your Orders, Wishlist and more.</p>
-            <a href="/login"><button class="btn transparent" id="sign-in-btn">Sign In</button></a>
           </div>
-          <img
-            src="images/shop_man.png"
-            class="image"
-            alt="register image"
-          />
-        </div>
-        <div class="panel right-panel">
-          <div class="content">
-            <h3>New here ?</h3>
-            <p>Sign Up with your email address to get started.</p>
-            <button class="btn transparent" id="sign-up-btn">Sign Up</button>
-          </div>
-          <img src="images/shop_man.png" class="image" alt="login image" />
+          <span class="last_span">Already have an account? <a href="l/ogin">Log In</a> </span>
+        </form>
         </div>
       </div>
     </div>
@@ -603,16 +480,5 @@
       integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
       crossorigin="anonymous"
     ></script>
-    <script>
-      const sign_in_btn = document.querySelector("#sign-up-btn");
-      const sign_up_btn = document.querySelector("#sign-in-btn");
-      const container = document.querySelector(".container");
-      sign_up_btn.addEventListener("click", () => {
-        container.classList.add("sign-up-mode");
-      });
-      sign_in_btn.addEventListener("click", () => {
-        container.classList.remove("sign-up-mode");
-      });
-    </script>
   </body>
 </html>
