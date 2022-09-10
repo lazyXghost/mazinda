@@ -213,49 +213,41 @@ module.exports = {
   getProductPageData: async function (city) {
     const categories = await categoryTable.find();
     const address = await addressTable.find({ city: city });
-    const store_id = Array(address.length);
-
+    const address_owner_ids = Array(address.length);
     for (let i = 0; i < address.length; i++) {
-      store_id[i] = address.store_id;
+      address_owner_ids[i] = address[i].user_id;
     }
-
     const stores = await storeTable.find({
       status: "accepted",
-      store_id: { $in: store_id },
+      _id: { $in: address_owner_ids },
     });
-
-    const acceptedStore_id = Array(stores.length);
-
-    // const store_id2 = Array(stores.length);
-    const locations = await getLocations();
-    const categoryDict = {},
-      storeDict = {};
-
-    for (let i = 0; i < categories.length; i++) {
-      categoryDict[categories[i]._id] = categories[i].categoryName;
-    }
-
+    const store_ids = Array(stores.length);
     for (let i = 0; i < stores.length; i++) {
-      storeDict[stores[i]._id] = stores[i].storeName;
+      store_ids[i] = stores[i]._id;
     }
-
-    for (let i = 0; i < stores.length; i++) {
-      acceptedStore_id[i] = stores[i]._id;
-    }
-
     const pendingproducts = await productTable.find({
       status: "pending",
-      store_id: { $in: acceptedStore_id },
+      store_id: { $in: store_ids },
     });
     const rejectedproducts = await productTable.find({
       status: "rejected",
-      store_id: { $in: acceptedStore_id },
+      store_id: { $in: store_ids },
     });
     const acceptedproducts = await productTable.find({
       status: "accepted",
-      store_id: { $in: acceptedStore_id },
+      store_id: { $in: store_ids },
     });
+
     // const products = await productTable.find({ store_id: { $in: store_id } });
+    const locations = await getLocations();
+    const categoryDict = {};
+    for (let i = 0; i < categories.length; i++) {
+      categoryDict[categories[i]._id] = categories[i].categoryName;
+    }
+    const storeDict = {};
+    for (let i = 0; i < stores.length; i++) {
+      storeDict[stores[i]._id] = stores[i].storeName;
+    }
     const context = {
       cities: locations.cities,
       categoryDict: categoryDict,

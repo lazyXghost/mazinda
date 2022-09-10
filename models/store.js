@@ -25,6 +25,7 @@ const StoreSchema = new mongoose.Schema({
   whatsappNumber: {
     type: Number,
     required: true,
+    unique: true,
   },
   userType: {
     type: String,
