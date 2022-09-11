@@ -297,6 +297,72 @@
             font-size: 18px;
         }
 
+        @media screen and (min-width: 940px) and (max-width:1200px){
+            .navbar .search{
+                max-width: 300px;
+            }
+        }
+
+        @media screen and (min-width: 800px) and (max-width: 940px){
+            .menu a{
+                display: none;
+            }
+
+            .menu i{
+                display: none;
+            }
+
+            .navbar .search{
+                max-width: 400px;
+                /* width: 100%; */
+            }
+
+            .sub-main{
+                width: 550px;
+            }
+
+            .content{
+                width: 548px;
+            }
+        }
+
+        @media screen and (min-width: 600px) and (max-width:800px){
+            .sub-main{
+                width: 550px;
+            }
+
+            .content{
+                width: 548px;
+            }
+
+            .navbar .search{
+                display: none;
+            }
+
+            .menu a{
+                display: none;
+            }
+
+            .menu i{
+                display: none;
+            }
+        }
+
+        @media screen and (max-width:600px){
+            .nav-list .nav-img, .nav-list .search,.nav-list .menu a, .nav-list .menu i, .nav-list .login-btn{
+                display: none;
+            }
+
+            .sub-main{
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .content{
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -315,13 +381,13 @@
                         <i class="fa-solid fa-microphone search-speak"></i>
                     </div>
                 </li>
-                <li class="nav-items">
+                <li class="nav-items menu"> 
                     <a href="#your-orders">Your orders</a>
                 </li>
-                <li class="nav-items">
+                <li class="nav-items menu">
                     <a href="#contact-us">Contact Us</a>
                 </li>
-                <li class="nav-items">
+                <li class="nav-items menu">
                     <a href="#cart">Cart</a>
                     <i class="fa-solid fa-cart-shopping shopping-cart"></i>
                 </li>
@@ -343,16 +409,7 @@
                       <i class="fa-solid fa-phone"></i>  
                       <input type="number" name="phoneNumber" required placeholder="Phone Number" />
                     </div>
-                    <div class="input-field">
-                        <i class="fa-solid fa-password"></i>
-                        <input type="password" name="password" required placeholder="Password" />
-                    </div>
-                    <!-- <div class="input-field">
-                        <i class="fas fa-code"></i>
-                        <input type="text" name="referralCode" placeholder="Referral Code" />
-                    </div> -->
                     <div class="home-login-btn">
-                        <!-- <input type="submit" class="btn" value="Register" /> -->
                         <input type="submit" value="Log In" class="login-b" />
                     </div>
                     <div class="guest">
@@ -374,7 +431,7 @@
                       </div>
                       <div class="no-account">
                         <span>Don't have an account?</span>
-                        <span><a href="/register">Sign Up</a></span>
+                        <span><a href="#sign-in">Sign Up</a></span>
                       </div>
                     </div>          
                   </form>
