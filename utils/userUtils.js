@@ -404,6 +404,8 @@ module.exports = {
         _id: order.products[i].product_id,
       });
       productDetails.push(product);
+      product.availableQuantity -= order.products[i].quantity;
+      product.save();
       const store = await storeTable.findOne({ _id: product.store_id });
       await moneyDetailTable.create({
         productName: product.name,
