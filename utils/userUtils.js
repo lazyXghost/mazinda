@@ -133,7 +133,10 @@ module.exports = {
           status: "accepted",
           store_id: { $in: [...store_id] },
         })
-      : await productTable.find({ status: "accepted", store_id: { $in: [...store_id] } });
+      : await productTable.find({
+          status: "accepted",
+          store_id: { $in: [...store_id] },
+        });
 
     const { cities } = await getLocations();
     const context = {
@@ -221,11 +224,10 @@ module.exports = {
     if (quantity < 1) return "Quantity cannot be less than 1";
     for (let i = 0; i < cart?.products?.length; i++) {
       if (product_id == cart.products[i].product_id) {
-        if(quantity < product.availableQuantity){
+        if (quantity < product.availableQuantity) {
           cart.products[i].quantity = quantity;
           await cart.save();
-        }
-        else{
+        } else {
           return "Quantity cannot be greater than available Quantity";
         }
       }
@@ -247,6 +249,7 @@ module.exports = {
   },
 
   getCartPageData: async function (req, res) {
+    const valid = [];
     const addresses = await addressTable.find({ user_id: req.user._id });
     const cart = await cartTable.findOne({ user_id: req.user._id });
     const wallet = await walletTable.findOne({ user_id: req.user._id });
@@ -256,6 +259,8 @@ module.exports = {
       const product = await productTable.findOne({
         _id: cart.products[i].product_id,
       });
+      if (product.availableQuantity < cart.products[i].quantity)
+        valid.push(product.name);
       product.availableQuantity = cart.products[i].quantity;
       products[i] = product;
     }
@@ -267,6 +272,7 @@ module.exports = {
       length: length,
       addresses: addresses,
       wallet: wallet,
+      valid: valid,
     };
     return context;
   },

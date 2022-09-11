@@ -26,7 +26,7 @@ const url = require("url");
 
 // <----Registration and authentication for stores----->
 router.get("/register", userLoggedIn, (req, res) => {
-  res.render("user/register", { "message": "" } );
+  res.render("user/register", { message: "" });
 });
 
 router.post("/register", async (req, res) => {
@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
     message == "user already Exists" ||
     message == "Invalid phone Number"
   ) {
-    res.render("user/register", { "message": message });
+    res.render("user/register", { message: message });
   } else {
     res.redirect("/login");
   }
@@ -116,21 +116,37 @@ router.get("/viewCart", userCheck, async (req, res) => {
 
 router.get("/placeOrder", userCheck, async (req, res) => {
   const context = await getCartPageData(req, res);
+  const { valid } = context;
   const product_id = url.parse(req.url, true).query.product_id;
-  const product = await productTable.findOne({
-    _id: product_id,
-  });
-  product.availableQuantity = 1;
-  context.products = [product];
+  if (product_id) {
+    const product = await productTable.findOne({
+      _id: product_id,
+    });
+    if (product.availableQuantity < 1) valid.push(product.name);
+    product.availableQuantity = 1;
+    context.products = [product];
+  }
   const cartPage = req.useragent.isMobile ? "mobile_cart" : "desktop_cart";
-  res.render(`user/${cartPage}`, {
-    authenticated: req.isAuthenticated(),
-    user: req.user,
-    ...context,
-  });
+  if (valid.length > 0) {
+    res.render(`user/${cartPage}`, {
+      authenticated: true,
+      user: req.user,
+      ...context,
+      message: "remove invalid products",
+    });
+  } else {
+    res.render(`user/${cartPage}`, {
+      authenticated: req.isAuthenticated(),
+      user: req.user,
+      ...context,
+    });
+  }
 });
 
 router.get("/addToCart", userCheck, async (req, res) => {
+  // products of only a single category can be added to the cart.
+  // if cart already has a category, then different category product cannot be added.
+  // products will only be added if available quantity for that product is greater than already in cart.
   const params = url.parse(req.url, true).query;
   const product_id = params.product_id;
   const user_id = params.user_id;
@@ -140,25 +156,37 @@ router.get("/addToCart", userCheck, async (req, res) => {
   let checker = false;
   for (let i = 0; i < cart.products.length; i++) {
     if (product_id == cart.products[i].product_id) {
-      cart.products[i].quantity += 1;
-      cart.save();
-      checker = true;
+      if (product.availableQuantity >= cart.products[i].quantity + 1) {
+        cart.products[i].quantity += 1;
+        cart.save();
+        checker = true;
+      }
+    } else {
+      return res.send("not enough stock available");
     }
   }
   if (cart.products.length == 0) {
-    const cartProduct = {
-      product_id: product_id,
-      quantity: 1,
-    };
-    cart.category_id = category_id;
-    await cart.update({ $push: { products: cartProduct } });
-    cart.save();
+    if (product.availableQuantity >= 1) {
+      const cartProduct = {
+        product_id: product_id,
+        quantity: 1,
+      };
+      cart.category_id = category_id;
+      await cart.update({ $push: { products: cartProduct } });
+      cart.save();
+    } else {
+      return res.send("product not available");
+    }
   } else if (checker == false && cart.category_id == category_id) {
-    const product = {
-      product_id: product_id,
-      quantity: 1,
-    };
-    await cart.update({ $push: { products: product } });
+    if (product.availableQuantity >= 1) {
+      const product = {
+        product_id: product_id,
+        quantity: 1,
+      };
+      await cart.update({ $push: { products: product } });
+    } else {
+      return res.send("product not available");
+    }
   }
   return res.send("added product to cart");
 });

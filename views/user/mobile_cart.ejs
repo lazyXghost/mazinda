@@ -541,6 +541,12 @@
     <div class="place">
     <% if(addresses.length == 0) {%>
       <button class="btn buy_btn" disabled>Proceed to Checkout</button>
+    <% } else if(valid.length > 0) {%>
+      <p><%=message%></p>
+      <% for(int i=0;i<valid.length;i++) {%>
+        <p>Remove <%=valid[i]%></p>
+      <%}%>
+      <button class="btn buy_btn" disabled>Proceed to Checkout</button>
     <% } else {%>
         <form action="/placeOrder" method="post">
           <input type="hidden" value="cart" name="orderType">
