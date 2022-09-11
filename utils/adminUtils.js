@@ -105,10 +105,15 @@ module.exports = {
   updateSalePrice: async function (req, res) {
     const product_id = url.parse(req.url, true).query.product_id;
     const newSalePrice = url.parse(req.url, true).query.newSalePrice;
-    await productTable.findOneAndUpdate(
-      { _id: product_id },
-      { salePrice: newSalePrice }
-    );
+    const product = await productTable.findById(product_id);
+    if(product.mrp < newSalePrice)
+      return "SalePrice should be less than MRP";
+    else{
+      await productTable.findOneAndUpdate(
+        { _id: product_id },
+        { salePrice: newSalePrice }
+      );
+    }
     return "Quantity Updated Successfully";
   },
 
