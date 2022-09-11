@@ -216,12 +216,18 @@ module.exports = {
     const product_id = url.parse(req.url, true).query.product_id;
     const user_id = url.parse(req.url, true).query.user_id;
     const quantity = url.parse(req.url, true).query.newQuantity;
-    if (quantity < 1) return "Quantity cannot be less than 1";
+    const product = await productTable.findById(product_id);
     const cart = await cartTable.findOne({ user_id: user_id });
+    if (quantity < 1) return "Quantity cannot be less than 1";
     for (let i = 0; i < cart?.products?.length; i++) {
       if (product_id == cart.products[i].product_id) {
-        cart.products[i].quantity = quantity;
-        cart.save();
+        if(quantity < product.availableQuantity){
+          cart.products[i].quantity = quantity;
+          await cart.save();
+        }
+        else{
+          return "Quantity cannot be greater than available Quantity";
+        }
       }
     }
     return "Quantity Updated Successfully";

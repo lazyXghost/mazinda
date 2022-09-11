@@ -165,6 +165,9 @@ router.get("/addToCart", userCheck, async (req, res) => {
 
 router.get("/updateCartQuantity", userCheck, async (req, res) => {
   await updateCartQuantity(req, res);
+  const user_id = url.parse(req.url, true).query.user_id;
+  const cart = await cartTable.findOne({ user_id: user_id });
+  console.log(cart);
   res.redirect("/viewCart");
 });
 
