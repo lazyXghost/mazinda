@@ -1,3 +1,4 @@
+<!--Updated-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,6 +7,215 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
       <!-- Favicons -->
+       <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="user_UI/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="user_UI/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="user_UI/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
+    <title>Mazinda</title>
+
+    <script src="https://kit.fontawesome.com/de5fa6f0f7.js" crossorigin="anonymous"></script>
+    
+    <style>
+
+      *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .navbar{
+            background-color: white;
+            padding-bottom: 0px;
+        }
+
+        .navbar .nav-list li{
+            list-style: none;
+            display: inline-block;
+        }
+
+        .navbar .nav-list li a{
+            text-decoration: none;
+        }
+
+        .nav-img img{
+            width: 205px;
+            height: 107.02px;
+        }
+
+        .navbar .nav-list{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 0px;
+        }
+        
+        .nav-items .search{
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            width: 600px;
+            height: 45px;
+            border: 1px solid #5597DA;
+            border-radius: 5px;
+        }
+
+        .nav-items .search input{
+            border: none;
+            height: 42px;
+            outline: none;
+            width: 100%;
+            background: rgba(0, 0, 0, 0);
+        }
+
+        .nav-items .search i{
+            margin: 0px 10px;
+        }
+
+        .nav-items a{
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: normal;
+            font-size: 18px;
+            color: #5597DA;
+            font-weight: 700;
+            line-height: 26px;
+        }
+
+        .shopping-cart{
+            color: #5597DA;
+        }
+
+        .login-btn{
+            background: #F26107;
+            border: none;
+            width: 95px;
+            height: 38px;
+            color: white;
+            border-radius: 4px;
+            font-size: 24px;
+        }
+
+        @media screen and (min-width: 940px) and (max-width:1200px){
+            .navbar .search{
+                max-width: 300px;
+            }
+        }
+
+        @media screen and (min-width: 800px) and (max-width: 940px){
+
+            .navbar .search{
+                max-width: 400px;
+                /* width: 100%; */
+            }
+        }
+
+        @media screen and (min-width: 600px) and (max-width:800px){
+
+            .navbar .search{
+                display: none;
+            }
+        }
+
+        @media screen and (max-width:600px){
+            .nav-list .nav-img, .nav-list .search,.nav-list .menu a, .nav-list .menu i, .nav-list .login-btn{
+                display: none;
+            }
+        }
+    </style>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#ajaxBtn").click(function () {
+          $.ajax("/jquery/submitData", {
+            type: "POST", // http method
+            data: { myData: "This is my data." }, // data to submit
+          });
+        });
+      });
+    </script>
+  </head>
+
+  <body class="font-sans leading-normal tracking-normal mt-12">
+    <header>
+      <!--Nav-->
+      <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-items">
+                <div class="nav-img">
+                    <img src="user_UI/img/logos/mazindalong.png" alt="Mazinda Logo">
+                </div>
+            </li>
+            <li class="nav-items">
+                <form class="search" action="/products" method="GET">
+                    <i class="fa-solid fa-magnifying-glass search-logo"></i>
+                    <input type="text" placeholder="Search on Mazinda">
+                    <i class="fa-solid fa-microphone search-speak"></i>
+                </form>
+            </li>
+            <li class="nav-items menu"> 
+                <a href="#your-orders">Your orders</a>
+            </li>
+            <li class="nav-items menu">
+                <a href="#contact-us">Contact Us</a>
+            </li>
+            <li class="nav-items menu">
+                <% if(user && user.userType=="user" ) {%>
+              <a href="/viewCart">Cart
+                <i class="fa-solid fa-cart-shopping shopping-cart"></i>
+                <%=cartItems%>
+              </a>
+              <%} else {%>
+                <a href="/login">Cart
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+              <%}%>
+            </li>
+
+            <li>
+              <% if(user && user.userType=="user" ) {%>
+                <a href="/profile" style="padding: 2px 4px!important;" class="btn btn-primary">
+                  <span><i class="fas fa-user-check"></i></span>
+                </a>
+              <%} else {%>
+                <a href="/login"><button class="login-btn">Log In</button></a>
+              <%}%>
+            </li>
+            
+        </ul>
+    </header>
+
+
+
+
+
+
+
+
+
+
+<!--Previous-->
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+  
       <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -118,9 +328,9 @@
   </head>
 
   <body class="font-sans leading-normal tracking-normal mt-12">
-    <!-- Optimizing mobile view, will work on desktop view at later stage -->
+  
     <header>
-      <!--Nav-->
+  
       <nav
         style="background-color: orange"
         aria-label="menu nav"
@@ -241,4 +451,4 @@
           <li>Contact Us</li>
         </a>
       </ul>
-    </div>
+    </div> -->
