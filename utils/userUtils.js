@@ -1,5 +1,4 @@
 const storeTable = require("../models/store");
-const locationTable = require("../models/location");
 const categoryTable = require("../models/category");
 const productTable = require("../models/product");
 const cartTable = require("../models/cart");
@@ -10,14 +9,12 @@ const addressTable = require("../models/address");
 const walletTable = require("../models/wallet");
 const bcrypt = require("bcryptjs");
 const req = require("express/lib/request");
-const passport = require("passport");
 const url = require("url");
 var shortid = require("shortid");
 const path = require("path");
-const fs = require("fs");
 const ejs = require("ejs");
 const htmlPdf = require("html-pdf");
-const { getLocations, getCategories, addAddress } = require("../utils");
+const { getLocations } = require("./utils");
 
 module.exports = {
   userRegister: async function (req) {

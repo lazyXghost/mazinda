@@ -9,8 +9,7 @@ const addressTable = require("../models/address");
 const locationTable = require("../models/location");
 const url = require("url");
 const fs = require("fs");
-const { getLocations } = require("../utils");
-const multer = require("multer");
+const { getLocations } = require("./utils");
 
 module.exports = {
   addPayment: async function (req) {

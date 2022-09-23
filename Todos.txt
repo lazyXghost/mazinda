@@ -1,3 +1,0 @@
-Add apple-touch-icon.png, favicon.png to user_UI/img
-Add profile pictures from A to Z in user_UI/img/profile
-Added the img-container make it look nice for the profile.

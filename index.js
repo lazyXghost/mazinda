@@ -4,7 +4,6 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const multer = require("multer");
 const useragent = require('express-useragent');
 const userRoutes = require("./routes/userroutes");
 const adminRoutes = require("./routes/adminroutes");

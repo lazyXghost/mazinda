@@ -3,14 +3,13 @@ const router = require("express").Router();
 const { adminCheck, adminLoggedIn } = require("../middleware/auth");
 const url = require("url");
 const multer = require("multer");
-const path = require("path");
 const fs = require("fs");
 const {
   localAdminLogin,
   storeRegister,
   getLocations,
   getCategories,
-} = require("../utils");
+} = require("../utils/utils");
 const {
   addPayment,
   getHomePageData,
@@ -21,7 +20,6 @@ const {
   updateSalePrice,
   productDetailsChange,
   storeStatusChange,
-  moneyDetailStatusChange,
   addCategory,
   deleteCategory,
   addLocation,

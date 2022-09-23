@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const { userCheck, userLoggedIn } = require("../middleware/auth");
-const { addAddress, localUserLogin } = require("../utils");
+const { addAddress, localUserLogin } = require("../utils/utils");
 const {
   userRegister,
   getIndexPageData,
@@ -247,11 +247,6 @@ router.post("/changePassword", userCheck, async (req, res) => {
     message == "passwords do not match"
   ) {
     res.redirect("/profile");
-    // res.render("store/profile", {
-    //   authenticated: req.isAuthenticated(),
-    //   user: req.user,
-    //   message: message,
-    // });
   } else {
     res.redirect("/");
   }

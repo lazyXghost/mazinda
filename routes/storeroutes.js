@@ -1,15 +1,13 @@
 const router = require("express").Router();
-const fs = require("fs");
 const addressTable = require("../models/address");
 const productTable = require("../models/product");
-const storeTable = require("../models/store");
 const moneyDetailsTable = require("../models/moneyDetail");
 const categoryTable = require("../models/category");
 const url = require("url");
 const path = require("path");
 const multer = require("multer");
 const { storeLoggedIn, storeCheck } = require("../middleware/auth");
-const { storeRegister, localStoreLogin } = require("../utils");
+const { storeRegister, localStoreLogin } = require("../utils/utils");
 const {
   addProduct,
   updateQuantity,
@@ -18,7 +16,6 @@ const {
   getRevenue,
   getMoneyPageData,
 } = require("../utils/storeUtils");
-const { findOne, findOneAndUpdate } = require("../models/category");
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -164,11 +161,6 @@ router.post("/changePassword", storeCheck, async (req, res) => {
     message == "passwords do not match"
   ) {
     res.redirect("/store/dashboard");
-    // res.render("store/profile", {
-    //   authenticated: req.isAuthenticated(),
-    //   user: req.user,
-    //   message: message,
-    // });
   } else {
     res.redirect("/store/dashboard");
   }

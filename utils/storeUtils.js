@@ -1,18 +1,11 @@
 const storeTable = require("../models/store");
-const locationTable = require("../models/location");
 const categoryTable = require("../models/category");
 const productTable = require("../models/product");
 const moneyDetailTable = require("../models/moneyDetail");
 const paymentTable = require("../models/payment");
-const userTable = require("../models/user");
-const addressTable = require("../models/address");
-const walletTable = require("../models/wallet");
 const bcrypt = require("bcryptjs");
-const req = require("express/lib/request");
-const passport = require("passport");
 const url = require("url");
-var shortid = require("shortid");
-const { getLocations } = require("../utils");
+const { getLocations } = require("./utils");
 
 module.exports = {
   addProduct: async function (formData, status) {

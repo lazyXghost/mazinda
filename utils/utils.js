@@ -1,15 +1,9 @@
-const storeTable = require("./models/store");
-const locationTable = require("./models/location");
-const categoryTable = require("./models/category");
-const productTable = require("./models/product");
-const userTable = require("./models/user");
-const addressTable = require("./models/address");
-const walletTable = require("./models/wallet");
+const storeTable = require("../models/store");
+const locationTable = require("../models/location");
+const categoryTable = require("../models/category");
+const addressTable = require("../models/address");
 const bcrypt = require("bcryptjs");
-const req = require("express/lib/request");
 const passport = require("passport");
-const url = require("url");
-var shortid = require("shortid");
 
 module.exports = {
   localUserLogin: passport.authenticate("user-local", {
