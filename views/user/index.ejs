@@ -1,9 +1,566 @@
+<!--Bootstrap Link-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+  /*Categories*/
+  .categories{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(85, 151, 218, 1);
+    padding: 15px 140px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  .cat a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+  }
+
+  .cat a img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    margin-left: 15px;
+  }
+
+  .categories::-webkit-scrollbar{
+    width: 2rem;
+    height: 5px;
+  }
+
+  .categories::-webkit-scrollbar-track{
+    opacity: 0;
+  }
+
+  .categories::-webkit-scrollbar-thumb{
+    opacity: 1;
+    background: #000000;
+    border-radius: 20px;
+  }
+
+  /*Carousel*/
+  .carousel{
+    height: 333px !important;
+    background-color: rgba(241, 250, 255, 1);
+  }
+
+  .active{
+    display: flex !important;
+    justify-content: center;
+    height: 90% !important;
+  }
+
+  .car-img{
+    display: inline;
+  }
+
+  .text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .text p{
+    color: white;
+    font-size: 37px;
+    font-weight: 700;
+  }
+
+  .carousel-indicators{
+    position: absolute;
+    top: 310px;
+  }
+
+  .carousel-indicators li{
+    border: black 1px solid;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: 0px;
+  }
+
+  .carousel-indicators .active{
+    width: 30px !important;
+    height: 13px !important;
+    background-color: rgba(85, 151, 218, 1) !important;
+    border-radius: 20px !important;
+  }
+
+  /**Category 2**/
+  #categories2{
+    border: 1px solid rgba(85, 151, 218, 1);
+  }
+
+  .product-cat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .categories-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .product-cat img{
+    border-radius: 50%;
+    width: 170px;
+    height: 170px;
+  }
+
+  .product-cat .discount{
+    width: 107px;
+    height: 20px;
+    border-radius: 4px 0px 4px 0px;
+    position: relative !important;
+    top: 20px;
+  }
+
+  .product-cat span{
+    color: #5597DA;
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  .categories-more{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .categories-more #more-col a {
+    color: #5597DA;
+    margin: 0px 30px;
+  }
+
+  .more-cat{
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: white;
+  }
+
+  #more-col{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #more-col hr{
+    width: 350px;
+    height: 2px;
+    background-color: rgba(85, 151, 218, 1);
+  }
+
+  #space{
+    width: 100%;
+    height: 40px;
+    background-color: rgba(241, 250, 255, 1);
+  }
+
+  /**Trending**/
+  #trendings{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px 25px 35px;
+    border: 1px solid rgba(85, 151, 218, 1);
+  }
+
+  .trending-m{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .trending-m::-webkit-scrollbar{
+    width: 2rem;
+    height: 5px;
+  }
+
+  .trending-m::-webkit-scrollbar-track{
+    opacity: 0;
+  }
+
+  .trending-m::-webkit-scrollbar-thumb{
+    opacity: 1;
+    background: #000000;
+    border-radius: 20px;
+  }
+
+  #trending-main{
+    width: 200%;
+    display: flex;
+    flex-direction: row;
+    z-index: -1;
+    padding-bottom: 10px;
+  }
+
+  #trending-main img{
+    width: 180px;
+    height: 220px;
+    border-radius: 8px;
+    border: 1px solid rgba(85, 151, 218, 1);
+  }
+
+  h6 {
+    display: inline-block;
+    width: 180px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+
+  .rate{
+    display: flex;
+    padding-bottom: 10px;
+    justify-content: left;
+  }
+
+  .sub-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .add-to-cart{
+    background-color: #5597DA;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    width: 135px;
+    height: 28px;
+  }
+
+  .rate .pre{
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: line-through;
+    padding-right: 10px;
+    color: black;
+  }
+
+  .rate span{
+    font-size: 14px;
+    font-weight: 700;
+    color: #5597DA;
+  }
+
+  .title h6{
+    display: inline-block;
+    width: 180px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /**Media Queries**/
+  @media screen and (min-width: 940px) and (max-width:1200px){
+    /**Categories**/
+    .categories{
+      padding: 20px 50px 10px 50px;
+    }
+    .cat a img{
+      width: 90px;
+      height: 90px;
+    }
+
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 250px;
+      border-radius: 15px;
+      margin: 0px 50px;
+    }
+    .car-img{
+      width: 400px;
+      height: 250px;
+    }
+    .text p{
+      font-size: 20px;
+    }
+    .text img{
+      width: 300px;
+      height: 100px;
+    }
+    .carousel{
+      height: 350px !important;
+      padding-top: 25px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: 18px;
+    }
+
+    /**Trendings**/
+    .sub-div img{
+      height: 200px !important;
+      width: 150px !important;
+    }
+    .sub-div .title h6{
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .title{
+      width: 115px;
+      height: 17px;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sub-div{
+      margin: 0px 30px 0px 0px;
+    }
+  }
+
+  @media screen and (min-width: 800px) and (max-width: 940px){
+    /**Categories**/
+    .categories{
+      padding: 20px 25px 10px 25px;
+    }
+    .cat a img{
+      width: 75px;
+      height: 75px;
+    }
+    .cat a{
+      font-size: 15px;
+    }
+
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 250px;
+      border-radius: 10px;
+      margin: 0px 35px;
+    }
+    .car-img{
+      width: auto;
+      height: 200px;
+      position: relative;
+      left: -50px;
+    }
+    .text p{
+      font-size: 18px;
+      position: relative;
+      left: -20px;
+    }
+    .text img{
+      width: 250px;
+      height: 70px;
+      position: relative;
+      left: -20px;
+    }
+    .carousel{
+      height: 301px !important;
+      padding-top: 20px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: -29px;
+    }
+
+    /**Categories2**/
+    #more-col hr{
+      width: 250px;
+    }
+
+    /**Trendings**/
+    .trending-main{
+      width: 120% !important;
+    }
+    .trending-m{
+      width: 100%;
+    }
+    .sub-div img{
+      height: 170px !important;
+      width: 150px !important;
+    }
+    .sub-div .title h6{
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+
+  @media screen and (min-width: 600px) and (max-width:800px){
+    /**Categories**/
+    .categories{
+      padding: 20px 5px 10px 5px;
+    }
+    .cat a img{
+      width: 60px;
+      height: 60px;
+    }
+    .cat a{
+      font-size: 10px;
+    }
+
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 250px;
+      border-radius: 12px;
+      margin: 0px 30px;
+    }
+    .car-img{
+      width: auto;
+      height: 200px;
+      position: relative;
+      left: -30px;
+    }
+    .text p{
+      font-size: 18px;
+      position: relative;
+      left: -20px;
+    }
+    .text img{
+      width: 250px;
+      height: 70px;
+      position: relative;
+      left: -20px;
+    }
+    .carousel{
+      height: 270px !important;
+      padding-top: 15px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: -58px;
+    }
+
+    /**Categories2**/
+    #more-col hr{
+      width: 200px;
+    }
+    .product-cat span{
+      font-size: 14px;
+    }
+
+    /**Trendings**/
+    .sub-div img{
+      height: 150px !important;
+      width: 120px !important;
+    }
+    .sub-div .title h6{
+      font-size: 10px;
+      font-weight: 700;
+    }
+  }
+
+  @media screen and (max-width:600px){
+    /*Categories*/
+    .categories{
+      padding: 15px 7px;
+    }
+    .cat a{
+      color: black;
+      font-size: 8px;
+    }
+    .cat a img{
+      width: 45px;
+      height: 45px;
+    }
+    
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 120px;
+      border-radius: 8px;
+      margin: 0px 15px;
+    }
+    .car-img{
+      width: auto;
+      height: 170px;
+      position: relative;
+      left: -20px;
+    }
+    .text p{
+      font-size: 12px;
+      position: relative;
+      left: -30px;
+    }
+    .text img{
+      width: 140px;
+      height: 50px;
+      position: relative;
+      left: -30px;
+    }
+    .carousel{
+      height: 241px !important;
+      padding-top: 15px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: -87px;
+    }
+
+    /**Categories2**/
+    .product-cat img{
+      width: 90px;
+      height: 90px;
+    }
+    .product-cat .discount{
+      width: 90px;
+    }
+    .product-cat  span{
+      font-size: 10px;
+    }
+    #more-col a{
+      font-size: 14px;
+      padding-top: 5px;
+    }
+    #more-col hr{
+      width: 100px;
+    }
+
+    /**Trendings**/
+    .sub-div img{
+      height: 137px !important;
+      width: 118px !important;
+    }
+    .sub-div .title h6{
+      font-size: 10px;
+      font-weight: 700;
+    }
+    
+  }
+</style>
+
 <%- include('partials/header')%>
+
 <div id="main">
-  <div class="categories flex flex-col">
+  <!--Categories-->
+
+  <!--Backend-->
+  <!-- <div class="categories flex flex-col">
     <div class="flex overflow-x-scroll hide-scroll-bar">
-      <% for(let i=0;i < categories.length;i++) {%>
       <div class="mt-2 mb-0 flex flex-nowrap mx-2">
+        <% for(let i=0;i < categories.length;i++) {%>
         <div class="inline-block px-2 category">
           <a
             href="/products?ID=<%=categories[i]._id%>&city=<%=city%>"
@@ -13,7 +570,7 @@
               style="border-radius: 100%; height: 70px; width: 70px"
               class="img"
             >
-              <!-- ADD CATEGORY IMAGES LOGIC HERE -->
+               ADD CATEGORY IMAGES LOGIC HERE 
               <img
                 style="
                   border-radius: 100%;
@@ -36,8 +593,27 @@
       </div>
       <% }%>
     </div>
+  </div> -->
+
+  <!--Frontend Only-->
+  <div class="cat-m">
+    <div class="categories">
+      <div class="cat"><a href="#mobile"><img src="/user_UI/img/categories/mobile.jpg" alt="mobile-img" >Mobile</a></div>
+      <div class="cat"><a href="#utensils"><img src="/user_UI/img/categories/utensils.jpg" alt="utensils-img" >Utensils</a></div> 
+      <div class="cat"><a href="#bedsheets"><img src="/user_UI/img/categories/beds.jpg" alt="bedsheet-img" >Bedsheet</a></div>
+      <div class="cat"><a href="#groceries"><img src="/user_UI/img/categories/groceries.jpg" alt="groceries-img" >Groceries</a></div>
+      <div class="cat"><a href="#cosmetics"><img src="/user_UI/img/categories/cosmetics.jpg" alt="makeup-img" >MakeUp</a></div>
+      <div class="cat"><a href="#electronics"><img src="/user_UI/img/categories/electronics.jpg" alt="electronics-img" >Electronics</a></div>
+      <div class="cat"><a href="#Toys"><img src="/user_UI/img/categories/toys.jpg" alt="khilone-img" >Toys & More</a></div>
+      <div class="cat"><a href="#mobile"><img src="/user_UI/img/categories/mobile.jpg" alt="mobile-img" >Mobile</a></div>
+      <div class="cat"><a href="#utensils"><img src="/user_UI/img/categories/utensils.jpg" alt="utensils-img" >Utensils</a></div> 
+    </div>
   </div>
-  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+  <!--Carousel-->
+
+  <!--Backend-->
+  <!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img
@@ -79,9 +655,52 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
+  </div> -->
+
+  <!--Frontend only-->
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="background-color: rgba(29, 39, 66, 1);">
+        <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide">
+        <div class="text">
+          <p>ISSE SASTA KHI NHI🥳</p>
+          <img src="/user_UI/img/carousel/carousel-text.png" alt="">
+        </div>
+      </div>
+      <div class="carousel-item" style="background-color: rgba(182, 0, 22, 1);">
+          <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide">
+          <div class="text">
+            <p>ISSE SASTA KHI NHI🥳</p>
+            <img src="/user_UI/img/carousel/carousel-text.png" alt="">
+          </div>
+      </div>
+      <div class="carousel-item" style="background-color: rgba(146, 84, 35, 1);">
+          <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide">
+          <div class="text">
+            <p>ISSE SASTA KHI NHI🥳</p>
+            <img src="/user_UI/img/carousel/carousel-text.png" alt="">
+          </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
 
-  <div class="categoryBoxes lg:mx-40 md:mx-20 mx-10 text-black pt-4">
+  <!--Categories 2-->
+
+  <!--Backend-->
+  <!-- <div class="categoryBoxes lg:mx-40 md:mx-20 mx-10 text-black pt-4">
     <h4 class="text-center heading">offers</h4>
     <div class="flex flex-row justify-around flex-wrap">
       <% for(let i=0;i < offers.length;i++) {%>
@@ -89,17 +708,156 @@
         <div class="offer py-2 bg-blue-800 text-white text-center">
           <%= offers[i].offer %>
         </div>
-        <!-- <div class="image-box">
+         <div class="image-box">
                                 <img src="/user_UI/img/carousel/image1.svg" alt="">
-                            </div> ADD CATEGORY IMAGE HERE -->
+                            </div> ADD CATEGORY IMAGE HERE
         <div class="category-info font-bold text-center">
           <%= offers[i].category %>
         </div>
       </div>
       <% }%>
     </div>
+  </div> -->
+
+  <!--Frontend only-->
+  <!--main-cat-->
+  <div id="categories2">
+    <div class="categories-main">
+      <div class="row">
+      <div class="kitchen product-cat col">
+        <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+        <img src="/user_UI/img/carousel/kitchen.png" alt="Kitchen">
+        <span>KITCHEN</span>
+      </div>
+      <div class="stationary product-cat col">
+        <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+        <img src="/user_UI/img/carousel/stationary.png" alt="stationary">
+        <span>STATIONARY</span>
+      </div>
+      </div>
+      <div class="row">
+      <div class="home-decor product-cat col">
+        <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+        <img src="/user_UI/img/carousel/home.png" alt="home-decor">
+        <span>HOME DECOR</span>
+      </div>
+      <div class="sweets product-cat col">
+        <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+        <img src="/user_UI/img/carousel/sweets.png" alt="sweets">
+        <span>SWEETS</span>
+      </div>
+      </div>
+      <div class="row">
+      <div class="grocery product-cat col">
+        <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+        <img src="/user_UI/img/carousel/rashan.png" alt="grocery">
+        <span>GROCERIES</span>
+      </div>
+      <div class="fruits product-cat col">
+        <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+        <img src="/user_UI/img/carousel/fruits.png" alt="fruits">
+        <span>FRUITS</span>
+      </div>
+      </div>
+    </div>
+
+    <!--categories-more-->
+    <div class="categories-more">
+      <div id="more-col">
+        <hr>
+        <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">MORE vv</a>
+        <hr>
+      </div>
+      <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="more-cat">
+            <div class="categories-main">
+              <div class="row">
+              <div class="baby-products product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/baby-products.png" alt="baby-products">
+                <span>BABY PRODUCTS</span>
+              </div>
+              <div class="bakery product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/Backery.png" alt="bakery">
+                <span>BAKERY</span>
+              </div>
+              </div>
+              <div class="row">
+              <div class="body-health product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/BodyHealth.png" alt="body-health">
+                <span>BODY HEALTH</span>
+              </div>
+              <div class="book-novel product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/BookNovel.png" alt="books-novel">
+                <span>BOOKS & NOVEL</span>
+              </div>
+              </div>
+              <div class="row">
+              <div class="cake product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/CakePastries.png" alt="cake">
+                <span>CAKE & PASTRIES</span>
+              </div>
+              <div class="chocolate product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/chocolates.png" alt="chocolates">
+                <span>CHOCOLATES</span>
+              </div>
+              </div>
+            </div>
+            <div class="categories-main">
+              <div class="row">
+              <div class="dairy product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/dairy.png" alt="dairy">
+                <span>DAIRY</span>
+              </div>
+              <div class="electronics2 product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/electronics2.png" alt="Electronics">
+                <span>ELECTRONICS</span>
+              </div>
+              </div>
+              <div class="row">
+              <div class="footwear product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/footwear.png" alt="footwear">
+                <span>FOOTWEAR</span>
+              </div>
+              <div class="health product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/health.png" alt="health">
+                <span>HEALTH</span>
+              </div>
+              </div>
+              <div class="row">
+              <div class="mens product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/mens.png" alt="mens">
+                <span>MEN</span>
+              </div>
+              <div class="women product-cat col">
+                <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
+                <img src="/user_UI/img/carousel/women.png" alt="women">
+                <span>WOMEN</span>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div
+<div id="space"></div>
+
+<!--trending-now-->
+
+<!--backend-->
+  <!-- <div
     style="background-color: rgb(255, 255, 255)"
     class="products lg:mx-40 md:mx-20 mx-10 text-black pt-4"
   >
@@ -140,8 +898,130 @@
       </div>
       <% } %>
     </div>
+  </div> -->
+
+  <!--frontend only-->
+  <div id="trendings">
+    <h2>TRENDING NOW!!!</h2>
+    <div class="trending-m">
+    <div id="trending-main">
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/boots.png">
+        <div class="title">
+          <h6>Puma White Unisex V2 Shoes</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 5,999</span>
+          <span>4,999</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/puma.png">
+        <div class="title">
+          <h6>Puma Italian Renovatory Shirt</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 3,999</span>
+          <span>3,599</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/boots2.png">
+        <div class="title">
+          <h6>Mercedes AMG Patrons</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 13,999</span>
+          <span>11,999</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/iphone.png">
+        <div class="title">
+          <h6>Iphone 13 Pro Max</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 1,20,000</span>
+          <span>1,15,000</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/Macbook_air.png">
+        <div class="title">
+          <h6>Apple Macbook M2 Series</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 1,20,000</span>
+          <span>1,15,000</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/boots.png">
+        <div class="title">
+          <h6>Puma White Unisex V2 Shoes</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 5,999</span>
+          <span>4,999</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/puma.png">
+        <div class="title">
+          <h6>Puma Italian Renovatory Shirt</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 3,999</span>
+          <span>3,599</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/boots2.png">
+        <div class="title">
+          <h6>Mercedes AMG Patrons</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 13,999</span>
+          <span>11,999</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/iphone.png">
+        <div class="title">
+          <h6>Iphone 13 Pro Max</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 1,20,000</span>
+          <span>1,15,000</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+      <div class="sub-div">
+        <img src="/user_UI/img/trending/Macbook_air.png">
+        <div class="title">
+          <h6>Apple Macbook M2 Series</h6>
+        </div>
+        <div class="rate">
+          <span class="pre">Rs. 1,20,000</span>
+          <span>1,15,000</span>
+        </div>
+        <button class="add-to-cart">ADD TO CART +</button>
+      </div>
+    </div>
+    </div>
   </div>
-  <div
+
+
+  <!--Extras-->
+  <!-- <div
     style="background-color: rgb(255, 255, 255)"
     class="products lg:mx-40 md:mx-20 mx-10 text-black pt-4"
   >
@@ -187,7 +1067,10 @@
       </div>
       <% } %>
     </div>
-  </div>
-</div>
+  </div> -->
+</div> 
 
-<%- include('partials/footer')%>
+<!--Javascript Link-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
