@@ -24,6 +24,7 @@ app.use(
         extended: true,
     })
 );
+
 app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/static"));
