@@ -1,179 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<body class="font-sans leading-normal tracking-normal mt-12">
+    <header>
+        <!--Nav-->
+        <nav class="navbar" style="padding: 0;">
+            <ul class="nav-list">
+                <li class="nav-items">
+                    <div class="nav-img">
+                        <img src="/store_UI/img/mazindalong.png" alt="Mazinda Logo">
+                    </div>
+                </li>
+                <div class="container" id="icons">
+                    <li class="nav-items menu ">
+                        <a href="dashboard.html"> Dashboard</a>
+                    </li>
+                    <li class="nav-items menu">
+                        <a href="products.html">Products</a>
+                    </li>
+                    <li class="nav-items menu " style="word-spacing: 0;">
+                        <a href="/viewCart">Stock Update
+                        </a>
+                    </li>
+                    <li class="nav-items menu ">
+                        <a href="money.html">Money</a>
+                    </li>
+                    <li class="nav-items menu">
+                        <a href="#contact-us" style="word-spacing: 0;"> Contact Us </a>
+                    </li>
+                </div>
+                <li>
+                    <a href="/profile" style="padding: 2px 4px!important;">
+                        <span><i class="fas fa-user-check dp"></i></span>
+                    </a>
 
-    <title>Mazinda</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
+                </li>
 
-    <!-- Favicons -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="user_UI/img/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="user_UI/img/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="user_UI/img/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
-    <!-- <link href="/user_UI/img/favicon.png" rel="icon" /> -->
-    <!-- <link href="/user_UI/img/apple-touch-icon.png" rel="apple-touch-icon" /> -->
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
-
-    <!-- Vendor CSS Files -->
-    <link
-      href="/store_UI/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="/store_UI/vendor/bootstrap-icons/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link
-      href="/store_UI/vendor/boxicons/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link href="/store_UI/vendor/quill/quill.snow.css" rel="stylesheet" />
-    <link href="/store_UI/vendor/quill/quill.bubble.css" rel="stylesheet" />
-    <link href="/store_UI/vendor/remixicon/remixicon.css" rel="stylesheet" />
-    <link
-      href="/store_UI/vendor/simple-datatables/style.css"
-      rel="stylesheet"
-    />
-
-    <!-- Template Main CSS File -->
-    <link href="/store_UI/css/style.css" rel="stylesheet" />
-
-    <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-  </head>
-
-  <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-      <div class="d-flex align-items-center justify-content-between">
-        <a href="/store" class="logo d-flex align-items-center">
-          <img src="/user_UI/img/logos/mazindalong.png" alt="" />
-          <span class="d-none d-lg-block"></span>
-        </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
-      </div>
-      <!-- End Logo -->
-
-      <div class="search-bar">
-        <form
-          class="search-form d-flex align-items-center"
-          method="POST"
-          action="#"
-        >
-          <input
-            type="text"
-            name="query"
-            placeholder="Search"
-            title="Enter search keyword"
-          />
-          <button type="submit" title="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
-      </div>
-      <!-- End Search Bar -->
-
-      <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-          <li class="nav-item d-block d-lg-none">
-            <a class="nav-link nav-icon search-bar-toggle" href="#">
-              <i class="bi bi-search"></i>
-            </a>
-          </li>
-
-          <li class="nav-item dropdown pe-3">
-            <a
-              class="nav-link nav-profile d-flex align-items-center pe-0"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              <span class="img-container"><%=user.sellerName[0]%></span>
-              <span class="d-none d-md-block dropdown-toggle ps-2"
-                ><%= user.sellerName %></span
-              > </a
-            ><!-- End Profile Iamge Icon -->
-
-            <ul
-              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
-            >
-              <li class="dropdown-header">
-                <h6><%= user.sellerName %></h6>
-                <span><%= user.storeName %></span>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="/store/profile"
-                >
-                  <i class="bi bi-person"></i>
-                  <span>My Profile</span>
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="/store/faqs"
-                >
-                  <i class="bi bi-question-circle"></i>
-                  <span>Need Help?</span>
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="/store/logout"
-                >
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
-                </a>
-              </li>
             </ul>
-            <!-- End Profile Dropdown Items -->
-          </li>
-          <!-- End Profile Nav -->
-        </ul>
-      </nav>
-      <!-- End Icons Navigation -->
+
     </header>
-    <!-- End Header -->
-  </body>
-</html>
