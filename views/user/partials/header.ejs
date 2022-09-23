@@ -25,43 +25,35 @@
     />
     <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
     <title>Mazinda</title>
-
     <script src="https://kit.fontawesome.com/de5fa6f0f7.js" crossorigin="anonymous"></script>
     
     <style>
-
       /*navbar*/
       *{
             margin: 0px;
             padding: 0px;
             
         }
-
         body{
             margin: 0px ;
             padding: 0px;
         }
-
         .navbar{
             padding-bottom: 0px;
             margin: 0px;
             padding: 0px;
         }
-
         .navbar .nav-list li{
             list-style: none;
             display: inline-block;
         }
-
         .navbar .nav-list li a{
             text-decoration: none;
         }
-
         .nav-img img{
             width: 205px;
             height: 107.02px;
         }
-
         .navbar .nav-list{
             display: flex;
             flex-direction: row;
@@ -80,7 +72,6 @@
             border: 1px solid #5597DA;
             border-radius: 5px;
         }
-
         .search input{
             border: none;
             height: 42px;
@@ -88,11 +79,9 @@
             width: 100%;
             background: rgba(0, 0, 0, 0);
         }
-
         .search i{
             margin: 0px 10px;
         }
-
         .nav-items a{
             font-family: Arial, Helvetica, sans-serif;
             font-style: normal;
@@ -101,11 +90,9 @@
             font-weight: 700;
             line-height: 26px;
         }
-
         .shopping-cart{
             color: #5597DA;
         }
-
         .login-btn{
             background: #F26107;
             border: none;
@@ -115,20 +102,16 @@
             border-radius: 4px;
             font-size: 24px;
         }
-
         .dropdown{
           display: none;
         }
-
         .mobile-navbar{
           display: none;
         }
-
         .container {
           width:100px;
           position: relative;
         }
-
         .click{
           background-color: #01589b00;
           border:none;
@@ -137,60 +120,51 @@
           height: 40px;
           border-radius: 5px;
         }
-
         .click i{
           color: black;
           font-size: 1.2em;
         }
-
         .click:hover {
           border: 2px solid black;
         }
-
-
         .bars{
           display:none
         }
         @media screen and (min-width: 800px) and (max-width: 940px){
-
         .navbar .search{
             max-width: 250px;
             margin-right: 5px;
         }
-
         .nav-img img{
           width: 170px;
           height: 100px;
           margin-right: 10px;
         }
-
         }
-
         @media screen and (min-width: 600px) and (max-width:800px){
-
         .navbar .search{
             display: none;
         }
-
         .nav-img img{
           width: 150px;
           height: 70px;
           margin-right: 5px;
         }
-
         .login-btn{
           width: 80px;
           height: 35px;
         }
         }
-
         @media screen and (min-width: 940px) and (max-width:1200px){
             .navbar .search{
                 max-width: 300px;
             }
         }
-
         @media screen and (max-width:600px) {
+          .nav-list{
+            display: none;
+          }
+
           nav .menu-btn i{
             display: block;
           }
@@ -207,7 +181,6 @@
             display: block;
             width: 100%;
           }
-
           nav .bars .full-ul ul{
             background-color: #fff;
             padding: 40px 0px 00px 0px;
@@ -325,35 +298,29 @@
           .order{
             display: none;
           }
-
           .search{
             max-width: 260px;
             height: 40px;
           }
-
           .mobile-navbar{
             display: flex;
             width: 100%;
             justify-content: space-around;
             align-items: center;
           }
-
           .navbar .nav-items .search{
             display: none;
           }
-
           .navbar{
             margin: 10px 0px;
             padding: 0px;
           }
-
           .cart{
             font-size: 1.2em;
             color: black;
           }
         }
     </style>
-
     <script type="text/javascript">
       $(document).ready(function () {
         $("#ajaxBtn").click(function () {
@@ -365,7 +332,6 @@
       });
     </script>
   </head>
-
   <body class="font-sans leading-normal tracking-normal mt-12">
     <header>
       <!--Nav-->
@@ -407,7 +373,6 @@
           </form>
           <a href="#cart" class="mobile-cart"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
-
         <ul class="nav-list">
             <li class="nav-items">
                 <div class="nav-img">
@@ -439,7 +404,6 @@
                 </a>
               <%}%>
             </li>
-
             <li>
               <% if(user && user.userType=="user" ) {%>
                 <a href="/profile" style="padding: 2px 4px!important;" class="btn btn-primary">
@@ -451,7 +415,6 @@
             </li>
             
         </ul>
-
         <script>
           
         </script>

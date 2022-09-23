@@ -8,6 +8,9 @@
     justify-content: space-between;
     background-color: rgba(85, 151, 218, 1);
     padding: 15px 140px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
   }
 
   .cat a{
@@ -26,6 +29,22 @@
     height: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
+    margin-left: 15px;
+  }
+
+  .categories::-webkit-scrollbar{
+    width: 2rem;
+    height: 5px;
+  }
+
+  .categories::-webkit-scrollbar-track{
+    opacity: 0;
+  }
+
+  .categories::-webkit-scrollbar-thumb{
+    opacity: 1;
+    background: #000000;
+    border-radius: 20px;
   }
 
   /*Carousel*/
@@ -67,7 +86,7 @@
     width: 10px;
     height: 10px;
     position: relative;
-    top: 17 px;
+    top: 0px;
   }
 
   .carousel-indicators .active{
@@ -143,7 +162,7 @@
   }
 
   #more-col hr{
-    width: 400px;
+    width: 350px;
     height: 2px;
     background-color: rgba(85, 151, 218, 1);
   }
@@ -163,21 +182,36 @@
     align-items: center;
     padding: 20px 0px 25px 35px;
     border: 1px solid rgba(85, 151, 218, 1);
+  }
+
+  .trending-m{
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+    width: 100%;
+  }
+
+  .trending-m::-webkit-scrollbar{
+    width: 2rem;
+    height: 5px;
+  }
+
+  .trending-m::-webkit-scrollbar-track{
+    opacity: 0;
+  }
+
+  .trending-m::-webkit-scrollbar-thumb{
+    opacity: 1;
+    background: #000000;
+    border-radius: 20px;
   }
 
   #trending-main{
-    position: relative;
-    left: 600px;
     width: 200%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    /* overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap; */
+    z-index: -1;
+    padding-bottom: 10px;
   }
 
   #trending-main img{
@@ -199,7 +233,6 @@
     display: flex;
     padding-bottom: 10px;
     justify-content: left;
-    /* justify-content: space-between !important; */
   }
 
   .sub-div{
@@ -207,7 +240,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* width: 180px; */
   }
 
   .add-to-cart{
@@ -243,28 +275,397 @@
     font-weight: 500;
     text-align: center;
   }
+
+  /**Media Queries**/
+  @media screen and (min-width: 940px) and (max-width:1200px){
+    /**Categories**/
+    .categories{
+      padding: 20px 50px 10px 50px;
+    }
+    .cat a img{
+      width: 90px;
+      height: 90px;
+    }
+
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 250px;
+      border-radius: 15px;
+      margin: 0px 50px;
+    }
+    .car-img{
+      width: 400px;
+      height: 250px;
+    }
+    .text p{
+      font-size: 20px;
+    }
+    .text img{
+      width: 300px;
+      height: 100px;
+    }
+    .carousel{
+      height: 350px !important;
+      padding-top: 25px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: 18px;
+    }
+
+    /**Trendings**/
+    .sub-div img{
+      height: 200px !important;
+      width: 150px !important;
+    }
+    .sub-div .title h6{
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .title{
+      width: 115px;
+      height: 17px;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sub-div{
+      margin: 0px 30px 0px 0px;
+    }
+  }
+
+  @media screen and (min-width: 800px) and (max-width: 940px){
+    /**Categories**/
+    .categories{
+      padding: 20px 25px 10px 25px;
+    }
+    .cat a img{
+      width: 75px;
+      height: 75px;
+    }
+    .cat a{
+      font-size: 15px;
+    }
+
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 250px;
+      border-radius: 10px;
+      margin: 0px 35px;
+    }
+    .car-img{
+      width: auto;
+      height: 200px;
+      position: relative;
+      left: -50px;
+    }
+    .text p{
+      font-size: 18px;
+      position: relative;
+      left: -20px;
+    }
+    .text img{
+      width: 250px;
+      height: 70px;
+      position: relative;
+      left: -20px;
+    }
+    .carousel{
+      height: 301px !important;
+      padding-top: 20px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: -29px;
+    }
+
+    /**Categories2**/
+    #more-col hr{
+      width: 250px;
+    }
+
+    /**Trendings**/
+    .trending-main{
+      width: 120% !important;
+    }
+    .trending-m{
+      width: 100%;
+    }
+    .sub-div img{
+      height: 170px !important;
+      width: 150px !important;
+    }
+    .sub-div .title h6{
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+
+  @media screen and (min-width: 600px) and (max-width:800px){
+    /**Categories**/
+    .categories{
+      padding: 20px 5px 10px 5px;
+    }
+    .cat a img{
+      width: 60px;
+      height: 60px;
+    }
+    .cat a{
+      font-size: 10px;
+    }
+
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 250px;
+      border-radius: 12px;
+      margin: 0px 30px;
+    }
+    .car-img{
+      width: auto;
+      height: 200px;
+      position: relative;
+      left: -30px;
+    }
+    .text p{
+      font-size: 18px;
+      position: relative;
+      left: -20px;
+    }
+    .text img{
+      width: 250px;
+      height: 70px;
+      position: relative;
+      left: -20px;
+    }
+    .carousel{
+      height: 270px !important;
+      padding-top: 15px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: -58px;
+    }
+
+    /**Categories2**/
+    #more-col hr{
+      width: 200px;
+    }
+    .product-cat span{
+      font-size: 14px;
+    }
+
+    /**Trendings**/
+    .sub-div img{
+      height: 150px !important;
+      width: 120px !important;
+    }
+    .sub-div .title h6{
+      font-size: 10px;
+      font-weight: 700;
+    }
+  }
+
+  @media screen and (max-width:600px){
+    /*Categories*/
+    .categories{
+      padding: 15px 7px;
+    }
+    .cat a{
+      color: black;
+      font-size: 8px;
+    }
+    .cat a img{
+      width: 45px;
+      height: 45px;
+    }
+    
+    /**Carousel**/
+    .carousel-item{
+      width: auto;
+      height: 120px;
+      border-radius: 8px;
+      margin: 0px 15px;
+    }
+    .car-img{
+      width: auto;
+      height: 170px;
+      position: relative;
+      left: -20px;
+    }
+    .text p{
+      font-size: 12px;
+      position: relative;
+      left: -30px;
+    }
+    .text img{
+      width: 140px;
+      height: 50px;
+      position: relative;
+      left: -30px;
+    }
+    .carousel{
+      height: 241px !important;
+      padding-top: 15px;
+    }
+    .carousel-indicators li{
+      position: relative;
+      top: -87px;
+    }
+
+    /**Categories2**/
+    .product-cat img{
+      width: 90px;
+      height: 90px;
+    }
+    .product-cat .discount{
+      width: 90px;
+    }
+    .product-cat  span{
+      font-size: 10px;
+    }
+    #more-col a{
+      font-size: 14px;
+      padding-top: 5px;
+    }
+    #more-col hr{
+      width: 100px;
+    }
+
+    /**Trendings**/
+    .sub-div img{
+      height: 137px !important;
+      width: 118px !important;
+    }
+    .sub-div .title h6{
+      font-size: 10px;
+      font-weight: 700;
+    }
+    
+  }
 </style>
 
 <%- include('partials/header')%>
 
 <div id="main">
-<!--Frontend Only-->
-<div class="categories">
-  <% for(let i=0;i < categories.length;i++) {%>
-    <div class="cat">
-      <a href="/products?ID=<%=categories[i]._id%>&city=<%=city%>">
-        <img style="
-          border-radius: 100%;
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
-          " src="/user_UI/img/categories/<%=categories[i].categoryName %>.png" alt="<%=categories[i].categoryName %>" />
-        <%= categories[i].categoryName%>
-      </a>
-    </div>
-  <% } %>
-</div>
+  <!--Categories-->
 
+  <!--Backend-->
+  <!-- <div class="categories flex flex-col">
+    <div class="flex overflow-x-scroll hide-scroll-bar">
+      <div class="mt-2 mb-0 flex flex-nowrap mx-2">
+        <% for(let i=0;i < categories.length;i++) {%>
+        <div class="inline-block px-2 category">
+          <a
+            href="/products?ID=<%=categories[i]._id%>&city=<%=city%>"
+            style="color: black; text-decoration: none"
+          >
+            <div
+              style="border-radius: 100%; height: 70px; width: 70px"
+              class="img"
+            >
+               ADD CATEGORY IMAGES LOGIC HERE 
+              <img
+                style="
+                  border-radius: 100%;
+                  object-fit: cover;
+                  height: 100%;
+                  width: 100%;
+                "
+                src="/user_UI/img/categories/<%=categories[i].categoryName %>.png"
+                alt="<%=categories[i].categoryName %>"
+              />
+            </div>
+            <p
+              class="text-center"
+              style="width: 70px; font-size: 14px; font-weight: 500"
+            >
+              <%= categories[i].categoryName%>
+            </p>
+          </a>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-color: rgba(182, 0, 22, 1);">
+          <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide">
+          <div class="text">
+            <p>ISSE SASTA KHI NHI🥳</p>
+            <img src="/user_UI/img/carousel/carousel-text.png" alt="">
+          </div>
+      </div>
+      <div class="carousel-item" style="background-color: rgba(146, 84, 35, 1);">
+          <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide">
+          <div class="text">
+            <p>ISSE SASTA KHI NHI🥳</p>
+            <img src="/user_UI/img/carousel/carousel-text.png" alt="">
+          </div>
+        </div>
+    </div>
+  </div> -->
+
+  <!--Frontend Only-->
+  <div class="cat-m">
+    <div class="categories">
+      <div class="cat"><a href="#mobile"><img src="/user_UI/img/categories/mobile.jpg" alt="mobile-img" >Mobile</a></div>
+      <div class="cat"><a href="#utensils"><img src="/user_UI/img/categories/utensils.jpg" alt="utensils-img" >Utensils</a></div> 
+      <div class="cat"><a href="#bedsheets"><img src="/user_UI/img/categories/beds.jpg" alt="bedsheet-img" >Bedsheet</a></div>
+      <div class="cat"><a href="#groceries"><img src="/user_UI/img/categories/groceries.jpg" alt="groceries-img" >Groceries</a></div>
+      <div class="cat"><a href="#cosmetics"><img src="/user_UI/img/categories/cosmetics.jpg" alt="makeup-img" >MakeUp</a></div>
+      <div class="cat"><a href="#electronics"><img src="/user_UI/img/categories/electronics.jpg" alt="electronics-img" >Electronics</a></div>
+      <div class="cat"><a href="#Toys"><img src="/user_UI/img/categories/toys.jpg" alt="khilone-img" >Toys & More</a></div>
+      <div class="cat"><a href="#mobile"><img src="/user_UI/img/categories/mobile.jpg" alt="mobile-img" >Mobile</a></div>
+      <div class="cat"><a href="#utensils"><img src="/user_UI/img/categories/utensils.jpg" alt="utensils-img" >Utensils</a></div> 
+    </div>
+  </div>
+
+  <!--Carousel-->
+
+  <!--Backend-->
+  <!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          class="d-block w-90"
+          src="/user_UI/img/carousel/image1.svg"
+          alt="First slide"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          class="d-block w-90"
+          src="/user_UI/img/carousel/image2.svg"
+          alt="Second slide"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          class="d-block w-90"
+          src="/user_UI/img/carousel/image3.svg"
+          alt="Third slide"
+        />
+      </div>
+    </div>
+    <a
+      class="carousel-control-prev"
+      href="#carouselExampleControls"
+      role="button"
+      data-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div> -->
+
+  <!--Frontend only-->
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -292,7 +693,7 @@
             <p>ISSE SASTA KHI NHI🥳</p>
             <img src="/user_UI/img/carousel/carousel-text.png" alt="">
           </div>
-        </div>
+      </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -330,35 +731,41 @@
   <!--main-cat-->
   <div id="categories2">
     <div class="categories-main">
-      <div class="kitchen product-cat">
+      <div class="row">
+      <div class="kitchen product-cat col">
         <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
         <img src="/user_UI/img/carousel/kitchen.png" alt="Kitchen">
         <span>KITCHEN</span>
       </div>
-      <div class="stationary product-cat">
+      <div class="stationary product-cat col">
         <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
         <img src="/user_UI/img/carousel/stationary.png" alt="stationary">
         <span>STATIONARY</span>
       </div>
-      <div class="home-decor product-cat">
+      </div>
+      <div class="row">
+      <div class="home-decor product-cat col">
         <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
         <img src="/user_UI/img/carousel/home.png" alt="home-decor">
         <span>HOME DECOR</span>
       </div>
-      <div class="sweets product-cat">
+      <div class="sweets product-cat col">
         <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
         <img src="/user_UI/img/carousel/sweets.png" alt="sweets">
         <span>SWEETS</span>
       </div>
-      <div class="grocery product-cat">
+      </div>
+      <div class="row">
+      <div class="grocery product-cat col">
         <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
         <img src="/user_UI/img/carousel/rashan.png" alt="grocery">
         <span>GROCERIES</span>
       </div>
-      <div class="fruits product-cat">
+      <div class="fruits product-cat col">
         <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
         <img src="/user_UI/img/carousel/fruits.png" alt="fruits">
         <span>FRUITS</span>
+      </div>
       </div>
     </div>
 
@@ -373,67 +780,79 @@
         <div class="collapse multi-collapse" id="multiCollapseExample1">
           <div class="more-cat">
             <div class="categories-main">
-              <div class="baby-products product-cat">
+              <div class="row">
+              <div class="baby-products product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/baby-products.png" alt="baby-products">
                 <span>BABY PRODUCTS</span>
               </div>
-              <div class="bakery product-cat">
+              <div class="bakery product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/Backery.png" alt="bakery">
                 <span>BAKERY</span>
               </div>
-              <div class="body-health product-cat">
+              </div>
+              <div class="row">
+              <div class="body-health product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/BodyHealth.png" alt="body-health">
                 <span>BODY HEALTH</span>
               </div>
-              <div class="book-novel product-cat">
+              <div class="book-novel product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/BookNovel.png" alt="books-novel">
                 <span>BOOKS & NOVEL</span>
               </div>
-              <div class="cake product-cat">
+              </div>
+              <div class="row">
+              <div class="cake product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/CakePastries.png" alt="cake">
                 <span>CAKE & PASTRIES</span>
               </div>
-              <div class="chocolate product-cat">
+              <div class="chocolate product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/chocolates.png" alt="chocolates">
                 <span>CHOCOLATES</span>
               </div>
+              </div>
             </div>
             <div class="categories-main">
-              <div class="dairy product-cat">
+              <div class="row">
+              <div class="dairy product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/dairy.png" alt="dairy">
                 <span>DAIRY</span>
               </div>
-              <div class="electronics2 product-cat">
+              <div class="electronics2 product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/electronics2.png" alt="Electronics">
                 <span>ELECTRONICS</span>
               </div>
-              <div class="footwear product-cat">
+              </div>
+              <div class="row">
+              <div class="footwear product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/footwear.png" alt="footwear">
                 <span>FOOTWEAR</span>
               </div>
-              <div class="health product-cat">
+              <div class="health product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/health.png" alt="health">
                 <span>HEALTH</span>
               </div>
-              <div class="mens product-cat">
+              </div>
+              <div class="row">
+              <div class="mens product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/mens.png" alt="mens">
                 <span>MEN</span>
               </div>
-              <div class="women product-cat">
+              <div class="women product-cat col">
                 <img src="/user_UI/img/carousel/50_off.png" alt="50% off" class="discount">
                 <img src="/user_UI/img/carousel/women.png" alt="women">
                 <span>WOMEN</span>
+              </div>
               </div>
             </div>
           </div>
@@ -492,6 +911,7 @@
   <!--frontend only-->
   <div id="trendings">
     <h2>TRENDING NOW!!!</h2>
+    <div class="trending-m">
     <div id="trending-main">
       <div class="sub-div">
         <img src="/user_UI/img/trending/boots.png">
@@ -603,6 +1023,7 @@
         </div>
         <button class="add-to-cart">ADD TO CART +</button>
       </div>
+    </div>
     </div>
   </div>
 
