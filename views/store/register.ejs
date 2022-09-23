@@ -1,46 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="user_UI/assets/favicon_io/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="user_UI/assets/favicon_io/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="user_UI/assets/favicon_io/favicon-32x32.png"
-    />
-
+    <link rel="apple-touch-icon" sizes="180x180" href="user_UI/assets/favicon_io/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="user_UI/assets/favicon_io/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="user_UI/assets/favicon_io/favicon-32x32.png" />
     <link rel="manifest" href="user_UI/assets/favicon_io/site.webmanifest" />
-  
-
     <title>Register</title>
     <script src="https://kit.fontawesome.com/de5fa6f0f7.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="/store_UI/css/register.css">
-</head>
-<%- include('partials/header')%>
-
+    <link rel="stylesheet" href="/store_UI/css/register.css">
+  </head>
+  <%- include('partials/header')%>
     <div id="main">
-        <div id="sub-main">
-          <div id="content">
-            <form action="/register" method="POST" class="sign-in-form">
+      <div id="sub-main">
+        <div id="content">
+          <form action="/register" method="POST" class="sign-in-form">
             <h2 class="title" id="reg">REGISTER STORE</h2>
             <div id="con-span">
               <span>Register and verify your store with us
-                </span>
+              </span>
               <span>to sell your products</span>
             </div>
             <div class="input-field">
@@ -54,48 +35,40 @@
             <div class="input-field" style="width: 100px; margin-right: 170px;">
               <span> </span>
               <input type="text" name="City" required placeholder="City" />
-              <select name="city" ><option value="Not Selected">Not Selected</option><option value="1"></option></select>
+              <select name="city">
+                <option value="Not Selected">Not Selected</option>
+                <option value="1"></option>
+              </select>
             </div>
             <div class="input-field">
               <i class="fa-sharp fa-solid fa-house"></i>
-                <input type="text" name="Store Address" required placeholder="Store Address" />
-              </div>
-              <div class="input-field">
-                <i class="fa-solid fa-lock"></i>
-                <input type="number" name="pincode" required placeholder="Pincode" />
-              </div>
-              <div class="input-field">
-                <i class="fas fa-envelope"></i>
-                <input type="email" name="email" required placeholder="Email" />
-              </div>
+              <input type="text" name="Store Address" required placeholder="Store Address" />
+            </div>
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+              <input type="number" name="pincode" required placeholder="Pincode" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" name="email" required placeholder="Email" />
+            </div>
             <div class="input-field">
               <i class="fa-solid fa-lock"></i>
               <input type="password" name="password" required placeholder="Password" />
             </div>
             <div class="input-field">
               <i class="fa-solid fa-lock"></i>
-                <input type="password" name="confirm password" required placeholder="Confirm Password" />
-              </div>
+              <input type="password" name="confirm password" required placeholder="Confirm Password" />
+            </div>
             <div class="input-field">
               <i class="fas fa-phone"></i>
-              <input
-                type="number"
-                name="phoneNumber"
-                required
-                placeholder="Phone Number"
-              />
+              <input type="number" name="phoneNumber" required placeholder="Phone Number" />
             </div>
             <div class="input-field">
               <i class="fa-solid fa-lock"></i>
-             
-              <input
-                type="number"
-                name="OTP"
-                placeholder="Enter OTP"
-              />
+              <input type="number" name="OTP" placeholder="Enter OTP" />
             </div>
             <div id="conditions">
-                
               <span style="margin-right: 65px;"><input type="checkbox"> I accept <a href="T&C">terms</a> & <a href="pp">conditions</a></span>
             </div>
             <button type="submit" class="btn Sign" value="Sign-up">Sign Up</button>
@@ -104,31 +77,23 @@
               <span class="last_span">Sign Up with</span>
               <div id="fonts">
                 <div id="facebook">
-                    <i class="fa-brands fa-facebook-f"></i>
+                  <i class="fa-brands fa-facebook-f"></i>
                 </div>
                 <div id="google">
-                    <i class="fa-brands fa-google"></i>
+                  <i class="fa-brands fa-google"></i>
                 </div>
                 <div id="apple">
-                    <i class="fa-brands fa-apple"></i>
+                  <i class="fa-brands fa-apple"></i>
                 </div>
-             </div>
+              </div>
             </div>
             <span class="last_span">Already Registered? <a href="/login">Log In</a> </span>
           </form>
-          </div>
         </div>
       </div>
-  
-      <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
-        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-        crossorigin="anonymous"
-      ></script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     </body>
-  </html>
+
+</html>

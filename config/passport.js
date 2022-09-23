@@ -19,16 +19,16 @@ module.exports = function (passport) {
   passport.use(
     "store-local",
     new localStrategy(
-      { usernameField: "input", passwordField: "password" },
-      async function (input, password, done) {
+      { usernameField: "email", passwordField: "password" },
+      async function (email, password, done) {
         const storeTable = require("../models/store");
         let store;
-        if (input.search("@") != -1)
-          store = await storeTable.findOne({ email: input });
+        if (email.search("@") != -1)
+          store = await storeTable.findOne({ email: email });
         else
-          store = (await storeTable.findOne({ phoneNumber: input })) || (await storeTable.findOne({ whatsappNumber: input }));
+          store = (await storeTable.findOne({ phoneNumber: email })) || (await storeTable.findOne({ whatsappNumber: email }));
 
-        console.log(input);
+        console.log(email);
         console.log(store);
         if (store && (await bcrypt.compare(password, store.password))) {
           return done(null, store);

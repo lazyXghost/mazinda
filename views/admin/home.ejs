@@ -1,27 +1,34 @@
 <%- include('partials/header') %>
-
-<div class="cover main-box">
-    <div class="container">
-        <div>
-            <i class="fa-solid fa-cart-plus"></i>
-            <h3>Total Orders</h3>
-            <div class="number"><%= orders %></div>
-        </div>
-        <div>
-            <i class="fa-solid fa-money-bill-trend-up"></i>
-            <h3>Total Revenue</h3>
-            <div class="number"><%= revenue %></div>
-        </div>
-        <div>
-            <i class="fa-solid fa-users"></i>
-            <h3>Total Customers</h3>
-            <div class="number"><%= users %></div>
-        </div>
-        <div>
-            <i class="fa-solid fa-store"></i>
-            <h3>Total Stores</h3>
-            <div class="number"><%= acceptedStores %></div>
+    <div class="cover main-box">
+        <div class="container">
+            <div>
+                <i class="fa-solid fa-cart-plus"></i>
+                <h3>Total Orders</h3>
+                <div class="number">
+                    <%= orders %>
+                </div>
+            </div>
+            <div>
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+                <h3>Total Revenue</h3>
+                <div class="number">
+                    <%= revenue %>
+                </div>
+            </div>
+            <div>
+                <i class="fa-solid fa-users"></i>
+                <h3>Total Customers</h3>
+                <div class="number">
+                    <%= users %>
+                </div>
+            </div>
+            <div>
+                <i class="fa-solid fa-store"></i>
+                <h3>Total Stores</h3>
+                <div class="number">
+                    <%= acceptedStores %>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>

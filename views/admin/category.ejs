@@ -1,67 +1,67 @@
 <%- include('partials/header') %>
-
-<header>
+  <header>
     <div class="cover header">
-        <h3>Add New Coupon</h3>
+      <h3>Add New Coupon</h3>
     </div>
-</header>
-
-<form action="/admin/addCategory" enctype="multipart/form-data" class="cover" method="POST">
+  </header>
+  <form action="/admin/addCategory" enctype="multipart/form-data" class="cover" method="POST">
     <div class="container">
-        <input type="text" name="categoryName" placeholder="Enter Catagory">
-        <div class="col-12">
-
-          <!-- <label for="image" class="form-label">Image</label> -->
-          <input type="file" name="image" class="form-control" id="image"  placeholder="choose image" accept="image/png, image/jpeg, image/jpg" required>
-          <!-- <div class="invalid-feedback">Please, upload an Image!</div> -->
-
-        </div>
-        <button type="Submit">Add Category</button>
+      <input type="text" name="categoryName" placeholder="Enter Catagory">
+      <div class="col-12">
+        <!-- <label for="image" class="form-label">Image</label> -->
+        <input type="file" name="image" class="form-control" id="image" placeholder="choose image" accept="image/png, image/jpeg, image/jpg" required>
+        <!-- <div class="invalid-feedback">Please, upload an Image!</div> -->
+      </div>
+      <button type="Submit">Add Category</button>
     </div>
-</form>
-
-<br>
-<header>
+  </form>
+  <br>
+  <header>
     <div class="cover header">
-        <h3>Categories Info</h3>
+      <h3>Categories Info</h3>
     </div>
-</header>
-
-<div class="list">
+  </header>
+  <div class="list">
     <div class="cover">
-        <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <table>
-                  <thead>
-                    <tr>
-                      <th >Serial Number</th>
-                      <th >Category</th>
-                      <th >Number of products</th>
-                      <th>Manage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for(let i=0;i < category.length;i++) {%>
-                    <tr>
-                      <th ><%= (i+1) %></th>
-                      <td><%= category[i].categoryName %></td>
-                      <td><%= category[i].quantity %></td>
-                      <td>
-                        <form action="/admin/deleteCategory" method="POST">
-                        <button type="submit" name="category" value="<%=category[i]._id %>"  class="red"><i class="far fa-trash-alt"></i></button>
-                        </form>
-                      </td>
-                    </tr>
-                    <% } %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <table>
+              <thead>
+                <tr>
+                  <th>Serial Number</th>
+                  <th>Category</th>
+                  <th>Number of products</th>
+                  <th>Manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i=0;i < category.length;i++) {%>
+                  <tr>
+                    <th>
+                      <%= (i+1) %>
+                    </th>
+                    <td>
+                      <%= category[i].categoryName %>
+                    </td>
+                    <td>
+                      <%= category[i].quantity %>
+                    </td>
+                    <td>
+                      <form action="/admin/deleteCategory" method="POST">
+                        <button type="submit" name="category" value="<%=category[i]._id %>" class="red"><i class="far fa-trash-alt"></i></button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% } %>
+              </tbody>
+            </table>
           </div>
+        </div>
+      </div>
     </div>
-</div>
-<!--
+  </div>
+  <!--
 <script>
   const editCategory = document.getElementsByClassName("green");
   const deleteCategory = document.getElementsByClassName("red");
@@ -75,6 +75,4 @@
   }));
 </script>
 -->
-
-
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>

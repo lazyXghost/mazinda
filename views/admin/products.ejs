@@ -1,291 +1,289 @@
 <%- include('partials/header') %>
-<header>
-  <div class="cover header">
-    <div class="search">
-      <input
-        class="search-input"
-        type="search"
-        name=""
-        id=""
-        placeholder="Search"
-      />
-      <i class="fa-search fas"></i>
-    </div>
-
-    <form action="/admin/products">
-      <label for="currentCity">City:</label>
-      <select name="currentCity" id="currentCity">
-        <option value="<%= currentCity %>"><%= currentCity %></option>
-        <% for(let i=0;i < cities.length;i++) { %> <% if(cities[i] !=
-        currentCity) {%>
-        <option value="<%= cities[i] %>"><%= cities[i] %></option>
-        <% } %> <% } %>
-      </select>
-      <button type="Submit">Submit</button>
-    </form>
-  </div>
-</header>
-
-<div class="list">
-  <div class="cover">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          Pending Products
-          <table>
-            <thead>
-              <tr>
-                <th>Serial Number</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Seller</th>
-                <th>MRP</th>
-                <th>SalePrice</th>
-                <th>CostPrice</th>
-                <th>TopDeal/Trending</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for(let i=0;i < pending.length;i++) { %>
-              <tr>
-                <th><%= (i+1) %></th>
-                <td><%= pending[i].name %></td>
-                <td><%= categoryDict[pending[i].category_id] %></td>
-                <td><%= storeDict[pending[i].store_id] %></td>
-                <td><%= pending[i].mrp %></td>
-                <td>
-                  <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= pending[i].salePrice %>"  onchange="changeSalePrice('<%= pending[i]._id %>', this)">
-                </td>
-                <td><%= pending[i].costPrice %></td>
-                <td>
-                  <% if(pending[i].topDeal == false ) {%>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=topDeal&newValue=true"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <% }else{ %>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=topDeal&newValue=false"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
-                  <% } %>
-                  <% if(pending[i].trending == false ) {%>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=trending&newValue=true"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <% }else{ %>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=trending&newValue=false"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
-                  <% } %>
-                </td>
-                <td>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=status&newValue=accepted"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=status&newValue=rejected"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
-                </td>
-              </tr>
+  <header>
+    <div class="cover header">
+      <div class="search">
+        <input class="search-input" type="search" name="" id="" placeholder="Search" />
+        <i class="fa-search fas"></i>
+      </div>
+      <form action="/admin/products">
+        <label for="currentCity">City:</label>
+        <select name="currentCity" id="currentCity">
+          <option value="<%= currentCity %>">
+            <%= currentCity %>
+          </option>
+          <% for(let i=0;i < cities.length;i++) { %>
+            <% if(cities[i] !=currentCity) {%>
+              <option value="<%= cities[i] %>">
+                <%= cities[i] %>
+              </option>
               <% } %>
-            </tbody>
-          </table>
+                <% } %>
+        </select>
+        <button type="Submit">Submit</button>
+      </form>
+    </div>
+  </header>
+  <div class="list">
+    <div class="cover">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            Pending Products
+            <table>
+              <thead>
+                <tr>
+                  <th>Serial Number</th>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Seller</th>
+                  <th>MRP</th>
+                  <th>SalePrice</th>
+                  <th>CostPrice</th>
+                  <th>TopDeal/Trending</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i=0;i < pending.length;i++) { %>
+                  <tr>
+                    <th>
+                      <%= (i+1) %>
+                    </th>
+                    <td>
+                      <%= pending[i].name %>
+                    </td>
+                    <td>
+                      <%= categoryDict[pending[i].category_id] %>
+                    </td>
+                    <td>
+                      <%= storeDict[pending[i].store_id] %>
+                    </td>
+                    <td>
+                      <%= pending[i].mrp %>
+                    </td>
+                    <td>
+                      <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= pending[i].salePrice %>" onchange="changeSalePrice('<%= pending[i]._id %>', this)">
+                    </td>
+                    <td>
+                      <%= pending[i].costPrice %>
+                    </td>
+                    <td>
+                      <% if(pending[i].topDeal==false ) {%>
+                        <a href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=topDeal&newValue=true">
+                          <button type="button" class="green">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </a>
+                        <% }else{ %>
+                          <a href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=topDeal&newValue=false">
+                            <button type="button" class="red">
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+                          </a>
+                          <% } %>
+                            <% if(pending[i].trending==false ) {%>
+                              <a href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=trending&newValue=true">
+                                <button type="button" class="green">
+                                  <i class="fas fa-check"></i>
+                                </button>
+                              </a>
+                              <% }else{ %>
+                                <a href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=trending&newValue=false">
+                                  <button type="button" class="red">
+                                    <i class="far fa-trash-alt"></i>
+                                  </button>
+                                </a>
+                                <% } %>
+                    </td>
+                    <td>
+                      <a href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=status&newValue=accepted">
+                        <button type="button" class="green">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      </a>
+                      <a href="/admin/productDetailsChange?ID=<%=pending[i]._id%>&task=status&newValue=rejected">
+                        <button type="button" class="red">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </a>
+                    </td>
+                  </tr>
+                  <% } %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<header class="">
-  <div class="cover header">Products Info</div>
-</header>
-
-<div class="list">
-  <div class="cover">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          Accepted Products
-          <table>
-            <thead>
-              <tr>
-                <th>Serial Number</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Seller Name</th>
-                <th>MRP</th>
-                <th>SalePrice</th>
-                <th>CostPrice</th>
-                <th>TopDeal/Trending</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for(let i=0;i < accepted.length;i++) { %>
-              <tr>
-                <th><%= (i+1) %></th>
-                <td><%= accepted[i].name %></td>
-                <td><%= categoryDict[accepted[i].category_id] %></td>
-                <td><%= storeDict[accepted[i].store_id] %></td>
-                <td><%= accepted[i].mrp %></td>
-                <td>
-                  <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= accepted[i].salePrice %>"  onchange="changeSalePrice('<%= accepted[i]._id %>', this)">
-                </td>
-                <td><%= accepted[i].costPrice %></td>
-                <td>
-                  <% if(accepted[i].topDeal == false ) {%>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=topDeal&newValue=true"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <% }else{ %>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=topDeal&newValue=false"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
+  <header class="">
+    <div class="cover header">Products Info</div>
+  </header>
+  <div class="list">
+    <div class="cover">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            Accepted Products
+            <table>
+              <thead>
+                <tr>
+                  <th>Serial Number</th>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Seller Name</th>
+                  <th>MRP</th>
+                  <th>SalePrice</th>
+                  <th>CostPrice</th>
+                  <th>TopDeal/Trending</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i=0;i < accepted.length;i++) { %>
+                  <tr>
+                    <th>
+                      <%= (i+1) %>
+                    </th>
+                    <td>
+                      <%= accepted[i].name %>
+                    </td>
+                    <td>
+                      <%= categoryDict[accepted[i].category_id] %>
+                    </td>
+                    <td>
+                      <%= storeDict[accepted[i].store_id] %>
+                    </td>
+                    <td>
+                      <%= accepted[i].mrp %>
+                    </td>
+                    <td>
+                      <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= accepted[i].salePrice %>" onchange="changeSalePrice('<%= accepted[i]._id %>', this)">
+                    </td>
+                    <td>
+                      <%= accepted[i].costPrice %>
+                    </td>
+                    <td>
+                      <% if(accepted[i].topDeal==false ) {%>
+                        <a href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=topDeal&newValue=true">
+                          <button type="button" class="green">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </a>
+                        <% }else{ %>
+                          <a href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=topDeal&newValue=false">
+                            <button type="button" class="red">
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+                          </a>
+                          <% } %>
+                            <% if(accepted[i].trending==false ) {%>
+                              <a href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=trending&newValue=true">
+                                <button type="button" class="green">
+                                  <i class="fas fa-check"></i>
+                                </button>
+                              </a>
+                              <% }else{ %>
+                                <a href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=trending&newValue=false">
+                                  <button type="button" class="red">
+                                    <i class="far fa-trash-alt"></i>
+                                  </button>
+                                </a>
+                                <% } %>
+                    </td>
+                    <td>
+                      <a href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=status&newValue=rejected">
+                        <button type="button" class="red">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </a>
+                    </td>
+                  </tr>
                   <% } %>
-                  <% if(accepted[i].trending == false ) {%>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=trending&newValue=true"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <% }else{ %>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=trending&newValue=false"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
+              </tbody>
+            </table>
+            <br />
+            Rejected Products
+            <table>
+              <thead>
+                <tr>
+                  <th>Serial Number</th>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Seller Name</th>
+                  <th>MRP</th>
+                  <th>SalePrice</th>
+                  <th>CostPrice</th>
+                  <th>TopDeal/Trending</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i=0;i < rejected.length;i++) { %>
+                  <tr>
+                    <th>
+                      <%= (i+1) %>
+                    </th>
+                    <td>
+                      <%= rejected[i].name %>
+                    </td>
+                    <td>
+                      <%= categoryDict[rejected[i].category_id] %>
+                    </td>
+                    <td>
+                      <%= storeDict[rejected[i].store_id] %>
+                    </td>
+                    <td>
+                      <%= rejected[i].mrp %>
+                    </td>
+                    <td>
+                      <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= rejected[i].salePrice %>" onchange="changeSalePrice('<%= rejected[i]._id %>', this)">
+                    </td>
+                    <td>
+                      <%= rejected[i].costPrice %>
+                    </td>
+                    <td>
+                      <% if(rejected[i].topDeal==false ) {%>
+                        <a href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=topDeal&newValue=true">
+                          <button type="button" class="green">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </a>
+                        <% }else{ %>
+                          <a href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=topDeal&newValue=false">
+                            <button type="button" class="red">
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+                          </a>
+                          <% } %>
+                            <% if(rejected[i].trending==false ) {%>
+                              <a href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=trending&newValue=true">
+                                <button type="button" class="green">
+                                  <i class="fas fa-check"></i>
+                                </button>
+                              </a>
+                              <% }else{ %>
+                                <a href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=trending&newValue=false">
+                                  <button type="button" class="red">
+                                    <i class="far fa-trash-alt"></i>
+                                  </button>
+                                </a>
+                                <% } %>
+                    </td>
+                    <td>
+                      <a href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=status&newValue=accepted">
+                        <button type="button" class="green">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      </a>
+                    </td>
+                  </tr>
                   <% } %>
-                </td>
-                <td>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=accepted[i]._id%>&task=status&newValue=rejected"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
-                </td>
-              </tr>
-              <% } %>
-            </tbody>
-          </table>
-          <br />
-          Rejected Products
-          <table>
-            <thead>
-              <tr>
-                <th>Serial Number</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Seller Name</th>
-                <th>MRP</th>
-                <th>SalePrice</th>
-                <th>CostPrice</th>
-                <th>TopDeal/Trending</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for(let i=0;i < rejected.length;i++) { %>
-              <tr>
-                <th><%= (i+1) %></th>
-                <td><%= rejected[i].name %></td>
-                <td><%= categoryDict[rejected[i].category_id] %></td>
-                <td><%= storeDict[rejected[i].store_id] %></td>
-                <td><%= rejected[i].mrp %></td>
-                <td>
-                  <input class="w-25" type="number" name="salePrice" id="salePrice" value="<%= rejected[i].salePrice %>"  onchange="changeSalePrice('<%= rejected[i]._id %>', this)">
-                </td>
-                <td><%= rejected[i].costPrice %></td>
-                <td>
-                  <% if(rejected[i].topDeal == false ) {%>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=topDeal&newValue=true"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <% }else{ %>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=topDeal&newValue=false"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
-                  <% } %>
-                  <% if(rejected[i].trending == false ) {%>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=trending&newValue=true"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                  <% }else{ %>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=trending&newValue=false"
-                  >
-                    <button type="button" class="red">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </a>
-                  <% } %>
-                </td>
-                <td>
-                  <a
-                    href="/admin/productDetailsChange?ID=<%=rejected[i]._id%>&task=status&newValue=accepted"
-                  >
-                    <button type="button" class="green">
-                      <i class="fas fa-check"></i>
-                    </button>
-                  </a>
-                </td>
-              </tr>
-              <% } %>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>
