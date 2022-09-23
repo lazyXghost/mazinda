@@ -1,171 +1,159 @@
 <style>
   /**body**/
-  .main{
-      height: 100%;
-      width: 100%;
-      background: rgba(241, 250, 255, 1);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+  .main {
+    height: 100%;
+    width: 100%;
+    background: rgba(241, 250, 255, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  .sub-main{
-      background: white;
-      width: 85%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+  .sub-main {
+    background: white;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  .main-img img{
-      height: 250px;
-      width: 350px;
-      padding-top: 10px;
+  .main-img img {
+    height: 250px;
+    width: 350px;
+    padding-top: 10px;
   }
 
-  .sub-main-title h1{
-      font-size: 30px;
-      font-weight: 700;
-      font-family: Arial, Helvetica, sans-serif;
-      padding-top: 25px;
-      padding-bottom: 25px;
+  .sub-main-title h1 {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 
-  .orders{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      background: #F2F4F8;
-      margin-bottom: 20px;
+  .orders {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: #F2F4F8;
+    margin-bottom: 20px;
   }
 
-  .men{
-      margin-bottom: 0px;
+  .men {
+    margin-bottom: 0px;
   }
 
-  .order-img{
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
+  .order-img {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
   }
 
-  .order-img img{
-      width: 74px;
-      height: 82px;
-      padding: 20px 20px 20px 20px;
+  .order-img img {
+    width: 74px;
+    height: 82px;
+    padding: 20px 20px 20px 20px;
   }
 
-  .orders-text{
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 20px;
+  .orders-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
   }
 
-  .orders-text h4{
-      color: rgba(85, 151, 218, 1);
-      font-weight: 600;
-      font-size: 20px;
-      padding-top: 5px;
+  .orders-text h4 {
+    color: rgba(85, 151, 218, 1);
+    font-weight: 600;
+    font-size: 20px;
+    padding-top: 5px;
   }
 
-  .orders-text h6{
-      color: rgba(242, 97, 7, 1);
-      font-weight: 700;
-      font-size: 16px;
+  .orders-text h6 {
+    color: rgba(242, 97, 7, 1);
+    font-weight: 700;
+    font-size: 16px;
   }
 
-  .orders-btn{
-      width: 320px;
-      margin-right: 20px;
+  .orders-btn {
+    width: 320px;
+    margin-right: 20px;
   }
 
-  .orders-btn button{
-      background-color: rgba(85, 151, 218, 1);
-      border: none;
-      width: 150px;
-      height: 45px;
-      font-size: 18px;
-      color: white;
-      font-weight: 700;
-      border-radius: 4px;
+  .orders-btn button {
+    background-color: rgba(85, 151, 218, 1);
+    border: none;
+    width: 150px;
+    height: 45px;
+    font-size: 18px;
+    color: white;
+    font-weight: 700;
+    border-radius: 4px;
   }
 
-  .track-order{
-      margin-right: 10px;
+  .track-order {
+    margin-right: 10px;
   }
 </style>
-
 <%- include('partials/header') %>
-
-
-<!--Body-->
-<div class="main">
-  <div class="main-img">
-    <img src="/user_UI/img/categories/main-div-img.png" alt="main-image">
-  </div>
-  <div class="sub-main">
-    <div class="sub-main-title">
-      <h1>Your Orders</h1>
+  <!--Body-->
+  <div class="main">
+    <div class="main-img">
+      <img src="/user_UI/img/categories/main-div-img.png" alt="main-image">
     </div>
-    <div class="orders">
-      <div class="order-img">
-        <img src="/user_UI/img/categories/white-shoe.png" alt="white-shoe">
-        <div class="orders-text">
-          <h4>PUMA Smash v2 Unisex Sneakers</h4>
-          <h6>Arriving by 2 September</h6>
-        </div>
+    <div class="sub-main">
+      <div class="sub-main-title">
+        <h1>Your Orders</h1>
       </div>
-      <div class="orders-btn">
+      <div class="orders">
+        <div class="order-img">
+          <img src="/user_UI/img/categories/white-shoe.png" alt="white-shoe">
+          <div class="orders-text">
+            <h4>PUMA Smash v2 Unisex Sneakers</h4>
+            <h6>Arriving by 2 September</h6>
+          </div>
+        </div>
+        <div class="orders-btn">
           <button class="track-order">Track order</button>
           <button class="detail-order">View details</button>
-      </div>
-    </div>
-    <div class="orders men">
-      <div class="order-img">
-        <img src="/user_UI/img/categories/men-will-be-men.png" alt="white-shoe">
-        <div class="orders-text">
-          <h4>Men Black Brand Logo Printed.</h4>
-          <h6>Arriving by 2 September</h6>
         </div>
       </div>
-      <div class="orders-btn">
+      <div class="orders men">
+        <div class="order-img">
+          <img src="/user_UI/img/categories/men-will-be-men.png" alt="white-shoe">
+          <div class="orders-text">
+            <h4>Men Black Brand Logo Printed.</h4>
+            <h6>Arriving by 2 September</h6>
+          </div>
+        </div>
+        <div class="orders-btn">
           <button class="track-order">Track order</button>
           <button class="detail-order">View details</button>
-      </div>
-    </div>
-    <div class="sub-main-title">
-      <h1>Completed Orders</h1>
-    </div>
-    <div class="orders">
-      <div class="order-img">
-        <img src="/user_UI/img/categories/footwear.png" alt="white-shoe">
-        <div class="orders-text">
-          <h4>Nike Red Sport Shoe Limited Edition!!</h4>
-          <h6>Arriving by 2 September</h6>
         </div>
       </div>
-      <div class="orders-btn">
-        <button class="track-order">Track order</button>
-        <button class="detail-order">View details</button>
+      <div class="sub-main-title">
+        <h1>Completed Orders</h1>
+      </div>
+      <div class="orders">
+        <div class="order-img">
+          <img src="/user_UI/img/categories/footwear.png" alt="white-shoe">
+          <div class="orders-text">
+            <h4>Nike Red Sport Shoe Limited Edition!!</h4>
+            <h6>Arriving by 2 September</h6>
+          </div>
+        </div>
+        <div class="orders-btn">
+          <button class="track-order">Track order</button>
+          <button class="detail-order">View details</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-  
-
-
-
-
-
-
-
-
-<!-- <div class="container">
+  <!-- <div class="container">
   <link rel="stylesheet" href="/user_UI/css/orders.css" />
   <article class="card">
     <header class="card-header">My Orders / Tracking</header>

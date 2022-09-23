@@ -1,331 +1,19 @@
 <!DOCTYPE html>
-<html lang="en>
+<html lang="en">
+
   <head>
-    <meta charset="UTF-8" />
+    <meta charset=" UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
-      <!-- Favicons -->
-       <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="user_UI/img/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="user_UI/img/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="user_UI/img/favicon/favicon-16x16.png"
-    />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="user_UI/img/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="user_UI/img/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="user_UI/img/favicon/favicon-16x16.png" />
     <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
-    <link rel="stylesheet" href="/user_UI/header.css"/>
+    <link rel="stylesheet" href="/user_UI/header.css" />
     <title>Mazinda</title>
     <script src="https://kit.fontawesome.com/de5fa6f0f7.js" crossorigin="anonymous"></script>
-    
     <style>
-<<<<<<< HEAD
-      /*navbar*/
-      *{
-            margin: 0px;
-            padding: 0px;
-            
-        }
-        body{
-            margin: 0px ;
-            padding: 0px;
-        }
-        .navbar{
-            padding-bottom: 0px;
-            margin: 0px;
-            padding: 0px;
-        }
-        .navbar .nav-list li{
-            list-style: none;
-            display: inline-block;
-        }
-        .navbar .nav-list li a{
-            text-decoration: none;
-        }
-        .nav-img img{
-            width: 205px;
-            height: 107.02px;
-        }
-        .navbar .nav-list{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-around;
-            width: 100%;
-            margin-bottom: 0px;
-        }
-        
-        .search{
-            display: flex;
-            align-items: center;
-            box-sizing: border-box;
-            width: 600px;
-            height: 45px;
-            border: 1px solid #5597DA;
-            border-radius: 5px;
-        }
-        .search input{
-            border: none;
-            height: 42px;
-            outline: none;
-            width: 100%;
-            background: rgba(0, 0, 0, 0);
-        }
-        .search i{
-            margin: 0px 10px;
-        }
-        .nav-items a{
-            font-family: Arial, Helvetica, sans-serif;
-            font-style: normal;
-            font-size: 18px;
-            color: #5597DA;
-            font-weight: 700;
-            line-height: 26px;
-        }
-        .shopping-cart{
-            color: #5597DA;
-        }
-        .login-btn{
-            background: #F26107;
-            border: none;
-            width: 95px;
-            height: 38px;
-            color: white;
-            border-radius: 4px;
-            font-size: 24px;
-        }
-        .dropdown{
-          display: none;
-        }
-        .mobile-navbar{
-          display: none;
-        }
-        .container {
-          width:100px;
-          position: relative;
-        }
-        .click{
-          background-color: #01589b00;
-          border:none;
-          outline:none;
-          width:50px;
-          height: 40px;
-          border-radius: 5px;
-        }
-        .click i{
-          color: black;
-          font-size: 1.2em;
-        }
-        .click:hover {
-          border: 2px solid black;
-        }
-        .bars{
-          display:none
-        }
-        @media screen and (min-width: 800px) and (max-width: 940px){
-        .navbar .search{
-            max-width: 250px;
-            margin-right: 5px;
-        }
-        .nav-img img{
-          width: 170px;
-          height: 100px;
-          margin-right: 10px;
-        }
-        }
-        @media screen and (min-width: 600px) and (max-width:800px){
-        .navbar .search{
-            display: none;
-        }
-        .nav-img img{
-          width: 150px;
-          height: 70px;
-          margin-right: 5px;
-        }
-        .login-btn{
-          width: 80px;
-          height: 35px;
-        }
-        }
-        @media screen and (min-width: 940px) and (max-width:1200px){
-            .navbar .search{
-                max-width: 300px;
-            }
-        }
-        @media screen and (max-width:600px) {
-          .nav-list{
-            display: none;
-          }
-
-          nav .menu-btn i{
-            display: block;
-          }
-          #click:checked ~ .menu-btn i:before{
-            content: "\f00d";
-          }
-          .bars{
-            display: block;
-          }
-          .bars input {
-            display: none;
-          }
-          nav .bars .full-ul{
-            display: block;
-            width: 100%;
-          }
-          nav .bars .full-ul ul{
-            background-color: #fff;
-            padding: 40px 0px 00px 0px;
-            height: 100%;
-            width: 70%;
-            border-radius: 0px 25px 25px 0px;
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin: 0px;
-          }
-          
-          nav .bars .full-ul{
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            list-style: none;
-            top: 0px;
-            left: -100%;
-            background: rgba(0, 0, 0, 0.549);
-            height: 100%;
-            width: 100%;
-            text-align: center;
-            transition: all 0.3s ease;
-            z-index: 1;
-          }
-          #click:checked ~ .full-ul{
-            left: 0;
-          }
-          
-          #click:checked ~ ul li a{
-            margin-left: 0px;
-          }
-          nav ul li a i{
-            color: #5597DA;
-          }
-          nav ul li a{
-            text-decoration: none;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            font-size: 18px;
-            font-weight: 800;
-          }
-          nav ul li{
-            padding: 0px 30px;
-            margin: 10px 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: start;
-            width: 100%;
-            height: 60px;
-            border-radius: 10px;
-            transition: ease 0.3s;
-          }
-          nav ul li a:hover{
-            text-decoration: none;
-          }
-          nav ul li:hover{
-            background: #F2F4F8;
-          }
-          .user{
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            align-items: center;
-            
-          }
-          .user img{
-            width:50px;
-            height: 51.97px;
-            border-radius: 18.2716px;
-            margin: 20px 15px 0px 20px;
-          }
-          .contact{
-            display: flex;
-            flex-direction: column;
-            margin-top: 30px;
-          }
-          .contact h6{
-            font-size: 16px;
-            font-weight: 600;
-          }
-          .contact span{
-            font-size: 14px;
-            font-weight: 400;
-          }
-          .cross{
-            width: 10px;
-            height: 20px;
-          }
-          .sign-out{
-            position: relative;
-            padding: 10px 30px;
-            top: 300%;
-            background-color: none;
-            border-radius: 28px;
-            width: 221px;
-            height: 74.84px;
-            display: flex;
-            justify-content: space-between;
-            font-weight: 400;
-            font-size: 20px;
-            align-items: center;
-            border: 1px solid #2743FD;
-            color: #2743FD;
-            transition: ease 0.3s;
-          }
-          .sign-out:hover{
-            background-color: #2743FD;
-            color: white;
-          }
-          .order{
-            display: none;
-          }
-          .search{
-            max-width: 260px;
-            height: 40px;
-          }
-          .mobile-navbar{
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            align-items: center;
-          }
-          .navbar .nav-items .search{
-            display: none;
-          }
-          .navbar{
-            margin: 10px 0px;
-            padding: 0px;
-          }
-          .cart{
-            font-size: 1.2em;
-            color: black;
-          }
-        }
-=======
-
-     
->>>>>>> 75ae01b (seprated css file)
     </style>
     <script type="text/javascript">
       $(document).ready(function () {
@@ -338,6 +26,7 @@
       });
     </script>
   </head>
+
   <body class="font-sans leading-normal tracking-normal mt-12">
     <header>
       <!--Nav-->
@@ -345,32 +34,33 @@
         <div class="mobile-navbar">
           <div class="bars">
             <input type="checkbox" id="click">
-         <label for="click" class="menu-btn">
-         <i class="fas fa-bars"></i>
-         </label>
-         <div class="full-ul">
-         <ul>
-          <li class="cross">
-            <input type="checkbox" id="click">
             <label for="click" class="menu-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </label></li>
-            <li>
-              <div class="user">
-              <img src="images/puma.png" alt="user">
-              <div class="contact">
-                <h6>Akash Khurana</h6>
-                <span>+91-9988999891</span>
-              </div>
-              </div>
-            </li>
-            <li><a class="active" href="#"><i class="fa-solid fa-house"></i>Home<i class="fa-regular fa-arrow-right"></i></a></li>
-            <li><a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i>Your Orders<i class="fa-regular fa-arrow-right"></i></a></li>
-            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart<i class="fa-regular fa-arrow-right"></i></a></li>
-            <li><a href="#"><i class="fa-solid fa-phone"></i>Contact us<i class="fa-regular fa-arrow-right"></i></a></li>
-            <li><button class="sign-out">Sign-out <i class="fa-solid fa-arrow-right-from-bracket"></i></button></li>
-         </ul>
-        </div>
+              <i class="fas fa-bars"></i>
+            </label>
+            <div class="full-ul">
+              <ul>
+                <li class="cross">
+                  <input type="checkbox" id="click">
+                  <label for="click" class="menu-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                  </label>
+                </li>
+                <li>
+                  <div class="user">
+                    <img src="images/puma.png" alt="user">
+                    <div class="contact">
+                      <h6>Akash Khurana</h6>
+                      <span>+91-9988999891</span>
+                    </div>
+                  </div>
+                </li>
+                <li><a class="active" href="#"><i class="fa-solid fa-house"></i>Home<i class="fa-regular fa-arrow-right"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i>Your Orders<i class="fa-regular fa-arrow-right"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart<i class="fa-regular fa-arrow-right"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-phone"></i>Contact us<i class="fa-regular fa-arrow-right"></i></a></li>
+                <li><button class="sign-out">Sign-out <i class="fa-solid fa-arrow-right-from-bracket"></i></button></li>
+              </ul>
+            </div>
           </div>
           <form class="search" action="/products" method="GET">
             <i class="fa-solid fa-magnifying-glass search-logo"></i>
@@ -380,26 +70,26 @@
           <a href="#cart" class="mobile-cart"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
         <ul class="nav-list">
-            <li class="nav-items">
-                <div class="nav-img">
-                    <img class="order" src="user_UI/img/logos/mazindalong.png" alt="Mazinda Logo">
-                </div>
-            </li>
-            <li class="nav-items">
-                <form class="search bhoot" action="/products" method="GET">
-                    <i class="fa-solid fa-magnifying-glass search-logo"></i>
-                    <input type="text" placeholder="Search on Mazinda">
-                    <i class="fa-solid fa-microphone search-speak"></i>
-                </form>
-            </li>
-            <li class="nav-items menu"> 
-                <a class="order" href="#your-orders">Your orders</a>
-            </li>
-            <li class="nav-items menu">
-                <a class="order" href="#contact-us">Contact Us</a>
-            </li>
-            <li class="nav-items menu">
-                <% if(user && user.userType=="user" ) {%>
+          <li class="nav-items">
+            <div class="nav-img">
+              <img class="order" src="user_UI/img/logos/mazindalong.png" alt="Mazinda Logo">
+            </div>
+          </li>
+          <li class="nav-items">
+            <form class="search bhoot" action="/products" method="GET">
+              <i class="fa-solid fa-magnifying-glass search-logo"></i>
+              <input type="text" placeholder="Search on Mazinda">
+              <i class="fa-solid fa-microphone search-speak"></i>
+            </form>
+          </li>
+          <li class="nav-items menu">
+            <a class="order" href="#your-orders">Your orders</a>
+          </li>
+          <li class="nav-items menu">
+            <a class="order" href="#contact-us">Contact Us</a>
+          </li>
+          <li class="nav-items menu">
+            <% if(user && user.userType=="user" ) {%>
               <a class="order" href="/viewCart">Cart
                 <i class="fa-solid fa-cart-shopping shopping-cart"></i>
                 <%=cartItems%>
@@ -408,20 +98,16 @@
                 <a class="order" href="/login">Cart
                   <i class="fa-solid fa-cart-shopping"></i>
                 </a>
-              <%}%>
-            </li>
-            <li>
-              <% if(user && user.userType=="user" ) {%>
-                <a href="/profile" style="padding: 2px 4px!important;" class="btn btn-primary">
-                  <span><i class="fas fa-user-check"></i></span>
-                </a>
+                <%}%>
+          </li>
+          <li>
+            <% if(user && user.userType=="user" ) {%>
+              <a href="/profile" style="padding: 2px 4px!important;" class="btn btn-primary">
+                <span><i class="fas fa-user-check"></i></span>
+              </a>
               <%} else {%>
                 <a class="order" href="/login"><button class="login-btn">Log In</button></a>
-              <%}%>
-            </li>
-            
+                <%}%>
+          </li>
         </ul>
-        <script>
-          
-        </script>
     </header>
