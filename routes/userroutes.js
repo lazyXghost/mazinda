@@ -269,13 +269,13 @@ router.post("/addAddress", userCheck, async (req, res) => {
 // Contacts,FAQ and logout functions
 /////////////////////////////////////////////////////////////
 
-router.get("/contact", async (req, res) => {
-  res.render("user/contact");
-});
+// router.get("/contact", async (req, res) => {
+//   res.render("user/contact");
+// });
 
-router.get("/settings", userCheck, (req, res) => {
-  res.render("user/settings");
-});
+// router.get("/settings", userCheck, (req, res) => {
+//   res.render("user/settings");
+// });
 
 router.get("/logout", (req, res) => {
   req.logOut();
