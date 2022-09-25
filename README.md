@@ -10,9 +10,7 @@ www.mazinda.com
 
 # USER END-:
 <br>
-register page styling delinked
-<br>
-login page styling correct and connect image
+register page slightly improve, login page styling correct
 <br>
 make all code like partials and format code properly and clean code too
 <br>
