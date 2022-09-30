@@ -1,0 +1,50 @@
+
+        body {
+            background-color: #F1FAFF;
+          
+        }
+        
+        .head{background-color: white;  text-align: center;
+            border-radius: 50px 50px 0px 0px;
+        }
+        .head p{
+            text-align: center;
+
+padding-top: 15px;
+
+
+
+
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+
+color: #000000;}
+.d-flex {justify-content: center; margin-left: 40px; }
+.btn{padding: 15px;}
+#btn1{
+width: 80%;
+background: #FFFFFF;
+border: 1px solid #5597DA;
+border-radius: 8px;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+text-align: center;
+margin-top: 80px;
+color: #5597DA;}
+#btn2{
+box-sizing: border-box;
+margin-top: 20px;
+width: 80%;
+
+background: #5597DA;
+border: 1px solid #5597DA;
+border-radius: 8px;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+text-align: center;
+
+color: #FFFFFF;}
+#arrow{margin: 10px; position: absolute;}

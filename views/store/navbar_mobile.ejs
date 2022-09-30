@@ -1,0 +1,36 @@
+<%- include('partials/header_mobile')%>
+    <title>Navbar</title>
+    <link rel="stylesheet" href="/store_UI/css/navbar_mobile.css">
+    <script>
+        function myFunction(id) {
+         
+            document.getElementById(id).style.backgroundColor="#F27932";
+            document.getElementById(id).style.color="white";
+  
+}
+    </script>
+   
+</head>
+
+<body>
+    <div id="top">
+        <br>
+        <img src="/store_UI/img/slider.svg" class="float-left" alt="" id="slider">
+
+        <img src="/store_UI/img/location.svg" alt="" id="location"><span id="store">Express Store</span>
+
+
+    </div>
+    <div class="image">
+        <img src="/store_UI/img/store.svg" alt="">
+    </div>
+    <div class="d-grid">
+        <button class="btn" type="button" onclick="myFunction('dashboard')" id="dashboard" >Dashboard</button>
+        <button class="btn" type="button" onclick="myFunction('products')" id="products">Products</button>
+        <button class="btn " type="button" onclick="myFunction('stockupdate')" id="stockupdate">Stock Update</button>
+        <button class="btn " type="button" onclick="myFunction('money')" id="money">Money</button>
+        <button class="btn " type="button" onclick="myFunction('contact')" id="contact">Contact Us</button>
+      </div>
+</body>
+
+</html>
