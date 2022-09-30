@@ -1,41 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
-      <!-- Favicons -->
-       <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="user_UI/img/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="user_UI/img/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="user_UI/img/favicon/favicon-16x16.png"
-    />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="user_UI/img/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="user_UI/img/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="user_UI/img/favicon/favicon-16x16.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
-    <link rel="stylsheet" href="user_UI/product.css"/>
+    <link rel="stylsheet" href="user_UI/product.css" />
     <title>Mazinda</title>
-
     <script src="https://kit.fontawesome.com/de5fa6f0f7.js" crossorigin="anonymous"></script>
-    
     <style>
-
-      
-
     </style>
-
     <script type="text/javascript">
       $(document).ready(function () {
         $("#ajaxBtn").click(function () {
@@ -52,312 +32,310 @@
     <!-- header -->
     <header>
       <!--Nav-->
-      
       <nav class="navbar">
         <ul class="nav-list">
-            <li class="nav-items">
-                <div class="nav-img">
-                    <img src="/user_UI/img/images/Resize long.png" alt="Mazinda Logo">
-                </div>
-            </li>
-            <li class="nav-items">
-                <form class="search" action="/products" method="GET">
-                    <i class="fa-solid fa-magnifying-glass search-logo"></i>
-                    <input type="text" placeholder="Search on Mazinda">
-                    <i class="fa-solid fa-microphone search-speak"></i>
-                </form>
-            </li>
-            <li class="nav-items menu"> 
-                <a href="#your-orders">Your orders</a>
-            </li>
-            <li class="nav-items menu">
-                <a href="#contact-us">Contact Us</a>
-            </li>
-            <li class="nav-items menu">
-              <a href="/viewCart">Cart
-                <i class="fa-solid fa-cart-shopping shopping-cart"></i>
-              </a>
-            </li>
-            <li>
-                <a href="/login"><button class="login-btn">Log In</button></a>
-            </li>
+          <li class="nav-items">
+            <div class="nav-img">
+              <img src="/user_UI/img/images/Resize long.png" alt="Mazinda Logo">
+            </div>
+          </li>
+          <li class="nav-items">
+            <form class="search" action="/products" method="GET">
+              <i class="fa-solid fa-magnifying-glass search-logo"></i>
+              <input type="text" placeholder="Search on Mazinda">
+              <i class="fa-solid fa-microphone search-speak"></i>
+            </form>
+          </li>
+          <li class="nav-items menu">
+            <a href="#your-orders">Your orders</a>
+          </li>
+          <li class="nav-items menu">
+            <a href="#contact-us">Contact Us</a>
+          </li>
+          <li class="nav-items menu">
+            <a href="/viewCart">Cart
+              <i class="fa-solid fa-cart-shopping shopping-cart"></i>
+            </a>
+          </li>
+          <li>
+            <a href="/login"><button class="login-btn">Log In</button></a>
+          </li>
         </ul>
-        </nav>
+      </nav>
     </header>
     <!-- Main-content -->
     <div class="location">
-        <span>Deliver to <h5>140301 Khanpur,Mohali</h5></span>
+      <span>Deliver to <h5>140301 Khanpur,Mohali</h5></span>
     </div>
     <div id="content">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="100000000" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="/user_UI/img/images/shoes2.png" class="d-block w-100"  alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="/user_UI/img/images/shoes.png" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="/user_UI/img/images/shoes3.jpg" class="d-block w-100" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="100000000" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/user_UI/img/images/shoes2.png" class="d-block w-100" alt="...">
           </div>
-          <div class="mobile-aside-disc">
-            <div class="like">
-                <Button id="btnh1" class="btn-phone"><i class="fas fa-heart"></i></Button>
-            </div>
-            <h1>PUMA Smash v2 Unisex Sneakers</h1>
-            <div class="mobile-product-about">
-                <div class="mobile-product-cost">
-                    <h2>₹ 4999</h2>
-                    <span>Inclusive of all taxes</span>
-                </div>
-                <div class="mobile-ratings">
-                    <i class="fa-solid fa-star "></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star rating"></i>
-                    <span>2046</span>
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  SIZE
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">6</a></li>
-                  <li><a class="dropdown-item" href="#">7</a></li>
-                  <li><a class="dropdown-item" href="#">8</a></li>
-                  <li><a class="dropdown-item" href="#">9</a></li>
-                </ul>
-              </div>
+          <div class="carousel-item">
+            <img src="/user_UI/img/images/shoes.png" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/user_UI/img/images/shoes3.jpg" class="d-block w-100" alt="...">
+          </div>
         </div>
-        <div id="aside-photo">
-            <div class="photo">
-            <div class="photo-main">
-                <img src="/user_UI/img//user_UI/img/images/shoes.png" alt="">
-            </div>
-             <div class="photo-others">
-                <img src="/user_UI/img/images/shoes2.png" alt="">
-                <img src="/user_UI/img/images/shoes.png" alt="">
-                <img src="/user_UI/img/images/shoes2.png" alt="">
-             </div>
-            </div>
-             <div id="buy-options">
-                <button id="add-to-cart">Add to cart</button>
-                <button id="buy-now">Buy Now</button>
-             </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="mobile-aside-disc">
+        <div class="like">
+          <Button id="btnh1" class="btn-phone"><i class="fas fa-heart"></i></Button>
         </div>
-        <div id="aside-discription">
-            <div id="aside-discription-main">
-                <h1>PUMA Smash v2 Unisex Sneakers</h1>
-                <div id="product-about">
-                    <div id="cost">
-                        <h2>₹ 4999</h2>
-                        <span>Inclusive of all taxes</span>
+        <h1>PUMA Smash v2 Unisex Sneakers</h1>
+        <div class="mobile-product-about">
+          <div class="mobile-product-cost">
+            <h2>₹ 4999</h2>
+            <span>Inclusive of all taxes</span>
+          </div>
+          <div class="mobile-ratings">
+            <i class="fa-solid fa-star "></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star rating"></i>
+            <span>2046</span>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            SIZE
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">6</a></li>
+            <li><a class="dropdown-item" href="#">7</a></li>
+            <li><a class="dropdown-item" href="#">8</a></li>
+            <li><a class="dropdown-item" href="#">9</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="aside-photo">
+        <div class="photo">
+          <div class="photo-main">
+            <img src="/user_UI/img//user_UI/img/images/shoes.png" alt="">
+          </div>
+          <div class="photo-others">
+            <img src="/user_UI/img/images/shoes2.png" alt="">
+            <img src="/user_UI/img/images/shoes.png" alt="">
+            <img src="/user_UI/img/images/shoes2.png" alt="">
+          </div>
+        </div>
+        <div id="buy-options">
+          <button id="add-to-cart">Add to cart</button>
+          <button id="buy-now">Buy Now</button>
+        </div>
+      </div>
+      <div id="aside-discription">
+        <div id="aside-discription-main">
+          <h1>PUMA Smash v2 Unisex Sneakers</h1>
+          <div id="product-about">
+            <div id="cost">
+              <h2>₹ 4999</h2>
+              <span>Inclusive of all taxes</span>
+            </div>
+            <div id="ratings">
+              <i class="fa-solid fa-star "></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star rating"></i>
+              <span>2046</span>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              SIZE
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">6</a></li>
+              <li><a class="dropdown-item" href="#">7</a></li>
+              <li><a class="dropdown-item" href="#">8</a></li>
+              <li><a class="dropdown-item" href="#">9</a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="aside-description-reviews">
+          <div id="mobile-scroll">
+            <div id="description">
+              <h2>Description</h2>
+              <p>Smash was such a hit on the courts, we’ve decidedto take these classic
+                sports shoes and deem them an all-around fashion icon. Updated
+                with an improved feel and fit.</p>
+              <ul class="product-description">
+                <li> Style: 365215_07</li>
+                <li>Colour: Puma White-Puma White</li>
+              </ul>
+            </div>
+            <div id="reviews">
+              <h2>Reviews</h2>
+              <ul>
+                <li>
+                  <div class="rev-content">
+                    <img src="/user_UI/img/images/reviewer1.png" alt>
+                    <div class="rev-about">
+                      <h4>Akash Khurana</h4>
+                      <div id="ratings">
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rating rev-star"></i>
+                      </div>
+                      <span>Superb Quality and best service</span>
                     </div>
-                    <div id="ratings">
-                        <i class="fa-solid fa-star "></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star rating"></i>
-                        <span>2046</span>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      SIZE
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="#">6</a></li>
-                      <li><a class="dropdown-item" href="#">7</a></li>
-                      <li><a class="dropdown-item" href="#">8</a></li>
-                      <li><a class="dropdown-item" href="#">9</a></li>
-                    </ul>
                   </div>
+                  <div class="like-reply">
+                    <a href="#like">Like</a>
+                    <a href="#reply">Reply</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="rev-content">
+                    <img src="/user_UI/img/images/reviewer2.png" alt>
+                    <div class="rev-about">
+                      <h4>Rishiika Sandal</h4>
+                      <div id="ratings">
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rating rev-star"></i>
+                      </div>
+                      <span>Superb Quality and best service</span>
+                    </div>
+                  </div>
+                  <div class="like-reply">
+                    <a href="#like">Like</a>
+                    <a href="#reply">Reply</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="rev-content">
+                    <img src="/user_UI/img/images/reviewer1.png" alt>
+                    <div class="rev-about">
+                      <h4>Akash Khurana</h4>
+                      <div id="ratings">
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rating rev-star"></i>
+                      </div>
+                      <span>Superb Quality and best service</span>
+                    </div>
+                  </div>
+                  <div class="like-reply">
+                    <a href="#like">Like</a>
+                    <a href="#reply">Reply</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="rev-content">
+                    <img src="/user_UI/img/images/reviewer2.png" alt>
+                    <div class="rev-about">
+                      <h4>Rishiika Sandal</h4>
+                      <div id="ratings">
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rating rev-star"></i>
+                      </div>
+                      <span>Superb Quality and best service</span>
+                    </div>
+                  </div>
+                  <div class="like-reply">
+                    <a href="#like">Like</a>
+                    <a href="#reply">Reply</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="rev-content">
+                    <img src="/user_UI/img/images/reviewer1.png" alt>
+                    <div class="rev-about">
+                      <h4>Akash Khurana</h4>
+                      <div id="ratings">
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rating rev-star"></i>
+                      </div>
+                      <span>Superb Quality and best service</span>
+                    </div>
+                  </div>
+                  <div class="like-reply">
+                    <a href="#like">Like</a>
+                    <a href="#reply">Reply</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="rev-content">
+                    <img src="/user_UI/img/images/reviewer2.png" alt>
+                    <div class="rev-about">
+                      <h4>Rishiika Sandal</h4>
+                      <div id="ratings">
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rev-star"></i>
+                        <i class="fa-solid fa-star rating rev-star"></i>
+                      </div>
+                      <span>Superb Quality and best service</span>
+                    </div>
+                  </div>
+                  <div class="like-reply">
+                    <a href="#like">Like</a>
+                    <a href="#reply">Reply</a>
+                  </div>
+                </li>
+                <li>
+                  <div id="blank">....</div>
+                </li>
+              </ul>
             </div>
-            <div id="aside-description-reviews">
-                <div id="mobile-scroll">
-                <div id="description"> 
-                    <h2>Description</h2>
-                    <p>Smash was such a hit on the courts, we’ve decidedto take these classic
-                        sports shoes and deem them an all-around fashion icon. Updated
-                        with an improved feel and fit.</p>
-                    <ul class="product-description">
-                        <li> Style: 365215_07</li>
-                        <li>Colour: Puma White-Puma White</li>
-                    </ul>
-                </div>
-                <div id="reviews">
-                    <h2>Reviews</h2>
-                    <ul>
-                        <li>
-                            <div class="rev-content">
-                                <img src="/user_UI/img/images/reviewer1.png" alt>
-                                <div class="rev-about">
-                                    <h4>Akash Khurana</h4>
-                                    <div id="ratings">
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rating rev-star"></i>
-                                    </div>
-                                    <span>Superb Quality and best service</span>
-                                </div>
-                            </div>
-                            <div class="like-reply">
-                                <a href="#like">Like</a>
-                                <a href="#reply">Reply</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="rev-content">
-                                <img src="/user_UI/img/images/reviewer2.png" alt>
-                                <div class="rev-about">
-                                    <h4>Rishiika Sandal</h4>
-                                    <div id="ratings">
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rating rev-star"></i>
-                                    </div>
-                                    <span>Superb Quality and best service</span>
-                                </div>
-                            </div>
-                            <div class="like-reply">
-                                <a href="#like">Like</a>
-                                <a href="#reply">Reply</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="rev-content">
-                                <img src="/user_UI/img/images/reviewer1.png" alt>
-                                <div class="rev-about">
-                                    <h4>Akash Khurana</h4>
-                                    <div id="ratings">
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rating rev-star"></i>
-                                    </div>
-                                    <span>Superb Quality and best service</span>
-                                </div>
-                            </div>
-                            <div class="like-reply">
-                                <a href="#like">Like</a>
-                                <a href="#reply">Reply</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="rev-content">
-                                <img src="/user_UI/img/images/reviewer2.png" alt>
-                                <div class="rev-about">
-                                    <h4>Rishiika Sandal</h4>
-                                    <div id="ratings">
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rating rev-star"></i>
-                                    </div>
-                                    <span>Superb Quality and best service</span>
-                                </div>
-                            </div>
-                            <div class="like-reply">
-                                <a href="#like">Like</a>
-                                <a href="#reply">Reply</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="rev-content">
-                                <img src="/user_UI/img/images/reviewer1.png" alt>
-                                <div class="rev-about">
-                                    <h4>Akash Khurana</h4>
-                                    <div id="ratings">
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rating rev-star"></i>
-                                    </div>
-                                    <span>Superb Quality and best service</span>
-                                </div>
-                            </div>
-                            <div class="like-reply">
-                                <a href="#like">Like</a>
-                                <a href="#reply">Reply</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="rev-content">
-                                <img src="/user_UI/img/images/reviewer2.png" alt>
-                                <div class="rev-about">
-                                    <h4>Rishiika Sandal</h4>
-                                    <div id="ratings">
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rev-star"></i>
-                                        <i class="fa-solid fa-star rating rev-star"></i>
-                                    </div>
-                                    <span>Superb Quality and best service</span>
-                                </div>
-                            </div>
-                            <div class="like-reply">
-                                <a href="#like">Like</a>
-                                <a href="#reply">Reply</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div id="blank">....</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-         </div>
+          </div>
         </div>
-        <div id="phone-buy-option">
-            <button id="mobile-add-to-cart">Add to cart</button>
-            <button id="mobile-buy-now">Buy Now</button>
-        </div>
+      </div>
+      <div id="phone-buy-option">
+        <button id="mobile-add-to-cart">Add to cart</button>
+        <button id="mobile-buy-now">Buy Now</button>
+      </div>
     </div>
     <script>
-        var btnvar = document.getElementsByClassName('btn-phone');
-    for(var i=0; i<btnvar.length; i++){
-      let btn=btnvar[i];
-      btn.addEventListener("click", function() {
-        if (btn.style.color =="red") {
-                   btn.style.color = "white"
-               }
-               else{
-                   btn.style.color = "red"
-               }
+      var btnvar = document.getElementsByClassName('btn-phone');
+      for (var i = 0; i < btnvar.length; i++) {
+        let btn = btnvar[i];
+        btn.addEventListener("click", function () {
+          if (btn.style.color == "red") {
+            btn.style.color = "white"
+          }
+          else {
+            btn.style.color = "red"
+          }
         });
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   </body>
-
-<!-- <%- include('partials/header') %>
+  <!-- <%- include('partials/header') %>
 <div  id="main" >
     <div class="categories flex flex-col">
         <div class="flex overflow-x-scroll hide-scroll-bar">
@@ -410,14 +388,14 @@
                                         <h6 class="p-name productName"><%=products[i].name%></h6>
                                         <input type="hidden" class="productDescription" value="<%=products[i].description%>">
                                         rating -->
-                                        <!-- <p class="lead mb-1">
+  <!-- <p class="lead mb-1">
                                         <span class="sp">₹<%=products[i].salePrice%></span>
                                         <span class="ms-2 text-muted cp">₹<%=products[i].mrp%></span>
                                         <span class="ms-2 text-success dis">(<%= parseInt((products[i].mrp - products[i].salePrice)/products[i].mrp * 100) %>% off)</span>
                                     </p> -->
-                                    <!-- Mazinda tick
+  <!-- Mazinda tick
                                     </div> -->
-                                    <!-- <div class="buttons flex flex-col">
+  <!-- <div class="buttons flex flex-col">
                                       <% if(user && user.userType=='user' ) {%>
                                           <button class="btn btn-warning mb-2"
                                               onclick="AddToCart('<%= products[i]._id %>', '<%= user._id %>')"><i
@@ -441,4 +419,3 @@
     </div>
 </div>
 <%- include('partials/footer')%> -->
-

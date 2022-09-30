@@ -1,139 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="user_UI/assets/favicon_io/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="user_UI/assets/favicon_io/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="user_UI/assets/favicon_io/favicon-32x32.png"
-    />
-    <link rel="manifest" href="user_UI/assets/favicon_io/site.webmanifest" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="register.css"/>
-    <title>Login</title>
-
-    <script
-      src="https://kit.fontawesome.com/4d8145f93f.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <style>
-      
-    </style>
-  </head>
-
-  <body>
-    <!-- <nav>
-      <ul>
-        <li><img src="images/Resize long.png" alt="logo"></li>
-        <li>
-          <div id="search-bar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search on Mazinda" name="search">
-            <i class="fa-solid fa-microphone"></i>
+<%- include('partials/registerHeader')%>
+<div id="sub-main">
+  <img src="\user_UI\img\logos\mazindalong.png" alt="...">
+  <div id="content">
+    <form action="/register" method="POST" class="sign-in-form">
+      <h2 class="title">Create an account</h2>
+      <div id="con-span">
+        <span>Create and verify an account to get connected </span>
+        <span>with us</span>
+      </div>
+      <div class="input-field">
+        <i class="fas fa-user"></i>
+        <input type="text" name="name" required placeholder="User Name" />
+      </div>
+      <div class="input-field">
+        <i class="fas fa-envelope"></i>
+        <input type="email" name="email" required placeholder="Email" />
+      </div>
+      <div class="input-field">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password" required placeholder="Password" />
+      </div>
+      <div class="input-field">
+        <i class="fas fa-phone"></i>
+        <input type="number" name="phoneNumber" required placeholder="Phone Number" />
+      </div>
+      <div class="input-field">
+        <i class="fa-solid fa-code"></i>
+        <input type="text" name="referralCode" placeholder="Enter referral code" />
+      </div>
+      <div id="conditions">
+        <span>By creating an account you are agreeing to our</span>
+        <span><a href="T&C">terms and conditions</a> & <a href="pp">privacy policy</a></span>
+      </div>
+      <button type="submit" class="btn Sign" value="Sign-up">Sign Up</button>
+      <button type="submit" class="btn" value="guest">Continue as Guest</button>
+      <div id="login-others">
+        <span>or</span>
+        <span class="last_span">Sign Up with</span>
+        <div id="fonts">
+          <div id="facebook">
+            <i class="fa-brands fa-facebook-f"></i>
           </div>
-        </li>
-        <li><a href="your_orders" class="nav-menu">Your orders</a></li>
-        <li><a href="Contact_Us " class="nav-menu">Contact Us</a></li>
-        <li><a href="Cart" class="nav-menu">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
-        <li><a href="login_page"><button type="button" class="login_btn">Log In</button></a></li>
-      </ul>
-    </nav> -->
-    <div id="main">
-      <div id="sub-main">
-        <img src="\user_UI\img\logos\mazindalong.png" alt="...">
-        <div id="content">
-          <form action="/register" method="POST" class="sign-in-form">
-          <h2 class="title">Create an account</h2>
-          <div id="con-span">
-            <span>Create and verify an account to get connected </span>
-            <span>with us</span>
+          <div id="google">
+            <i class="fa-brands fa-google"></i>
           </div>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" name="name" required placeholder="User Name" />
+          <div id="apple">
+            <i class="fa-brands fa-apple"></i>
           </div>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" name="email" required placeholder="Email" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" name="password" required placeholder="Password" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-phone"></i>
-            <input
-              type="number"
-              name="phoneNumber"
-              required
-              placeholder="Phone Number"
-            />
-          </div>
-          <div class="input-field">
-            <i class="fa-solid fa-code"></i>
-            <input
-              type="text"
-              name="referralCode"
-              placeholder="Enter referral code"
-            />
-          </div>
-          <div id="conditions">
-            <span>By creating an account you are agreeing to our</span>
-            <span><a href="T&C">terms and conditions</a> & <a href="pp">privacy policy</a></span>
-          </div>
-          <button type="submit" class="btn Sign" value="Sign-up">Sign Up</button>
-          <button type="submit" class="btn" value="guest">Continue as Guest</button>
-          <div id="login-others">
-            <span>or</span>
-            <span class="last_span">Sign Up with</span>
-            <div id="fonts">
-              <div id="facebook">
-                  <i class="fa-brands fa-facebook-f"></i>
-              </div>
-              <div id="google">
-                  <i class="fa-brands fa-google"></i>
-              </div>
-              <div id="apple">
-                  <i class="fa-brands fa-apple"></i>
-              </div>
-           </div>
-          </div>
-          <span class="last_span">Already have an account? <a href="/login">Log In</a> </span>
-        </form>
         </div>
       </div>
-    </div>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+      <span class="last_span">Already have an account? <a href="/login">Log In</a> </span>
+    </form>
+  </div>
+</div>
+<%- include('partials/registerFooter')%>
