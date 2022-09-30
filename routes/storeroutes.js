@@ -77,30 +77,7 @@ router.get("/", storeCheck, async (req, res) => {
     tableTime: tableTime,
     tableDetails: tableDetails,
   };
-  res.render("store/dashboard", { ...context });
-});
-
-router.get("/dashboard", storeCheck, async (req, res) => {
-  const moneyDetails = await moneyDetailsTable.find({ store_id: req.user._id });
-  const salesTime = url.parse(req.url, true).query.salesTime || "Month";
-  const revenueTime = url.parse(req.url, true).query.revenueTime || "Month";
-  const tableTime = url.parse(req.url, true).query.tableTime || "Month";
-  const { revenue, sales, tableDetails } = await getRevenue(
-    moneyDetails,
-    salesTime,
-    revenueTime,
-    tableTime
-  );
-  const context = {
-    authenticated: req.isAuthenticated(),
-    user: req.user,
-    revenue: revenue,
-    sales: sales,
-    salesTime: salesTime,
-    revenueTime: revenueTime,
-    tableTime: tableTime,
-    tableDetails: tableDetails,
-  };
+  console.log(context);
   res.render("store/dashboard", { ...context });
 });
 
