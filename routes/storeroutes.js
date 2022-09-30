@@ -41,6 +41,7 @@ router.get("/register", storeLoggedIn, (req, res) => {
 
 router.post("/register", async (req, res) => {
   const message = await storeRegister(req, res);
+  console.log(message);
   if (message == "Password is too Short") {
     res.render("store/register", { message });
   } else {
