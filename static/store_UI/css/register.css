@@ -176,7 +176,8 @@ margin-right: 190px;}
         box-sizing: border-box;
       }
       body{
-        background-color: rgba(0, 0, 0, 0.15);;
+        background-color: rgba(0, 0, 0, 0.15);
+        background-color: #CCD6D9;
       }
       /*--Nav*/
       nav ul{
@@ -267,7 +268,7 @@ margin-right: 190px;}
        
         top: 210px;
         background: #FFFFFF;
-        border-radius: 50px 50px 0px 0px;
+        border-radius: 50px 50px 50px 50px;
       }
       /*--content--*/
       #content form{
@@ -568,3 +569,6 @@ font-weight: 600;
 font-size: 14px;
 line-height: 17px;
 color: #5597DA;}
+#ab{display: none;}
+#sub-main{margin-top: 100px; margin-bottom: 500px;}
+#content{height: 900px;}
