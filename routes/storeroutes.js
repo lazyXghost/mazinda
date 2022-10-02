@@ -115,6 +115,7 @@ router.post(
   upload.array("images"),
   storeCheck,
   async (req, res) => {
+    console.log(req.body);
     req.body.images = [];
     for (let i = 0; i < req.files.length; i++) {
       req.body.images.push(req.files[i].filename);

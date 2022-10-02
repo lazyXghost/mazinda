@@ -52,7 +52,7 @@
     </script>
     <img src="/store_UI/img/arrow.svg" alt="" style="padding-top:10px; position: absolute; " id="a1">
     <div class="container" id="dashboard">
-        <form action="/store/stock/addProduct">
+        <form action="/store/stock/addProduct" method="POST">
             <div class="container" id="head">Product Details</div>
             <div class="container" id="top">
                 <br>
@@ -61,8 +61,7 @@
                 <br>
                 <br>
                 <label id="im" for="upload-photo"><img src="/store_UI/img/Vector.svg" alt=""></label>
-                <input type="file" onchange="previewFile()" name="photo" id="upload-photo" style="width: 0px;"
-                    multiple />
+                <input type="file" onchange="previewFile()" name="photo" id="upload-photo" style="width: 0px;" />
             </div>
             <br>
             <br>
@@ -70,8 +69,7 @@
                 <div class="details first">
                     <label for="product name">Product Name</label>
                     <br>
-                    <input type="text" name="pdtname" id="pdtname" placeholder="Enter your Product Name "
-                        style="width: 250px;">
+                    <input type="text" name="pdtname" id="pdtname" placeholder="Enter your Product Name " style="width: 250px;">
                 </div>
                 <div class="details" style="width: 200px; margin-right: 50px; margin-left: 0;">
                     <label for="product name">Price of Product</label>
@@ -107,15 +105,13 @@
             <div class="container justify-content-center" style="text-align: center;">
                 <p>Description</p>
                 <br>
-                <textarea name="text" cols="10" wrap="soft" placeholder="Enter a Description" id="desc"
-                    style="line-height: 30px;"></textarea>
+                <textarea name="text" cols="10" wrap="soft" placeholder="Enter a Description" id="desc" style="line-height: 30px;"></textarea>
             </div>
             <div style="text-align: end; width: 90%;">
                 <p style="font-size: 10px;">*min 100 words</p>
             </div>
             <div class="container justify-content-center" style="text-align: center;">
                 <button type="submit" class="button">Add to Stock</button>
-
             </div>
         </form>
         <br>

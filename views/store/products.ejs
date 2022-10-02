@@ -1,166 +1,65 @@
 <title>Stock Update</title>
 <%- include('partials/header')%>
     <link rel="stylesheet" href="/store_UI/css/products.css">
-
-    <body>
-        <img src="/store_UI/img/Screenshot (95).png" id="image" alt="img">
-        <div id="dashboard">
-            <div class="container" id="head">Dashboard</div>
-            <div>
-                <table id="productSizes" class="table-borderless" style="width: 100%; margin-right: 10px;">
+    <img src="/store_UI/img/Screenshot (95).png" id="image" alt="img">
+    <div id="dashboard">
+        <div class="container" id="head">Dashboard</div>
+        <div>
+            <table id="productSizes" class="table-borderless" style="width: 100%; margin-right: 10px;">
+                <thead>
+                    <tr class="d-flex" id="headings">
+                        <th class="col-2">S.No</th>
+                        <th class="col">Product Name</th>
+                        <th class="col-2">Quantity</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr class="d-flex" id="blank">
+                        <th class="col-2"></th>
+                        <th class="col"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                </thead>
+                <% for(let i=0;i < products.length;i++) {%>
+                    <!-- <label for="Quantity">Quantity: </label>
+                    <input class="w-25" type="number" name="Quantity" id="Quantity" value="<%# = products[i].availableQuantity %>" onchange="changeQuantity('<%# = products[i]._id %>', this)"> -->
+                    <!-- <p class="card-text">Description: <%# = products[i].description %> -->
+                    <!-- <a href="/store/editProduct?ID=<%# =products[i]._id%>"><button type="button" class="btn btn-success btn-lg btn-round">Edit</button></a> -->
+                    <!-- <a href="/store/deleteProduct?ID=<%# =products[i]._id%>"><button type="button" class="btn btn-danger btn-lg btn-round">Delete</button></a> -->
                     <thead>
-                        <tr class="d-flex" id="headings">
-                            <th class="col-2">S.No</th>
-                            <th class="col">Product Name</th>
-                            <th class="col-2">Quantity</th>
-                        </tr>
+                        <%# for(let j=0;j<products[i].images.length;j++) {%>
+                            <!-- <img src="/store_UI/img/<%# =products[i].images[j]%>" class="card-img-top" alt="..."> -->
+                            <%# } %>
+                                <tr class="d-flex" id="blue">
+                                    <th class="col-2">
+                                        <%= i+1 %>
+                                    </th>
+                                    <th class="col">
+                                        <%= products[i].name %>
+                                    </th>
+                                    <th class="col-2 quant">
+                                        <div id="inc">
+                                            <button onclick="increment(0)" id="plus">+</button>
+                                            <input id="demoInput" class="insider" class="inp" type=text min="1" value="1">
+                                            <button onclick="decrement(0)" id="plus">-</button>
+                                        </div>
+                                    </th>
+                                </tr>
                     </thead>
-                    <thead>
-                        <tr class="d-flex" id="blank">
-                            <th class="col-2"></th>
-                            <th class="col"></th>
-                            <th class="col-2"></th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="blue">
-                            <th class="col-2">1</th>
-                            <th class="col">Iphone 12 Pro Max</th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(0)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" class="inp" type=text min="1" value="1">
-                                    <button onclick="decrement(0)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="white">
-                            <th class="col-2">2</th>
-                            <th class="col">Puma Unisex sneakers</th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(1)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(1)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="blue">
-                            <th class="col-2">3</th>
-                            <th class="col">Puma Smash V2
-                            </th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(2)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(2)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="white">
-                            <th class="col-2">4</th>
-                            <th class="col">Kurkure Chilli Chatka
-                            </th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(3)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(3)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="blue">
-                            <th class="col-2">5</th>
-                            <th class="col"> Hair Oil
-                            </th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(4)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(4)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="white">
-                            <th class="col-2">6</th>
-                            <th class="col">Coconut Oil
-                            </th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(5)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(5)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="blue">
-                            <th class="col-2">7</th>
-                            <th class="col">Kurkure Chilli Chatka
-                            </th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(6)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(6)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="white">
-                            <th class="col-2">8</th>
-                            <th class="col">Bingo Achari Masti
-                            </th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(7)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(7)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="d-flex" id="blue" class="last">
-                            <th class="col-2">9</th>
-                            <th class="col">Hide & Seek</th>
-                            <th class="col-2 quant">
-                                <div id="inc">
-                                    <button onclick="increment(8)" id="plus">+</button>
-                                    <input id="demoInput" class="insider" type=text min="1" value="1">
-                                    <button onclick="decrement(8)" id="plus">-</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <script>
-                function increment(i) {
-                    var x = document.getElementsByClassName('insider')[i].value;
-                    x++;
-                    document.getElementsByClassName('insider')[i].value = x;
-                }
-                function decrement(i) {
-                    var x = document.getElementsByClassName('insider')[i].value;
-                    if (x != 0) { x--; }
-                    document.getElementsByClassName('insider')[i].value = x;
-                }
-
-            </script>
-    </body>
+                    <% } %>
+            </table>
+        </div>
+    </div>
+    <script>
+        function increment(i) {
+            var x = document.getElementsByClassName('insider')[i].value;
+            x++;
+            document.getElementsByClassName('insider')[i].value = x;
+        }
+        function decrement(i) {
+            var x = document.getElementsByClassName('insider')[i].value;
+            if (x != 0) { x--; }
+            document.getElementsByClassName('insider')[i].value = x;
+        }
+    </script>
     <% - include('partials/footer') %>
-
-        </html>
