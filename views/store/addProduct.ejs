@@ -1,36 +1,35 @@
 <%- include('partials/header')%>
-    <link rel="stylesheet" href="/store_UI/css/addproduct.css">
-    <script>
-        function previewFile() {
-            var preview = document.querySelector('#img');
-            var file = document.querySelector('input[type=file]').files[0];
-            var reader = new FileReader();
-            reader.onloadend = function () {
-                preview.src = reader.result;
-            }
-            if (file) {
-                reader.readAsDataURL(file);
-                document.getElementById('im').innerHTML = "";
-                document.getElementById('addp').innerHTML = "";
-                document.getElementById('addp').style.padding = 0;
-            } else {
-                preview.src = "";
-            }
-        }
-        function m() {
-            var w = document.documentElement.clientWidth || window.innerWidth;
-            if (w <= 770) {
-                document.getElementById("a").classList.add("container");
-                document.getElementById("a").classList.remove("d-flex");
-                document.getElementById("b").classList.add("container");
-                document.getElementById("b").classList.remove("d-flex");
-                document.getElementById("c").style.paddingLeft = "16px";
-            }
-            else {
-                document.getElementById("a").classList.add("d-flex");
-                document.getElementById("b").classList.add("d-flex");
-            }
-        }
+<link rel="stylesheet" href="/store_UI/css/addproduct.css" />
+<script>
+  function previewFile() {
+    var preview = document.querySelector("#img");
+    var file = document.querySelector("input[type=file]").files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      preview.src = reader.result;
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+      document.getElementById("im").innerHTML = "";
+      document.getElementById("addp").innerHTML = "";
+      document.getElementById("addp").style.padding = 0;
+    } else {
+      preview.src = "";
+    }
+  }
+  function m() {
+    var w = document.documentElement.clientWidth || window.innerWidth;
+    if (w <= 770) {
+      document.getElementById("a").classList.add("container");
+      document.getElementById("a").classList.remove("d-flex");
+      document.getElementById("b").classList.add("container");
+      document.getElementById("b").classList.remove("d-flex");
+      document.getElementById("c").style.paddingLeft = "16px";
+    } else {
+      document.getElementById("a").classList.add("d-flex");
+      document.getElementById("b").classList.add("d-flex");
+    }
+  }
 
         function increment() {
             var x = document.getElementById('demoInput').value;
@@ -55,7 +54,7 @@
             <br>
             <br>
             <label id="im" for="upload-photo"><img src="/store_UI/img/Vector.svg" alt=""></label>
-            <input type="file" onchange="previewFile()" name="photo" id="upload-photo" style="width: 0px;" />
+            <input type="file" onchange="previewFile()" name="photo" id="upload-photo" style="width: 0px;" multiple />
         </div>
         <br>
         <br>
@@ -112,17 +111,42 @@
         </div>
     </form>
         <br>
+
     </div>
-    <script>
-        function increment() {
-            var x = document.getElementById('demoInput').value;
-            x++;
-            document.getElementById('demoInput').value = x;
-        }
-        function decrement() {
-            var x = document.getElementById('demoInput').value;
-            if (x != 0) { x--; }
-            document.getElementById('demoInput').value = x;
-        }
-    </script>
-    <% - include('partials/footer') %>
+  </div>
+  <br />
+  <div class="container justify-content-center" style="text-align: center">
+    <p>Description</p>
+    <br />
+    <textarea
+      name="text"
+      cols="10"
+      wrap="soft"
+      placeholder="Enter a Description"
+      id="desc"
+      style="line-height: 30px"
+    ></textarea>
+  </div>
+  <div style="text-align: end; width: 90%">
+    <p style="font-size: 10px">*min 100 words</p>
+  </div>
+  <div class="container justify-content-center" style="text-align: center">
+    <button class="button">Add to Stock</button>
+  </div>
+  <br />
+</div>
+<script>
+  function increment() {
+    var x = document.getElementById("demoInput").value;
+    x++;
+    document.getElementById("demoInput").value = x;
+  }
+  function decrement() {
+    var x = document.getElementById("demoInput").value;
+    if (x != 0) {
+      x--;
+    }
+    document.getElementById("demoInput").value = x;
+  }
+</script>
+<% - include('partials/footer') %>
