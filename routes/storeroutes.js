@@ -92,7 +92,16 @@ router.get("/products", storeCheck, async (req, res) => {
   res.render("store/products", { ...context });
 });
 
-router.get("/addProduct", storeCheck, async (req, res) => {
+router.get("/stock", storeCheck, async (req, res) => {
+  const category = await categoryTable.find();
+  res.render("store/addstock", {
+    authenticated: req.isAuthenticated(),
+    user: req.user,
+    category: category,
+  });
+});
+
+router.get("/stock/addProduct", storeCheck, async (req, res) => {
   const category = await categoryTable.find();
   res.render("store/addProduct", {
     authenticated: req.isAuthenticated(),
@@ -102,7 +111,7 @@ router.get("/addProduct", storeCheck, async (req, res) => {
 });
 
 router.post(
-  "/addProduct",
+  "/stock/addProduct",
   upload.array("images"),
   storeCheck,
   async (req, res) => {
