@@ -15,7 +15,7 @@
       <div class="cat">
         <a href="/products?ID=<%=categories[i]._id%>&city=<%=city%>"
           ><img
-            src="/user_UI/img/categories/<%=categories[i].categoryName %>.jpg"
+            src="/user_UI/img/categories/<%=categories[i].categoryName %>.png"
             alt="mobile-img"
           />
           <%= categories[i].categoryName%>
@@ -408,12 +408,21 @@
             <span class="pre">Rs. <%=trendings[i].mrp%></span>
             <span><%=trendings[i].salePrice%></span>
           </div>
+          <% if(user && user.userType=='user' ) {%>
           <button
-            onclick="AddtoCart('<%=trendings[i]._id%>','<%= user.id %>')"
+            onclick="AddtoCart('<%=trendings[i]._id%>','<%= user._id %>')"
             class="add-to-cart"
           >
             ADD TO CART +
           </button>
+          <%} else {%>
+            <a href="/login"><button 
+            onclick=""
+            class="add-to-cart"
+          >
+            ADD TO CART +
+          </button></a>
+            <%}%>
         </div>
         <% } %>
         <div class="sub-div">

@@ -1,6 +1,6 @@
 <%- include('partials/registerHeader')%>
 <div id="sub-main">
-  <img src="\user_UI\img\logos\mazindalong.png" alt="...">
+  <img src="\user_UI\img\logos\mazindalong.png" alt="..." />
   <div id="content">
     <form action="/register" method="POST" class="sign-in-form">
       <h2 class="title">Create an account</h2>
@@ -18,22 +18,41 @@
       </div>
       <div class="input-field">
         <i class="fas fa-lock"></i>
-        <input type="password" name="password" required placeholder="Password" />
+        <input
+          type="password"
+          name="password"
+          required
+          placeholder="Password"
+        />
       </div>
       <div class="input-field">
         <i class="fas fa-phone"></i>
-        <input type="number" name="phoneNumber" required placeholder="Phone Number" />
+        <input
+          type="number"
+          name="phoneNumber"
+          required
+          placeholder="Phone Number"
+        />
       </div>
       <div class="input-field">
         <i class="fa-solid fa-code"></i>
-        <input type="text" name="referralCode" placeholder="Enter referral code" />
+        <input
+          type="text"
+          name="referralCode"
+          placeholder="Enter referral code"
+        />
       </div>
       <div id="conditions">
         <span>By creating an account you are agreeing to our</span>
-        <span><a href="T&C">terms and conditions</a> & <a href="pp">privacy policy</a></span>
+        <span
+          ><a href="T&C">terms and conditions</a> &
+          <a href="pp">privacy policy</a></span
+        >
       </div>
       <button type="submit" class="btn Sign" value="Sign-up">Sign Up</button>
-      <button type="submit" class="btn" value="guest">Continue as Guest</button>
+      <button type="button" class="btn" value="guest">
+        <a id="remove-effects" href="/">Continue as Guest</a>
+      </button>
       <div id="login-others">
         <span>or</span>
         <span class="last_span">Sign Up with</span>
@@ -49,7 +68,9 @@
           </div>
         </div>
       </div>
-      <span class="last_span">Already have an account? <a href="/login">Log In</a> </span>
+      <span class="last_span"
+        >Already have an account? <a href="/login">Log In</a>
+      </span>
     </form>
   </div>
 </div>
