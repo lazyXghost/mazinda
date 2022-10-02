@@ -1,6 +1,7 @@
 <title>Dashboard</title>
-<link rel="stylesheet" href="/store_UI/css/dashboard.css">
 <%- include('partials/header')%>
+    <link rel="stylesheet" href="/store_UI/css/dashboard.css">
+
     <img src="/store_UI/img/dashboard.png" id="image" alt="img">
     <div id="dashboard">
         <div class="container" id="head">Dashboard</div>
@@ -33,7 +34,8 @@
                                     <th class="col">
                                         <%= tableDetails[i].productName %>
                                     </th>
-                                    <th class="col-2"><button type="button" class="btn <%= tableDetails[i].status %>"></button></th>
+                                    <th class="col-2"><button type="button"
+                                            class="btn <%= tableDetails[i].status %>"></button></th>
                             </tr>
                     </thead>
                     <% } %>

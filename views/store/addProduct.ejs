@@ -46,6 +46,7 @@
     </script>
     <img src="/store_UI/img/arrow.svg" alt="" style="padding-top:10px; position: absolute; " id="a1">
     <div class="container" id="dashboard">
+        <form action="/store/stock/addProduct">
         <div class="container" id="head">Product Details</div>
         <div class="container" id="top">
             <br>
@@ -62,7 +63,8 @@
             <div class="details first">
                 <label for="product name">Product Name</label>
                 <br>
-                <input type="text" name="pdtname" id="pdtname" placeholder="Enter your Product Name " style="width: 250px;">
+                <input type="text" name="pdtname" id="pdtname" placeholder="Enter your Product Name "
+                    style="width: 250px;">
             </div>
             <div class="details" style="width: 200px; margin-right: 50px; margin-left: 0;">
                 <label for="product name">Price of Product</label>
@@ -89,23 +91,26 @@
         <div class="details container " style="width: 200px;" id="c">
             <label for="product name">Quantity</label>
             <div id="inc">
-                <button onclick="increment()" id="plus">+</button>
+                <button type="button" onclick="increment()" id="plus">+</button>
                 <input id="demoInput" class="insider" class="inp" type=text min="1" value="1">
-                <button onclick="decrement()" id="plus">-</button>
+                <button type="button" onclick="decrement()" id="plus">-</button>
             </div>
         </div>
         <br>
         <div class="container justify-content-center" style="text-align: center;">
             <p>Description</p>
             <br>
-            <textarea name="text" cols="10" wrap="soft" placeholder="Enter a Description" id="desc" style="line-height: 30px;"></textarea>
+            <textarea name="text" cols="10" wrap="soft" placeholder="Enter a Description" id="desc"
+                style="line-height: 30px;"></textarea>
         </div>
         <div style="text-align: end; width: 90%;">
             <p style="font-size: 10px;">*min 100 words</p>
         </div>
         <div class="container justify-content-center" style="text-align: center;">
-            <button class="button">Add to Stock</button>
+            <button type="submit" class="button">Add to Stock</button>
+            
         </div>
+    </form>
         <br>
     </div>
     <script>

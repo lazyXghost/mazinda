@@ -1,81 +1,81 @@
+<title>Login</title>
+<%- include('partials/header')%>
+  <link rel="stylesheet" href="/store_UI/css/login.css">
 
-    <%- include('partials/header')%>
-    <link rel="stylesheet" href="/store_UI/css/login.css">
 
-
-      <div class="main" style="height: 1000px">
-        <div class="sub-main" style="margin-top: 100px; height: 70%;">
-          <div class="login-image">
-            <img src="/store_UI/img/Screenshot (92).png" class="login-photo" alt="login-img">
+  <div class="main" style="height: 1000px">
+    <div class="sub-main" style="margin-top: 100px; height: 70%;">
+      <div class="login-image">
+        <img src="/store_UI/img/Screenshot (92).png" class="login-photo" alt="login-img">
+      </div>
+      <div class="content" style="height: 90%;">
+        <form action="/store/login" class="sign-in-form" method="POST">
+          <div class="title">
+            <h1>STORE LOGIN🏠</h1>
           </div>
-          <div class="content" style="height: 90%;">
-            <form action="/store/login" class="sign-in-form" method="POST">
-              <div class="title">
-                <h1>STORE LOGIN🏠</h1>
-              </div>
-              <div class="input-field">
+          <div class="input-field">
 
-                <label for="email" style="margin-bottom: 50px;">Email</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email address" />
-              </div>
-              <div class="input-field">
-                <label for="password" style="margin-bottom: 50px; position: absolute;">Password</label>
-                <input type="password" name="password" required placeholder="Enter password"
-                  style="margin-left: 35px;" />
-              </div>
-              <div>
-                <input type="checkbox" id="exampleCheck1">
-                <label for="exampleCheck1" id="remember">Remember me</label>
-              </div>
-              <!-- <div class="input-field">
+            <label for="email" style="margin-bottom: 50px;">Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email address" />
+          </div>
+          <div class="input-field">
+            <label for="password" style="margin-bottom: 50px; position: absolute;">Password</label>
+            <input type="password" name="password" required placeholder="Enter password" style="margin-left: 35px;" />
+          </div>
+          <div>
+            <input type="checkbox" id="exampleCheck1">
+            <label for="exampleCheck1" id="remember">Remember me</label>
+          </div>
+          <!-- <div class="input-field">
                         <i class="fas fa-code"></i>
                         <input type="text" name="referralCode" placeholder="Referral Code" />
                     </div> -->
-              <div class="home-login-btn">
-                <!-- <input type="submit" class="btn" value="Register" /> -->
-                <input type="submit" value="Log In" class="login-b" />
-              </div>
-              <div id="login-others">
-                <span>or</span>
-                <span>Log In with</span>
-                <div id="fonts">
-                  <div id="facebook">
-                    <i class="fa-brands fa-facebook-f"></i>
-                  </div>
-                  <div id="google">
-                    <i class="fa-brands fa-google"></i>
-                  </div>
-                  <div id="apple">
-                    <i class="fa-brands fa-apple"></i>
-                  </div>
-                </div>
-                <div class="no-account">
-                  <span>Store not Registered?</span>
-                  <span><a href="/store/register"> Register Now</a></span>
-                </div>
-              </div>
-            </form>
+          <div class="home-login-btn">
+            <!-- <input type="submit" class="btn" value="Register" /> -->
+            <input type="submit" value="Log In" class="login-b" />
           </div>
-        </div>
+          <div id="login-others">
+            <span>or</span>
+            <span>Log In with</span>
+            <div id="fonts">
+              <div id="facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+              </div>
+              <div id="google">
+                <i class="fa-brands fa-google"></i>
+              </div>
+              <div id="apple">
+                <i class="fa-brands fa-apple"></i>
+              </div>
+            </div>
+            <div class="no-account">
+              <span>Store not Registered?</span>
+              <span><a href="/store/register"> Register Now</a></span>
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
+  </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
-        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-        crossorigin="anonymous"></script>
-      <script>
-        const sign_in_btn = document.querySelector("#sign-in-btn");
-        const sign_up_btn = document.querySelector("#sign-up-btn");
-        const container = document.querySelector(".container");
-        sign_up_btn.addEventListener("click", () => {
-          container.classList.add("sign-up-mode");
-        });
-        sign_in_btn.addEventListener("click", () => {
-          container.classList.remove("sign-up-mode");
-        });
-      </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+    crossorigin="anonymous"></script>
+  <script>
+    const sign_in_btn = document.querySelector("#sign-in-btn");
+    const sign_up_btn = document.querySelector("#sign-up-btn");
+    const container = document.querySelector(".container");
+    sign_up_btn.addEventListener("click", () => {
+      container.classList.add("sign-up-mode");
+    });
+    sign_in_btn.addEventListener("click", () => {
+      container.classList.remove("sign-up-mode");
+    });
+  </script>
   </body>
+  <% - include('partials/footer') %>
 
-</html>
+    </html>
