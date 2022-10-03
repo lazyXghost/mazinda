@@ -1,0 +1,128 @@
+.second-div{
+    margin-bottom: 20px ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.second-pre-div{
+    width:55%;
+    height: 100%;
+    background-color: white;
+    margin-left: 10px;
+    border-radius: 4px;
+    border: 1px solid #5597DA;
+    padding:15px 10px 5px 10px;
+}
+.inputs{
+    padding: 3px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#name{
+    width: 45%;
+    height: 41px;
+    outline: none;
+    background: #FFFFFF;
+    border: 1px solid #5597DA;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.checks{
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.btn:hover{
+    background-color: #fff;
+    color: #5597DA;
+}
+
+.more{
+    background-color: #5598da00;
+    color: #5597DA;
+    text-align: right;
+    border: none;
+    outline: none;
+}
+
+.btn-group{
+    padding-left: 150px;
+}
+.add{
+    width:100%;
+    display: flex;
+    justify-content: end;
+}
+
+.check{
+    width: 18px;
+    height: 18px;
+    outline:1px solid #5597DA;
+    border: 0px solid #0079f200;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.ins label{
+    font-weight: 600;
+    font-size: 12px;
+    color:#5597DA
+}
+
+.second-sub-div{
+    width: 40%;
+    background: linear-gradient(131.6deg, #5597DA 5.09%, #51A1DE 37.53%, #40D3F2 75.25%);
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;font-weight: 700;
+    font-size: 14px;
+    color: white;
+}
+.con{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10%;
+    font-weight: 600;
+    font-size: 12px;
+    color: white;
+    line-height: 20px;
+}
+.see{
+    width: 100%;
+    text-align: right;
+    padding-right:7%;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 25px;
+}
+.actions{
+    width: 65px;
+    height: 22px;
+    font-weight: 600;
+    font-size: 10px;
+    color: white;
+    background-color: rgba(85, 151, 218, 1);
+    border: none;
+    border-radius: 4px;
+    line-height: 10px;
+}
+
+.actions i{
+    padding-left: 5px;
+}
+
+td,th{
+    width: 25%;
+}
