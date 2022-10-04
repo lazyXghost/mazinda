@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="user_UI/img/favicon/favicon-16x16.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="manifest" href="user_UI/img/favicon/site.webmanifest" />
-    <link rel="stylsheet" href="user_UI/product.css" />
+    <link rel="stylsheet" href="/user_UI/product.css" />
     <title>Mazinda</title>
     <script src="https://kit.fontawesome.com/de5fa6f0f7.js" crossorigin="anonymous"></script>
     <style>
@@ -334,88 +334,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <%- include('partials/product_footer')%> -->
   </body>
-  <!-- <%- include('partials/header') %>
-<div  id="main" >
-    <div class="categories flex flex-col">
-        <div class="flex overflow-x-scroll hide-scroll-bar">
-          <% for(let i=0;i < categories.length;i++) {%>
-          <div class="mt-2 mb-0 flex flex-nowrap mx-2">
-            <div class="inline-block px-2 category">
-              <a
-                href="/products?ID=<%=categories[i]._id%>&city=<%=city%>"
-                style="color: black; text-decoration: none"
-              >
-                <div
-                  style="border-radius: 100%; height: 70px; width: 70px"
-                  class="img"
-                >
-                  <img
-                    style="
-                      border-radius: 100%;
-                      object-fit: cover;
-                      height: 100%;
-                      width: 100%;
-                    "
-                    src="/user_UI/img/categories/<%=categories[i].categoryName %>.png"
-                    alt="<%=categories[i].categoryName %>"
-                  />
-                </div>
-                <p
-                  class="text-center"
-                  style="width: 70px; font-size: 14px; font-weight: 500"
-                >
-                  /*<%= categories[i].categoryName%>*/
-                </p>
-              </a>
-            </div>
-          </div>
-          <% }%>
-        </div>
-      </div>
-
-    <div style="background-color: rgb(255, 255, 255);" class="products text-black p-2">
-            <div class="row no-gutters" data-product-container>
-                <% for(let i=0;i<products.length;i++) {%>
-                <div class="col-6">
-                    <div class="product-box" data-product-box>
-                        <div class="p-col-inner">
-                            <div class="p-data">
-                                <div class="card border-0">
-                                    <img src="store_UI/img/<%=products[i].images[0]%>" alt="...">
-                                    <div class="p-body">
-                                        <br>
-                                        <h6 class="p-name productName"><%=products[i].name%></h6>
-                                        <input type="hidden" class="productDescription" value="<%=products[i].description%>">
-                                        rating -->
-  <!-- <p class="lead mb-1">
-                                        <span class="sp">₹<%=products[i].salePrice%></span>
-                                        <span class="ms-2 text-muted cp">₹<%=products[i].mrp%></span>
-                                        <span class="ms-2 text-success dis">(<%= parseInt((products[i].mrp - products[i].salePrice)/products[i].mrp * 100) %>% off)</span>
-                                    </p> -->
-  <!-- Mazinda tick
-                                    </div> -->
-  <!-- <div class="buttons flex flex-col">
-                                      <% if(user && user.userType=='user' ) {%>
-                                          <button class="btn btn-warning mb-2"
-                                              onclick="AddToCart('<%= products[i]._id %>', '<%= user._id %>')"><i
-                                                  class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</button>
-                                          <a href="/placeOrder?product_id=<%=products[i]._id%>" type="button" class="btn btn-secondary"><i
-                                                  class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
-                                          <% } else {%>
-                                              <a href="/login" type="button" class="btn btn-warning mb-2" onclick=""><i
-                                                      class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a>
-                                              <a href="/login" type="button" class="btn btn-secondary"><i
-                                                      class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a>
-                                              <% } %>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <% } %>
-            </div>
-    </div>
-</div>
-<%- include('partials/footer')%> -->
+  
