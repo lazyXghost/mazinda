@@ -164,7 +164,7 @@ body {
     ;
 }
 
-#dashboard {
+#dashboard1 {
     background-color: white;
     margin-top: 55px;
 
@@ -257,7 +257,7 @@ button {
         .d-flex{font-size: 5vw;}
         .btn{width: 10vw;}
        th{padding: 0;}
-       #dashboard{border-top-left-radius: 50px;
+       #dashboard1{border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     }#image{display: block;
     height: 260px;
@@ -265,7 +265,7 @@ button {
     margin: auto;
 width: 90%;
 position: absolute; 
-}#dashboard{margin-top: 234px;
+}#dashboard1{margin-top: 234px;
 } #blue #white #headings{ height: auto;}
 .btn{margin-top: 5px;
 margin-bottom: 5px;
