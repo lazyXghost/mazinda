@@ -1,207 +1,199 @@
 <%- include('partials/header')%>
-<link rel="stylesheet" href="/admin_UI/admin_dashboard.css">
-            <div class="sub-main">
-                <div class="sub-main-menu">
-                    <div class="totals">
-                        <div class="total-div">
-                            <img src="/admin_UI/images/man.png" alt="Total Sales">
-                            <div class="total-det">
-                                <span>Total Sales</span>
-                                <div class="tot-det">₹5,50,000</div>
-                            </div>
-                        </div>
-                        <div class="total-div">
-                            <img src="/admin_UI/images/kids.png" alt="Total Orders">
-                            <div class="total-det">
-                                <span>Total Orders</span>
-                                <div class="tot-det">443</div>
-                            </div>
-                        </div>
-                        <div class="total-div">
-                            <img src="/admin_UI/images/Phone-coins.png" alt="Total Expenses">
-                            <div class="total-det">
-                                <span>Total Expenses</span>
-                                <div class="tot-det">₹2,50,000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Graph">
-                      <div class="g-head">
-                        <h4>
-                          User Visited
-                        </h4>
-                        <div class="dropdown">
-                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            20-09-2022
-                          </button>
-                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">20-09-2022</a></li>
-                            <li><a class="dropdown-item" href="#">20-09-2022</a></li>
-                            <li><a class="dropdown-item" href="#">20-09-2022</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <canvas id="lineChart" width="726px" height="178px"></canvas>
-                    </div>
-                    <div class="Latest-order">
-                      <div class="lo-head">
-                        <h4>
-                          Latest Orders
-                        </h4>
-                        <button class="view-order">
-                          Veiw all Orders
-                        </button>
-                      </div>
-                      <div class="table-content">
-                        <table>
-                            <tr class="top">
-                                <th class="top-content sno">Sno.</th>
-                                <th class="top-content">Date</th>
-                                <th class="top-content">Billing Name</th>
-                                <th class="top-content">Payment Status</th>
-                                <th class="top-content amount">Amount</th>
-                            </tr>
-                            <tbody>
-                            <tr class="content">
-                                <td>1</td>
-                                <td>22/09/2022</td>
-                                <td>Akash Khurana</td>
-                                <td><button class="completed">Completed</button></td>
-                                <td class="blue">₹20,000</td>
-                            </tr>
-                            <tr class="content">
-                                <td>2</td>
-                                <td>22/09/2022</td>
-                                <td>Akash Khurana</td>
-                                <td><button class="completed">Completed</button></td>
-                                <td class="blue">₹10,000</td>
-                            </tr>
-                            <tr class="content">
-                                <td>3</td>
-                                <td>22/09/2022</td>
-                                <td>Akash Khurana</td>
-                                <td><button class="not-completed">Not Completed</button></td>
-                                <td class="blue">₹12,000</td>
-                            </tr>
-                            <tr class="content">
-                                <td>4</td>
-                                <td>22/09/2022</td>
-                                <td>Akash Khurana</td>
-                                <td><button class="not-completed">Not Completed</button></td>
-                                <td class="blue">₹13,000</td>
-                            </tr>
-                            <tr class="content">
-                                <td>5</td>
-                                <td>21/09/2022</td>
-                                <td>Akash Khurana</td>
-                                <td><button class="completed">Completed</button></td>
-                                <td class="blue">₹17,000</td>
-                            </tr>
-                            <tr class="content">
-                                <td>6</td>
-                                <td>21/09/2022</td>
-                                <td>Akash Khurana</td>
-                                <td><button class="not-completed">Not Completed</button></td>
-                                <td class="blue">₹11,000</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="main-aside">
-                  <div class="Net-profit">
-                    <div class="net-head">
-                      <h4>NET PROFIT:<span>₹3,00,000</span></h4>
-                    </div>
-                    <canvas id="doughnut" width="170px" height="170px"></canvas>
-                  </div>
-                  <div class="recent-sales">
-                    <div class="sale-nav">
-                      <h5>Recent Sales</h5>
-                      <h6>See All</h6>
-                  </div>
-                  <div id="Sale-main-content">
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale1.png" alt="Sale1">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale2.png" alt="Sale2">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale3.png" alt="Sale3">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale4.png" alt="Sale4">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale5.png" alt="Sale5">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale6.png" alt="Sale6">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                  <div class="sale-content">
-                      <img src="/admin_UI/images/sale7.png" alt="Sale7">
-                      <div class="content-div">
-                        <div class="name-time">
-                            <h5>Akash Khurana</h5>
-                            <h6>5 minutes ago</h6>
-                        </div>
-                        <h5 class="price" style="font-size: 10px;">₹25,000</h5>
-                      </div>
-                  </div>
-                </div>
-                  </div>
-                </div>
+  <link rel="stylesheet" href="/admin_UI/admin_dashboard.css">
+  <div class="sub-main">
+    <div class="sub-main-menu">
+      <div class="totals">
+        <div class="total-div">
+          <img src="/admin_UI/images/man.png" alt="Total Sales">
+          <div class="total-det">
+            <span>Total Sales</span>
+            <div class="tot-det">₹5,50,000</div>
+          </div>
+        </div>
+        <div class="total-div">
+          <img src="/admin_UI/images/kids.png" alt="Total Orders">
+          <div class="total-det">
+            <span>Total Orders</span>
+            <div class="tot-det">443</div>
+          </div>
+        </div>
+        <div class="total-div">
+          <img src="/admin_UI/images/Phone-coins.png" alt="Total Expenses">
+          <div class="total-det">
+            <span>Total Expenses</span>
+            <div class="tot-det">₹2,50,000</div>
+          </div>
+        </div>
+      </div>
+      <div class="Graph">
+        <div class="g-head">
+          <h4>
+            User Visited
+          </h4>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              20-09-2022
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">20-09-2022</a></li>
+              <li><a class="dropdown-item" href="#">20-09-2022</a></li>
+              <li><a class="dropdown-item" href="#">20-09-2022</a></li>
+            </ul>
+          </div>
+        </div>
+        <canvas id="lineChart" width="726px" height="178px"></canvas>
+      </div>
+      <div class="Latest-order">
+        <div class="lo-head">
+          <h4>
+            Latest Orders
+          </h4>
+          <button class="view-order">
+            Veiw all Orders
+          </button>
+        </div>
+        <div class="table-content">
+          <table>
+            <tr class="top">
+              <th class="top-content sno">Sno.</th>
+              <th class="top-content">Date</th>
+              <th class="top-content">Billing Name</th>
+              <th class="top-content">Payment Status</th>
+              <th class="top-content amount">Amount</th>
+            </tr>
+            <tbody>
+              <tr class="content">
+                <td>1</td>
+                <td>22/09/2022</td>
+                <td>Akash Khurana</td>
+                <td><button class="completed">Completed</button></td>
+                <td class="blue">₹20,000</td>
+              </tr>
+              <tr class="content">
+                <td>2</td>
+                <td>22/09/2022</td>
+                <td>Akash Khurana</td>
+                <td><button class="completed">Completed</button></td>
+                <td class="blue">₹10,000</td>
+              </tr>
+              <tr class="content">
+                <td>3</td>
+                <td>22/09/2022</td>
+                <td>Akash Khurana</td>
+                <td><button class="not-completed">Not Completed</button></td>
+                <td class="blue">₹12,000</td>
+              </tr>
+              <tr class="content">
+                <td>4</td>
+                <td>22/09/2022</td>
+                <td>Akash Khurana</td>
+                <td><button class="not-completed">Not Completed</button></td>
+                <td class="blue">₹13,000</td>
+              </tr>
+              <tr class="content">
+                <td>5</td>
+                <td>21/09/2022</td>
+                <td>Akash Khurana</td>
+                <td><button class="completed">Completed</button></td>
+                <td class="blue">₹17,000</td>
+              </tr>
+              <tr class="content">
+                <td>6</td>
+                <td>21/09/2022</td>
+                <td>Akash Khurana</td>
+                <td><button class="not-completed">Not Completed</button></td>
+                <td class="blue">₹11,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="main-aside">
+      <div class="Net-profit">
+        <div class="net-head">
+          <h4>NET PROFIT:<span>₹3,00,000</span></h4>
+        </div>
+        <canvas id="doughnut" width="170px" height="170px"></canvas>
+      </div>
+      <div class="recent-sales">
+        <div class="sale-nav">
+          <h5>Recent Sales</h5>
+          <h6>See All</h6>
+        </div>
+        <div id="Sale-main-content">
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale1.png" alt="Sale1">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
             </div>
-        </main>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-        <script src="/admin_UI/admin_dashboard1.js"></script>
-        <script src="/admin_UI/admin_dashboard2.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script>document.getElementById("heading").innerText="Dashboard"</script>
-     </body>
-    
-</html>
+          </div>
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale2.png" alt="Sale2">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
+            </div>
+          </div>
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale3.png" alt="Sale3">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
+            </div>
+          </div>
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale4.png" alt="Sale4">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
+            </div>
+          </div>
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale5.png" alt="Sale5">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
+            </div>
+          </div>
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale6.png" alt="Sale6">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
+            </div>
+          </div>
+          <div class="sale-content">
+            <img src="/admin_UI/images/sale7.png" alt="Sale7">
+            <div class="content-div">
+              <div class="name-time">
+                <h5>Akash Khurana</h5>
+                <h6>5 minutes ago</h6>
+              </div>
+              <h5 class="price" style="font-size: 10px;">₹25,000</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('partials/homeFooter')%>
