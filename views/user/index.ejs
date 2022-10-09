@@ -96,27 +96,6 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  <!--Categories 2-->
-  <!--Backend-->
-  <!-- <div class="categoryBoxes lg:mx-40 md:mx-20 mx-10 text-black pt-4">
-  <h4 class="text-center heading">offers</h4>
-  <div class="flex flex-row justify-around flex-wrap">
-    <% for(let i=0;i < offers.length;i++) {%>
-    <div class="category-box flex flex-col flex-wrap">
-      <div class="offer py-2 bg-blue-800 text-white text-center">
-        <%= offers[i].offer %>
-      </div>
-       <div class="image-box">
-                              <img src="/user_UI/img/carousel/image1.svg" alt="">
-                          </div> ADD CATEGORY IMAGE HERE
-      <div class="category-info font-bold text-center">
-        <%= offers[i].category %>
-      </div>
-    </div>
-    <% }%>
-  </div>
-</div> -->
-  <!--Frontend only-->
   <!--main-cat-->
   <div id="categories2">
     <div class="categories-main">
@@ -350,50 +329,6 @@
   </div>
   <div id="space"></div>
   <!--trending-now-->
-  <!--backend-->
-  <!-- <div
-  style="background-color: rgb(255, 255, 255)"
-  class="products lg:mx-40 md:mx-20 mx-10 text-black pt-4"
->
-  <h4 class="text-center heading">Trendings</h4>
-  <div class="flex flex-row text-center justify-around flex-wrap">
-    <% for(let i=0;i < trendings.length;i++) { %>
-    <div class="product-box">
-      <div class="img product-img-box">
-        <img
-          src="/store_UI/img/<%=trendings[i].images[0]%>"
-          alt="no image available"
-        />
-      </div>
-      <p><%= trendings[i].name %></p>
-      <h5 class="font-bold">$<%= trendings[i].salePrice %></h5>
-      <div class="buttons flex flex-col px-5">
-        <% if(user && user.userType=='user' ) {%>
-        <button
-          class="btn btn-warning mb-2"
-          onclick="AddToCart('<%= trendings[i]._id %>', '<%= user._id %>')"
-        >
-          <i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart
-        </button>
-        <a
-          href="/placeOrder?product_id=<%=trendings[i]._id%>"
-          type="button"
-          class="btn btn-secondary"
-          ><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a
-        >
-        <% } else {%>
-        <a href="/login" type="button" class="btn btn-warning mb-2" onclick=""
-          ><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a
-        >
-        <a href="/login" type="button" class="btn btn-secondary"
-          ><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a
-        >(), <% } %>
-      </div>
-    </div>
-    <% } %>
-  </div>
-</div> -->
-  <!--frontend only-->
   <div id="trendings">
     <h2>TRENDING NOW!!!</h2>
     <div class="trending-m">
@@ -527,68 +462,5 @@
       </div>
     </div>
   </div>
-  <!--Extras-->
-  <!-- <div
-  style="background-color: rgb(255, 255, 255)"
-  class="products lg:mx-40 md:mx-20 mx-10 text-black pt-4"
->
-  <h4 class="text-center heading">Top Deals</h4>
-  <div
-    style="background-color: transparent"
-    class="flex flex-row text-center justify-around flex-wrap"
-  >
-    <% for(let i=0;i < topDeals.length;i++) {%>
-    <div class="product-box">
-      <div class="img product-img-box">
-        <a href="/productDetail?ID=<%=topDeals[i]._id%>"
-          ><img
-            src="store_UI/img/<%=topDeals[i].images[0]%>"
-            alt="no image available"
-        /></a>
-      </div>
-      <p><%= topDeals[i].name %></p>
-      <h5 class="font-bold"><%= topDeals[i].price %></h5>
-      <div class="buttons flex flex-col px-5">
-        <% if(user && user.userType=='user' ) {%>
-        <button
-          class="btn btn-warning mb-2"
-          onclick="AddToCart('<%= topDeals[i]._id %>', '<%= user._id %>')"
-        >
-          <i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart
-        </button>
-        <a
-          href="/placeOrder?product_id=<%=topDeals[i]._id%>"
-          type="button"
-          class="btn btn-secondary"
-          ><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a
-        >
-        <% } else {%>
-        <a href="/login" type="button" class="btn btn-warning mb-2" onclick=""
-          ><i class="fa-solid fa-cart-plus mr-3"></i> Add To Cart</a
-        >
-        <a href="/login" type="button" class="btn btn-secondary"
-          ><i class="fa-solid fa-basket-shopping mr-3"></i> Buy Now</a
-        >
-        <% } %>
-      </div>
-    </div>
-    <% } %>
-  </div>
-</div> -->
 </div>
-<!--Javascript Link-->
-<script
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"
-></script>
+<%- include('partials/index_footer')%>

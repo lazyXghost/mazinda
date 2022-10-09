@@ -1,78 +1,361 @@
-<%- include('partials/header') %>
-  <header>
-    <div class="cover header">
-      <h3>Add New Coupon</h3>
-    </div>
-  </header>
-  <form action="/admin/addCategory" enctype="multipart/form-data" class="cover" method="POST">
-    <div class="container">
-      <input type="text" name="categoryName" placeholder="Enter Catagory">
-      <div class="col-12">
-        <!-- <label for="image" class="form-label">Image</label> -->
-        <input type="file" name="image" class="form-control" id="image" placeholder="choose image" accept="image/png, image/jpeg, image/jpg" required>
-        <!-- <div class="invalid-feedback">Please, upload an Image!</div> -->
-      </div>
-      <button type="Submit">Add Category</button>
-    </div>
-  </form>
-  <br>
-  <header>
-    <div class="cover header">
-      <h3>Categories Info</h3>
-    </div>
-  </header>
-  <div class="list">
-    <div class="cover">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <table>
-              <thead>
-                <tr>
-                  <th>Serial Number</th>
-                  <th>Category</th>
-                  <th>Number of products</th>
-                  <th>Manage</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% for(let i=0;i < category.length;i++) {%>
-                  <tr>
-                    <th>
-                      <%= (i+1) %>
-                    </th>
-                    <td>
-                      <%= category[i].categoryName %>
-                    </td>
-                    <td>
-                      <%= category[i].quantity %>
-                    </td>
-                    <td>
-                      <form action="/admin/deleteCategory" method="POST">
-                        <button type="submit" name="category" value="<%=category[i]._id %>" class="red"><i class="far fa-trash-alt"></i></button>
-                      </form>
-                    </td>
-                  </tr>
-                  <% } %>
-              </tbody>
-            </table>
-          </div>
+
+<%- include('partials/header')%>
+<link rel="stylesheet" href="/admin_UI/category.css">
+        <div class="sub-main">
+            <div class="sub-main-nav">
+                <div class="search_bar2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search in Category">
+                </div>
+                <button class="new-category">ADD NEW CATEGORY</button>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <!--
-<script>
-  const editCategory = document.getElementsByClassName("green");
-  const deleteCategory = document.getElementsByClassName("red");
-  editCategory.forEach(addEventListener('click',(e)=> {
-    const value = e.target.value ?? e.target.parentNode.value;
-    alert(`The selected category will be ${value}d` ,"Refresh to prevent press ok to Continue!!!");
-  }));
-  deleteCategory.forEach(addEventListener('click',(e)=> {
-    const value = e.target.value ?? e.target.parentNode.value;
-    alert(`The selected category will be ${value}d` ,"Refresh to prevent press ok to Continue!!!");
-  }));
-</script>
--->
-  <%- include('partials/footer') %>
+        <div class="cat">
+            <div class="inner row row-cols-1 row-cols-md-4 g-4" style="width:99%; margin-top: 10px;">
+                <div class="col" style="height: 500px; padding: 0px;">
+                    <div class="card" style="height: 250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Home</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Mobiles</button>
+                                        <button>Utensils</button>
+                                        <button>Bedsheets</button>
+                                        <button>Groceries</button>
+                                        <button>Electronics</button>
+                                        <button>Make-up</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Furniture</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Bedroom</button>
+                                        <button>Kitchen & Dining</button>
+                                        <button>Hallway & Entrance</button>
+                                        <button>Kids Room</button>
+                                        <button>Home & Office</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Gifts</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Gifts for Kids</button>
+                                        <button>Gifts for Adults</button>
+                                        <button>Gifts for Men</button>
+                                        <button>Gifts for Women</button>
+                                        <button>Gifts for Daddy</button>
+                                        <button>Gifts for Mummy</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="height:500px; padding: 0px;">
+                    <div class="card" style="height:250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5 class="access">Apparel,Footwear, & Accesories</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Apparel</button>
+                                        <button>Mounting Apparel</button>
+                                        <button>Workwear Apparel</button>
+                                        <button>Footwear</button>
+                                        <button>Accessories</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Gifts</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Gifts for Kids</button>
+                                        <button>Gifts for Adults</button>
+                                        <button>Gifts for Men</button>
+                                        <button>Gifts for Women</button>
+                                        <button>Gifts for Daddy</button>
+                                        <button>Gifts for Mummy</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Gifts</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Gifts for Kids</button>
+                                        <button>Gifts for Adults</button>
+                                        <button>Gifts for Men</button>
+                                        <button>Gifts for Women</button>
+                                        <button>Gifts for Daddy</button>
+                                        <button>Gifts for Mummy</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col;" style="padding: 0px;">
+                    <div class="card" style="height:350px; margin: 12px ;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Electronics</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Audio Equipment</button>
+                                        <button>Power Banks</button>
+                                        <button>Cable & Extensions</button>
+                                        <button>Batteries</button>
+                                        <button>Watch</button>
+                                        <button>Computer Accessories</button>
+                                        <button>Memory Card & External Storage</button>
+                                        <button>TV & Home Theatres</button>
+                                        <button>Printers</button>
+                                        <button>Mobiles</button>
+                                        <button>Laptops</button>
+                                        <button>Ipad</button>
+                                        <button>Earphones & Airpods</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height:350px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Gifts</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Gifts for Kids</button>
+                                        <button>Gifts for Adults</button>
+                                        <button>Gifts for Men</button>
+                                        <button>Gifts for Women</button>
+                                        <button>Gifts for Daddy</button>
+                                        <button>Gifts for Mummy</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="height:300px; padding: 0px;">
+                    <div class="card" style="height:300px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Groceries</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Fresh Veggies</button>
+                                        <button>Meat</button>
+                                        <button>Bakery & Bread</button>
+                                        <button>Dairy Products</button>
+                                        <button>Oils & Sauces</button>
+                                        <button>Pasta & Rice</button>
+                                        <button>Frozen Food</button>
+                                        <button>Soup & Canned Goods</button>
+                                        <button>Eggs</button>
+                                        <button>Snacks</button>
+                                        <button>Drinks</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 250px; margin: 12px;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Gifts</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Gifts for Kids</button>
+                                        <button>Gifts for Adults</button>
+                                        <button>Gifts for Men</button>
+                                        <button>Gifts for Women</button>
+                                        <button>Gifts for Daddy</button>
+                                        <button>Gifts for Mummy</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 250px; margin: 12px ;">
+                        <div class="card-body">
+                            <div class="card-nav">
+                                <div class="card-nav-con">
+                                    <h6>Department</h6>
+                                    <h5>Gifts</h5>
+                                </div>
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <div class="con">
+                                <div class="con-div">
+                                    <h5>Divisions</h5>
+                                    <div class="card-content">
+                                        <button>Gifts for Kids</button>
+                                        <button>Gifts for Adults</button>
+                                        <button>Gifts for Men</button>
+                                        <button>Gifts for Women</button>
+                                        <button>Gifts for Daddy</button>
+                                        <button>Gifts for Mummy</button>
+                                        <button>More</button>
+                                    </div>
+                                </div>
+                                <div class="pop">
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('partials/category_footer')%>
