@@ -32,14 +32,14 @@
       <!--Nav-->
       <nav class="navbar">
         <div class="mobile-navbar">
-          <div class="bars">
+          <div class="bars" >
             <input type="checkbox" id="click">
             <label for="click" class="menu-btn">
-              <i class="fas fa-bars"></i>
+              <i class="fas fa-bars"onclick="removefixed() "></i>
             </label>
             <div class="full-ul">
               <ul>
-                <li class="cross">
+                <li class="cross" onclick="removefixed()">
                   <input type="checkbox" id="click">
                   <label for="click" class="menu-btn">
                     <i class="fa-solid fa-xmark"></i>
@@ -65,7 +65,7 @@
           <form class="search" action="/products" method="GET">
             <i class="fa-solid fa-magnifying-glass search-logo"></i>
             <input type="text" placeholder="Search on Mazinda">
-            <i class="fa-solid fa-microphone search-speak"></i>
+       
           </form>
           <a href="#cart" class="mobile-cart"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
@@ -79,7 +79,7 @@
             <form class="search bhoot" action="/products" method="GET">
               <i class="fa-solid fa-magnifying-glass search-logo"></i>
               <input type="text" placeholder="Search on Mazinda">
-              <i class="fa-solid fa-microphone search-speak"></i>
+             
             </form>
           </li>
           <li class="nav-items menu">

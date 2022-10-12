@@ -1,4 +1,6 @@
+<title>Register</title>
 <%- include('partials/registerHeader')%>
+
 <div id="sub-main">
   <img src="\user_UI\img\logos\mazindalong.png" alt="..." />
   <div id="content">
@@ -14,16 +16,7 @@
       </div>
       <div class="input-field">
         <i class="fas fa-envelope"></i>
-        <input type="email" name="email" required placeholder="Email" />
-      </div>
-      <div class="input-field">
-        <i class="fas fa-lock"></i>
-        <input
-          type="password"
-          name="password"
-          required
-          placeholder="Password"
-        />
+        <input type="email" name="email" required placeholder="Email (optional)" />
       </div>
       <div class="input-field">
         <i class="fas fa-phone"></i>
@@ -35,13 +28,16 @@
         />
       </div>
       <div class="input-field">
-        <i class="fa-solid fa-code"></i>
+        <i class="fas fa-lock"></i>
         <input
-          type="text"
-          name="referralCode"
-          placeholder="Enter referral code"
+          type="password"
+          name="password"
+          required
+          placeholder="Enter Password"
         />
       </div>
+      
+     
       <div id="conditions">
         <span>By creating an account you are agreeing to our</span>
         <span

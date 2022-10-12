@@ -6,15 +6,21 @@
     <div class="content">
       <form action="/login" class="sign-in-form" method="POST">
         <div class="title">
-          <h1>HELLO! WELCOME BACK👋</h1>
+          <h1 style="text-align: center; margin-top: 35px;">HELLO! WELCOME BACK👋</h1>
+        </div>
+        <div class="input-field" >
+          <input type="number" name="phoneNumber" required placeholder="Enter your Phone /Email address" />
         </div>
         <div class="input-field">
-          <i class="fa-solid fa-phone"></i>
-          <input type="number" name="phoneNumber" required placeholder="Phone Number" />
+          
+          <input type="password" name="password" required placeholder="Enter Password" />
         </div>
-        <div class="input-field">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" name="password" required placeholder="Password" />
+        <div id="check_box">
+          <input type="checkbox" id="exampleCheck1">
+          <label for="exampleCheck1" id="remember">Remember me?</label>
+        </div>
+        <div class="forgot">
+          <p>Forgotten Password?</p>
         </div>
         <div class="home-login-btn">
           <input type="submit" value="Log In" class="login-b" />
