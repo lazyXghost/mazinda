@@ -4,6 +4,10 @@
 
   <div id="main">
     <div id="sub-main">
+      <div class="login-img">
+        <img src="\user_UI\img\logos\mazindalong.png" alt="" style="position: relative;">
+
+      </div>
       <div id="content">
         <form action="/store/register" method="POST" class="sign-in-form">
           <h2 class="title" id="reg">REGISTER STORE</h2>
@@ -20,7 +24,7 @@
             <i class="fa-sharp fa-solid fa-house"></i>
             <input type="text" name="storeName" required placeholder="Store Name" />
           </div>
-          <div class="input-field" style="width: 100px; margin-right: 170px;">
+          <!-- <div class="input-field" style="width: 100px; margin-right: 170px;">
             <span> </span>
             <input type="text" name="city" required placeholder="City" />
             <select name="city">
@@ -30,14 +34,26 @@
               <option value="Meerut">Meerut</option>
               <option value="Banglore">Banglore</option>
             </select>
-          </div>
+          </div> -->
           <div class="input-field">
             <i class="fa-sharp fa-solid fa-house"></i>
             <input type="text" name="Store Address" required placeholder="Store Address" />
           </div>
           <div class="input-field">
-            <i class="fa-solid fa-lock"></i>
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="text" name="City" required placeholder="City" />
+          </div>
+          <div class="input-field">
+            <i class="fa-solid fa-location-dot"></i>
             <input type="number" name="pincode" required placeholder="Pincode" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-phone"></i>
+            <input type="number" name="MobileNumber" required placeholder="Mobile Number" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-phone"></i>
+            <input type="number" name="WhatsappNumber" required placeholder="Whatsapp Number" />
           </div>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
@@ -47,14 +63,8 @@
             <i class="fa-solid fa-lock"></i>
             <input type="password" name="password" required placeholder="Password" />
           </div>
-          <div class="input-field">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" name="confirmPassword" required placeholder="Confirm Password" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-phone"></i>
-            <input type="number" name="phoneNumber" required placeholder="Phone Number" />
-          </div>
+          
+          
           <!-- <div class="input-field">
             <i class="fa-solid fa-lock"></i>
             <input type="number" name="OTP" placeholder="Enter OTP" />

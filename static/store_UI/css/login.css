@@ -474,6 +474,11 @@ padding: 7px;}
 
 
   @media screen and (max-width:600px){
+    h1{font-size: 1.5rem;}
+    .login-photo{
+        width: 80%;
+        height: 80%;
+    }
       .nav-list .nav-img,.navbar .nav-list li, .nav-list .search,.nav-list .menu a, .nav-list .menu i, .nav-list .login-btn{
           display: none;
       }
@@ -538,3 +543,4 @@ margin-right: 190px;}
     margin: 15px 0;
     }
 body{height: 1000px;}
+
