@@ -46,6 +46,7 @@
 
 /*Carousel*/
 .carousel {
+    padding-top: 25px;
     height: 333px !important;
     background-color: rgba(241, 250, 255, 1);
 }
@@ -148,7 +149,7 @@
     display: flex !important;
     flex-direction: column !important;
     background-color: white;
-    border: 1px solid #5597DA;
+   
     border-top: none;
 }
 
@@ -613,3 +614,27 @@ margin-right: 50px;}
 }
 #trendings{padding: 0;}
 
+.address{
+height: 32px;
+background: #D9D9D9;
+font-weight: 490;
+color: #000000;
+}
+.address i{
+    margin-left: 10px;
+    margin-right: 8px;
+    margin-top: 8px;
+    
+    font-size: larger;
+}
+.address span{
+   vertical-align: auto;
+}
+.address #pin{
+   font-weight: 500;
+
+}
+.cat{
+    font-weight: bold;
+}
+.carousel-item{transition: transform 0.001s ease;}

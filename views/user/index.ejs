@@ -28,8 +28,10 @@
   function h() {
     if (i % 2 == 0) {
       document.getElementById('h').style.marginTop = "550px";
+      document.getElementById('space').style.backgroundColor= "white";
     }
-    else { document.getElementById('h').style.marginTop = "0" }
+    else { document.getElementById('h').style.marginTop = "0" 
+    document.getElementById('space').style.backgroundColor= "rgba(241, 250, 255, 1)";}
     i++
   }
   var j = 0;
@@ -41,12 +43,20 @@
     j++;
     console.log(j);
   }
+  $('.defered_loading').each(function() {
+                $(this).attr('src', $(this).attr('delayedsrc'));
+            }).promise().done(function() {
+                // intialize your slider here
+            });
 </script>
 
 <%- include('partials/header')%>
   <link rel="stylesheet" href="/user_UI/index.css" />
   <div id="main">
     <!--Frontend Only-->
+    <div class="address">
+      <i class="fa-solid fa-location-dot"></i> <span id="name">Deliver to Akash - </span> <span id="pin">140301 Mohali </span>
+    </div>
     <div style="height: fit-content;" class="fixed" id="fix">
       <!-- i have created multiple div just to check the frontend it should have only 1 div  -->
       <div class="slider categories">
@@ -109,23 +119,23 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="carousel-item active" style="background-color: rgba(29, 39, 66, 1)">
+        <div class="carousel-item active" style="background-color: rgba(29, 39, 66, 1);text-align: center;">
           <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide" />
-          <div class="text">
+          <div class="text defered_loading">
             <p>ISSE SASTA KHI NHI🥳</p>
             <img src="/user_UI/img/carousel/carousel-text.png" alt="" />
           </div>
         </div>
-        <div class="carousel-item" style="background-color: rgba(182, 0, 22, 1)">
+        <div class="carousel-item" style="background-color: rgba(182, 0, 22, 1);text-align: center;">
           <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide" />
-          <div class="text">
+          <div class="text ">
             <p>ISSE SASTA KHI NHI🥳</p>
             <img src="/user_UI/img/carousel/carousel-text.png" alt="" />
           </div>
         </div>
-        <div class="carousel-item" style="background-color: rgba(146, 84, 35, 1)">
+        <div class="carousel-item" style="background-color: rgba(146, 84, 35, 1);text-align: center;">
           <img class="car-img" src="/user_UI/img/carousel/family.png" alt="First slide" />
-          <div class="text">
+          <div class="text defered_loading">
             <p>ISSE SASTA KHI NHI🥳</p>
             <img src="/user_UI/img/carousel/carousel-text.png" alt="" />
           </div>
@@ -140,6 +150,7 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+    
     <!--Categories 2-->
     <!--Backend-->
     <!-- <div class="categoryBoxes lg:mx-40 md:mx-20 mx-10 text-black pt-4">
