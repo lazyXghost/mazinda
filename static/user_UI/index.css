@@ -4,11 +4,11 @@
     display: flex;
     justify-content: space-between;
     background-color: rgba(85, 151, 218, 1);
-    padding: 15px 140px;
+    padding: 15px;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-}
+}   
 
 .cat a {
     display: flex;
