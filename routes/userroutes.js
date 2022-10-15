@@ -20,27 +20,84 @@ const moneyDetailTable = require("../models/moneyDetail");
 const orderTable = require("../models/order");
 const storeTable = require("../models/store");
 const walletTable = require("../models/wallet");
-const userTable = require("../models/user");
+const User = require("../models/user");
 const cartTable = require("../models/cart");
 const url = require("url");
+const { urlencoded } = require("express");
+const { check , validationResult } = require("express-validator");
+ 
+
 
 // <----Registration and authentication for stores----->
 router.get("/register", userLoggedIn, (req, res) => {
   res.render("user/register", { message: "" });
 });
 
-router.post("/register", async (req, res) => {
-  const message = await userRegister(req);
-  if (
-    message == "Password is too Short" ||
-    message == "Invalid Referral Code" ||
-    message == "user already Exists" ||
-    message == "Invalid phone Number"
-  ) {
-    res.render("user/register", { message: message });
-  } else {
-    res.redirect("/login");
-  }
+ 
+router.post("/register" ,[
+    // name check 
+    check('name','Name is required').not().isEmpty().trim().escape(),
+    // email check
+    check('email')
+     .exists()
+     .withMessage('Email is required')
+     .trim()
+     .isEmail()
+     .withMessage('Email is required')
+     .custom(async(email)=>{
+       const existingUser =  await User.findOne( { email: email } )
+       if(existingUser){
+           return Promise.reject('E-mail already in use');
+       } 
+    }),
+
+    // check mobile 
+    check('phoneNumber')
+      .exists({checkFalsy: true})
+      .withMessage("Phone number is required")
+      .custom(async(phoneNumber)=>{
+           if(phoneNumber){
+               const pattern = /^(9|\+639)\d{9}$/;
+               if(phoneNumber.length < 10 || phoneNumber.length > 10){
+                 return Promise.reject('Phone number is invalid')
+               }else if(!pattern.test(phoneNumber)){
+                 return Promise.reject('Phone number is invalid')
+               }
+           }
+      }),
+
+    // check password
+    check('password')
+      .not().isEmpty()
+      .withMessage('Password is required')
+      .isLength({ min: 8 })
+      .withMessage('must be at least 8 chars long')
+      .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/)
+      .withMessage('Input Password and Submit [7 to 15 characters which contain at least one numeric digit and a special character]'),
+    
+    
+
+], async (req, res) => {
+
+        var form = {
+            nameHolder: req.body.name,
+            emailHolder: req.body.email,
+            mobileHolder: req.body.phoneNumber,
+            passwordHolder: req.body.password
+        };
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+          const alert = errors.mapped();
+          res.render("user/register", { message: alert,form:form });
+        }else{
+          const global_message = await userRegister(req);
+          if( global_message == "Invalid Referral Code"){
+            res.render("user/register", { global_message: global_message,form:form });
+          }else {
+            res.redirect("/login");
+          }
+        }
+        
 });
 
 router.get("/login", userLoggedIn, (req, res) => {

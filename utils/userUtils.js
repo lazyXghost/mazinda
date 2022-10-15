@@ -19,29 +19,6 @@ const { getLocations } = require("./utils");
 module.exports = {
   userRegister: async function (req) {
     const { phoneNumber, name, email, password, referralCode } = req.body;
-    if (phoneNumber.length < 10) {
-      const message = "Invalid phone Number";
-      return message;
-    }
-    if (name.length == 0) {
-      const message = "User name cannot be empty";
-      return message;
-    }
-    if (email.includes("@") == false) {
-      const message = "Invalid email";
-      return message;
-    }
-    if (password.length < 8) {
-      const message = "Password is too Short";
-      return message;
-    }
-    const oldUser = await userTable.findOne({ phoneNumber });
-
-    if (oldUser) {
-      const message = "user already Exists";
-      return message;
-    }
-
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     if (referralCode) {
@@ -56,12 +33,12 @@ module.exports = {
         return message;
       }
     }
-
+    
     const user = await userTable.create({
       name: name,
       email: email,
       password: encryptedPassword,
-      phoneNumber: phoneNumber,
+      phoneNumber: Number(phoneNumber),
     });
 
     const wallet = await walletTable.create({
