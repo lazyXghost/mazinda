@@ -358,10 +358,14 @@ form span a {
 }
 #sub-main{margin-top: 2%;}
 @media screen and (max-width: 450px) {
-  #sub-main{margin-top: 0;}
+  #sub-main{margin-top: 0; border: 0;}
   #sub-main img{
     width: 80%;
     height: 20%;
   }
 }
 body{height: 1000px;}
+label{
+  width: 90%;
+  color: red;
+}
