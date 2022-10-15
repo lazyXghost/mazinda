@@ -9,34 +9,40 @@
       <div id="con-span">
         <span>Create and verify an account to get connected </span>
         <span>with us</span>
+        <%- locals.global_message  %>
       </div>
       <div class="input-field">
         <i class="fas fa-user"></i>
-        <input type="text" name="name" required placeholder="User Name" />
+        <input type="text" name="name" value="<%= (locals.form) ? form.nameHolder:'' %>"  placeholder="Full Name" />
       </div>
+      <label for=""><%= (locals.message.name) ? locals.message.name.msg:'' %></label>
       <div class="input-field">
         <i class="fas fa-envelope"></i>
-        <input type="email" name="email" required placeholder="Email (optional)" />
+        <input type="email" name="email"   value="<%= (locals.form) ? form.emailHolder:'' %>" placeholder="Email Address" />
       </div>
+      <label for=""><%= (message.email) ? message.email.msg:'' %></label>
       <div class="input-field">
         <i class="fas fa-phone"></i>
         <input
-          type="number"
+          type="text"
           name="phoneNumber"
-          required
+           
           placeholder="Phone Number"
+          value="<%= (locals.form) ? form.mobileHolder:'' %>"
         />
       </div>
+      <label for=""><%= (message.phoneNumber) ? locals.message.phoneNumber.msg:'' %></label>
       <div class="input-field">
         <i class="fas fa-lock"></i>
         <input
           type="password"
           name="password"
-          required
+           
           placeholder="Enter Password"
+          value="<%= (locals.form) ? form.passwordHolder:'' %>"
         />
       </div>
-      
+      <label for=""><%= (message.password) ? locals.message.password.msg:'' %></label>
      
       <div id="conditions">
         <span>By creating an account you are agreeing to our</span>
